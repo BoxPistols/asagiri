@@ -1,0 +1,12 @@
+{
+  "name": "asagiri",
+  "version": "0.1.0",
+  "description": "micro-css-framework",
+  "main": "css/main.css",
+  "keywords": [
+    "asagiri, micro-css-framework"
+  ],
+  "homepage": "agd.tokyo",
+  "author": "asagiri-design",
+  "license": "MIT"
+}

@@ -1,0 +1,94 @@
+fieldset,
+input,
+select,
+textarea {
+  margin-bottom: 1.2rem;
+}
+
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+textarea,
+select {
+  appearance: none;
+  background-color: transparent;
+  border: 0.1rem solid var(--color-border);
+  border-radius: 0.4rem;
+  box-shadow: none;
+  box-sizing: inherit;
+  height: 2.4rem;
+  padding: 0.3rem 0.8rem;
+  // width: 100%;
+  width: auto;
+  min-width: 50%;
+  color: var(--color-elegant);
+  font-size: 1rem;
+}
+
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary);
+  outline: 0;
+}
+
+// Arrow Mark
+/* Fill = %23+HEX
+ * INFO: https://stackoverflow.com/questions/61099149/svg-fill-color-not-working-with-hex-colors
+*/
+select {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%235c5c6366" d="M0,0l6,8l6-8"/></svg>')
+    center right no-repeat;
+  padding-right: 3rem;
+}
+
+select:focus {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%235c5c63cc" d="M0,0l6,8l6-8"/></svg>');
+}
+
+textarea {
+  min-height: 6.5rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+}
+
+label,
+legend {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+  margin-left: 0.25rem;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-primary);
+  }
+}
+
+fieldset {
+  border-width: 0;
+  padding: 0;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline;
+  margin: 0.25em;
+}
+
+.label-inline {
+  display: inline-block;
+  font-weight: normal;
+  margin-left: 0.5rem;
+}

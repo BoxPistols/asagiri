@@ -1,0 +1,49 @@
+table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+
+  border-spacing: 0;
+  text-align: left;
+
+  border: 1px solid var(--color-item-bg-light);
+  border-bottom: none;
+
+  &.stripe {
+    border-bottom: 1px solid var(--color-item-bg-light);
+
+    th,
+    td {
+      border: none;
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--color-item-bg-light);
+    }
+  }
+}
+
+td,
+th {
+  padding: 0.5rem 1rem;
+
+  border-bottom: 1px solid var(--color-border-light);
+}
+td {
+  padding: 0.5rem 1rem;
+}
+th {
+  padding: 0.8rem 1rem;
+}
+
+thead.dark > tr > th {
+  color: var(--color-ghost);
+  background-color: var(--color-item-bg-dark);
+}
+
+@media (min-width: 40rem) {
+  table {
+    display: table;
+    overflow-x: initial;
+  }
+}

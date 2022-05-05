@@ -1,0 +1,151 @@
+// Link
+a {
+  text-decoration: none;
+
+  color: var(--primary);
+
+  &:focus,
+  &:hover {
+    color: var(--color-secondary);
+  }
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+// NEW:
+.semibold {
+  font-weight: 500;
+}
+
+// Paragraph
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  line-height: 1.35;
+}
+
+// Heading
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.head-1,
+.head-2,
+.head-3,
+.head-4,
+.head-5,
+.head-6 {
+  margin-top: 0.4em;
+  margin-bottom: 0.2em;
+
+  letter-spacing: -0.1rem;
+
+  font-weight: 500;
+  &.mg-0 {
+    margin: 0;
+  }
+}
+
+h4,
+h5,
+h6,
+.head-4,
+.head-5,
+.head-6 {
+  margin-top: 0.25em;
+}
+
+h1,
+.head-1 {
+  font-size: 3.2rem;
+  line-height: 1.2;
+}
+
+h2,
+.head-2 {
+  font-size: 2.4rem;
+  line-height: 1.25;
+}
+
+h3,
+.head-3 {
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+h4,
+.head-4 {
+  letter-spacing: -0.08rem;
+
+  font-size: 1.4rem;
+  line-height: 1.35;
+}
+
+h5,
+.head-5 {
+  letter-spacing: -0.05rem;
+
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+h6,
+.head-6 {
+  letter-spacing: 0;
+
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ----jj
+
+- デザインフォント ----- */
+@mixin design-font {
+  letter-spacing: 0.02rem;
+  color: var(--color-hotpink);
+}
+.design-font-en {
+  @include design-font;
+  font-family: "Poppins", sans-serif;
+}
+
+h1.design-font-en {
+  width: fit-content;
+
+  border-bottom: 1px dashed currentColor;
+}
+
+h1.design-font-en h2.design-font-en,
+h1.design-font-en + div h2.design-font-en {
+  margin-top: 0.25em;
+  color: var(--color-info-dark);
+}
+
+/* ----- BlockQuote ---- */
+
+blockquote {
+  margin-right: 0;
+  margin-left: 0;
+  padding: 1em 1.5em;
+  font-size: 0.95rem;
+
+  border-left: 0.3em solid #d1d1d1;
+}
+
+blockquote *:last-child {
+  margin-bottom: 0;
+}
+
+// Line
+hr {
+  margin: 2rem 0;
+
+  border: 0;
+  border-top: 0.1rem solid #dee3e8;
+}

@@ -1,0 +1,28 @@
+code {
+  margin: 0 0.2rem;
+  padding: 0.2rem 0.5rem;
+
+  white-space: nowrap;
+
+  border-radius: 0.4rem;
+  background: var(--color-light);
+
+  font-size: 0.9rem;
+}
+
+pre {
+  overflow-y: hidden;
+
+  border-left: 0.3rem solid var(--primary);
+  background: var(--color-light);
+
+  > code {
+    display: block;
+    padding: 0.8rem 1.2rem;
+
+    white-space: pre;
+
+    color: var(--color-secondary);
+    border-radius: 0;
+  }
+}

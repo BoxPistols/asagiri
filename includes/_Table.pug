@@ -1,0 +1,51 @@
+mixin table-data
+  tbody
+    tr
+      td Stephen Curry
+      td 27
+      td 1,91
+      td Akron, OH
+    tr
+      td Klay Thompson
+      td 25
+      td 2,01
+      td Los Angeles, CA
+    tr
+      td Hamish Barton
+      td 22
+      td 3,25
+      td Qui Quibusdam Saepe
+    tr
+      td Niall Glover
+      td 29
+      td 1,87
+      td Eum Fuga Sed Optio
+    tr
+      td Casey Rose
+      td 32
+      td 1,99
+      td Ea sit quos aliquid ut rem
+
+.flex.flex-column
+
+  div.space-pd
+    h2.design-font-en Default
+    table
+      thead
+      tr
+        th Name
+        th Age
+        th Height
+        th Location
+      +table-data
+
+  div.space-pd
+    h2.design-font-en Dark + Stripe
+    table.stripe
+      thead.dark
+        tr
+          th Name
+          th Age
+          th Height
+          th Location
+        +table-data

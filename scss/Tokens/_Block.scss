@@ -1,0 +1,221 @@
+/* ----- Block ----- */
+// Percentage of the width of the viewport
+.w-100 {
+  width: 100%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+// max-width-vw
+.max {
+  &.mw {
+    // max-width
+    &-100 {
+      max-width: 100%;
+    }
+
+    &-75 {
+      max-width: 75%;
+    }
+
+    &-50 {
+      max-width: 50%;
+    }
+
+    &-25 {
+      max-width: 25%;
+    }
+  }
+
+  &.mvw {
+    &-100 {
+      max-width: 100vw;
+    }
+
+    &-75 {
+      max-width: 75vw;
+    }
+
+    &-50 {
+      max-width: 50vw;
+    }
+
+    &-25 {
+      max-width: 25vw;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    max-width: 100% !important;
+  }
+}
+
+/* ----- flex-box Mixin ----- */
+
+// TODO: Add New Common Mixin
+/**
+  * ======= Flex Box =======
+  * Example:
+  *   @include flex(center, center)
+  *   @include flex(null, end, column, nowrap)
+*/
+@mixin flex($justify: null, $align: null, $column: null, $wrap: null) {
+  display: flex;
+
+  /**
+    * justify-content / Horizontal ===（1st Argument）
+    * @see: https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
+  */
+  @if $justify==start {
+    // Left align |||--- default
+    justify-content: flex-start;
+  } @else if $justify==end {
+    // Align right ---|||
+    justify-content: flex-end;
+  } @else if $justify==center {
+    // Centering -|||-
+    justify-content: center;
+  } @else if $justify==between {
+    // Both ends |-|-|
+    justify-content: space-between;
+  } @else if $justify==around {
+    // Elements Equivalent -|-|-|-
+    justify-content: space-around;
+  } @else if $justify==evenly {
+    // Spacing Equivalent -|-|-|-
+    justify-content: space-evenly;
+  } @else {
+    // null = write: null
+  }
+
+  /**
+    * align-items / Vertical |||（2nd Argument）
+    * @see: https://developer.mozilla.org/en-US/docs/Web/CSS/align-items
+  */
+  @if $align==start {
+    // Upper Align ⁻⁻⁻ default
+    align-items: flex-start;
+  } @else if $align==end {
+    // BottomAlign ___
+    align-items: flex-end;
+  } @else if $align==center {
+    // Centering ---
+    align-items: center;
+  } @else if $align==baseline {
+    // Base Line -=-
+    align-items: baseline;
+  } @else if $align==stretch {
+    // Expand Height |||
+    align-items: stretch;
+  } @else if $align==null {
+    // empty
+  }
+
+  /**
+    * Column === |||（3rd Argument）
+    * @see: https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction
+  */
+  @if $column==row {
+    // Horizontal Column === default
+    flex-direction: row;
+  } @else if $column==column {
+    // Vertical Column |||
+    flex-direction: column;
+  } @else if $column==reverse {
+    // ToUp ↑↑↑
+    flex-direction: column-reverse;
+  } @else if $column==null {
+    // empty
+  }
+
+  /**
+    * Wrap = Fold at the edge -|（4th Argument）
+    * @see: https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap
+  */
+  @if $wrap==wrap {
+    // Do Wrap --|↓
+    flex-wrap: wrap;
+  } @else if $wrap==nowrap {
+    // Not Wrap --|--> *default
+    flex-wrap: nowrap;
+  } @else if $wrap==reverse {
+    // Upper From Bottom ↑↑↑
+    flex-wrap: wrap-reverse;
+  } @else if $wrap==null {
+    // empty
+  }
+}
+
+/* ----- flex-box Class ----- */
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+
+  // 並べるときの自動余白付与
+  &.horizontal-grids {
+    > div:not(:first-child) {
+      margin-left: 2rem;
+    }
+  }
+
+  &.vertical-grids {
+    > div:not(:first-child) {
+      margin-top: 2rem;
+    }
+  }
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-no-wrap {
+  flex-wrap: nowrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+/* 子要素の左右反転 */
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-ai-center {
+  align-items: center;
+}
+
+.flex-jc-center {
+  justify-content: center;
+}
+
+.flex-jc-between {
+  justify-content: space-between;
+}
+
+.flex-jc-around {
+  justify-content: space-around;
+}
+
+/* ----- flex MGM ----- */

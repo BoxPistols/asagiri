@@ -1,0 +1,62 @@
+@mixin list-in-list {
+  margin: 0.5rem 0 1rem 2rem;
+
+  font-size: 90%;
+}
+
+dl,
+ol,
+ul {
+  margin: 0 0 1rem;
+  padding-left: 0;
+
+  list-style: none;
+}
+
+dl {
+  dl,
+  ol,
+  ul {
+    @include list-in-list;
+  }
+}
+
+ol {
+  dl,
+  ol,
+  ul {
+    @include list-in-list;
+  }
+}
+
+ul {
+  dl,
+  ol,
+  ul {
+    @include list-in-list;
+  }
+}
+
+/* ----- List Style Reset = Default ----- */
+li {
+  margin: 0.4rem 0;
+
+  list-style: none;
+}
+
+// List Style
+ol li {
+  list-style: decimal inside;
+}
+
+ul {
+  list-style: circle inside;
+}
+
+ul.disc li {
+  list-style: disc inside;
+}
+
+ul.circle li {
+  list-style: circle inside;
+}

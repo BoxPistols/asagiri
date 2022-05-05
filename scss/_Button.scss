@@ -1,0 +1,234 @@
+@mixin btn-common {
+  position: relative;
+  display: inline-block;
+  height: var(--global-component-height);
+  margin: 0.2rem 0.25rem;
+  padding: 0 2rem;
+  // TODO: サイズ設計
+  // min-width: 120px;
+  // max-width: 480px;
+
+  cursor: pointer;
+  transition: 0.25s;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+
+  border-radius: var(--border-radius-all);
+
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: var(--global-component-line-height);
+}
+
+@mixin btn-action {
+  color: var(--color-white);
+  border-color: var(--color-primary-dark);
+  outline: 0;
+  background-color: var(--color-primary-dark);
+}
+
+// Button Color Setting
+@mixin btn-color($bgCcolor, $textColor, $borderColor) {
+  color: $textColor;
+  background-color: $bgCcolor;
+
+  @if border {
+    border: 1px solid $borderColor;
+  }
+}
+
+// Background Button Color
+@mixin btn-func-color($x) {
+  color: var(--color-white);
+  border: 1px solid var(--color-#{$x});
+  background-color: var(--color-#{$x});
+
+  &:focus,
+  &:hover {
+    border-color: var(--color-#{$x}-dark);
+    background-color: var(--color-#{$x}-dark);
+  }
+}
+
+// Outline Button Color
+@mixin btn-color-outline($x) {
+  color: var(--color-#{$x});
+  border: 1px solid var(--color-#{$x});
+  background-color: transparent;
+
+  &:focus,
+  &:hover {
+    color: var(--color-white);
+    border-color: var(--color-#{$x}-dark);
+    background-color: var(--color-#{$x}-dark);
+  }
+}
+
+// Button
+// ––––––––––––––––––––––––––––––––––––––––––––––––––;
+// 基本サイズ設定
+
+.button,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  @include btn-common;
+  @include btn-color(
+    var(--color-primary),
+    var(--color-white),
+    var(--color-primary)
+  );
+
+  &:focus,
+  &:hover {
+    outline: 0;
+
+    @include btn-color(
+      var(--color-secondary),
+      var(--color-white),
+      var(--color-secondary)
+    );
+  }
+
+  // カラーバリエーション Primary以外
+  &.btn {
+    &-secondary {
+      @include btn-func-color(secondary);
+    }
+
+    &-accent {
+      @include btn-func-color(accent);
+    }
+
+    &-success {
+      @include btn-func-color(success);
+    }
+
+    &-warning {
+      @include btn-func-color(warning);
+    }
+
+    &-danger {
+      @include btn-func-color(danger);
+    }
+
+    &-info {
+      @include btn-func-color(info);
+    }
+
+    &-elegant {
+      @include btn-func-color(elegant);
+    }
+  }
+
+  // Outline
+  &.btn-outline {
+    &-secondary {
+      @include btn-color-outline(secondary);
+    }
+
+    &-accent {
+      @include btn-color-outline(accent);
+    }
+
+    &-success {
+      @include btn-color-outline(success);
+    }
+
+    &-warning {
+      @include btn-color-outline(warning);
+    }
+
+    &-danger {
+      @include btn-color-outline(danger);
+    }
+
+    &-info {
+      @include btn-color-outline(info);
+    }
+
+    &-elegant {
+      @include btn-color-outline(elegant);
+    }
+  }
+
+  // 無効時
+  &[disabled] {
+    cursor: default;
+    opacity: 0.5;
+
+    &:focus,
+    &:hover {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
+    }
+  }
+
+  // ボーダーボタンデザインバージョン
+  &.button-outline {
+    color: var(--color-primary);
+    background-color: transparent;
+
+    &:focus,
+    &:hover {
+      color: var(--color-secondary);
+      border-color: var(--color-secondary);
+      background-color: transparent;
+    }
+
+    &[disabled] {
+      &:focus,
+      &:hover {
+        color: var(--color-primary);
+        border-color: inherit;
+      }
+    }
+  }
+
+  // キャンセルボタン
+  &.button-cancel {
+    color: var(--color-white);
+    border-color: transparent;
+    background-color: var(--color-bg-cancel);
+    // box-shadow: none;
+
+    &:focus,
+    &:hover {
+      border-color: transparent;
+      background-color: var(--color-secondary);
+    }
+
+    &[disabled] {
+      &:focus,
+      &:hover {
+        color: var(--color-white);
+        background-color: var(--color-bg-cancel);
+      }
+    }
+  }
+
+  // クリアボタン
+  &.button-clear {
+    color: var(--color-primary);
+    // border-color: transparent;
+    background-color: transparent;
+    box-shadow: none;
+
+    &:focus,
+    &:hover {
+      color: var(--color-secondary);
+      border-color: var(--color-secondary);
+      background-color: transparent;
+    }
+
+    &[disabled] {
+      &:focus,
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+}

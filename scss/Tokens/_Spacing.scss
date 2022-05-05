@@ -1,0 +1,30 @@
+// FIXME! Box Section
+$spasing-grid: 1.5rem 2rem 1rem;
+
+.container {
+  padding: $spasing-grid;
+}
+
+section.section,
+.box,
+.paper {
+  margin: $spasing-grid;
+  padding: $spasing-grid;
+
+  background-color: white;
+  box-shadow: var(--box-shadow);
+}
+
+.fit {
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.space {
+  &-pd {
+    padding: $spasing-grid;
+  }
+  &-mg {
+    margin: $spasing-grid;
+  }
+}

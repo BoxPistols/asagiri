@@ -1,0 +1,185 @@
+/**
+ * INFO: This file is used to define the color tokens.
+ * Custom https://shrtm.nu/pCac
+ * Sass HSLA https://sass-lang.com/documentation/modules**/
+
+:root {
+  /* ----- Common Core Color ----- */
+  // デフォルトの有彩色
+  --color-default: #0d5d8f;
+
+  // Brand Color
+  --color-moonstone: #31a9c7;
+  --color-hotpink: #ff69b4;
+
+  /* ----- Primary Variation ----- */
+  // --color-primary: var(--color-moonstone);
+  --color-primary: hsl(191, 47%, 53%);
+
+  /* ----- Primary HSLA ---- */
+  --primary-h: 191;
+  --primary-s: 47%;
+  --primary-l: 53%;
+  --primary-alpha: 100%;
+  --color-primary: hsla(
+    var(--primary-h),
+    var(--primary-s),
+    var(--primary-l),
+    var(--primary-alpha)
+  );
+  // Primary Light
+  --color-primary-light: hsla(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) + 15%),
+    var(--primary-alpha)
+  );
+  // Primary Dark
+  --color-primary-dark: hsla(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) - 15%),
+    var(--primary-alpha)
+  );
+
+  /* ----- Primary Variation ----- */
+  // --color-secondary: hsl(224, 23%, 44%);
+
+  /* ----- Secondary HSLA ---- */
+  --secondary-h: 224;
+  --secondary-s: 23%;
+  --secondary-l: 44%;
+  --secondary-alpha: 100%;
+  --color-secondary: hsla(
+    var(--secondary-h),
+    var(--secondary-s),
+    var(--secondary-l),
+    var(--secondary-alpha)
+  );
+
+  // SECONDARY Dark
+  --color-secondary-light: hsla(
+    var(--secondary-h),
+    var(--secondary-s),
+    calc(var(--secondary-l) + 15%),
+    var(--secondary-alpha)
+  );
+  // SECONDARY Light
+  --color-secondary-dark: hsla(
+    var(--secondary-h),
+    var(--secondary-s),
+    calc(var(--secondary-l) - 15%),
+    var(--secondary-alpha)
+  );
+
+  /* -----  Color Text ----- */
+  --color-text: #4c5059;
+  --color-text-p: #393d43;
+  --color-text-secondary: #666;
+  --color-text-a: #1867b5;
+  --color-text-a-hover: #1976d2;
+  --color-text-a-visited: #35206a;
+
+  /* ----- Color BackGround ----- */
+  --color-bg: #f9f9f9;
+  --color-item-bg: #e8e8f1;
+  --color-item-bg-light: #e8e8f1cc;
+  --color-item-bg-dark: #5c5c63;
+  --color-box: #fff;
+  --color-bg-code: #f0f0f0;
+  --color-bg-footer: #f9f9f9;
+  --color-bg-strong: #fff996;
+  --color-bg-btn: #1976d2;
+  --color-bg-cancel: #92989f;
+
+  /* ----- Color Function ----- */
+  // TODO: To HSLA Like Primary Color Scheme
+  --color-accent: #d429e0;
+  --color-accent-dark: #b923b9;
+  --color-accent-light: #e858f0;
+  --color-success: #00a859;
+  --color-success-dark: #008c4e;
+  --color-success-light: #00d9a6;
+  --color-warning: #ebbb0c;
+  --color-warning-dark: #d99e00;
+  --color-warning-light: #f5e854;
+  --color-danger: #e1323c;
+  --color-danger-dark: #c82727;
+  --color-danger-light: #f8a7a7;
+  --color-info: #1ec2c2;
+  --color-info-dark: #1a9fa2;
+  --color-info-light: #4de5e5;
+
+  /* ----- Origin Color ----- */
+  --color-elegant: #48626f;
+  --color-elegant-dark: #3c4a57;
+  --color-elegant-light: #6c818c;
+  --color-elegant-transparent: rgba(72, 98, 111, 0.5);
+  --color-elegant-transparent-dark: rgba(60, 60, 63, 0.5);
+
+  --color-elegant-transparent-light: rgba(108, 129, 140, 0.5);
+
+  /* ----- Color Transparent ----- */
+  --color-transparent: transparent;
+  --color-initial: #fff;
+
+  /* ----- Color Dark ----- */
+  --color-black: #1d1d1d;
+
+  // dark variation
+  --color-dark: #1d1d1d;
+  --color-dark-dark: #0f0f0f;
+  --color-dark-light: #2f2f2f;
+  // transparent
+  --color-dark-transparent: rgba(29, 29, 29, 0.5);
+  --color-dark-transparent-light: rgba(47, 47, 47, 0.3);
+  --color-dark-transparent-lighter: rgba(47, 47, 47, 0.1);
+  --color-dark-transparent-dark: rgba(15, 15, 15, 0.5);
+  --color-dark-transparent-darker: rgba(7, 7, 7, 0.7);
+
+  /* ----- Color Light ----- */
+  --color-white: white;
+  --color-ghost: ghostwhite;
+
+  // light variation
+  --color-light: #f4f5f6;
+  --color-light-dark: #d1d1d1;
+  --color-light-light: #e1e1e1;
+  // transparent
+  --color-light-transparent: rgba(244, 245, 246, 0.5);
+  --color-light-transparent-light: rgba(209, 209, 209, 0.7);
+  --color-light-transparent-lighter: rgba(225, 225, 225, 0.85);
+
+  /* ----- Gray ----- */
+  // gray variation
+  --color-gray: #9ca8b3;
+  --color-gray-dark: #606c76;
+  --color-gray-light: #f4f5f6;
+  // transparent
+  --color-gray-transparent: rgba(148, 168, 179, 0.5);
+  --color-gray-transparent-light: rgba(148, 168, 179, 0.3);
+  --color-gray-transparent-lighter: rgba(148, 168, 179, 0.1);
+  --color-gray-transparent-dark: rgba(148, 168, 179, 0.7);
+  --color-gray-transparent-darker: rgba(148, 168, 179, 0.85);
+
+  /* ----- Color Border ----- */
+  --color-border: rgba(0, 0, 0, 0.2);
+  --color-border-light: rgba(0, 0, 0, 0.1);
+  --color-border-dark: rgba(0, 0, 0, 0.3);
+
+  /* ----- Color Shadow Elevation ----- */
+  --box-shadow: 0.1rem 0.2rem 1rem rgba(0, 0, 0, 0.08);
+  --text-shadow: 0px 0px 2px var(--color-black);
+
+  /* ----- Width Query ----- */
+  --max-width: 1440px;
+  --inner-width: 960px;
+
+  /* ----- Font Family ---- */
+  /* --font-sans: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif; */
+  /*
+  --font-sans: Helvetica Neue, Arial, Hiragino Sans, Hiragino Kaku Gothic ProN, BIZ UDPGothic, Meiryo, sans-serif;
+  --font-design: "Comfortaa", sans-serif;
+  --font-mincho: serif;
+  */
+}

@@ -1,0 +1,47 @@
+form
+  fieldset.flex.flex-column
+    div
+      label(for='nameField') Name
+      input#nameField(type='text' placeholder='CJ Patoilo')
+    div
+      label(for='ageRangeField') Age Range
+      select#ageRangeField
+        option(value='0-13') 0-13
+        option(value='14-17') 14-17
+        option(value='18-23') 18-23
+        option(value='24+') 24+
+
+    div
+      label(for='commentField') Comment
+      textarea#commentField(placeholder='Hi CJ …')
+
+    div
+      h4 Select One
+      fieldset.flex.flex-column
+        legend Select a maintenance this:
+        div
+          input#huey(type="radio", name="drone", value="huey", checked)
+          label.label-inline(for="huey") Huey
+        div
+          input#dewey(type="radio", name="drone", value="dewey")
+          label.label-inline(for="dewey") Dewey
+        div
+          input#louie(type="radio", name="drone", value="louie")
+          label.label-inline(for="louie") Louie
+
+    div
+      h4 Select Checkbox
+      fieldset.flex.flex-column
+        div
+          input#checkItem(type='checkbox')
+          label.label-inline(for='checkItem') Katie Love
+        div
+          input#checkItem2(type='checkbox')
+          label.label-inline(for='checkItem2') Beau Branch
+
+
+    div
+      input#confirmField(type='checkbox')
+      label.label-inline(for='confirmField') Send a copy to yourself
+
+    input.button-primary(type='submit' value='Send')

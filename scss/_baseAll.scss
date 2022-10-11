@@ -1,34 +1,36 @@
 * {
   box-sizing: border-box;
 
-  &:after, &:before {
+  &:after,
+  &:before {
     box-sizing: border-box;
   }
 }
 
 html {
-  box-sizing: border-box;
-
   font-size: 100%;
+
+  box-sizing: border-box;
 }
 
-$font-size: 14px !default;
-$line-height: 1.5 !default;
-$font-weight: 400 !default;
-$font-family: "Inter", "Helvetica Neue", "Helvetica", "Arial", "Noto Sans JP", sans-serif !default;
-$background-color: var(--color-bg) {
-  // アンチエイリアス
-  -webkit-font-smoothing: antialiased;
-  // letter-spacing: 0.01em;
+body {
+  $font-size: 14px !default;
+  $line-height: 1.5 !default;
+  $font-weight: 400 !default;
+  $font-family: "Inter", "Helvetica Neue", "Helvetica", "Arial", "Noto Sans JP",
+    sans-serif !default;
+  $background-color: var(--color-bg);
 
-  color: $color-text;
-  background-color: $background-color;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
+  // color: $color-text;
+  // background-color: $background-color;
+
   // INFO: https: //phpjavascriptroom.com/?t=css&p=font
 
   font: $font-size $font-family;
   font-weight: $font-weight;
   line-height: $line-height;
-
   -moz-osx-font-smoothing: grayscale;
   text-size-adjust: 100%;
 }

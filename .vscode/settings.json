@@ -4,5 +4,10 @@
   "editor.formatOnSave": true,
   "scss.showErrors": true,
   "csscomb.formatOnSave": true,
-  "pretty-formatter.tagMerge": true
+  "pretty-formatter.tagMerge": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#0A2E54",
+    "titleBar.activeBackground": "#0E4176",
+    "titleBar.activeForeground": "#F6FAFE"
+  }
 }

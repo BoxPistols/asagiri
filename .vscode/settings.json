@@ -2,5 +2,7 @@
   "autoHide.autoHidePanel": false,
   "autoHide.autoHideSideBar": false,
   "editor.formatOnSave": true,
-  "scss.showErrors": true
+  "scss.showErrors": true,
+  "csscomb.formatOnSave": true,
+  "pretty-formatter.tagMerge": true
 }

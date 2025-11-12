@@ -1,15 +1,15 @@
 // FIXME! Box Section
-$spasing-grid: 1.5rem 2rem 1rem;
+$spacing-grid: 1.5rem 2rem 1rem;
 
 .container {
-  padding: $spasing-grid;
+  padding: $spacing-grid;
 }
 
 section.section,
 .box,
 .paper {
-  margin: $spasing-grid;
-  padding: $spasing-grid;
+  margin: $spacing-grid;
+  padding: $spacing-grid;
 
   background-color: white;
   box-shadow: var(--box-shadow);
@@ -22,9 +22,9 @@ section.section,
 
 .space {
   &-pd {
-    padding: $spasing-grid;
+    padding: $spacing-grid;
   }
   &-mg {
-    margin: $spasing-grid;
+    margin: $spacing-grid;
   }
 }

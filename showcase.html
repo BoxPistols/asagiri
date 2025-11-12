@@ -9,173 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="showcase.css">
   <title>Asagiri CSS Framework Showcase</title>
-  <style>
-    /* Showcase specific styles */
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', 'Noto Sans JP', sans-serif;
-    }
-
-    .showcase-layout {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .showcase-nav {
-      width: 280px;
-      background: #f8f9fa;
-      border-right: 1px solid #e0e0e0;
-      padding: 2rem 1rem;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-    }
-
-    .showcase-nav h2 {
-      font-size: 1.5rem;
-      margin: 0 0 1rem 0;
-      color: var(--color-primary);
-    }
-
-    .showcase-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .showcase-nav li {
-      margin: 0.5rem 0;
-    }
-
-    .showcase-nav a {
-      text-decoration: none;
-      color: #333;
-      padding: 0.5rem 1rem;
-      display: block;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
-
-    .showcase-nav a:hover {
-      background: #e0e0e0;
-      color: var(--color-primary);
-    }
-
-    .showcase-main {
-      flex: 1;
-      padding: 2rem;
-      max-width: 1200px;
-    }
-
-    .showcase-section {
-      margin-bottom: 4rem;
-      padding-top: 2rem;
-    }
-
-    .showcase-section h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 2px solid var(--color-primary);
-      padding-bottom: 0.5rem;
-    }
-
-    .showcase-section h2 {
-      font-size: 1.8rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      color: #555;
-    }
-
-    .showcase-section h3 {
-      font-size: 1.4rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-      color: #666;
-    }
-
-    .showcase-example {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-    }
-
-    .showcase-code {
-      background: #f5f5f5;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      padding: 1rem;
-      margin: 1rem 0;
-      overflow-x: auto;
-    }
-
-    .showcase-code pre {
-      margin: 0;
-      font-size: 0.9rem;
-    }
-
-    .color-swatch {
-      display: inline-block;
-      width: 120px;
-      height: 80px;
-      border-radius: 8px;
-      margin: 0.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      position: relative;
-    }
-
-    .color-swatch-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255,255,255,0.9);
-      padding: 0.25rem;
-      font-size: 0.75rem;
-      text-align: center;
-      border-radius: 0 0 8px 8px;
-    }
-
-    .spacing-example {
-      background: #e3f2fd;
-      border: 2px dashed #2196f3;
-      display: inline-block;
-      margin: 0.5rem;
-    }
-
-    .spacing-label {
-      font-size: 0.875rem;
-      color: #1976d2;
-      font-weight: 600;
-    }
-
-    .grid-demo {
-      background: #f0f0f0;
-      padding: 1rem;
-      margin: 0.25rem 0;
-      border-radius: 4px;
-      text-align: center;
-    }
-
-    @media (max-width: 768px) {
-      .showcase-layout {
-        flex-direction: column;
-      }
-
-      .showcase-nav {
-        width: 100%;
-        height: auto;
-        position: relative;
-      }
-    }
-  </style>
 </head>
 <body>
   <div class="showcase-layout">
@@ -223,7 +58,7 @@
         <h2>Color System</h2>
         <div class="showcase-example">
           <h3>Primary Colors</h3>
-          <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+          <div class="color-swatch-container">
             <div class="color-swatch" style="background: var(--color-primary);">
               <div class="color-swatch-label">primary</div>
             </div>
@@ -236,7 +71,7 @@
           </div>
 
           <h3>Secondary Colors</h3>
-          <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+          <div class="color-swatch-container">
             <div class="color-swatch" style="background: var(--color-secondary);">
               <div class="color-swatch-label">secondary</div>
             </div>
@@ -249,7 +84,7 @@
           </div>
 
           <h3>Functional Colors</h3>
-          <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+          <div class="color-swatch-container">
             <div class="color-swatch" style="background: var(--color-accent);">
               <div class="color-swatch-label">accent</div>
             </div>
@@ -284,7 +119,7 @@
         <div class="showcase-example">
           <div class="showcase-code">
             <pre><code>/* Sass Variables */
-$spasing-grid: 1.5rem 2rem 1rem;</code></pre>
+$spacing-grid: 1.5rem 2rem 1rem;</code></pre>
           </div>
         </div>
       </section>
@@ -777,16 +612,16 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
 
         <h2>Width Utilities</h2>
         <div class="showcase-example">
-          <div class="w-100" style="background: #e3f2fd; padding: 1rem; margin: 0.5rem 0;">
+          <div class="w-100 width-demo">
             .w-100 (100% width)
           </div>
-          <div class="w-75" style="background: #e3f2fd; padding: 1rem; margin: 0.5rem 0;">
+          <div class="w-75 width-demo">
             .w-75 (75% width)
           </div>
-          <div class="w-50" style="background: #e3f2fd; padding: 1rem; margin: 0.5rem 0;">
+          <div class="w-50 width-demo">
             .w-50 (50% width)
           </div>
-          <div class="w-25" style="background: #e3f2fd; padding: 1rem; margin: 0.5rem 0;">
+          <div class="w-25 width-demo">
             .w-25 (25% width)
           </div>
         </div>
@@ -800,13 +635,13 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
 
         <h2>Max Width Utilities</h2>
         <div class="showcase-example">
-          <div class="max mw-50" style="background: #fff3e0; padding: 1rem; margin: 0.5rem 0;">
+          <div class="max mw-50 max-width-demo">
             .max.mw-50 (max-width: 50rem)
           </div>
-          <div class="max mw-100" style="background: #fff3e0; padding: 1rem; margin: 0.5rem 0;">
+          <div class="max mw-100 max-width-demo">
             .max.mw-100 (max-width: 100rem)
           </div>
-          <div class="max mvw-50" style="background: #fff3e0; padding: 1rem; margin: 0.5rem 0;">
+          <div class="max mvw-50 max-width-demo">
             .max.mvw-50 (max-width: 50vw)
           </div>
         </div>
@@ -818,14 +653,14 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
 
         <h2>Flexbox Utilities</h2>
         <div class="showcase-example">
-          <div class="flex-center" style="background: #f3e5f5; padding: 1rem; margin: 0.5rem 0; height: 100px;">
+          <div class="flex-center flex-demo-center">
             .flex-center (justify-content: center; align-items: center)
           </div>
-          <div class="flex flex-jc-between" style="background: #e8f5e9; padding: 1rem; margin: 0.5rem 0;">
+          <div class="flex flex-jc-between flex-demo-between">
             <span>.flex.flex-jc-between</span>
             <span>Space between</span>
           </div>
-          <div class="flex flex-jc-around" style="background: #e1f5fe; padding: 1rem; margin: 0.5rem 0;">
+          <div class="flex flex-jc-around flex-demo-around">
             <span>Space</span>
             <span>Around</span>
           </div>
@@ -861,8 +696,8 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
 
         <h2>Padding Utilities</h2>
         <div class="showcase-example">
-          <div class="space-pd" style="background: #e3f2fd; display: inline-block;">
-            <div style="background: #fff;">
+          <div class="space-pd spacing-demo-pd">
+            <div class="spacing-demo-inner">
               .space-pd (padding applied)
             </div>
           </div>
@@ -874,8 +709,8 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
 
         <h2>Margin Utilities</h2>
         <div class="showcase-example">
-          <div style="background: #e8f5e9; display: inline-block;">
-            <div class="space-mg" style="background: #fff;">
+          <div class="spacing-demo-mg-outer">
+            <div class="space-mg spacing-demo-inner">
               .space-mg (margin applied)
             </div>
           </div>
@@ -897,7 +732,7 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
 
         <h2>Section</h2>
         <div class="showcase-example">
-          <section class="section" style="background: #f5f5f5; padding: 2rem;">
+          <section class="section layout-section-demo">
             <h3>Section example</h3>
             <p>セクションは構造化されたレイアウトのための基本的なブロックです。</p>
           </section>
@@ -909,7 +744,7 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
 
         <h2>Box</h2>
         <div class="showcase-example">
-          <div class="box" style="background: #fff; border: 1px solid #e0e0e0; padding: 1rem;">
+          <div class="box layout-box-demo">
             <p>Box component for contained content</p>
           </div>
         </div>
@@ -920,11 +755,13 @@ $spasing-grid: 1.5rem 2rem 1rem;</code></pre>
       </section>
 
       <!-- Footer -->
-      <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #e0e0e0;">
-        <p style="text-align: center; color: #666;">
-          <strong>Asagiri CSS Framework</strong> - Showcase Page<br>
-          このページでフレームワークの全機能を確認できます。
-        </p>
+      <footer class="showcase-footer">
+        <div class="showcase-footer-content">
+          <p>
+            <strong>Asagiri CSS Framework</strong> - Showcase Page<br>
+            このページでフレームワークの全機能を確認できます。
+          </p>
+        </div>
       </footer>
     </main>
   </div>

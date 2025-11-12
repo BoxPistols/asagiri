@@ -8,5 +8,8 @@
   ],
   "homepage": "agd.tokyo",
   "author": "asagiri-design",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.94.0"
+  }
 }

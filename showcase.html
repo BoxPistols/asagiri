@@ -30,6 +30,11 @@
         <li><a href="#utilities"><span aria-hidden="true">🛠️</span> Utilities</a></li>
         <li><a href="#spacing"><span aria-hidden="true">📏</span> Spacing</a></li>
         <li><a href="#layout"><span aria-hidden="true">🏗️</span> Layout</a></li>
+        <li><a href="#css-grid"><span aria-hidden="true">⚡</span> CSS Grid (NEW)</a></li>
+        <li><a href="#modern-spacing"><span aria-hidden="true">📐</span> Modern Spacing (NEW)</a></li>
+        <li><a href="#display-utilities"><span aria-hidden="true">🎯</span> Display Utils (NEW)</a></li>
+        <li><a href="#accessibility"><span aria-hidden="true">♿</span> Accessibility (NEW)</a></li>
+        <li><a href="#breakpoints"><span aria-hidden="true">📱</span> Breakpoints (NEW)</a></li>
       </ul>
     </nav>
 
@@ -754,12 +759,249 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
         </div>
       </section>
 
+      <!-- CSS Grid -->
+      <section id="css-grid" class="showcase-section">
+        <h1>⚡ CSS Grid (NEW)</h1>
+        <p>モダンなCSS Gridレイアウトシステム。Flexboxグリッドと併用可能です。</p>
+
+        <h2>Basic Grid</h2>
+        <div class="showcase-example">
+          <div class="grid grid-cols-3 gap-4">
+            <div class="grid-demo">1</div>
+            <div class="grid-demo">2</div>
+            <div class="grid-demo">3</div>
+            <div class="grid-demo">4</div>
+            <div class="grid-demo">5</div>
+            <div class="grid-demo">6</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="grid grid-cols-3 gap-4"&gt;
+  &lt;div&gt;1&lt;/div&gt;
+  &lt;div&gt;2&lt;/div&gt;
+  &lt;div&gt;3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Auto-Fit Responsive Grid</h2>
+        <div class="showcase-example">
+          <div class="grid grid-auto-fit-md gap-4">
+            <div class="grid-demo">Auto 1</div>
+            <div class="grid-demo">Auto 2</div>
+            <div class="grid-demo">Auto 3</div>
+            <div class="grid-demo">Auto 4</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="grid grid-auto-fit-md gap-4"&gt;
+  &lt;!-- Automatically responsive without media queries --&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Column Spanning</h2>
+        <div class="showcase-example">
+          <div class="grid grid-cols-4 gap-4">
+            <div class="col-span-2 grid-demo">Span 2 columns</div>
+            <div class="grid-demo">1</div>
+            <div class="grid-demo">2</div>
+            <div class="col-span-full grid-demo">Full width span</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="grid grid-cols-4 gap-4"&gt;
+  &lt;div class="col-span-2"&gt;Span 2&lt;/div&gt;
+  &lt;div class="col-span-full"&gt;Full width&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Modern Spacing -->
+      <section id="modern-spacing" class="showcase-section">
+        <h1>📐 Modern Spacing System (NEW)</h1>
+        <p>体系的なマージンとパディングユーティリティ</p>
+
+        <h2>Margin Utilities</h2>
+        <div class="showcase-example">
+          <div class="mb-4">
+            <code>.m-{size}</code> - All sides margin
+          </div>
+          <div class="mb-4">
+            <code>.mt-{size}</code>, <code>.mr-{size}</code>, <code>.mb-{size}</code>, <code>.ml-{size}</code> - Individual sides
+          </div>
+          <div class="mb-4">
+            <code>.mx-{size}</code> - Horizontal (left + right)
+          </div>
+          <div class="mb-4">
+            <code>.my-{size}</code> - Vertical (top + bottom)
+          </div>
+          <p>Sizes: 0, 1 (0.25rem), 2 (0.5rem), 3 (0.75rem), 4 (1rem), 5, 6, 8, 10, 12, 16, 20</p>
+        </div>
+
+        <h2>Padding Examples</h2>
+        <div class="showcase-example">
+          <div class="p-4 mb-4 width-demo">
+            .p-4 (padding: 1rem all sides)
+          </div>
+          <div class="px-6 py-3 width-demo">
+            .px-6 .py-3 (horizontal 1.5rem, vertical 0.75rem)
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="p-4"&gt;Padding 1rem&lt;/div&gt;
+&lt;div class="px-6 py-3"&gt;Horizontal and vertical padding&lt;/div&gt;
+&lt;div class="m-4"&gt;Margin 1rem&lt;/div&gt;
+&lt;div class="mx-auto"&gt;Centered with auto margin&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Display Utilities -->
+      <section id="display-utilities" class="showcase-section">
+        <h1>🎯 Display Utilities (NEW)</h1>
+
+        <h2>Display Types</h2>
+        <div class="showcase-example">
+          <ul>
+            <li><code>.d-block</code> - display: block</li>
+            <li><code>.d-inline</code> - display: inline</li>
+            <li><code>.d-inline-block</code> - display: inline-block</li>
+            <li><code>.d-flex</code> - display: flex</li>
+            <li><code>.d-grid</code> - display: grid</li>
+            <li><code>.d-none</code> - display: none</li>
+          </ul>
+        </div>
+
+        <h2>Position & Z-Index</h2>
+        <div class="showcase-example">
+          <ul>
+            <li><code>.position-relative</code>, <code>.position-absolute</code>, <code>.position-fixed</code>, <code>.position-sticky</code></li>
+            <li><code>.z-10</code>, <code>.z-20</code>, <code>.z-50</code> - Z-index utilities</li>
+            <li><code>.top-0</code>, <code>.right-0</code>, <code>.bottom-0</code>, <code>.left-0</code></li>
+          </ul>
+        </div>
+
+        <h2>Opacity</h2>
+        <div class="showcase-example">
+          <div class="d-flex gap-4">
+            <div class="p-4 width-demo opacity-100">100%</div>
+            <div class="p-4 width-demo opacity-75">75%</div>
+            <div class="p-4 width-demo opacity-50">50%</div>
+            <div class="p-4 width-demo opacity-25">25%</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="opacity-100"&gt;Fully visible&lt;/div&gt;
+&lt;div class="opacity-50"&gt;50% opacity&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Accessibility -->
+      <section id="accessibility" class="showcase-section">
+        <h1>♿ Accessibility Features (NEW)</h1>
+
+        <h2>Focus-Visible</h2>
+        <div class="showcase-example">
+          <p>キーボードナビゲーション時のみフォーカスリングを表示します。</p>
+          <button class="button">Try Tab Navigation</button>
+          <button class="button btn-success ml-2">Second Button</button>
+          <a href="#" class="ml-4">Focus Link</a>
+        </div>
+
+        <h2>Reduced Motion Support</h2>
+        <div class="showcase-example">
+          <p>ユーザーのモーション設定を尊重し、アニメーションを制限します。</p>
+          <code>@media (prefers-reduced-motion: reduce)</code>
+        </div>
+
+        <h2>Screen Reader Only</h2>
+        <div class="showcase-example">
+          <button class="button">
+            <span class="sr-only">Save document</span>
+            <span aria-hidden="true">💾</span>
+          </button>
+          <p class="mt-2">スクリーンリーダーには "Save document" と読み上げられます。</p>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;span class="sr-only"&gt;Screen reader only text&lt;/span&gt;</code></pre>
+        </div>
+
+        <h2>Touch Target Size</h2>
+        <div class="showcase-example">
+          <button class="button touch-target">44x44px Minimum</button>
+          <p class="mt-2">WCAGガイドラインに準拠した最小タッチターゲットサイズ（44x44px）</p>
+        </div>
+      </section>
+
+      <!-- Responsive Breakpoints -->
+      <section id="breakpoints" class="showcase-section">
+        <h1>📱 Responsive Breakpoints (NEW)</h1>
+
+        <h2>Breakpoint System</h2>
+        <div class="showcase-example">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>sm</code></td>
+                <td>640px</td>
+                <td>Landscape phones</td>
+              </tr>
+              <tr>
+                <td><code>md</code></td>
+                <td>768px</td>
+                <td>Tablets</td>
+              </tr>
+              <tr>
+                <td><code>lg</code></td>
+                <td>1024px</td>
+                <td>Desktops</td>
+              </tr>
+              <tr>
+                <td><code>xl</code></td>
+                <td>1280px</td>
+                <td>Large desktops</td>
+              </tr>
+              <tr>
+                <td><code>xxl</code></td>
+                <td>1536px</td>
+                <td>Extra large screens</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Usage in SCSS</h2>
+        <div class="showcase-code">
+          <pre><code>// Mobile-first approach
+@include breakpoint(md) {
+  .element { font-size: 1.5rem; }
+}
+
+// Breakpoint range
+@include breakpoint-range(sm, lg) {
+  .element { padding: 2rem; }
+}</code></pre>
+        </div>
+      </section>
+
       <!-- Footer -->
       <footer class="showcase-footer">
         <div class="showcase-footer-content">
           <p>
-            <strong>Asagiri CSS Framework</strong> - Showcase Page<br>
-            このページでフレームワークの全機能を確認できます。
+            <strong>Asagiri CSS Framework v2.0</strong> - Modern CSS Framework<br>
+            モダナイズされた汎用的なCSSフレームワーク<br>
+            <small>このページでフレームワークの全機能を確認できます。</small>
           </p>
         </div>
       </footer>

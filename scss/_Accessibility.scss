@@ -5,7 +5,8 @@
 
 // Focus Visible - Modern focus styling
 // Only show focus outline when using keyboard navigation
-*:focus {
+// Safe approach: Remove outline only for mouse users, keep for older browsers
+*:focus:not(:focus-visible) {
   outline: none;
 }
 
@@ -119,7 +120,7 @@ select:focus-visible {
   padding: 0 !important;
   margin: -1px !important;
   overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
   white-space: nowrap !important;
   border: 0 !important;
 }
@@ -153,10 +154,9 @@ select:focus-visible {
   }
 }
 
-// Accessible hide (display none but announce to screen readers when needed)
-[aria-hidden="true"] {
-  display: none;
-}
+// Note: aria-hidden should be controlled independently from display property
+// Removed the rule that incorrectly applied display: none to aria-hidden elements
+// aria-hidden hides from screen readers but keeps visual presentation
 
 // Live region helpers
 .aria-live-polite {

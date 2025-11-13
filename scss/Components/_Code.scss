@@ -12,16 +12,13 @@ code {
 
 pre {
   overflow-y: hidden;
-
-  border-left: 0.3rem solid var(--primary);
+  border-left: 0.3rem solid var(--color-primary);
   background: var(--color-light);
 
   > code {
     display: block;
     padding: 0.8rem 1.2rem;
-
     white-space: pre;
-
     color: var(--color-secondary);
     border-radius: 0;
   }

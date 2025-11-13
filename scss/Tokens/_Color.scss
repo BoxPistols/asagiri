@@ -13,10 +13,7 @@
   --color-hotpink: #ff69b4;
 
   /* ----- Primary Variation ----- */
-  // --color-primary: var(--color-moonstone);
-  --color-primary: hsl(191, 47%, 53%);
-
-  /* ----- Primary HSLA ---- */
+  // Primary color using HSLA for better manipulation
   --primary-h: 191;
   --primary-s: 47%;
   --primary-l: 53%;

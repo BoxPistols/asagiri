@@ -219,8 +219,6 @@ summary {
   --color-moonstone: #31a9c7;
   --color-hotpink: #ff69b4;
   /* ----- Primary Variation ----- */
-  --color-primary: hsl(191, 47%, 53%);
-  /* ----- Primary HSLA ---- */
   --primary-h: 191;
   --primary-s: 47%;
   --primary-l: 53%;
@@ -2579,18 +2577,26 @@ section.section,
 }
 
 .select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 
 .select-text {
+  -webkit-user-select: text;
+  -moz-user-select: text;
   user-select: text;
 }
 
 .select-all {
+  -webkit-user-select: all;
+  -moz-user-select: all;
   user-select: all;
 }
 
 .select-auto {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
   user-select: auto;
 }
 
@@ -2704,6 +2710,8 @@ input[type=text],
 input[type=url],
 textarea,
 select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
   background-color: transparent;
   border: 0.1rem solid var(--color-border);
@@ -2727,7 +2735,7 @@ input[type=text]:focus,
 input[type=url]:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--primary);
+  border-color: var(--color-primary);
   outline: 0;
 }
 
@@ -2911,7 +2919,7 @@ thead.dark > tr > th {
 }
 .mg-container .row .column.column-auto {
   flex: auto;
-  max-width: auto;
+  max-width: none;
 }
 .mg-container .row .column.column-10 {
   flex: 0 0 10%;
@@ -3004,7 +3012,7 @@ code {
 
 pre {
   overflow-y: hidden;
-  border-left: 0.3rem solid var(--primary);
+  border-left: 0.3rem solid var(--color-primary);
   background: var(--color-light);
 }
 pre > code {
@@ -3034,7 +3042,7 @@ img {
 
 a {
   text-decoration: none;
-  color: var(--primary);
+  color: var(--color-primary);
 }
 a:focus, a:hover {
   color: var(--color-secondary);
@@ -3185,7 +3193,7 @@ input[type=submit] {
   margin: 0.2rem 0.25rem;
   padding: 0 2rem;
   cursor: pointer;
-  transition: 0.25s;
+  transition: background-color 0.25s, border-color 0.25s, color 0.25s;
   text-align: center;
   white-space: nowrap;
   text-decoration: none;
@@ -3633,7 +3641,7 @@ input[type=submit].button-clear[disabled]:hover {
   color: var(--color-primary);
 }
 
-*:focus {
+*:focus:not(:focus-visible) {
   outline: none;
 }
 
@@ -3730,7 +3738,7 @@ select:focus-visible {
   padding: 0 !important;
   margin: -1px !important;
   overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
   white-space: nowrap !important;
   border: 0 !important;
 }
@@ -3759,10 +3767,6 @@ select:focus-visible {
     forced-color-adjust: auto;
   }
 }
-[aria-hidden=true] {
-  display: none;
-}
-
 .aria-live-polite {
   position: absolute;
   left: -10000px;

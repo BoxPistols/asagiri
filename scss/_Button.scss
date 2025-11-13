@@ -9,7 +9,7 @@
   // max-width: 480px;
 
   cursor: pointer;
-  transition: 0.25s;
+  transition: background-color 0.25s, border-color 0.25s, color 0.25s;
   text-align: center;
   white-space: nowrap;
   text-decoration: none;
@@ -30,12 +30,14 @@
 }
 
 // Button Color Setting
-@mixin btn-color($bgCcolor, $textColor, $borderColor) {
+@mixin btn-color($bgCcolor, $textColor, $borderColor: null) {
   color: $textColor;
   background-color: $bgCcolor;
 
-  @if border {
+  @if $borderColor != null and $borderColor != transparent {
     border: 1px solid $borderColor;
+  } @else {
+    border: 1px solid transparent;
   }
 }
 

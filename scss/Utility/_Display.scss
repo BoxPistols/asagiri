@@ -111,10 +111,26 @@
 .cursor-help { cursor: help; }
 
 // User select
-.select-none { user-select: none; }
-.select-text { user-select: text; }
-.select-all { user-select: all; }
-.select-auto { user-select: auto; }
+.select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.select-text {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+.select-all {
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  user-select: all;
+}
+.select-auto {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  user-select: auto;
+}
 
 // Screen reader only (accessible hidden)
 .sr-only {

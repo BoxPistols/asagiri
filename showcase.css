@@ -30,6 +30,11 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.showcase-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
 /* Navigation */
 .showcase-nav {
   width: 280px;
@@ -53,13 +58,11 @@ body {
   display: none;
 }
 
-.showcase-nav.compact h2 a {
-  font-size: 1.2rem;
-  text-align: center;
-  display: block;
+.showcase-nav.compact h2 {
+  justify-content: center;
 }
 
-.showcase-nav.compact h2 a .nav-text {
+.showcase-nav.compact .nav-text {
   display: none;
 }
 
@@ -69,14 +72,12 @@ body {
   color: var(--color-primary);
 }
 
-.showcase-nav h2 a {
-  text-decoration: none;
-  color: inherit;
-  transition: opacity 0.2s ease;
+.showcase-nav .nav-logo-link:hover {
+  opacity: 0.8;
 }
 
-.showcase-nav h2 a:hover {
-  opacity: 0.8;
+.showcase-nav #navToggle:hover {
+  opacity: 0.7;
 }
 
 /* Navigation and Section Icons */

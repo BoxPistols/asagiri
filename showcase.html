@@ -18,6 +18,62 @@
     <span id="darkModeIcon">&#9789;</span>
   </button>
 
+  <!-- Modal Examples -->
+  <div class="modal-overlay" id="modal1">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Basic Modal</h3>
+        <button class="modal-close" onclick="closeModal('modal1')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This is a basic modal dialog. You can include any content here.</p>
+        <p>Click the close button, press Escape, or click outside to close.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="button button-cancel" onclick="closeModal('modal1')">Cancel</button>
+        <button class="button btn-primary" onclick="closeModal('modal1')">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-sm">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Small Modal</h3>
+        <button class="modal-close" onclick="closeModal('modal-sm')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This is a small modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="button" onclick="closeModal('modal-sm')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-lg">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3>Large Modal</h3>
+        <button class="modal-close" onclick="closeModal('modal-lg')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This is a large modal with more content space.</p>
+        <p>Perfect for forms, detailed information, or complex interactions.</p>
+        <h4>Example Content</h4>
+        <ul>
+          <li>Feature 1: Enhanced usability</li>
+          <li>Feature 2: Better accessibility</li>
+          <li>Feature 3: Responsive design</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="button button-cancel" onclick="closeModal('modal-lg')">Cancel</button>
+        <button class="button btn-primary" onclick="closeModal('modal-lg')">Save</button>
+      </div>
+    </div>
+  </div>
+
   <div class="showcase-layout">
     <!-- Navigation -->
     <nav class="showcase-nav">
@@ -39,6 +95,8 @@
         <li><a href="#modern-spacing"><span class="nav-icon new-badge" aria-hidden="true">&#8597;</span> Modern Spacing <span class="badge">NEW</span></a></li>
         <li><a href="#display-utilities"><span class="nav-icon new-badge" aria-hidden="true">&#9679;</span> Display Utils <span class="badge">NEW</span></a></li>
         <li><a href="#accessibility"><span class="nav-icon new-badge" aria-hidden="true">&#9765;</span> Accessibility <span class="badge">NEW</span></a></li>
+        <li><a href="#modal"><span class="nav-icon new-badge" aria-hidden="true">&#9744;</span> Modal & Dialog <span class="badge">NEW</span></a></li>
+        <li><a href="#tooltip"><span class="nav-icon new-badge" aria-hidden="true">&#9432;</span> Tooltip <span class="badge">NEW</span></a></li>
         <li><a href="#breakpoints"><span class="nav-icon new-badge" aria-hidden="true">&#9776;</span> Breakpoints <span class="badge">NEW</span></a></li>
       </ul>
     </nav>
@@ -942,6 +1000,108 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
         </div>
       </section>
 
+      <!-- Modal & Dialog -->
+      <section id="modal" class="showcase-section">
+        <h1><span class="section-icon" aria-hidden="true">&#9744;</span> Modal & Dialog <span class="badge">NEW</span></h1>
+        <p>モーダルダイアログコンポーネント。オーバーレイと共に表示される対話型ウィンドウです。</p>
+
+        <h2>Basic Modal</h2>
+        <div class="showcase-example">
+          <button class="button btn-primary" onclick="openModal('modal1')">Open Modal</button>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;button class="button btn-primary" onclick="openModal('modal1')"&gt;Open Modal&lt;/button&gt;
+
+&lt;div class="modal-overlay" id="modal1"&gt;
+  &lt;div class="modal"&gt;
+    &lt;div class="modal-header"&gt;
+      &lt;h3&gt;Modal Title&lt;/h3&gt;
+      &lt;button class="modal-close" onclick="closeModal('modal1')"&gt;&times;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="modal-body"&gt;
+      &lt;p&gt;Modal content goes here...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="modal-footer"&gt;
+      &lt;button class="button button-cancel" onclick="closeModal('modal1')"&gt;Cancel&lt;/button&gt;
+      &lt;button class="button btn-primary"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Modal Sizes</h2>
+        <div class="showcase-example">
+          <button class="button btn-secondary" onclick="openModal('modal-sm')">Small Modal</button>
+          <button class="button btn-secondary" onclick="openModal('modal-lg')">Large Modal</button>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="modal modal-sm"&gt;...&lt;/div&gt;  &lt;!-- Small --&gt;
+&lt;div class="modal modal-lg"&gt;...&lt;/div&gt;  &lt;!-- Large --&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Tooltip -->
+      <section id="tooltip" class="showcase-section">
+        <h1><span class="section-icon" aria-hidden="true">&#9432;</span> Tooltip <span class="badge">NEW</span></h1>
+        <p>ホバー時に表示される情報ツールチップ</p>
+
+        <h2>Tooltip Positions</h2>
+        <div class="showcase-example" style="padding: 3rem; text-align: center;">
+          <div class="tooltip tooltip-top" style="margin: 1rem;">
+            <button class="button">Top</button>
+            <span class="tooltip-content">Tooltip on top</span>
+          </div>
+          <div class="tooltip tooltip-bottom" style="margin: 1rem;">
+            <button class="button">Bottom</button>
+            <span class="tooltip-content">Tooltip on bottom</span>
+          </div>
+          <div class="tooltip tooltip-left" style="margin: 1rem;">
+            <button class="button">Left</button>
+            <span class="tooltip-content">Tooltip on left</span>
+          </div>
+          <div class="tooltip tooltip-right" style="margin: 1rem;">
+            <button class="button">Right</button>
+            <span class="tooltip-content">Tooltip on right</span>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="tooltip tooltip-top"&gt;
+  &lt;button class="button"&gt;Hover me&lt;/button&gt;
+  &lt;span class="tooltip-content"&gt;Tooltip text&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Tooltip Colors</h2>
+        <div class="showcase-example" style="padding: 2rem;">
+          <div class="tooltip tooltip-primary" style="margin: 1rem;">
+            <button class="button btn-primary">Primary</button>
+            <span class="tooltip-content">Primary tooltip</span>
+          </div>
+          <div class="tooltip tooltip-success" style="margin: 1rem;">
+            <button class="button btn-success">Success</button>
+            <span class="tooltip-content">Success tooltip</span>
+          </div>
+          <div class="tooltip tooltip-warning" style="margin: 1rem;">
+            <button class="button btn-warning">Warning</button>
+            <span class="tooltip-content">Warning tooltip</span>
+          </div>
+          <div class="tooltip tooltip-danger" style="margin: 1rem;">
+            <button class="button btn-danger">Danger</button>
+            <span class="tooltip-content">Danger tooltip</span>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="tooltip tooltip-primary"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-success"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-warning"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-danger"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
       <!-- Responsive Breakpoints -->
       <section id="breakpoints" class="showcase-section">
         <h1><span class="section-icon" aria-hidden="true">&#9776;</span> Responsive Breakpoints <span class="badge">NEW</span></h1>
@@ -1014,6 +1174,40 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
   </div>
 
   <script>
+    // Modal Functions
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close modal on overlay click
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        closeModal(e.target.id);
+      }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.modal-overlay.active');
+        if (activeModal) {
+          closeModal(activeModal.id);
+        }
+      }
+    });
+
     // Dark Mode Toggle
     (function() {
       const toggle = document.getElementById('darkModeToggle');

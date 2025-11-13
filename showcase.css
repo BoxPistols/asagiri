@@ -30,18 +30,14 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.showcase-nav h2 a:hover {
-  opacity: 0.8;
-  background-color: transparent;
-}
-}
-
 /* Navigation */
 .showcase-nav {
   width: 280px;
   background: var(--showcase-bg-secondary);
   border-right: 1px solid var(--showcase-border);
   padding: 2rem 1rem;
+  position: sticky;
+  top: 0;
   height: 100vh;
   overflow-y: auto;
   transition: width 0.3s ease, padding 0.3s ease;

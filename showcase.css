@@ -200,6 +200,7 @@ body {
 [data-theme="dark"] .showcase-code code,
 [data-theme="dark"] .showcase-example code {
   color: #e0e0e0;
+  background: #2e3134;
 }
 
 /* Copy Button */
@@ -217,6 +218,9 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .copy-button:hover {
@@ -372,6 +376,7 @@ body {
   right: 2rem;
   width: 56px;
   height: 56px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: var(--color-primary, #6366f1);
   color: white;
@@ -384,6 +389,8 @@ body {
   justify-content: center;
   transition: all 0.3s ease;
   z-index: 1000;
+  padding: 0;
+  line-height: 1;
 }
 
 .dark-mode-toggle:hover {

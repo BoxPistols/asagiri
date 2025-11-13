@@ -76,8 +76,15 @@
 
   <div class="showcase-layout">
     <!-- Navigation -->
-    <nav class="showcase-nav">
-      <h2><a href="/"><span class="nav-icon" aria-hidden="true">&#9776;</span> Asagiri</a></h2>
+    <nav class="showcase-nav" id="showcaseNav">
+      <h2>
+        <a href="/" style="display: flex; align-items: center; justify-content: space-between;">
+          <span>
+            <span class="nav-icon" id="navToggle" style="cursor: pointer;" title="Toggle navigation" aria-label="Toggle navigation">&#9776;</span>
+            <span class="nav-text">Asagiri</span>
+          </span>
+        </a>
+      </h2>
       <ul>
         <li><a href="#introduction"><span class="nav-icon" aria-hidden="true">&#8962;</span> Introduction</a></li>
         <li><a href="#tokens"><span class="nav-icon" aria-hidden="true">&#9881;</span> Design Tokens</a></li>
@@ -97,6 +104,7 @@
         <li><a href="#accessibility"><span class="nav-icon new-badge" aria-hidden="true">&#9765;</span> Accessibility <span class="badge">NEW</span></a></li>
         <li><a href="#modal"><span class="nav-icon new-badge" aria-hidden="true">&#9744;</span> Modal & Dialog <span class="badge">NEW</span></a></li>
         <li><a href="#tooltip"><span class="nav-icon new-badge" aria-hidden="true">&#9432;</span> Tooltip <span class="badge">NEW</span></a></li>
+        <li><a href="#layout-patterns"><span class="nav-icon new-badge" aria-hidden="true">&#9638;</span> Layout Patterns <span class="badge">NEW</span></a></li>
         <li><a href="#breakpoints"><span class="nav-icon new-badge" aria-hidden="true">&#9776;</span> Breakpoints <span class="badge">NEW</span></a></li>
       </ul>
     </nav>
@@ -1102,6 +1110,170 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
         </div>
       </section>
 
+      <!-- Layout Patterns -->
+      <section id="layout-patterns" class="showcase-section">
+        <h1><span class="section-icon" aria-hidden="true">&#9638;</span> Practical Layout Patterns <span class="badge">NEW</span></h1>
+        <p>実用的なレイアウトパターンの実装例</p>
+
+        <h2>Holy Grail Layout (聖杯レイアウト)</h2>
+        <p>ヘッダー、3カラム、フッターの古典的なレイアウト</p>
+        <div class="showcase-example">
+          <div class="layout-demo holy-grail-layout">
+            <div class="layout-header">Header</div>
+            <div class="layout-content">
+              <aside class="layout-sidebar-left">Left Sidebar</aside>
+              <main class="layout-main">Main Content</main>
+              <aside class="layout-sidebar-right">Right Sidebar</aside>
+            </div>
+            <div class="layout-footer">Footer</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="holy-grail-layout"&gt;
+  &lt;header class="layout-header"&gt;Header&lt;/header&gt;
+  &lt;div class="layout-content"&gt;
+    &lt;aside class="layout-sidebar-left"&gt;Left Sidebar&lt;/aside&gt;
+    &lt;main class="layout-main"&gt;Main Content&lt;/main&gt;
+    &lt;aside class="layout-sidebar-right"&gt;Right Sidebar&lt;/aside&gt;
+  &lt;/div&gt;
+  &lt;footer class="layout-footer"&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Admin Dashboard Layout</h2>
+        <p>サイドバーナビゲーション + メインコンテンツエリア</p>
+        <div class="showcase-example">
+          <div class="layout-demo admin-layout">
+            <aside class="admin-sidebar">
+              <div class="admin-logo">Admin</div>
+              <nav class="admin-nav">
+                <a href="#" class="admin-nav-item active">Dashboard</a>
+                <a href="#" class="admin-nav-item">Users</a>
+                <a href="#" class="admin-nav-item">Settings</a>
+              </nav>
+            </aside>
+            <div class="admin-main">
+              <header class="admin-header">
+                <h2>Dashboard</h2>
+                <div class="admin-user">User Profile</div>
+              </header>
+              <div class="admin-content">
+                <div class="admin-card">Card 1</div>
+                <div class="admin-card">Card 2</div>
+                <div class="admin-card">Card 3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="admin-layout"&gt;
+  &lt;aside class="admin-sidebar"&gt;
+    &lt;div class="admin-logo"&gt;Admin&lt;/div&gt;
+    &lt;nav class="admin-nav"&gt;...&lt;/nav&gt;
+  &lt;/aside&gt;
+  &lt;div class="admin-main"&gt;
+    &lt;header class="admin-header"&gt;...&lt;/header&gt;
+    &lt;div class="admin-content"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Card Grid Layout</h2>
+        <p>レスポンシブなカードグリッド（ECサイト、ギャラリーなど）</p>
+        <div class="showcase-example">
+          <div class="card-grid">
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 1</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 2</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 3</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 4</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="card-grid"&gt;
+  &lt;div class="card-item"&gt;
+    &lt;div class="card-image"&gt;...&lt;/div&gt;
+    &lt;div class="card-content"&gt;
+      &lt;h3&gt;Title&lt;/h3&gt;
+      &lt;p&gt;Description&lt;/p&gt;
+      &lt;button&gt;Action&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Video Streaming UI Layout</h2>
+        <p>映像配信サービス風レイアウト</p>
+        <div class="showcase-example">
+          <div class="layout-demo streaming-layout">
+            <header class="streaming-header">
+              <div class="streaming-logo">StreamApp</div>
+              <nav class="streaming-nav">
+                <a href="#">Home</a>
+                <a href="#">Browse</a>
+                <a href="#">My List</a>
+              </nav>
+              <div class="streaming-user">User</div>
+            </header>
+            <div class="streaming-hero">
+              <h2>Featured Content</h2>
+              <p>Watch the latest trending videos</p>
+              <button class="button btn-primary">Play Now</button>
+            </div>
+            <div class="streaming-categories">
+              <h3>Trending Now</h3>
+              <div class="streaming-row">
+                <div class="streaming-card">Video 1</div>
+                <div class="streaming-card">Video 2</div>
+                <div class="streaming-card">Video 3</div>
+                <div class="streaming-card">Video 4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="streaming-layout"&gt;
+  &lt;header class="streaming-header"&gt;...&lt;/header&gt;
+  &lt;div class="streaming-hero"&gt;...&lt;/div&gt;
+  &lt;div class="streaming-categories"&gt;
+    &lt;h3&gt;Category&lt;/h3&gt;
+    &lt;div class="streaming-row"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
       <!-- Responsive Breakpoints -->
       <section id="breakpoints" class="showcase-section">
         <h1><span class="section-icon" aria-hidden="true">&#9776;</span> Responsive Breakpoints <span class="badge">NEW</span></h1>
@@ -1174,6 +1346,30 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
   </div>
 
   <script>
+    // Sidebar Toggle Function
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const showcaseNav = document.getElementById('showcaseNav');
+
+      if (navToggle && showcaseNav) {
+        navToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          showcaseNav.classList.toggle('compact');
+
+          // Save state to localStorage
+          const isCompact = showcaseNav.classList.contains('compact');
+          localStorage.setItem('navCompact', isCompact);
+        });
+
+        // Restore state from localStorage
+        const savedState = localStorage.getItem('navCompact');
+        if (savedState === 'true') {
+          showcaseNav.classList.add('compact');
+        }
+      }
+    })();
+
     // Modal Functions
     function openModal(modalId) {
       const modal = document.getElementById(modalId);

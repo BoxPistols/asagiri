@@ -655,6 +655,358 @@ npm install
 4. ✅ **showcase.htmlを更新** - 新機能のデモを追加
 5. ✅ **セマンティックバージョニング** - MAJOR.MINOR.PATCH
 
+### NPM Package運用マニュアル
+
+このセクションでは、Asagiriフレームワークをnpmパッケージとして公開・管理する手順を説明します。
+
+#### 事前準備
+
+##### 1. npm アカウントの作成とログイン
+
+```bash
+# npmアカウントを持っていない場合
+# https://www.npmjs.com/signup でアカウント作成
+
+# npmにログイン
+npm login
+
+# ログイン状態の確認
+npm whoami
+```
+
+##### 2. 2要素認証 (2FA) の設定
+
+セキュリティのため、2FAの有効化を強く推奨します。
+
+```bash
+# npmのプロフィール設定で2FAを有効化
+# https://www.npmjs.com/settings/your-username/tfa
+
+# 2FAモード
+# - Auth-only: ログイン時のみ必要
+# - Auth-and-writes: ログイン + 公開時に必要（推奨）
+```
+
+#### パッケージの初回公開
+
+##### 1. package.json の確認
+
+公開前に以下の項目を確認してください：
+
+```json
+{
+  "name": "asagiri",                    // パッケージ名（重複不可）
+  "version": "2.0.0",                   // セマンティックバージョニング
+  "description": "...",                  // 簡潔な説明
+  "main": "css/main.css",               // メインエントリーポイント
+  "files": [                            // 公開するファイル
+    "css/",
+    "scss/",
+    "index.js",
+    "index.mjs",
+    "index.d.ts"
+  ],
+  "keywords": [...],                    // 検索用キーワード
+  "license": "MIT",                     // ライセンス
+  "repository": {...},                  // GitHubリポジトリ
+  "engines": {                          // Node.jsバージョン要件
+    "node": ">=14.0.0"
+  }
+}
+```
+
+##### 2. パッケージ内容の確認
+
+```bash
+# 公開されるファイルの一覧を確認
+npm pack --dry-run
+
+# 実際にtarballを作成して確認
+npm pack
+tar -tzf asagiri-2.0.0.tgz
+rm asagiri-2.0.0.tgz
+```
+
+##### 3. ビルドとテスト
+
+```bash
+# SCSSをコンパイル
+npm run build
+npm run build:compressed
+
+# ビルド成果物の確認
+ls -la css/
+
+# ローカルでパッケージをテスト
+npm link
+cd /path/to/test-project
+npm link asagiri
+```
+
+##### 4. 初回公開
+
+```bash
+# 公開（publicパッケージとして）
+npm publish --access public
+
+# スコープ付きパッケージの場合
+npm publish --access public
+
+# 公開の確認
+npm view asagiri
+```
+
+#### パッケージの更新
+
+##### 1. バージョニング規則（Semantic Versioning）
+
+```
+MAJOR.MINOR.PATCH (例: 2.1.3)
+
+- MAJOR: 破壊的変更（Breaking Changes）
+- MINOR: 後方互換性のある機能追加
+- PATCH: 後方互換性のあるバグ修正
+```
+
+##### 2. バージョンアップの手順
+
+```bash
+# パッチバージョンアップ（バグ修正）
+npm version patch      # 2.0.0 → 2.0.1
+
+# マイナーバージョンアップ（機能追加）
+npm version minor      # 2.0.1 → 2.1.0
+
+# メジャーバージョンアップ（破壊的変更）
+npm version major      # 2.1.0 → 3.0.0
+
+# カスタムバージョン指定
+npm version 2.1.5
+
+# プレリリースバージョン
+npm version prerelease --preid=beta  # 2.0.0 → 2.0.1-beta.0
+npm version prerelease --preid=alpha # 2.0.0 → 2.0.1-alpha.0
+```
+
+##### 3. 更新公開のワークフロー
+
+```bash
+# 1. 変更内容の確認
+git status
+git diff
+
+# 2. ビルド
+npm run build
+npm run build:compressed
+
+# 3. テスト（任意だが推奨）
+# npm test
+
+# 4. バージョンアップ（自動でgit commitとtagが作成される）
+npm version minor -m "feat: add new utility classes"
+
+# 5. GitHubにプッシュ
+git push origin main
+git push origin --tags
+
+# 6. npmに公開
+npm publish
+
+# 7. 公開の確認
+npm view asagiri version
+npm info asagiri
+```
+
+#### タグ管理 (dist-tags)
+
+```bash
+# デフォルトは "latest" タグ
+npm publish                           # latest
+npm publish --tag beta                # beta版として公開
+npm publish --tag next                # next版として公開
+
+# タグの確認
+npm dist-tag ls asagiri
+
+# タグの追加
+npm dist-tag add asagiri@2.1.0 stable
+
+# タグの削除
+npm dist-tag rm asagiri beta
+
+# 特定タグをインストール
+npm install asagiri@beta
+npm install asagiri@next
+```
+
+#### パッケージ情報の更新
+
+```bash
+# package.jsonのメタデータを変更後
+npm publish
+
+# READMEのみ更新（バージョンアップ不要）
+# README.md を編集後
+npm publish
+```
+
+#### 非推奨化 (Deprecate)
+
+```bash
+# 特定バージョンを非推奨に
+npm deprecate asagiri@1.0.0 "Please upgrade to 2.0.0"
+
+# バージョン範囲で非推奨に
+npm deprecate asagiri@"< 2.0.0" "Version 1.x is no longer supported"
+
+# 非推奨を解除
+npm deprecate asagiri@1.0.0 ""
+```
+
+#### パッケージの削除（非推奨）
+
+```bash
+# 公開から72時間以内のみ削除可能（それ以降は非推奨化を使用）
+npm unpublish asagiri@2.0.0
+
+# パッケージ全体を削除（非推奨、使用禁止）
+# npm unpublish asagiri --force
+```
+
+#### アクセス権限の管理
+
+```bash
+# コラボレーターを追加
+npm owner add <username> asagiri
+
+# コラボレーターを削除
+npm owner rm <username> asagiri
+
+# 所有者リストの確認
+npm owner ls asagiri
+
+# パッケージのアクセス権限を変更
+npm access public asagiri
+npm access restricted asagiri   # スコープ付きのみ
+```
+
+#### トラブルシューティング
+
+##### 公開エラー: "You do not have permission to publish"
+
+```bash
+# 1. ログイン状態を確認
+npm whoami
+
+# 2. 再ログイン
+npm logout
+npm login
+
+# 3. パッケージ名の重複確認
+npm view asagiri
+```
+
+##### 公開エラー: "Package name too similar to existing package"
+
+```bash
+# パッケージ名を変更するか、スコープを追加
+# @your-org/asagiri のような形式
+```
+
+##### バージョンエラー: "Version already published"
+
+```bash
+# バージョンを上げる
+npm version patch
+npm publish
+```
+
+##### ファイルが含まれていない
+
+```bash
+# .npmignoreを確認（存在する場合、.gitignoreより優先される）
+cat .npmignore
+
+# package.json の "files" フィールドを確認
+# "files": ["css/", "scss/", "index.js", ...]
+
+# 実際の公開内容を確認
+npm pack --dry-run
+```
+
+#### CI/CD による自動公開（GitHub Actions）
+
+`.github/workflows/publish.yml` の例：
+
+```yaml
+name: Publish to npm
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - run: npm run build
+      - run: npm run build:compressed
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+```
+
+GitHub Secretsに `NPM_TOKEN` を追加：
+1. npmで Access Token を生成: https://www.npmjs.com/settings/your-username/tokens
+2. GitHubリポジトリの Settings > Secrets > New repository secret
+3. Name: `NPM_TOKEN`, Value: 生成したトークン
+
+#### ベストプラクティス
+
+1. ✅ **必ず prepublishOnly スクリプトを使用**
+   ```json
+   {
+     "scripts": {
+       "prepublishOnly": "npm run build && npm run build:compressed"
+     }
+   }
+   ```
+
+2. ✅ **セマンティックバージョニングを厳守**
+   - 破壊的変更はメジャーバージョンアップ
+   - 機能追加はマイナーバージョンアップ
+   - バグ修正はパッチバージョンアップ
+
+3. ✅ **CHANGELOG.md を維持**
+   - 各バージョンの変更内容を記録
+
+4. ✅ **タグとリリースノートを作成**
+   ```bash
+   git tag -a v2.1.0 -m "Release version 2.1.0"
+   git push origin v2.1.0
+   ```
+
+5. ✅ **公開前にローカルテスト**
+   ```bash
+   npm link
+   cd ../test-project
+   npm link asagiri
+   ```
+
+6. ✅ **2要素認証を有効化** - セキュリティ向上
+
+7. ✅ **不要なファイルを除外**
+   - `.npmignore` または `package.json` の `files` で制御
+
+8. ❌ **公開後72時間以上経過したパッケージは削除しない**
+   - 代わりに `npm deprecate` を使用
+
 ## 開発
 
 ### ブランチ戦略

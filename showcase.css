@@ -24,6 +24,16 @@
   color: var(--color-primary);
 }
 
+.showcase-nav h2 a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.showcase-nav h2 a:hover {
+  opacity: 0.8;
+}
+
 .showcase-nav ul {
   list-style: none;
   padding: 0;

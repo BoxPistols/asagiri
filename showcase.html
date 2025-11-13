@@ -13,28 +13,33 @@
   <title>Asagiri CSS Framework Showcase</title>
 </head>
 <body>
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+    <span id="darkModeIcon">&#9789;</span>
+  </button>
+
   <div class="showcase-layout">
     <!-- Navigation -->
     <nav class="showcase-nav">
-      <h2><a href="/">📘 Asagiri</a></h2>
+      <h2><a href="/"><span class="nav-icon" aria-hidden="true">&#9776;</span> Asagiri</a></h2>
       <ul>
-        <li><a href="#introduction"><span aria-hidden="true">🏠</span> Introduction</a></li>
-        <li><a href="#tokens"><span aria-hidden="true">🎨</span> Design Tokens</a></li>
-        <li><a href="#colors"><span aria-hidden="true">🌈</span> Colors</a></li>
-        <li><a href="#typography"><span aria-hidden="true">📝</span> Typography</a></li>
-        <li><a href="#buttons"><span aria-hidden="true">🔘</span> Buttons</a></li>
-        <li><a href="#forms"><span aria-hidden="true">📋</span> Forms</a></li>
-        <li><a href="#tables"><span aria-hidden="true">📊</span> Tables</a></li>
-        <li><a href="#lists"><span aria-hidden="true">📝</span> Lists</a></li>
-        <li><a href="#grid"><span aria-hidden="true">📐</span> Grid System</a></li>
-        <li><a href="#utilities"><span aria-hidden="true">🛠️</span> Utilities</a></li>
-        <li><a href="#spacing"><span aria-hidden="true">📏</span> Spacing</a></li>
-        <li><a href="#layout"><span aria-hidden="true">🏗️</span> Layout</a></li>
-        <li><a href="#css-grid"><span aria-hidden="true">⚡</span> CSS Grid (NEW)</a></li>
-        <li><a href="#modern-spacing"><span aria-hidden="true">📐</span> Modern Spacing (NEW)</a></li>
-        <li><a href="#display-utilities"><span aria-hidden="true">🎯</span> Display Utils (NEW)</a></li>
-        <li><a href="#accessibility"><span aria-hidden="true">♿</span> Accessibility (NEW)</a></li>
-        <li><a href="#breakpoints"><span aria-hidden="true">📱</span> Breakpoints (NEW)</a></li>
+        <li><a href="#introduction"><span class="nav-icon" aria-hidden="true">&#8962;</span> Introduction</a></li>
+        <li><a href="#tokens"><span class="nav-icon" aria-hidden="true">&#9881;</span> Design Tokens</a></li>
+        <li><a href="#colors"><span class="nav-icon" aria-hidden="true">&#9632;</span> Colors</a></li>
+        <li><a href="#typography"><span class="nav-icon" aria-hidden="true">&#9998;</span> Typography</a></li>
+        <li><a href="#buttons"><span class="nav-icon" aria-hidden="true">&#9650;</span> Buttons</a></li>
+        <li><a href="#forms"><span class="nav-icon" aria-hidden="true">&#9997;</span> Forms</a></li>
+        <li><a href="#tables"><span class="nav-icon" aria-hidden="true">&#9776;</span> Tables</a></li>
+        <li><a href="#lists"><span class="nav-icon" aria-hidden="true">&#8226;</span> Lists</a></li>
+        <li><a href="#grid"><span class="nav-icon" aria-hidden="true">&#9638;</span> Grid System</a></li>
+        <li><a href="#utilities"><span class="nav-icon" aria-hidden="true">&#9878;</span> Utilities</a></li>
+        <li><a href="#spacing"><span class="nav-icon" aria-hidden="true">&#8597;</span> Spacing</a></li>
+        <li><a href="#layout"><span class="nav-icon" aria-hidden="true">&#9634;</span> Layout</a></li>
+        <li><a href="#css-grid"><span class="nav-icon new-badge" aria-hidden="true">&#9889;</span> CSS Grid <span class="badge">NEW</span></a></li>
+        <li><a href="#modern-spacing"><span class="nav-icon new-badge" aria-hidden="true">&#8597;</span> Modern Spacing <span class="badge">NEW</span></a></li>
+        <li><a href="#display-utilities"><span class="nav-icon new-badge" aria-hidden="true">&#9679;</span> Display Utils <span class="badge">NEW</span></a></li>
+        <li><a href="#accessibility"><span class="nav-icon new-badge" aria-hidden="true">&#9765;</span> Accessibility <span class="badge">NEW</span></a></li>
+        <li><a href="#breakpoints"><span class="nav-icon new-badge" aria-hidden="true">&#9776;</span> Breakpoints <span class="badge">NEW</span></a></li>
       </ul>
     </nav>
 
@@ -57,7 +62,7 @@
 
       <!-- Design Tokens -->
       <section id="tokens" class="showcase-section">
-        <h1>🎨 Design Tokens</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9881;</span> Design Tokens</h1>
         <p>Asagiriのデザインシステムの基礎となる変数です。</p>
 
         <h2>Color System</h2>
@@ -131,7 +136,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Colors -->
       <section id="colors" class="showcase-section">
-        <h1>🌈 Colors</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9632;</span> Colors</h1>
 
         <h2>Color Utility Classes</h2>
         <div class="showcase-example">
@@ -154,7 +159,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Typography -->
       <section id="typography" class="showcase-section">
-        <h1>📝 Typography</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9998;</span> Typography</h1>
 
         <h2>Headings</h2>
         <div class="showcase-example">
@@ -212,7 +217,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Buttons -->
       <section id="buttons" class="showcase-section">
-        <h1>🔘 Buttons</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9650;</span> Buttons</h1>
 
         <h2>Default Buttons</h2>
         <div class="showcase-example">
@@ -271,7 +276,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Forms -->
       <section id="forms" class="showcase-section">
-        <h1>📋 Forms</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9997;</span> Forms</h1>
 
         <h2>Text Input</h2>
         <div class="showcase-example">
@@ -355,7 +360,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Tables -->
       <section id="tables" class="showcase-section">
-        <h1>📊 Tables</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9776;</span> Tables</h1>
 
         <h2>Default Table</h2>
         <div class="showcase-example">
@@ -443,7 +448,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Lists -->
       <section id="lists" class="showcase-section">
-        <h1>📝 Lists</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#8226;</span> Lists</h1>
 
         <h2>Unordered List (Default)</h2>
         <div class="showcase-example">
@@ -516,7 +521,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Grid System -->
       <section id="grid" class="showcase-section">
-        <h1>📐 Grid System</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9638;</span> Grid System</h1>
         <p>Flexboxベースのグリッドシステム</p>
 
         <h2>Equal Width Columns</h2>
@@ -613,7 +618,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Utilities -->
       <section id="utilities" class="showcase-section">
-        <h1>🛠️ Utilities</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9878;</span> Utilities</h1>
 
         <h2>Width Utilities</h2>
         <div class="showcase-example">
@@ -697,7 +702,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Spacing -->
       <section id="spacing" class="showcase-section">
-        <h1>📏 Spacing</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#8597;</span> Spacing</h1>
 
         <h2>Padding Utilities</h2>
         <div class="showcase-example">
@@ -728,7 +733,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Layout -->
       <section id="layout" class="showcase-section">
-        <h1>🏗️ Layout</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9634;</span> Layout</h1>
 
         <h2>Container</h2>
         <div class="showcase-example">
@@ -761,7 +766,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- CSS Grid -->
       <section id="css-grid" class="showcase-section">
-        <h1>⚡ CSS Grid (NEW)</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9889;</span> CSS Grid <span class="badge">NEW</span></h1>
         <p>モダンなCSS Gridレイアウトシステム。Flexboxグリッドと併用可能です。</p>
 
         <h2>Basic Grid</h2>
@@ -820,7 +825,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Modern Spacing -->
       <section id="modern-spacing" class="showcase-section">
-        <h1>📐 Modern Spacing System (NEW)</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#8597;</span> Modern Spacing System <span class="badge">NEW</span></h1>
         <p>体系的なマージンとパディングユーティリティ</p>
 
         <h2>Margin Utilities</h2>
@@ -860,7 +865,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Display Utilities -->
       <section id="display-utilities" class="showcase-section">
-        <h1>🎯 Display Utilities (NEW)</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9679;</span> Display Utilities <span class="badge">NEW</span></h1>
 
         <h2>Display Types</h2>
         <div class="showcase-example">
@@ -901,7 +906,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Accessibility -->
       <section id="accessibility" class="showcase-section">
-        <h1>♿ Accessibility Features (NEW)</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9765;</span> Accessibility Features <span class="badge">NEW</span></h1>
 
         <h2>Focus-Visible</h2>
         <div class="showcase-example">
@@ -939,7 +944,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
 
       <!-- Responsive Breakpoints -->
       <section id="breakpoints" class="showcase-section">
-        <h1>📱 Responsive Breakpoints (NEW)</h1>
+        <h1><span class="section-icon" aria-hidden="true">&#9776;</span> Responsive Breakpoints <span class="badge">NEW</span></h1>
 
         <h2>Breakpoint System</h2>
         <div class="showcase-example">
@@ -1007,5 +1012,87 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
       </footer>
     </main>
   </div>
+
+  <script>
+    // Dark Mode Toggle
+    (function() {
+      const toggle = document.getElementById('darkModeToggle');
+      const icon = document.getElementById('darkModeIcon');
+      const htmlElement = document.documentElement;
+
+      // Sun and moon icons
+      const sunIcon = '&#9728;'; // ☀
+      const moonIcon = '&#9789;'; // ☽
+
+      // Check for saved theme preference or default to system preference
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+      // Apply initial theme
+      if (currentTheme === 'dark') {
+        htmlElement.setAttribute('data-theme', 'dark');
+        icon.innerHTML = sunIcon;
+      } else {
+        icon.innerHTML = moonIcon;
+      }
+
+      // Toggle theme
+      toggle.addEventListener('click', function() {
+        const theme = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        icon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+      });
+
+      // Listen to system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          htmlElement.setAttribute('data-theme', theme);
+          icon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+        }
+      });
+    })();
+
+    // Add copy buttons to all code blocks
+    document.addEventListener('DOMContentLoaded', function() {
+      const codeBlocks = document.querySelectorAll('.showcase-code');
+
+      codeBlocks.forEach(function(block) {
+        // Create copy button
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        button.setAttribute('aria-label', 'Copy code to clipboard');
+
+        // Add button to code block
+        block.style.position = 'relative';
+        block.appendChild(button);
+
+        // Copy functionality
+        button.addEventListener('click', function() {
+          const code = block.querySelector('pre code');
+          const text = code ? code.textContent : block.querySelector('pre').textContent;
+
+          navigator.clipboard.writeText(text).then(function() {
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            setTimeout(function() {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          }).catch(function(err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed';
+            setTimeout(function() {
+              button.textContent = 'Copy';
+            }, 2000);
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>

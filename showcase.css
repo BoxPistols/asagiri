@@ -1,6 +1,35 @@
 /* Asagiri CSS Framework Showcase Styles */
 
+/* Dark Mode Variables */
+:root {
+  --showcase-bg: #ffffff;
+  --showcase-bg-secondary: #f8f9fa;
+  --showcase-text: #333;
+  --showcase-text-secondary: #555;
+  --showcase-text-tertiary: #666;
+  --showcase-border: #e0e0e0;
+  --showcase-code-bg: #f5f5f5;
+  --showcase-hover: #e0e0e0;
+}
+
+[data-theme="dark"] {
+  --showcase-bg: #1a1a1a;
+  --showcase-bg-secondary: #2d2d2d;
+  --showcase-text: #e0e0e0;
+  --showcase-text-secondary: #b0b0b0;
+  --showcase-text-tertiary: #999;
+  --showcase-border: #404040;
+  --showcase-code-bg: #2a2a2a;
+  --showcase-hover: #3a3a3a;
+}
+
 /* Layout */
+body {
+  background: var(--showcase-bg);
+  color: var(--showcase-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .showcase-layout {
   display: flex;
   min-height: 100vh;
@@ -9,8 +38,8 @@
 /* Navigation */
 .showcase-nav {
   width: 280px;
-  background: var(--color-bg-secondary, #f8f9fa);
-  border-right: 1px solid var(--color-border, #e0e0e0);
+  background: var(--showcase-bg-secondary);
+  border-right: 1px solid var(--showcase-border);
   padding: 2rem 1rem;
   position: sticky;
   top: 0;
@@ -34,6 +63,34 @@
   opacity: 0.8;
 }
 
+/* Navigation and Section Icons */
+.nav-icon,
+.section-icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+.section-icon {
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+/* Badge for NEW items */
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--color-accent, #ff6b6b);
+  color: white;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
 .showcase-nav ul {
   list-style: none;
   padding: 0;
@@ -46,7 +103,7 @@
 
 .showcase-nav a {
   text-decoration: none;
-  color: var(--color-text, #333);
+  color: var(--showcase-text);
   padding: 0.5rem 1rem;
   display: block;
   border-radius: 4px;
@@ -54,7 +111,7 @@
 }
 
 .showcase-nav a:hover {
-  background: var(--color-hover, #e0e0e0);
+  background: var(--showcase-hover);
   color: var(--color-primary);
 }
 
@@ -82,28 +139,28 @@
   font-size: 1.8rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: var(--color-text-secondary, #555);
+  color: var(--showcase-text-secondary);
 }
 
 .showcase-section h3 {
   font-size: 1.4rem;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: var(--color-text-tertiary, #666);
+  color: var(--showcase-text-tertiary);
 }
 
 /* Example Containers */
 .showcase-example {
-  background: var(--color-bg-white, #fff);
-  border: 1px solid var(--color-border, #e0e0e0);
+  background: var(--showcase-bg);
+  border: 1px solid var(--showcase-border);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 1rem 0;
 }
 
 .showcase-code {
-  background: var(--color-bg-code, #f5f5f5);
-  border: 1px solid var(--color-border, #e0e0e0);
+  background: var(--showcase-code-bg);
+  border: 1px solid var(--showcase-border);
   border-radius: 4px;
   padding: 1rem;
   margin: 1rem 0;
@@ -113,6 +170,39 @@
 .showcase-code pre {
   margin: 0;
   font-size: 0.9rem;
+}
+
+/* Copy Button */
+.copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--showcase-text);
+  background: var(--showcase-bg);
+  border: 1px solid var(--showcase-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.copy-button:hover {
+  background: var(--color-primary, #6366f1);
+  color: white;
+  border-color: var(--color-primary, #6366f1);
+}
+
+.copy-button.copied {
+  background: var(--color-success, #10b981);
+  color: white;
+  border-color: var(--color-success, #10b981);
+}
+
+.copy-button:active {
+  transform: scale(0.95);
 }
 
 /* Color Swatches */
@@ -231,12 +321,42 @@
 .showcase-footer {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 2px solid var(--color-border, #e0e0e0);
+  border-top: 2px solid var(--showcase-border);
 }
 
 .showcase-footer-content {
   text-align: center;
-  color: var(--color-text-tertiary, #666);
+  color: var(--showcase-text-tertiary);
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-primary, #6366f1);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode-toggle:active {
+  transform: scale(0.95);
 }
 
 /* Responsive */

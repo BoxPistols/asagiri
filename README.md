@@ -16,6 +16,7 @@
 - [特徴](#特徴)
 - [インストール](#インストール)
 - [クイックスタート](#クイックスタート)
+- [React / Vue での使用](#react--vue-での使用)
 - [ドキュメント](#ドキュメント)
 - [運用・更新マニュアル](#運用更新マニュアル)
 - [開発](#開発)
@@ -111,6 +112,358 @@ npm install asagiri
   </div>
 </body>
 </html>
+```
+
+## React / Vue での使用
+
+Asagiri v2.0は、React、Vue、その他のJavaScriptフレームワークでの使用に最適化されています。
+
+### インストール
+
+```bash
+npm install asagiri
+# または
+yarn add asagiri
+```
+
+### React での使用
+
+#### 基本的な使い方
+
+```jsx
+// CSSのインポート
+import 'asagiri/css/main.css';
+
+function App() {
+  return (
+    <div className="container">
+      <h1 className="head-1">Hello, Asagiri!</h1>
+      <div className="grid grid-cols-3 gap-4 my-4">
+        <div className="p-4">Grid 1</div>
+        <div className="p-4">Grid 2</div>
+        <div className="p-4">Grid 3</div>
+      </div>
+      <button className="btn btn-primary">Primary</button>
+    </div>
+  );
+}
+```
+
+#### ヘルパー関数を使用（推奨）
+
+```jsx
+import 'asagiri/css/main.css';
+import { cn } from 'asagiri';
+
+function Button({ variant, size, className, children }) {
+  return (
+    <button
+      className={cn(
+        'btn',
+        variant && `btn-${variant}`,
+        size && `btn-${size}`,
+        className
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+// 使用例
+<Button variant="primary" size="lg" className="mt-4">
+  Click me
+</Button>
+```
+
+#### TypeScript での使用
+
+```tsx
+import 'asagiri/css/main.css';
+import { cn, AsagiriClass } from 'asagiri';
+
+interface CardProps {
+  className?: string;
+  children: React.ReactNode;
+}
+
+function Card({ className, children }: CardProps) {
+  return (
+    <div className={cn('card', 'p-6', 'm-4', className)}>
+      {children}
+    </div>
+  );
+}
+```
+
+#### 条件付きクラス
+
+```jsx
+import { cn } from 'asagiri';
+
+function Alert({ type, isVisible }) {
+  return (
+    <div
+      className={cn(
+        'alert',
+        type && `alert-${type}`,
+        isVisible && 'd-block',
+        !isVisible && 'd-none'
+      )}
+    >
+      Alert message
+    </div>
+  );
+}
+
+// オブジェクト形式も可能
+function Card({ isActive, isDisabled }) {
+  return (
+    <div
+      className={cn('card', {
+        'opacity-50': isDisabled,
+        'border-primary': isActive
+      })}
+    >
+      Card content
+    </div>
+  );
+}
+```
+
+### Vue での使用
+
+#### 基本的な使い方（Vue 3 Composition API）
+
+```vue
+<script setup>
+import 'asagiri/css/main.css';
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: String,
+  size: String
+});
+</script>
+
+<template>
+  <div class="container">
+    <h1 class="head-1">Hello, Asagiri!</h1>
+    <div class="grid grid-cols-3 gap-4 my-4">
+      <div class="p-4">Grid 1</div>
+      <div class="p-4">Grid 2</div>
+      <div class="p-4">Grid 3</div>
+    </div>
+    <button class="btn btn-primary">Primary</button>
+  </div>
+</template>
+```
+
+#### ヘルパー関数を使用（推奨）
+
+```vue
+<script setup>
+import 'asagiri/css/main.css';
+import { cn } from 'asagiri';
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: String,
+  size: String,
+  disabled: Boolean
+});
+
+const buttonClass = computed(() =>
+  cn(
+    'btn',
+    props.variant && `btn-${props.variant}`,
+    props.size && `btn-${props.size}`,
+    { 'opacity-50': props.disabled }
+  )
+);
+</script>
+
+<template>
+  <button :class="buttonClass">
+    <slot />
+  </button>
+</template>
+```
+
+#### TypeScript での使用（Vue 3）
+
+```vue
+<script setup lang="ts">
+import 'asagiri/css/main.css';
+import { cn, AsagiriClass } from 'asagiri';
+import { computed } from 'vue';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'success';
+  size?: 'sm' | 'lg';
+  className?: string;
+}
+
+const props = defineProps<Props>();
+
+const buttonClass = computed(() =>
+  cn('btn', props.variant && `btn-${props.variant}`, props.size && `btn-${props.size}`, props.className)
+);
+</script>
+
+<template>
+  <button :class="buttonClass">
+    <slot />
+  </button>
+</template>
+```
+
+### ヘルパー関数 API
+
+#### `cn(...classes)`
+
+複数のクラス名を結合します。文字列、配列、オブジェクト、条件式に対応しています。
+
+```js
+import { cn } from 'asagiri';
+
+// 基本的な使用
+cn('btn', 'btn-primary'); // => 'btn btn-primary'
+
+// 条件式
+cn('btn', isActive && 'active'); // => 'btn active' (isActiveがtrueの場合)
+
+// オブジェクト形式
+cn('btn', {
+  active: isActive,
+  disabled: isDisabled
+}); // => 'btn active' (isActiveがtrueの場合)
+
+// 配列
+cn(['btn', 'btn-primary']); // => 'btn btn-primary'
+
+// 混合
+cn('btn', { active: true }, ['m-4', 'p-2']); // => 'btn active m-4 p-2'
+```
+
+#### `asagiri(...classes)`
+
+`cn()`のエイリアス。Asagiri特有のクラス名に対して型安全性を提供します（TypeScript使用時）。
+
+```ts
+import { asagiri } from 'asagiri';
+
+const classes = asagiri('m-4', 'p-2', 'd-flex'); // 型チェック付き
+```
+
+### Vite / Webpack での設定
+
+#### Vite
+
+```js
+// vite.config.js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // SCSSファイルを直接使う場合
+        additionalData: `@import "asagiri/scss/Tokens/Token";`
+      }
+    }
+  }
+});
+```
+
+#### Webpack
+
+```js
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
+};
+```
+
+### Next.js での使用
+
+```jsx
+// pages/_app.js または app/layout.js
+import 'asagiri/css/main.css';
+
+export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+```
+
+```jsx
+// components/Button.jsx
+import { cn } from 'asagiri';
+
+export default function Button({ variant, children, ...props }) {
+  return (
+    <button
+      className={cn('btn', variant && `btn-${variant}`)}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+### Nuxt での使用
+
+```js
+// nuxt.config.js (Nuxt 3)
+export default defineNuxtConfig({
+  css: ['asagiri/css/main.css']
+});
+```
+
+```vue
+<!-- components/Button.vue -->
+<script setup>
+import { cn } from 'asagiri';
+
+const props = defineProps({
+  variant: String
+});
+
+const buttonClass = computed(() =>
+  cn('btn', props.variant && `btn-${props.variant}`)
+);
+</script>
+
+<template>
+  <button :class="buttonClass">
+    <slot />
+  </button>
+</template>
+```
+
+### SCSSファイルを直接インポート
+
+カスタマイズが必要な場合は、SCSSファイルを直接インポートできます：
+
+```scss
+// あなたのプロジェクトの main.scss
+@import 'asagiri/scss/Tokens/Token';
+@import 'asagiri/scss/Utility/UtilityAll';
+
+// カスタムスタイルを追加
+.your-custom-class {
+  // Asagiriのトークンを使用
+  color: var(--color-primary);
+  margin: var(--spacing-4);
+}
 ```
 
 ## ドキュメント

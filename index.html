@@ -4,379 +4,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Morning Fog">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&amp;family=Inter:wght@400;500;600&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Micro CSS Framework / Morning Fog</title>
+    <meta name="description" content="Asagiri CSS Framework v2.0 - Modern, accessible, and versatile CSS framework with CSS Grid, fluid typography, and comprehensive utility classes">
+    <meta http-equiv="refresh" content="0; url=./showcase.html">
+    <link rel="canonical" href="./showcase.html">
+    <title>Asagiri CSS Framework v2.0</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+      }
+      .container {
+        padding: 2rem;
+        max-width: 600px;
+      }
+      h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.95;
+      }
+      a {
+        color: white;
+        text-decoration: underline;
+        transition: opacity 0.2s;
+      }
+      a:hover {
+        opacity: 0.8;
+      }
+      .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
-    <div class="wrap">
-      <div class="container">
-        <div class="flex horizontal-grids">
-          <section class="section fit max mvw-50">
-            <h1 class="design-font-en">Typography</h1>
-            <div class="flex horizontal-grids">
-              <div>
-                <h2 class="design-font-en">heading</h2>
-                <h1>h1 Heading</h1>
-                <h2>h2 Heading</h2>
-                <h3>h3 Heading</h3>
-                <h4>h4 Heading</h4>
-                <h5>h5 Heading</h5>
-                <h6>h6 Heading</h6>
-                <hr>
-                <h2 class="design-font-en">Color</h2>
-                <p class="color-secondary">secondary</p>
-                <p class="color-accent">accent</p>
-                <p class="color-success">success</p>
-                <p class="color-warning">warning</p>
-                <p class="color-danger">danger</p>
-                <p class="color-info">info</p>
-                <p class="color-elegant">elegant</p>
-              </div>
-              <div>
-                <h2 class="design-font-en">Othes</h2>
-                <p>Paragraph</p><a>Anchor</a><br><em>Emphasis</em><br><small>Small</small><br><strong>Strong</strong><br>
-                <u>Underline</u>
-                <hr>
-                <h2 class="design-font-en">Blockquotes</h2>
-                <blockquote>
-                  <p><em>Qui sit itaque praesentium</em></p>
-                </blockquote>
-                <hr>
-                <h2 class="design-font-en">Code</h2>
-                <pre><code>.hoge {
-color: var(--color-primary);
-}</code></pre>
-              </div>
-            </div>
-          </section>
-          <section class="section fit">
-            <h1 class="design-font-en">List</h1>
-            <div class="flex horizontal-grids">
-              <div>
-                <h4>normal</h4>
-                <ul>
-                  <li>Unordered list item 1</li>
-                  <li>Unordered list item 2</li>
-                </ul>
-                <h4>circle</h4>
-                <ul class="circle">
-                  <li>circle Unordered list item 1</li>
-                  <li>circle Unordered list item 2</li>
-                </ul>
-                <h4>disc</h4>
-                <ul class="disc">
-                  <li>disc Unordered list item 1</li>
-                  <li>disc Unordered list item 2</li>
-                </ul>
-                <h4>disc in disc</h4>
-                <ul class="disc">
-                  <li>disc Unordered list item 1</li>
-                  <li>disc Unordered list item 2</li>
-                  <ul class="disc">
-                    <li>disc Unordered list item 1</li>
-                    <li>disc Unordered list item 2</li>
-                  </ul>
-                </ul>
-              </div>
-              <div>
-                <h4>ol</h4>
-                <ol>
-                  <li>Ordered list item 1</li>
-                  <li>Ordered list item 2</li>
-                </ol>
-                <h4>ol in ol</h4>
-                <ol>
-                  <li>Ordered list item 1</li>
-                  <li>Ordered list item 2</li>
-                  <ol>
-                    <li>Ordered list item 1</li>
-                    <li>Ordered list item 2</li>
-                  </ol>
-                </ol>
-                <h4>dl</h4>
-                <dl>
-                  <dt>Description list item 1</dt>
-                  <dd>Description list item 1.1</dd>
-                </dl>
-              </div>
-            </div>
-          </section>
-          <section class="section fit">
-            <h1 class="design-font-en">Form</h1>
-            <form>
-              <fieldset class="flex flex-column">
-                <div>
-                  <label for="nameField">Name</label>
-                  <input id="nameField" type="text" placeholder="CJ Patoilo">
-                </div>
-                <div>
-                  <label for="ageRangeField">Age Range</label>
-                  <select id="ageRangeField">
-                    <option value="0-13">0-13</option>
-                    <option value="14-17">14-17</option>
-                    <option value="18-23">18-23</option>
-                    <option value="24+">24+</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="commentField">Comment</label>
-                  <textarea id="commentField" placeholder="Hi CJ …"></textarea>
-                </div>
-                <div>
-                  <h4>Select One</h4>
-                  <fieldset class="flex flex-column">
-                    <legend>Select a maintenance this:</legend>
-                    <div>
-                      <input id="huey" type="radio" name="drone" value="huey" checked>
-                      <label class="label-inline" for="huey">Huey</label>
-                    </div>
-                    <div>
-                      <input id="dewey" type="radio" name="drone" value="dewey">
-                      <label class="label-inline" for="dewey">Dewey</label>
-                    </div>
-                    <div>
-                      <input id="louie" type="radio" name="drone" value="louie">
-                      <label class="label-inline" for="louie">Louie</label>
-                    </div>
-                  </fieldset>
-                </div>
-                <div>
-                  <h4>Select Checkbox</h4>
-                  <fieldset class="flex flex-column">
-                    <div>
-                      <input id="checkItem" type="checkbox">
-                      <label class="label-inline" for="checkItem">Katie Love</label>
-                    </div>
-                    <div>
-                      <input id="checkItem2" type="checkbox">
-                      <label class="label-inline" for="checkItem2">Beau Branch</label>
-                    </div>
-                  </fieldset>
-                </div>
-                <div>
-                  <input id="confirmField" type="checkbox">
-                  <label class="label-inline" for="confirmField">Send a copy to yourself</label>
-                </div>
-                <input class="button-primary" type="submit" value="Send">
-              </fieldset>
-            </form>
-          </section>
-        </div>
-        <div class="flex horizontal-grids">
-          <section class="section fit max mvw-50">
-            <h1 class="design-font-en">Button</h1>
-            <div class="flex flex-column vertical-grids">
-              <div>
-                <h2 class="design-font-en">Default</h2>
-                <button class="button">Normal</button>
-                <button class="button button-outline">Outlined</button>
-                <button class="button button-cancel">Cancel</button>
-                <input class="button button-clear" type="submit" value="Clear">
-              </div>
-              <div>
-                <h2 class="design-font-en">Disabled</h2>
-                <button class="button" disabled>Disabled</button>
-                <button class="button button-cancel" disabled>Cancel(disabled)</button>
-              </div>
-              <div>
-                <h2 class="design-font-en">Variarions</h2>
-                <h3>background</h3>
-                <div class="button btn-secondary">secondary</div>
-                <div class="button btn-accent">accent</div>
-                <div class="button btn-success">success</div>
-                <div class="button btn-warning">warning</div>
-                <div class="button btn-danger">danger</div>
-                <div class="button btn-info">info</div>
-                <div class="button btn-elegant">elegant</div>
-                <h3>outline</h3>
-                <div class="button btn-outline-secondary">secondary</div>
-                <div class="button btn-outline-accent">accent</div>
-                <div class="button btn-outline-success">success</div>
-                <div class="button btn-outline-warning">warning</div>
-                <div class="button btn-outline-danger">danger</div>
-                <div class="button btn-outline-info">info</div>
-                <div class="button btn-outline-elegant">elegant</div>
-              </div>
-            </div>
-          </section>
-          <section class="section fit">
-            <h1 class="design-font-en">Table</h1>
-            <div class="flex flex-column">
-              <div class="space-pd">
-                <h2 class="design-font-en">Default</h2>
-                <table>
-                  <thead></thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Height</th>
-                    <th>Location</th>
-                  </tr>
-                              <tbody>
-                                <tr>
-                                  <td>Stephen Curry</td>
-                                  <td>27</td>
-                                  <td>1,91</td>
-                                  <td>Akron, OH</td>
-                                </tr>
-                                <tr>
-                                  <td>Klay Thompson</td>
-                                  <td>25</td>
-                                  <td>2,01</td>
-                                  <td>Los Angeles, CA</td>
-                                </tr>
-                                <tr>
-                                  <td>Hamish Barton</td>
-                                  <td>22</td>
-                                  <td>3,25</td>
-                                  <td>Qui Quibusdam Saepe</td>
-                                </tr>
-                                <tr>
-                                  <td>Niall Glover</td>
-                                  <td>29</td>
-                                  <td>1,87</td>
-                                  <td>Eum Fuga Sed Optio</td>
-                                </tr>
-                                <tr>
-                                  <td>Casey Rose</td>
-                                  <td>32</td>
-                                  <td>1,99</td>
-                                  <td>Ea sit quos aliquid ut rem</td>
-                                </tr>
-                              </tbody>
-                </table>
-              </div>
-              <div class="space-pd">
-                <h2 class="design-font-en">Dark + Stripe</h2>
-                <table class="stripe">
-                  <thead class="dark">
-                    <tr>
-                      <th>Name</th>
-                      <th>Age</th>
-                      <th>Height</th>
-                      <th>Location</th>
-                    </tr>
-                                <tbody>
-                                  <tr>
-                                    <td>Stephen Curry</td>
-                                    <td>27</td>
-                                    <td>1,91</td>
-                                    <td>Akron, OH</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Klay Thompson</td>
-                                    <td>25</td>
-                                    <td>2,01</td>
-                                    <td>Los Angeles, CA</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Hamish Barton</td>
-                                    <td>22</td>
-                                    <td>3,25</td>
-                                    <td>Qui Quibusdam Saepe</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Niall Glover</td>
-                                    <td>29</td>
-                                    <td>1,87</td>
-                                    <td>Eum Fuga Sed Optio</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Casey Rose</td>
-                                    <td>32</td>
-                                    <td>1,99</td>
-                                    <td>Ea sit quos aliquid ut rem</td>
-                                  </tr>
-                                </tbody>
-                  </thead>
-                </table>
-              </div>
-            </div>
-          </section>
-          <section class="section w-100">
-            <h1 class="design-font-en">GridColumn</h1>
-            <div class="mg-container column-show">
-              <div class="row">
-                <div class="column">.column</div>
-                <div class="column">.column</div>
-                <div class="column">.column</div>
-                <div class="column">.column</div>
-              </div>
-              <div class="row">
-                <div class="column">.column</div>
-                <div class="column column-offset-25">column-offset-25</div>
-              </div>
-              <div class="row">
-                <div class="column column-25">.column-25</div>
-                <div class="column column-offset-auto">column-offset-auto</div>
-              </div>
-              <div class="row row-bottom">
-                <div class="column column-25">column-offset-25</div>
-              </div>
-              <div class="row">
-                <div class="column">.column</div>
-                <div class="column column-50 column-offset-25">.column-50.column-offset-25</div>
-              </div>
-              <div class="row">
-                <div class="column column-66">.column-66</div>
-                <div class="column column-auto">.column-auto</div>
-              </div>
-              <div class="row">
-                <div class="column column-33">.column-33</div>
-                <div class="column column-auto">.column-auto</div>
-              </div>
-            </div>
-            <div class="mg-container column-show sp-column">
-              <div class="row">
-                <div class="column">.column</div>
-                <div class="column">.column</div>
-                <div class="column">.column</div>
-                <div class="column">.column</div>
-              </div>
-              <div class="row">
-                <div class="column column-10">10%</div>
-              </div>
-              <div class="row">
-                <div class="column column-20">20%</div>
-              </div>
-              <div class="row">
-                <div class="column column-25">25%</div>
-              </div>
-              <div class="row">
-                <div class="column column-33">33%</div>
-              </div>
-              <div class="row">
-                <div class="column column-40">40%</div>
-              </div>
-              <div class="row">
-                <div class="column column-50">50%</div>
-              </div>
-              <div class="row">
-                <div class="column column-60">60%</div>
-              </div>
-              <div class="row">
-                <div class="column column-66">66%</div>
-              </div>
-              <div class="row">
-                <div class="column column-75">75%</div>
-              </div>
-              <div class="row">
-                <div class="column column-80">80%</div>
-              </div>
-              <div class="row">
-                <div class="column column-90">90%</div>
-              </div>
-              <div class="row">
-                <div class="column">100%</div>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
+    <div class="container">
+      <h1>🌅 Asagiri CSS Framework v2.0</h1>
+      <p>Modern, accessible, and versatile CSS framework</p>
+      <p><span class="spinner"></span> Redirecting to showcase page...</p>
+      <p>If not redirected, <a href="./showcase.html">click here</a>.</p>
     </div>
+    <script>
+      // Immediate redirect
+      window.location.href = './showcase.html';
+    </script>
   </body>
 </html>

@@ -30,9 +30,10 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.showcase-layout {
-  display: flex;
-  min-height: 100vh;
+.showcase-nav h2 a:hover {
+  opacity: 0.8;
+  background-color: transparent;
+}
 }
 
 /* Navigation */

@@ -13,14 +13,14 @@
 }
 
 [data-theme="dark"] {
-  --showcase-bg: #1a1a1a;
-  --showcase-bg-secondary: #2d2d2d;
-  --showcase-text: #e0e0e0;
-  --showcase-text-secondary: #b0b0b0;
-  --showcase-text-tertiary: #999;
-  --showcase-border: #404040;
-  --showcase-code-bg: #2a2a2a;
-  --showcase-hover: #3a3a3a;
+  --showcase-bg: #1e1e1e;
+  --showcase-bg-secondary: #2a2a2a;
+  --showcase-text: #d4d4d4;
+  --showcase-text-secondary: #a8a8a8;
+  --showcase-text-tertiary: #888;
+  --showcase-border: #3a3a3a;
+  --showcase-code-bg: #2e2e2e;
+  --showcase-hover: #353535;
 }
 
 /* Layout */
@@ -42,11 +42,10 @@ body {
   background: var(--showcase-bg-secondary);
   border-right: 1px solid var(--showcase-border);
   padding: 2rem 1rem;
-  position: sticky;
-  top: 0;
   height: 100vh;
   overflow-y: auto;
   transition: width 0.3s ease, padding 0.3s ease;
+  flex-shrink: 0;
 }
 
 .showcase-nav.compact {
@@ -179,6 +178,11 @@ body {
   margin: 1rem 0;
 }
 
+[data-theme="dark"] .showcase-example {
+  background: var(--showcase-bg-secondary);
+  color: var(--showcase-text);
+}
+
 .showcase-code {
   background: var(--showcase-code-bg);
   border: 1px solid var(--showcase-border);
@@ -200,8 +204,10 @@ body {
 
 [data-theme="dark"] .showcase-code code,
 [data-theme="dark"] .showcase-example code {
-  color: #e0e0e0;
-  background: #2e3134;
+  color: #e7e7e7;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
 }
 
 /* Copy Button */
@@ -297,6 +303,12 @@ body {
   margin: 0.25rem 0;
   border-radius: 4px;
   text-align: center;
+  color: #333;
+}
+
+[data-theme="dark"] .grid-demo {
+  background: rgba(255, 255, 255, 0.1);
+  color: #d4d4d4;
 }
 
 /* Width Demo Boxes */
@@ -304,12 +316,24 @@ body {
   background: var(--color-bg-blue-light, #e3f2fd);
   padding: 1rem;
   margin: 0.5rem 0;
+  color: #333;
+}
+
+[data-theme="dark"] .width-demo {
+  background: rgba(99, 102, 241, 0.2);
+  color: #d4d4d4;
 }
 
 .max-width-demo {
   background: var(--color-bg-orange-light, #fff3e0);
   padding: 1rem;
   margin: 0.5rem 0;
+  color: #333;
+}
+
+[data-theme="dark"] .max-width-demo {
+  background: rgba(251, 146, 60, 0.2);
+  color: #d4d4d4;
 }
 
 .flex-demo-center {
@@ -317,18 +341,36 @@ body {
   padding: 1rem;
   margin: 0.5rem 0;
   height: 100px;
+  color: #333;
+}
+
+[data-theme="dark"] .flex-demo-center {
+  background: rgba(168, 85, 247, 0.2);
+  color: #d4d4d4;
 }
 
 .flex-demo-between {
   background: var(--color-bg-green-light, #e8f5e9);
   padding: 1rem;
   margin: 0.5rem 0;
+  color: #333;
+}
+
+[data-theme="dark"] .flex-demo-between {
+  background: rgba(16, 185, 129, 0.2);
+  color: #d4d4d4;
 }
 
 .flex-demo-around {
   background: var(--color-bg-cyan-light, #e1f5fe);
   padding: 1rem;
   margin: 0.5rem 0;
+  color: #333;
+}
+
+[data-theme="dark"] .flex-demo-around {
+  background: rgba(6, 182, 212, 0.2);
+  color: #d4d4d4;
 }
 
 /* Spacing Demo Boxes */
@@ -336,14 +378,29 @@ body {
   background: var(--color-bg-white, #fff);
 }
 
+[data-theme="dark"] .spacing-demo-inner {
+  background: rgba(255, 255, 255, 0.1);
+  color: #d4d4d4;
+}
+
 .spacing-demo-pd {
   background: var(--color-bg-blue-light, #e3f2fd);
   display: inline-block;
 }
 
+[data-theme="dark"] .spacing-demo-pd {
+  background: rgba(99, 102, 241, 0.2);
+  color: #d4d4d4;
+}
+
 .spacing-demo-mg-outer {
   background: var(--color-bg-green-light, #e8f5e9);
   display: inline-block;
+}
+
+[data-theme="dark"] .spacing-demo-mg-outer {
+  background: rgba(16, 185, 129, 0.2);
+  color: #d4d4d4;
 }
 
 /* Layout Demo */
@@ -352,10 +409,21 @@ body {
   padding: 2rem;
 }
 
+[data-theme="dark"] .layout-section-demo {
+  background: rgba(255, 255, 255, 0.05);
+  color: #d4d4d4;
+}
+
 .layout-box-demo {
   background: var(--color-bg-white, #fff);
   border: 1px solid var(--color-border, #e0e0e0);
   padding: 1rem;
+}
+
+[data-theme="dark"] .layout-box-demo {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--showcase-border);
+  color: #d4d4d4;
 }
 
 /* Footer */
@@ -408,6 +476,11 @@ body {
   border: 2px dashed var(--showcase-border);
   min-height: 200px;
   font-size: 0.875rem;
+  color: var(--showcase-text);
+}
+
+[data-theme="dark"] .layout-demo {
+  background: var(--showcase-bg-secondary);
 }
 
 /* Holy Grail Layout */
@@ -436,6 +509,12 @@ body {
   background: var(--color-secondary-light, #e0e7ff);
   padding: 1rem;
   min-width: 150px;
+}
+
+[data-theme="dark"] .holy-grail-layout .layout-sidebar-left,
+[data-theme="dark"] .holy-grail-layout .layout-sidebar-right {
+  background: rgba(99, 102, 241, 0.2);
+  color: #d4d4d4;
 }
 
 .holy-grail-layout .layout-main {

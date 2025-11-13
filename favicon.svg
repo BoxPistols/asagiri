@@ -1,4 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <rect width="100" height="100" fill="#5b21b6" rx="4"/>
-  <path d="M50 22L72 78H63L58.5 66H41.5L37 78H28L50 22Z M50 38L45 54H55L50 38Z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="miter"/>
+  <g fill="none" stroke="white" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M50 25 L35 75"/>
+    <path d="M50 25 L65 75"/>
+    <path d="M42 58 L58 58"/>
+  </g>
 </svg>

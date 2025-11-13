@@ -1,8 +1,704 @@
+# Asagiri CSS Framework
 
-# Asagiri
+<div align="center">
 
-This is Micro CSS Framework
+🌅 **朝霧** - A modern, lightweight CSS framework
+
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/BoxPistols/asagiri)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![CSS Size](https://img.shields.io/badge/size-60KB-orange.svg)]()
+
+</div>
+
+## 📖 目次
+
+- [概要](#概要)
+- [特徴](#特徴)
+- [インストール](#インストール)
+- [クイックスタート](#クイックスタート)
+- [React / Vue での使用](#react--vue-での使用)
+- [ドキュメント](#ドキュメント)
+- [運用・更新マニュアル](#運用更新マニュアル)
+- [開発](#開発)
+- [ライセンス](#ライセンス)
+
+## 概要
+
+Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。シンプルさを保ちながら、最新のCSS機能を活用した汎用性の高いフレームワークを目指しています。
+
+### v2.0の主な変更点
+
+- ✨ Modern Normalize v3.0.1に更新
+- 🎯 CSS Grid完全サポート
+- 📏 体系的なスペーシングシステム（m-*, p-*）
+- 🎨 流動的タイポグラフィ（clamp関数）
+- ♿ アクセシビリティ大幅強化（focus-visible, reduced-motion）
+- 📱 モバイルファーストのブレークポイントシステム
+- 🗂️ 包括的なユーティリティクラス
+
+## 特徴
+
+### 🚀 モダンなCSS技術
+
+- **Modern Normalize v3.0.1** - 最新のリセットCSS
+- **CSS Custom Properties** - テーマのカスタマイズが容易
+- **CSS Grid & Flexbox** - 柔軟なレイアウトシステム
+- **Fluid Typography** - clamp()による流動的なフォントサイズ
+- **Accessibility First** - WCAGガイドライン準拠
+
+### 🎨 包括的なコンポーネント
+
+- Typography（見出し、段落、リンク）
+- Buttons（多様なバリエーション）
+- Forms（入力、選択、テキストエリア）
+- Tables（デフォルト、ストライプ）
+- Lists（UL、OL、DL）
+- Grid Systems（Flexbox & CSS Grid）
+
+### 🛠️ 豊富なユーティリティ
+
+- **Spacing** - マージン・パディング（m-*, p-*, mx-*, my-*, etc.）
+- **Display** - 表示制御（d-*, position-*, opacity-*, etc.）
+- **Grid** - CSS Grid（grid-cols-*, gap-*, col-span-*, etc.）
+- **Layout** - Flexbox（flex-*, justify-*, align-*, etc.）
+
+## インストール
+
+### コンパイル済みCSSを使用
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/BoxPistols/asagiri@2.0/css/main.css">
+```
+
+### NPM経由
+
+```bash
+npm install asagiri
+```
+
+```html
+<link rel="stylesheet" href="node_modules/asagiri/css/main.css">
+```
+
+### ダウンロード
+
+[Releases](https://github.com/BoxPistols/asagiri/releases)から最新版をダウンロード
+
+## クイックスタート
+
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asagiri Framework</title>
+  <link rel="stylesheet" href="path/to/asagiri/css/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Hello, Asagiri!</h1>
+
+    <!-- CSS Grid -->
+    <div class="grid grid-cols-3 gap-4 my-4">
+      <div class="p-4">Grid 1</div>
+      <div class="p-4">Grid 2</div>
+      <div class="p-4">Grid 3</div>
+    </div>
+
+    <!-- Buttons -->
+    <button class="button btn-primary">Primary</button>
+    <button class="button btn-success">Success</button>
+  </div>
+</body>
+</html>
+```
+
+## React / Vue での使用
+
+Asagiri v2.0は、React、Vue、その他のJavaScriptフレームワークでの使用に最適化されています。
+
+### インストール
+
+```bash
+npm install asagiri
+# または
+yarn add asagiri
+```
+
+### React での使用
+
+#### 基本的な使い方
+
+```jsx
+// CSSのインポート
+import 'asagiri/css/main.css';
+
+function App() {
+  return (
+    <div className="container">
+      <h1 className="head-1">Hello, Asagiri!</h1>
+      <div className="grid grid-cols-3 gap-4 my-4">
+        <div className="p-4">Grid 1</div>
+        <div className="p-4">Grid 2</div>
+        <div className="p-4">Grid 3</div>
+      </div>
+      <button className="btn btn-primary">Primary</button>
+    </div>
+  );
+}
+```
+
+#### ヘルパー関数を使用（推奨）
+
+```jsx
+import 'asagiri/css/main.css';
+import { cn } from 'asagiri';
+
+function Button({ variant, size, className, children }) {
+  return (
+    <button
+      className={cn(
+        'btn',
+        variant && `btn-${variant}`,
+        size && `btn-${size}`,
+        className
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+// 使用例
+<Button variant="primary" size="lg" className="mt-4">
+  Click me
+</Button>
+```
+
+#### TypeScript での使用
+
+```tsx
+import 'asagiri/css/main.css';
+import { cn, AsagiriClass } from 'asagiri';
+
+interface CardProps {
+  className?: string;
+  children: React.ReactNode;
+}
+
+function Card({ className, children }: CardProps) {
+  return (
+    <div className={cn('card', 'p-6', 'm-4', className)}>
+      {children}
+    </div>
+  );
+}
+```
+
+#### 条件付きクラス
+
+```jsx
+import { cn } from 'asagiri';
+
+function Alert({ type, isVisible }) {
+  return (
+    <div
+      className={cn(
+        'alert',
+        type && `alert-${type}`,
+        isVisible && 'd-block',
+        !isVisible && 'd-none'
+      )}
+    >
+      Alert message
+    </div>
+  );
+}
+
+// オブジェクト形式も可能
+function Card({ isActive, isDisabled }) {
+  return (
+    <div
+      className={cn('card', {
+        'opacity-50': isDisabled,
+        'border-primary': isActive
+      })}
+    >
+      Card content
+    </div>
+  );
+}
+```
+
+### Vue での使用
+
+#### 基本的な使い方（Vue 3 Composition API）
+
+```vue
+<script setup>
+import 'asagiri/css/main.css';
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: String,
+  size: String
+});
+</script>
+
+<template>
+  <div class="container">
+    <h1 class="head-1">Hello, Asagiri!</h1>
+    <div class="grid grid-cols-3 gap-4 my-4">
+      <div class="p-4">Grid 1</div>
+      <div class="p-4">Grid 2</div>
+      <div class="p-4">Grid 3</div>
+    </div>
+    <button class="btn btn-primary">Primary</button>
+  </div>
+</template>
+```
+
+#### ヘルパー関数を使用（推奨）
+
+```vue
+<script setup>
+import 'asagiri/css/main.css';
+import { cn } from 'asagiri';
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: String,
+  size: String,
+  disabled: Boolean
+});
+
+const buttonClass = computed(() =>
+  cn(
+    'btn',
+    props.variant && `btn-${props.variant}`,
+    props.size && `btn-${props.size}`,
+    { 'opacity-50': props.disabled }
+  )
+);
+</script>
+
+<template>
+  <button :class="buttonClass">
+    <slot />
+  </button>
+</template>
+```
+
+#### TypeScript での使用（Vue 3）
+
+```vue
+<script setup lang="ts">
+import 'asagiri/css/main.css';
+import { cn, AsagiriClass } from 'asagiri';
+import { computed } from 'vue';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'success';
+  size?: 'sm' | 'lg';
+  className?: string;
+}
+
+const props = defineProps<Props>();
+
+const buttonClass = computed(() =>
+  cn('btn', props.variant && `btn-${props.variant}`, props.size && `btn-${props.size}`, props.className)
+);
+</script>
+
+<template>
+  <button :class="buttonClass">
+    <slot />
+  </button>
+</template>
+```
+
+### ヘルパー関数 API
+
+#### `cn(...classes)`
+
+複数のクラス名を結合します。文字列、配列、オブジェクト、条件式に対応しています。
+
+```js
+import { cn } from 'asagiri';
+
+// 基本的な使用
+cn('btn', 'btn-primary'); // => 'btn btn-primary'
+
+// 条件式
+cn('btn', isActive && 'active'); // => 'btn active' (isActiveがtrueの場合)
+
+// オブジェクト形式
+cn('btn', {
+  active: isActive,
+  disabled: isDisabled
+}); // => 'btn active' (isActiveがtrueの場合)
+
+// 配列
+cn(['btn', 'btn-primary']); // => 'btn btn-primary'
+
+// 混合
+cn('btn', { active: true }, ['m-4', 'p-2']); // => 'btn active m-4 p-2'
+```
+
+#### `asagiri(...classes)`
+
+`cn()`のエイリアス。Asagiri特有のクラス名に対して型安全性を提供します（TypeScript使用時）。
+
+```ts
+import { asagiri } from 'asagiri';
+
+const classes = asagiri('m-4', 'p-2', 'd-flex'); // 型チェック付き
+```
+
+### Vite / Webpack での設定
+
+#### Vite
+
+```js
+// vite.config.js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // SCSSファイルを直接使う場合
+        additionalData: `@import "asagiri/scss/Tokens/Token";`
+      }
+    }
+  }
+});
+```
+
+#### Webpack
+
+```js
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
+};
+```
+
+### Next.js での使用
+
+```jsx
+// pages/_app.js または app/layout.js
+import 'asagiri/css/main.css';
+
+export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+```
+
+```jsx
+// components/Button.jsx
+import { cn } from 'asagiri';
+
+export default function Button({ variant, children, ...props }) {
+  return (
+    <button
+      className={cn('btn', variant && `btn-${variant}`)}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+### Nuxt での使用
+
+```js
+// nuxt.config.js (Nuxt 3)
+export default defineNuxtConfig({
+  css: ['asagiri/css/main.css']
+});
+```
+
+```vue
+<!-- components/Button.vue -->
+<script setup>
+import { cn } from 'asagiri';
+
+const props = defineProps({
+  variant: String
+});
+
+const buttonClass = computed(() =>
+  cn('btn', props.variant && `btn-${props.variant}`)
+);
+</script>
+
+<template>
+  <button :class="buttonClass">
+    <slot />
+  </button>
+</template>
+```
+
+### SCSSファイルを直接インポート
+
+カスタマイズが必要な場合は、SCSSファイルを直接インポートできます：
+
+```scss
+// あなたのプロジェクトの main.scss
+@import 'asagiri/scss/Tokens/Token';
+@import 'asagiri/scss/Utility/UtilityAll';
+
+// カスタムスタイルを追加
+.your-custom-class {
+  // Asagiriのトークンを使用
+  color: var(--color-primary);
+  margin: var(--spacing-4);
+}
+```
+
+## ドキュメント
+
+完全なドキュメントとデモは `showcase.html` を参照してください：
+
+```bash
+# ローカルサーバーで開く
+python3 -m http.server 8000
+# http://localhost:8000/showcase.html
+```
+
+### 主要なユーティリティ
+
+#### スペーシング
+
+```html
+<div class="m-4">マージン 1rem（全方向）</div>
+<div class="mt-2">マージントップ 0.5rem</div>
+<div class="px-6 py-3">パディング 水平1.5rem 垂直0.75rem</div>
+<div class="mx-auto">中央配置</div>
+```
+
+#### CSS Grid
+
+```html
+<div class="grid grid-cols-3 gap-4">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+
+<!-- 自動レスポンシブ -->
+<div class="grid grid-auto-fit-md gap-4">
+  <!-- メディアクエリ不要 -->
+</div>
+```
+
+#### Display
+
+```html
+<div class="d-flex">フレックス表示</div>
+<div class="d-grid">グリッド表示</div>
+<div class="d-none">非表示</div>
+<div class="opacity-50">50%透明度</div>
+```
+
+## 運用・更新マニュアル
+
+### プロジェクト構造
+
+```
+asagiri/
+├── css/
+│   └── main.css              # コンパイル済みCSS（本番用）
+├── scss/
+│   ├── main.scss             # メインSCSSファイル
+│   ├── _Normalize.scss       # Modern Normalize
+│   ├── _Typography.scss      # タイポグラフィ
+│   ├── _Accessibility.scss   # アクセシビリティ
+│   ├── Tokens/               # デザイントークン
+│   │   ├── _Breakpoints.scss # レスポンシブ
+│   │   ├── _Color.scss       # カラーシステム
+│   │   └── _Spacing.scss     # スペーシング
+│   ├── Utility/              # ユーティリティ
+│   │   ├── _Grid.scss        # CSS Grid
+│   │   ├── _SpacingSystem.scss # スペーシング
+│   │   └── _Display.scss     # 表示制御
+│   └── Components/           # コンポーネント
+└── showcase.html             # デモ・ドキュメント
+```
+
+### 開発環境のセットアップ
+
+```bash
+# 1. リポジトリをクローン
+git clone https://github.com/BoxPistols/asagiri.git
+cd asagiri
+
+# 2. 依存関係をインストール
+npm install
+
+# 3. SCSSをコンパイル
+npx sass scss/main.scss css/main.css --no-source-map
+
+# 4. 開発中は watch モード
+npx sass scss/main.scss css/main.css --watch --no-source-map
+```
+
+### スタイルの変更手順
+
+#### 1. カラーを変更
+
+```scss
+// scss/Tokens/_Color.scss を編集
+:root {
+  --color-primary: #your-color;  // ← 変更
+}
+```
+
+#### 2. ブレークポイントを変更
+
+```scss
+// scss/Tokens/_Breakpoints.scss を編集
+$breakpoints: (
+  'md': 768px,  // ← 変更可能
+  'lg': 1024px  // ← 変更可能
+) !default;
+```
+
+#### 3. 新しいユーティリティを追加
+
+```scss
+// 1. scss/Utility/_YourUtility.scss を作成
+.your-utility {
+  // スタイルを定義
+}
+
+// 2. scss/Utility/_UtilityAll.scss にインポート追加
+@import "YourUtility";
+
+// 3. コンパイル
+npx sass scss/main.scss css/main.css
+```
+
+#### 4. showcase.htmlを更新
+
+新しい機能を追加したら、必ず `showcase.html` にデモを追加してください。
+
+### コンパイルコマンド
+
+```bash
+# 通常コンパイル
+npx sass scss/main.scss css/main.css --no-source-map
+
+# 監視モード（開発用）
+npx sass scss/main.scss css/main.css --watch --no-source-map
+
+# 圧縮版（本番用）
+npx sass scss/main.scss css/main.min.css --style=compressed --no-source-map
+```
+
+### バージョン管理
+
+```bash
+# 1. 変更をテスト
+npx sass scss/main.scss css/main.css
+
+# 2. package.json のバージョンを更新
+# "version": "2.1.0"
+
+# 3. コミット
+git add .
+git commit -m "feat: add new feature"
+git push
+
+# 4. タグを作成
+git tag v2.1.0
+git push origin v2.1.0
+```
+
+### トラブルシューティング
+
+#### SCSSコンパイルエラー
+
+```bash
+# Sassを再インストール
+npm install --save-dev sass
+
+# キャッシュクリア
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### スタイルが反映されない
+
+1. ブラウザキャッシュをクリア（Ctrl+Shift+R）
+2. CSSファイルのタイムスタンプを確認
+   ```bash
+   ls -l css/main.css
+   ```
+3. HTMLのリンクパスを確認
+
+### ベストプラクティス
+
+1. ✅ **常にSCSSを編集** - CSSファイルを直接編集しない
+2. ✅ **モバイルファースト** - 小さい画面から設計
+3. ✅ **コメントを残す** - 意図を明確に記載
+4. ✅ **showcase.htmlを更新** - 新機能のデモを追加
+5. ✅ **セマンティックバージョニング** - MAJOR.MINOR.PATCH
+
+## 開発
+
+### ブランチ戦略
+
+- `main` - 本番環境（安定版）
+- `develop` - 開発環境
+- `feature/*` - 新機能開発
+- `fix/*` - バグ修正
+
+### コントリビューション
+
+プルリクエストを歓迎します！
+
+1. Fork this repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## ブラウザサポート
+
+- ✅ Chrome/Edge (最新2バージョン)
+- ✅ Firefox (最新2バージョン)
+- ✅ Safari (最新2バージョン)
+- ✅ iOS Safari (最新2バージョン)
+- ❌ Internet Explorer (非サポート)
+
+## ライセンス
+
+MIT License - See [LICENSE](LICENSE) for details
+
+## リンク
+
+- [GitHub Repository](https://github.com/BoxPistols/asagiri)
+- [Issues](https://github.com/BoxPistols/asagiri/issues)
+- [Showcase Demo](./showcase.html)
+
+## 謝辞
+
+- [Modern Normalize](https://github.com/sindresorhus/modern-normalize)
+- All Contributors
 
 ---
 
-[![npm version](https://badge.fury.io/js/asagiri.svg)](https://badge.fury.io/js/asagiri)
+<div align="center">
+Made with ❤️ by <a href="https://github.com/BoxPistols">BoxPistols</a>
+</div>

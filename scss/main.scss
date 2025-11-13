@@ -1,10 +1,11 @@
-@import "Normalize";
-@import "Tokens/Token";
-@import "Utility/UtilityAll";
-@import "Components/Component";
-@import "baseAll";
-@import "Typography";
-@import "Button";
+@use "Normalize";
+@use "Tokens/Token" as *;
+@use "Utility/UtilityAll";
+@use "Components/Component";
+@use "baseAll";
+@use "Typography";
+@use "Button";
+@use "Accessibility";
 
 .wrap {
   padding: 4vh 2vw;

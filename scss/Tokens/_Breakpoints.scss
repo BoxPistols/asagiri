@@ -1,0 +1,58 @@
+// =============================================================================
+// Breakpoints System
+// =============================================================================
+// Modern, mobile-first responsive breakpoints
+
+// Breakpoint values (mobile-first)
+$breakpoints: (
+  'sm': 40em,    // 640px - Small devices (landscape phones)
+  'md': 48em,    // 768px - Medium devices (tablets)
+  'lg': 64em,    // 1024px - Large devices (desktops)
+  'xl': 80em,    // 1280px - Extra large devices
+  'xxl': 96em    // 1536px - Extra extra large devices
+) !default;
+
+// CSS Custom Properties for breakpoints
+:root {
+  --breakpoint-sm: 40em;
+  --breakpoint-md: 48em;
+  --breakpoint-lg: 64em;
+  --breakpoint-xl: 80em;
+  --breakpoint-xxl: 96em;
+}
+
+// Breakpoint mixin for mobile-first approach
+// Usage: @include breakpoint(md) { ... }
+@mixin breakpoint($size) {
+  @if map-has-key($breakpoints, $size) {
+    @media (min-width: map-get($breakpoints, $size)) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$size}";
+  }
+}
+
+// Breakpoint range mixin
+// Usage: @include breakpoint-range(sm, lg) { ... }
+@mixin breakpoint-range($min, $max) {
+  @if map-has-key($breakpoints, $min) and map-has-key($breakpoints, $max) {
+    @media (min-width: map-get($breakpoints, $min)) and (max-width: map-get($breakpoints, $max) - 0.02em) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint range: #{$min} to #{$max}";
+  }
+}
+
+// Max-width breakpoint mixin (use sparingly, prefer mobile-first)
+// Usage: @include breakpoint-max(md) { ... }
+@mixin breakpoint-max($size) {
+  @if map-has-key($breakpoints, $size) {
+    @media (max-width: map-get($breakpoints, $size) - 0.02em) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$size}";
+  }
+}

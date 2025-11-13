@@ -113,7 +113,7 @@
       &.column {
         &-auto {
           flex: auto;
-          max-width: auto;
+          max-width: none;
         }
 
         &-10 {

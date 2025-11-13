@@ -1,12 +1,65 @@
 {
   "name": "asagiri",
-  "version": "0.1.1",
-  "description": "micro-css-framework",
+  "version": "2.0.0",
+  "description": "Modern, accessible, and versatile CSS framework with CSS Grid, fluid typography, and comprehensive utility classes",
   "main": "css/main.css",
-  "keywords": [
-    "asagiri, micro-css-framework"
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "default": "./css/main.css"
+    },
+    "./css": "./css/main.css",
+    "./css/*": "./css/*",
+    "./scss/*": "./scss/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "css/",
+    "scss/",
+    "index.js",
+    "index.mjs",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
   ],
-  "homepage": "agd.tokyo",
+  "keywords": [
+    "css",
+    "css-framework",
+    "sass",
+    "scss",
+    "utility-css",
+    "css-grid",
+    "accessible",
+    "responsive",
+    "react",
+    "vue",
+    "modern-css",
+    "fluid-typography"
+  ],
+  "homepage": "https://github.com/BoxPistols/asagiri#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoxPistols/asagiri.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BoxPistols/asagiri/issues"
+  },
   "author": "asagiri-design",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "sass scss/main.scss css/main.css --style=expanded --no-source-map",
+    "build:compressed": "sass scss/main.scss css/main.min.css --style=compressed --no-source-map",
+    "watch": "sass scss/main.scss css/main.css --watch --style=expanded",
+    "prepublishOnly": "npm run build && npm run build:compressed"
+  },
+  "devDependencies": {
+    "sass": "^1.94.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }

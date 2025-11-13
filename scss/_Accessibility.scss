@@ -1,0 +1,235 @@
+// =============================================================================
+// Accessibility Improvements
+// =============================================================================
+// Modern accessibility features including focus-visible and reduced-motion
+
+// Focus Visible - Modern focus styling
+// Only show focus outline when using keyboard navigation
+// Safe approach: Remove outline only for mouse users, keep for older browsers
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary, #31a9c7);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// Button focus styles
+button:focus-visible,
+[type='button']:focus-visible,
+[type='reset']:focus-visible,
+[type='submit']:focus-visible {
+  outline: 2px solid var(--color-primary, #31a9c7);
+  outline-offset: 2px;
+}
+
+// Link focus styles
+a:focus-visible {
+  outline: 2px solid var(--color-primary, #31a9c7);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// Input focus styles
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary, #31a9c7);
+  outline-offset: 0;
+  border-color: var(--color-primary, #31a9c7);
+}
+
+// Reduced Motion Support
+// Respects user's motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Enable smooth scroll by default (respects reduced-motion)
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+// High Contrast Mode Support
+// Ensures content is visible in Windows High Contrast Mode
+@media (prefers-contrast: high) {
+  button,
+  [type='button'],
+  [type='reset'],
+  [type='submit'] {
+    border: 2px solid currentColor;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+// Skip to main content link
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary, #31a9c7);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// Ensure minimum touch target size (44x44px per WCAG)
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Focus trap helper for modals
+.focus-trap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+// Visually hidden but accessible to screen readers
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// Remove visually hidden
+.not-visually-hidden {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+// Dark mode support (respects system preference)
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #1a1a1a;
+    --color-text: #f0f0f0;
+    --color-bg-secondary: #2d2d2d;
+    --color-border: #404040;
+  }
+}
+
+// Force colors mode (for better accessibility)
+@media (forced-colors: active) {
+  * {
+    forced-color-adjust: auto;
+  }
+}
+
+// Note: aria-hidden should be controlled independently from display property
+// Removed the rule that incorrectly applied display: none to aria-hidden elements
+// aria-hidden hides from screen readers but keeps visual presentation
+
+// Live region helpers
+.aria-live-polite {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+// Keyboard navigation indicator
+body.using-keyboard *:focus {
+  outline: 2px solid var(--color-primary, #31a9c7);
+  outline-offset: 2px;
+}
+
+// Print styles
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}

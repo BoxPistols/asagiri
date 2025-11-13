@@ -1,0 +1,133 @@
+// =============================================================================
+// Systematic Spacing Utilities
+// =============================================================================
+// Comprehensive margin and padding utilities based on a consistent scale
+
+// Spacing scale
+$spacing-scale: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  7: 1.75rem,
+  8: 2rem,
+  9: 2.25rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+  20: 5rem,
+  24: 6rem
+) !default;
+
+// CSS Custom Properties for spacing
+:root {
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+}
+
+// Generate margin utilities
+@each $key, $value in $spacing-scale {
+  // Margin all sides
+  .m-#{$key} { margin: $value; }
+
+  // Margin top
+  .mt-#{$key} { margin-top: $value; }
+
+  // Margin right
+  .mr-#{$key} { margin-right: $value; }
+
+  // Margin bottom
+  .mb-#{$key} { margin-bottom: $value; }
+
+  // Margin left
+  .ml-#{$key} { margin-left: $value; }
+
+  // Margin horizontal (left + right)
+  .mx-#{$key} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  // Margin vertical (top + bottom)
+  .my-#{$key} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+}
+
+// Generate padding utilities
+@each $key, $value in $spacing-scale {
+  // Padding all sides
+  .p-#{$key} { padding: $value; }
+
+  // Padding top
+  .pt-#{$key} { padding-top: $value; }
+
+  // Padding right
+  .pr-#{$key} { padding-right: $value; }
+
+  // Padding bottom
+  .pb-#{$key} { padding-bottom: $value; }
+
+  // Padding left
+  .pl-#{$key} { padding-left: $value; }
+
+  // Padding horizontal (left + right)
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  // Padding vertical (top + bottom)
+  .py-#{$key} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+// Auto margins
+.m-auto { margin: auto; }
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.mt-auto { margin-top: auto; }
+.mr-auto { margin-right: auto; }
+.mb-auto { margin-bottom: auto; }
+.ml-auto { margin-left: auto; }
+
+// Negative margins
+@each $key, $value in $spacing-scale {
+  @if $key != 0 {
+    .-m-#{$key} { margin: -$value; }
+    .-mt-#{$key} { margin-top: -$value; }
+    .-mr-#{$key} { margin-right: -$value; }
+    .-mb-#{$key} { margin-bottom: -$value; }
+    .-ml-#{$key} { margin-left: -$value; }
+    .-mx-#{$key} {
+      margin-left: -$value;
+      margin-right: -$value;
+    }
+    .-my-#{$key} {
+      margin-top: -$value;
+      margin-bottom: -$value;
+    }
+  }
+}

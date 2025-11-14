@@ -1,0 +1,16 @@
+{
+  "name": "Asagiri CSS Framework",
+  "short_name": "Asagiri",
+  "description": "Modern, lightweight CSS framework",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#5b21b6",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

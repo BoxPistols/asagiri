@@ -1,76 +1,1540 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Asagiri CSS Framework v2.0 - Modern, accessible, and versatile CSS framework with CSS Grid, fluid typography, and comprehensive utility classes">
-    <meta http-equiv="refresh" content="0; url=./showcase.html">
-    <link rel="canonical" href="./showcase.html">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2'><circle cx='12' cy='12' r='5'/><path d='M12 1v6m0 6v6M23 12h-6m-6 0H1'/></svg>">
-    <title>Asagiri CSS Framework v2.0</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        text-align: center;
-      }
-      .container {
-        padding: 2rem;
-        max-width: 600px;
-      }
-      h1 {
-        font-size: clamp(2rem, 5vw, 3rem);
-        margin-bottom: 1rem;
-        font-weight: 600;
-      }
-      p {
-        font-size: 1.25rem;
-        margin-bottom: 1.5rem;
-        opacity: 0.95;
-      }
-      a {
-        color: white;
-        text-decoration: underline;
-        transition: opacity 0.2s;
-      }
-      a:hover {
-        opacity: 0.8;
-      }
-      .spinner {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 3px solid rgba(255,255,255,.3);
-        border-radius: 50%;
-        border-top-color: white;
-        animation: spin 1s ease-in-out infinite;
-      }
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>🌅 Asagiri CSS Framework v2.0</h1>
-      <p>Modern, accessible, and versatile CSS framework</p>
-      <p><span class="spinner"></span> Redirecting to showcase page...</p>
-      <p>If not redirected, <a href="./showcase.html">click here</a>.</p>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Asagiri CSS Framework Showcase">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <!-- TODO: Add 180x180px PNG for better iOS compatibility -->
+  <!-- <link rel="apple-touch-icon" href="./apple-touch-icon.png"> -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="showcase.css">
+  <title>Asagiri CSS Framework Showcase</title>
+</head>
+<body>
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+    <svg id="darkModeIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <!-- Modal Examples -->
+  <div class="modal-overlay" id="modal1">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Basic Modal</h3>
+        <button class="modal-close" onclick="closeModal('modal1')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This is a basic modal dialog. You can include any content here.</p>
+        <p>Click the close button, press Escape, or click outside to close.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="button button-cancel" onclick="closeModal('modal1')">Cancel</button>
+        <button class="button btn-primary" onclick="closeModal('modal1')">Confirm</button>
+      </div>
     </div>
-    <script>
-      // Immediate redirect
-      window.location.href = './showcase.html';
-    </script>
-  </body>
+  </div>
+
+  <div class="modal-overlay" id="modal-sm">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Small Modal</h3>
+        <button class="modal-close" onclick="closeModal('modal-sm')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This is a small modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="button" onclick="closeModal('modal-sm')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-lg">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3>Large Modal</h3>
+        <button class="modal-close" onclick="closeModal('modal-lg')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This is a large modal with more content space.</p>
+        <p>Perfect for forms, detailed information, or complex interactions.</p>
+        <h4>Example Content</h4>
+        <ul>
+          <li>Feature 1: Enhanced usability</li>
+          <li>Feature 2: Better accessibility</li>
+          <li>Feature 3: Responsive design</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="button button-cancel" onclick="closeModal('modal-lg')">Cancel</button>
+        <button class="button btn-primary" onclick="closeModal('modal-lg')">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="showcase-layout">
+    <!-- Navigation -->
+    <nav class="showcase-nav" id="showcaseNav">
+      <h2 style="display: flex; align-items: center; gap: 0.5rem;">
+        <svg class="nav-icon" id="navToggle" style="cursor: pointer; width: 20px; height: 20px;" title="Toggle navigation" aria-label="Toggle navigation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        <a href="/" class="nav-logo-link" style="text-decoration: none; color: inherit; transition: opacity 0.2s ease;">
+          <span class="nav-text">Asagiri</span>
+        </a>
+      </h2>
+      <ul>
+        <li><a href="#introduction"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg> Introduction</a></li>
+        <li><a href="#tokens"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M23 12h-6m-6 0H1"/></svg> Design Tokens</a></li>
+        <li><a href="#colors"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Colors</a></li>
+        <li><a href="#typography"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg> Typography</a></li>
+        <li><a href="#buttons"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Buttons</a></li>
+        <li><a href="#forms"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H3v2h6v-2zm0-4H3v2h6V7zm0 8H3v2h6v-2zm8-8h-6v6h6V7zm0 8h-6v6h6v-6z"/></svg> Forms</a></li>
+        <li><a href="#tables"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18M7 3v18"/></svg> Tables</a></li>
+        <li><a href="#lists"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> Lists</a></li>
+        <li><a href="#grid"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Grid System</a></li>
+        <li><a href="#utilities"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Utilities</a></li>
+        <li><a href="#spacing"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/><path d="M7 7L5 5l-2 2M17 7l2-2 2 2M7 17l-2 2-2-2M17 17l2 2 2-2"/></svg> Spacing</a></li>
+        <li><a href="#layout"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Layout</a></li>
+        <li><a href="#css-grid"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> CSS Grid <span class="badge">NEW</span></a></li>
+        <li><a href="#modern-spacing"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/><path d="M7 7L5 5l-2 2M17 7l2-2 2 2M7 17l-2 2-2-2M17 17l2 2 2-2"/></svg> Modern Spacing <span class="badge">NEW</span></a></li>
+        <li><a href="#display-utilities"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg> Display Utils <span class="badge">NEW</span></a></li>
+        <li><a href="#accessibility"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Accessibility <span class="badge">NEW</span></a></li>
+        <li><a href="#modal"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Modal & Dialog <span class="badge">NEW</span></a></li>
+        <li><a href="#tooltip"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Tooltip <span class="badge">NEW</span></a></li>
+        <li><a href="#layout-patterns"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Layout Patterns <span class="badge">NEW</span></a></li>
+        <li><a href="#breakpoints"><svg class="nav-icon new-badge" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 3h2v4m-2 0h2"/></svg> Breakpoints <span class="badge">NEW</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="showcase-main">
+      <!-- Introduction -->
+      <section id="introduction" class="showcase-section">
+        <h1>Asagiri CSS Framework</h1>
+        <p>朝霧（Asagiri）は、シンプルで軽量なCSSフレームワークです。このページでは、利用可能なすべてのコンポーネント、ユーティリティ、デザイントークンを確認できます。</p>
+        <div class="showcase-example">
+          <p><strong>特徴:</strong></p>
+          <ul>
+            <li>軽量でシンプル（約29KB）</li>
+            <li>CSS Custom Propertiesを活用</li>
+            <li>Flexboxベースのグリッドシステム</li>
+            <li>包括的なコンポーネントライブラリ</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Design Tokens -->
+      <section id="tokens" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M23 12h-6m-6 0H1"/></svg> Design Tokens</h1>
+        <p>Asagiriのデザインシステムの基礎となる変数です。</p>
+
+        <h2>Color System</h2>
+        <div class="showcase-example">
+          <h3>Primary Colors</h3>
+          <div class="color-swatch-container">
+            <div class="color-swatch" style="background: var(--color-primary);">
+              <div class="color-swatch-label">primary</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-primary-light);">
+              <div class="color-swatch-label">primary-light</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-primary-dark);">
+              <div class="color-swatch-label">primary-dark</div>
+            </div>
+          </div>
+
+          <h3>Secondary Colors</h3>
+          <div class="color-swatch-container">
+            <div class="color-swatch" style="background: var(--color-secondary);">
+              <div class="color-swatch-label">secondary</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-secondary-light);">
+              <div class="color-swatch-label">secondary-light</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-secondary-dark);">
+              <div class="color-swatch-label">secondary-dark</div>
+            </div>
+          </div>
+
+          <h3>Functional Colors</h3>
+          <div class="color-swatch-container">
+            <div class="color-swatch" style="background: var(--color-accent);">
+              <div class="color-swatch-label">accent</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-success);">
+              <div class="color-swatch-label">success</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-warning);">
+              <div class="color-swatch-label">warning</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-danger);">
+              <div class="color-swatch-label">danger</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-info);">
+              <div class="color-swatch-label">info</div>
+            </div>
+            <div class="color-swatch" style="background: var(--color-elegant);">
+              <div class="color-swatch-label">elegant</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Typography Tokens</h2>
+        <div class="showcase-example">
+          <div class="showcase-code">
+            <pre><code>--font-size: 1.6rem;
+--font-weight: 400;
+--line-height: 1.8;</code></pre>
+          </div>
+        </div>
+
+        <h2>Spacing Tokens</h2>
+        <div class="showcase-example">
+          <div class="showcase-code">
+            <pre><code>/* Sass Variables */
+$spacing-grid: 1.5rem 2rem 1rem;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Colors -->
+      <section id="colors" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Colors</h1>
+
+        <h2>Color Utility Classes</h2>
+        <div class="showcase-example">
+          <p class="color-primary">Primary color text (.color-primary)</p>
+          <p class="color-secondary">Secondary color text (.color-secondary)</p>
+          <p class="color-accent">Accent color text (.color-accent)</p>
+          <p class="color-success">Success color text (.color-success)</p>
+          <p class="color-warning">Warning color text (.color-warning)</p>
+          <p class="color-danger">Danger color text (.color-danger)</p>
+          <p class="color-info">Info color text (.color-info)</p>
+          <p class="color-elegant">Elegant color text (.color-elegant)</p>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;p class="color-primary"&gt;Primary color text&lt;/p&gt;
+&lt;p class="color-success"&gt;Success color text&lt;/p&gt;
+&lt;p class="color-danger"&gt;Danger color text&lt;/p&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Typography -->
+      <section id="typography" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg> Typography</h1>
+
+        <h2>Headings</h2>
+        <div class="showcase-example">
+          <h1>h1 Heading (3.2rem)</h1>
+          <h2>h2 Heading (2.4rem)</h2>
+          <h3>h3 Heading (2rem)</h3>
+          <h4>h4 Heading (1.8rem)</h4>
+          <h5>h5 Heading (1.6rem)</h5>
+          <h6>h6 Heading (1.4rem)</h6>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;h1&gt;h1 Heading&lt;/h1&gt;
+&lt;h2&gt;h2 Heading&lt;/h2&gt;
+&lt;h3&gt;h3 Heading&lt;/h3&gt;</code></pre>
+        </div>
+
+        <h2>Paragraph & Inline Elements</h2>
+        <div class="showcase-example">
+          <p>これは通常のパラグラフテキストです。This is a normal paragraph text.</p>
+          <p><a href="#">リンクテキスト (Link text)</a></p>
+          <p><strong>強調テキスト (Strong text)</strong></p>
+          <p><em>イタリックテキスト (Emphasized text)</em></p>
+          <p><small>小さなテキスト (Small text)</small></p>
+          <p><u>下線テキスト (Underlined text)</u></p>
+        </div>
+
+        <h2>Blockquote</h2>
+        <div class="showcase-example">
+          <blockquote>
+            <p>これは引用テキストです。Blockquoteは特別なスタイリングが適用されます。</p>
+          </blockquote>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;blockquote&gt;
+  &lt;p&gt;引用テキスト&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
+        </div>
+
+        <h2>Code</h2>
+        <div class="showcase-example">
+          <p>Inline code: <code>const foo = 'bar';</code></p>
+          <pre><code>.example {
+  color: var(--color-primary);
+  padding: 1rem;
+}</code></pre>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;code&gt;inline code&lt;/code&gt;
+&lt;pre&gt;&lt;code&gt;code block&lt;/code&gt;&lt;/pre&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Buttons -->
+      <section id="buttons" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Buttons</h1>
+
+        <h2>Default Buttons</h2>
+        <div class="showcase-example">
+          <button class="button">Normal Button</button>
+          <button class="button button-outline">Outlined Button</button>
+          <button class="button button-cancel">Cancel Button</button>
+          <button class="button button-clear">Clear Button</button>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;button class="button"&gt;Normal Button&lt;/button&gt;
+&lt;button class="button button-outline"&gt;Outlined Button&lt;/button&gt;
+&lt;button class="button button-cancel"&gt;Cancel Button&lt;/button&gt;
+&lt;button class="button button-clear"&gt;Clear Button&lt;/button&gt;</code></pre>
+        </div>
+
+        <h2>Color Variants - Filled</h2>
+        <div class="showcase-example">
+          <button class="button btn-secondary">Secondary</button>
+          <button class="button btn-accent">Accent</button>
+          <button class="button btn-success">Success</button>
+          <button class="button btn-warning">Warning</button>
+          <button class="button btn-danger">Danger</button>
+          <button class="button btn-info">Info</button>
+          <button class="button btn-elegant">Elegant</button>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;button class="button btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="button btn-success"&gt;Success&lt;/button&gt;
+&lt;button class="button btn-danger"&gt;Danger&lt;/button&gt;</code></pre>
+        </div>
+
+        <h2>Color Variants - Outlined</h2>
+        <div class="showcase-example">
+          <button class="button btn-outline-secondary">Secondary</button>
+          <button class="button btn-outline-accent">Accent</button>
+          <button class="button btn-outline-success">Success</button>
+          <button class="button btn-outline-warning">Warning</button>
+          <button class="button btn-outline-danger">Danger</button>
+          <button class="button btn-outline-info">Info</button>
+          <button class="button btn-outline-elegant">Elegant</button>
+        </div>
+
+        <h2>Disabled State</h2>
+        <div class="showcase-example">
+          <button class="button" disabled>Disabled Button</button>
+          <button class="button button-outline" disabled>Disabled Outlined</button>
+          <button class="button btn-success" disabled>Disabled Success</button>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;button class="button" disabled&gt;Disabled Button&lt;/button&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Forms -->
+      <section id="forms" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H3v2h6v-2zm0-4H3v2h6V7zm0 8H3v2h6v-2zm8-8h-6v6h6V7zm0 8h-6v6h6v-6z"/></svg> Forms</h1>
+
+        <h2>Text Input</h2>
+        <div class="showcase-example">
+          <label for="text-input">Label for input</label>
+          <input id="text-input" type="text" placeholder="Enter text here...">
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;label for="text-input"&gt;Label for input&lt;/label&gt;
+&lt;input id="text-input" type="text" placeholder="Enter text here..."&gt;</code></pre>
+        </div>
+
+        <h2>Select</h2>
+        <div class="showcase-example">
+          <label for="select-input">Select an option</label>
+          <select id="select-input">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;label for="select-input"&gt;Select an option&lt;/label&gt;
+&lt;select id="select-input"&gt;
+  &lt;option&gt;Option 1&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </div>
+
+        <h2>Textarea</h2>
+        <div class="showcase-example">
+          <label for="textarea-input">Textarea label</label>
+          <textarea id="textarea-input" placeholder="Enter long text here..." rows="4"></textarea>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;label for="textarea-input"&gt;Textarea label&lt;/label&gt;
+&lt;textarea id="textarea-input" placeholder="Enter long text here..."&gt;&lt;/textarea&gt;</code></pre>
+        </div>
+
+        <h2>Radio Buttons</h2>
+        <div class="showcase-example">
+          <fieldset>
+            <legend>Select one option:</legend>
+            <div>
+              <input type="radio" id="radio1" name="radio-group" checked>
+              <label class="label-inline" for="radio1">Option 1</label>
+            </div>
+            <div>
+              <input type="radio" id="radio2" name="radio-group">
+              <label class="label-inline" for="radio2">Option 2</label>
+            </div>
+            <div>
+              <input type="radio" id="radio3" name="radio-group">
+              <label class="label-inline" for="radio3">Option 3</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <h2>Checkboxes</h2>
+        <div class="showcase-example">
+          <div>
+            <input type="checkbox" id="check1" checked>
+            <label class="label-inline" for="check1">Checkbox 1</label>
+          </div>
+          <div>
+            <input type="checkbox" id="check2">
+            <label class="label-inline" for="check2">Checkbox 2</label>
+          </div>
+          <div>
+            <input type="checkbox" id="check3">
+            <label class="label-inline" for="check3">Checkbox 3</label>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;input type="checkbox" id="check1"&gt;
+&lt;label class="label-inline" for="check1"&gt;Checkbox 1&lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Tables -->
+      <section id="tables" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18M7 3v18"/></svg> Tables</h1>
+
+        <h2>Default Table</h2>
+        <div class="showcase-example">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John Doe</td>
+                <td>28</td>
+                <td>Tokyo</td>
+              </tr>
+              <tr>
+                <td>Jane Smith</td>
+                <td>32</td>
+                <td>Osaka</td>
+              </tr>
+              <tr>
+                <td>Bob Johnson</td>
+                <td>25</td>
+                <td>Kyoto</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Age&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;John&lt;/td&gt;&lt;td&gt;28&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+
+        <h2>Striped Table</h2>
+        <div class="showcase-example">
+          <table class="stripe">
+            <thead class="dark">
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John Doe</td>
+                <td>28</td>
+                <td>Tokyo</td>
+              </tr>
+              <tr>
+                <td>Jane Smith</td>
+                <td>32</td>
+                <td>Osaka</td>
+              </tr>
+              <tr>
+                <td>Bob Johnson</td>
+                <td>25</td>
+                <td>Kyoto</td>
+              </tr>
+              <tr>
+                <td>Alice Williams</td>
+                <td>29</td>
+                <td>Nagoya</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;table class="stripe"&gt;
+  &lt;thead class="dark"&gt;...&lt;/thead&gt;
+  &lt;tbody&gt;...&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Lists -->
+      <section id="lists" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> Lists</h1>
+
+        <h2>Unordered List (Default)</h2>
+        <div class="showcase-example">
+          <ul>
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+          </ul>
+        </div>
+
+        <h2>Unordered List Variants</h2>
+        <div class="showcase-example">
+          <h3>Circle</h3>
+          <ul class="circle">
+            <li>Circle list item 1</li>
+            <li>Circle list item 2</li>
+          </ul>
+
+          <h3>Disc</h3>
+          <ul class="disc">
+            <li>Disc list item 1</li>
+            <li>Disc list item 2</li>
+          </ul>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;ul class="circle"&gt;...&lt;/ul&gt;
+&lt;ul class="disc"&gt;...&lt;/ul&gt;</code></pre>
+        </div>
+
+        <h2>Ordered List</h2>
+        <div class="showcase-example">
+          <ol>
+            <li>First item</li>
+            <li>Second item</li>
+            <li>Third item</li>
+          </ol>
+        </div>
+
+        <h2>Nested Lists</h2>
+        <div class="showcase-example">
+          <ul class="disc">
+            <li>Parent item 1</li>
+            <li>Parent item 2
+              <ul class="disc">
+                <li>Child item 1</li>
+                <li>Child item 2</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <h2>Description List</h2>
+        <div class="showcase-example">
+          <dl>
+            <dt>Term 1</dt>
+            <dd>Definition for term 1</dd>
+            <dt>Term 2</dt>
+            <dd>Definition for term 2</dd>
+          </dl>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;dl&gt;
+  &lt;dt&gt;Term&lt;/dt&gt;
+  &lt;dd&gt;Definition&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Grid System -->
+      <section id="grid" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Grid System</h1>
+        <p>Flexboxベースのグリッドシステム</p>
+
+        <h2>Equal Width Columns</h2>
+        <div class="showcase-example">
+          <div class="mg-container">
+            <div class="row">
+              <div class="column">
+                <div class="grid-demo">.column</div>
+              </div>
+              <div class="column">
+                <div class="grid-demo">.column</div>
+              </div>
+              <div class="column">
+                <div class="grid-demo">.column</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="mg-container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="column"&gt;...&lt;/div&gt;
+    &lt;div class="column"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Fixed Width Columns</h2>
+        <div class="showcase-example">
+          <div class="mg-container">
+            <div class="row">
+              <div class="column column-25">
+                <div class="grid-demo">.column-25</div>
+              </div>
+              <div class="column">
+                <div class="grid-demo">.column (auto)</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column column-33">
+                <div class="grid-demo">.column-33</div>
+              </div>
+              <div class="column column-66">
+                <div class="grid-demo">.column-66</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column column-50">
+                <div class="grid-demo">.column-50</div>
+              </div>
+              <div class="column column-50">
+                <div class="grid-demo">.column-50</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Available Column Widths</h2>
+        <div class="showcase-example">
+          <div class="mg-container">
+            <div class="row"><div class="column column-10"><div class="grid-demo">10%</div></div></div>
+            <div class="row"><div class="column column-20"><div class="grid-demo">20%</div></div></div>
+            <div class="row"><div class="column column-25"><div class="grid-demo">25%</div></div></div>
+            <div class="row"><div class="column column-33"><div class="grid-demo">33%</div></div></div>
+            <div class="row"><div class="column column-40"><div class="grid-demo">40%</div></div></div>
+            <div class="row"><div class="column column-50"><div class="grid-demo">50%</div></div></div>
+            <div class="row"><div class="column column-60"><div class="grid-demo">60%</div></div></div>
+            <div class="row"><div class="column column-66"><div class="grid-demo">66%</div></div></div>
+            <div class="row"><div class="column column-75"><div class="grid-demo">75%</div></div></div>
+            <div class="row"><div class="column column-80"><div class="grid-demo">80%</div></div></div>
+            <div class="row"><div class="column column-90"><div class="grid-demo">90%</div></div></div>
+          </div>
+        </div>
+
+        <h2>Column Offsets</h2>
+        <div class="showcase-example">
+          <div class="mg-container">
+            <div class="row">
+              <div class="column column-25">
+                <div class="grid-demo">.column-25</div>
+              </div>
+              <div class="column column-25 column-offset-25">
+                <div class="grid-demo">.column-25.column-offset-25</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="column column-25 column-offset-25"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Utilities -->
+      <section id="utilities" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Utilities</h1>
+
+        <h2>Width Utilities</h2>
+        <div class="showcase-example">
+          <div class="w-100 width-demo">
+            .w-100 (100% width)
+          </div>
+          <div class="w-75 width-demo">
+            .w-75 (75% width)
+          </div>
+          <div class="w-50 width-demo">
+            .w-50 (50% width)
+          </div>
+          <div class="w-25 width-demo">
+            .w-25 (25% width)
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="w-100"&gt;...&lt;/div&gt;
+&lt;div class="w-75"&gt;...&lt;/div&gt;
+&lt;div class="w-50"&gt;...&lt;/div&gt;
+&lt;div class="w-25"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Max Width Utilities</h2>
+        <div class="showcase-example">
+          <div class="max mw-50 max-width-demo">
+            .max.mw-50 (max-width: 50rem)
+          </div>
+          <div class="max mw-100 max-width-demo">
+            .max.mw-100 (max-width: 100rem)
+          </div>
+          <div class="max mvw-50 max-width-demo">
+            .max.mvw-50 (max-width: 50vw)
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="max mw-50"&gt;...&lt;/div&gt;
+&lt;div class="max mvw-50"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Flexbox Utilities</h2>
+        <div class="showcase-example">
+          <div class="flex-center flex-demo-center">
+            .flex-center (justify-content: center; align-items: center)
+          </div>
+          <div class="flex flex-jc-between flex-demo-between">
+            <span>.flex.flex-jc-between</span>
+            <span>Space between</span>
+          </div>
+          <div class="flex flex-jc-around flex-demo-around">
+            <span>Space</span>
+            <span>Around</span>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="flex-center"&gt;...&lt;/div&gt;
+&lt;div class="flex flex-jc-between"&gt;...&lt;/div&gt;
+&lt;div class="flex flex-jc-around"&gt;...&lt;/div&gt;
+&lt;div class="flex flex-ai-center"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+
+        <h3>Available Flexbox Classes</h3>
+        <div class="showcase-example">
+          <ul>
+            <li><code>.flex</code> - display: flex</li>
+            <li><code>.flex-center</code> - justify-content & align-items center</li>
+            <li><code>.flex-jc-center</code> - justify-content: center</li>
+            <li><code>.flex-jc-between</code> - justify-content: space-between</li>
+            <li><code>.flex-jc-around</code> - justify-content: space-around</li>
+            <li><code>.flex-jc-evenly</code> - justify-content: space-evenly</li>
+            <li><code>.flex-ai-center</code> - align-items: center</li>
+            <li><code>.flex-ai-start</code> - align-items: flex-start</li>
+            <li><code>.flex-ai-end</code> - align-items: flex-end</li>
+            <li><code>.flex-column</code> - flex-direction: column</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Spacing -->
+      <section id="spacing" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/><path d="M7 7L5 5l-2 2M17 7l2-2 2 2M7 17l-2 2-2-2M17 17l2 2 2-2"/></svg> Spacing</h1>
+
+        <h2>Padding Utilities</h2>
+        <div class="showcase-example">
+          <div class="space-pd spacing-demo-pd">
+            <div class="spacing-demo-inner">
+              .space-pd (padding applied)
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="space-pd"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Margin Utilities</h2>
+        <div class="showcase-example">
+          <div class="spacing-demo-mg-outer">
+            <div class="space-mg spacing-demo-inner">
+              .space-mg (margin applied)
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="space-mg"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Layout -->
+      <section id="layout" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Layout</h1>
+
+        <h2>Container</h2>
+        <div class="showcase-example">
+          <p><code>.container</code>クラスは、コンテンツを中央配置し、最大幅を設定します。</p>
+        </div>
+
+        <h2>Section</h2>
+        <div class="showcase-example">
+          <section class="section layout-section-demo">
+            <h3>Section example</h3>
+            <p>セクションは構造化されたレイアウトのための基本的なブロックです。</p>
+          </section>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;section class="section"&gt;...&lt;/section&gt;</code></pre>
+        </div>
+
+        <h2>Box</h2>
+        <div class="showcase-example">
+          <div class="box layout-box-demo">
+            <p>Box component for contained content</p>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="box"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- CSS Grid -->
+      <section id="css-grid" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> CSS Grid <span class="badge">NEW</span></h1>
+        <p>モダンなCSS Gridレイアウトシステム。Flexboxグリッドと併用可能です。</p>
+
+        <h2>Basic Grid</h2>
+        <div class="showcase-example">
+          <div class="grid grid-cols-3 gap-4">
+            <div class="grid-demo">1</div>
+            <div class="grid-demo">2</div>
+            <div class="grid-demo">3</div>
+            <div class="grid-demo">4</div>
+            <div class="grid-demo">5</div>
+            <div class="grid-demo">6</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="grid grid-cols-3 gap-4"&gt;
+  &lt;div&gt;1&lt;/div&gt;
+  &lt;div&gt;2&lt;/div&gt;
+  &lt;div&gt;3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Auto-Fit Responsive Grid</h2>
+        <div class="showcase-example">
+          <div class="grid grid-auto-fit-md gap-4">
+            <div class="grid-demo">Auto 1</div>
+            <div class="grid-demo">Auto 2</div>
+            <div class="grid-demo">Auto 3</div>
+            <div class="grid-demo">Auto 4</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="grid grid-auto-fit-md gap-4"&gt;
+  &lt;!-- Automatically responsive without media queries --&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Column Spanning</h2>
+        <div class="showcase-example">
+          <div class="grid grid-cols-4 gap-4">
+            <div class="col-span-2 grid-demo">Span 2 columns</div>
+            <div class="grid-demo">1</div>
+            <div class="grid-demo">2</div>
+            <div class="col-span-full grid-demo">Full width span</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="grid grid-cols-4 gap-4"&gt;
+  &lt;div class="col-span-2"&gt;Span 2&lt;/div&gt;
+  &lt;div class="col-span-full"&gt;Full width&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Modern Spacing -->
+      <section id="modern-spacing" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/><path d="M7 7L5 5l-2 2M17 7l2-2 2 2M7 17l-2 2-2-2M17 17l2 2 2-2"/></svg> Modern Spacing System <span class="badge">NEW</span></h1>
+        <p>体系的なマージンとパディングユーティリティ</p>
+
+        <h2>Margin Utilities</h2>
+        <div class="showcase-example">
+          <div class="mb-4">
+            <code>.m-{size}</code> - All sides margin
+          </div>
+          <div class="mb-4">
+            <code>.mt-{size}</code>, <code>.mr-{size}</code>, <code>.mb-{size}</code>, <code>.ml-{size}</code> - Individual sides
+          </div>
+          <div class="mb-4">
+            <code>.mx-{size}</code> - Horizontal (left + right)
+          </div>
+          <div class="mb-4">
+            <code>.my-{size}</code> - Vertical (top + bottom)
+          </div>
+          <p>Sizes: 0, 1 (0.25rem), 2 (0.5rem), 3 (0.75rem), 4 (1rem), 5, 6, 8, 10, 12, 16, 20</p>
+        </div>
+
+        <h2>Padding Examples</h2>
+        <div class="showcase-example">
+          <div class="p-4 mb-4 width-demo">
+            .p-4 (padding: 1rem all sides)
+          </div>
+          <div class="px-6 py-3 width-demo">
+            .px-6 .py-3 (horizontal 1.5rem, vertical 0.75rem)
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="p-4"&gt;Padding 1rem&lt;/div&gt;
+&lt;div class="px-6 py-3"&gt;Horizontal and vertical padding&lt;/div&gt;
+&lt;div class="m-4"&gt;Margin 1rem&lt;/div&gt;
+&lt;div class="mx-auto"&gt;Centered with auto margin&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Display Utilities -->
+      <section id="display-utilities" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg> Display Utilities <span class="badge">NEW</span></h1>
+
+        <h2>Display Types</h2>
+        <div class="showcase-example">
+          <ul>
+            <li><code>.d-block</code> - display: block</li>
+            <li><code>.d-inline</code> - display: inline</li>
+            <li><code>.d-inline-block</code> - display: inline-block</li>
+            <li><code>.d-flex</code> - display: flex</li>
+            <li><code>.d-grid</code> - display: grid</li>
+            <li><code>.d-none</code> - display: none</li>
+          </ul>
+        </div>
+
+        <h2>Position & Z-Index</h2>
+        <div class="showcase-example">
+          <ul>
+            <li><code>.position-relative</code>, <code>.position-absolute</code>, <code>.position-fixed</code>, <code>.position-sticky</code></li>
+            <li><code>.z-10</code>, <code>.z-20</code>, <code>.z-50</code> - Z-index utilities</li>
+            <li><code>.top-0</code>, <code>.right-0</code>, <code>.bottom-0</code>, <code>.left-0</code></li>
+          </ul>
+        </div>
+
+        <h2>Opacity</h2>
+        <div class="showcase-example">
+          <div class="d-flex gap-4">
+            <div class="p-4 width-demo opacity-100">100%</div>
+            <div class="p-4 width-demo opacity-75">75%</div>
+            <div class="p-4 width-demo opacity-50">50%</div>
+            <div class="p-4 width-demo opacity-25">25%</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="opacity-100"&gt;Fully visible&lt;/div&gt;
+&lt;div class="opacity-50"&gt;50% opacity&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Accessibility -->
+      <section id="accessibility" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Accessibility Features <span class="badge">NEW</span></h1>
+
+        <h2>Focus-Visible</h2>
+        <div class="showcase-example">
+          <p>キーボードナビゲーション時のみフォーカスリングを表示します。</p>
+          <button class="button">Try Tab Navigation</button>
+          <button class="button btn-success ml-2">Second Button</button>
+          <a href="#" class="ml-4">Focus Link</a>
+        </div>
+
+        <h2>Reduced Motion Support</h2>
+        <div class="showcase-example">
+          <p>ユーザーのモーション設定を尊重し、アニメーションを制限します。</p>
+          <code>@media (prefers-reduced-motion: reduce)</code>
+        </div>
+
+        <h2>Screen Reader Only</h2>
+        <div class="showcase-example">
+          <button class="button">
+            <span class="sr-only">Save document</span>
+            <span aria-hidden="true">💾</span>
+          </button>
+          <p class="mt-2">スクリーンリーダーには "Save document" と読み上げられます。</p>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;span class="sr-only"&gt;Screen reader only text&lt;/span&gt;</code></pre>
+        </div>
+
+        <h2>Touch Target Size</h2>
+        <div class="showcase-example">
+          <button class="button touch-target">44x44px Minimum</button>
+          <p class="mt-2">WCAGガイドラインに準拠した最小タッチターゲットサイズ（44x44px）</p>
+        </div>
+
+        <h2>Accessibility Testing Tools</h2>
+        <div class="showcase-example">
+          <h3>推奨ツール</h3>
+          <ul>
+            <li>
+              <strong><a href="https://www.deque.com/axe/devtools/" target="_blank" rel="noopener">axe DevTools</a></strong>
+              - ブラウザ拡張機能。WCAG 2.1準拠の自動テスト
+            </li>
+            <li>
+              <strong><a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">WebAIM Contrast Checker</a></strong>
+              - カラーコントラスト比チェッカー（WCAG AA/AAA）
+            </li>
+            <li>
+              <strong><a href="https://www.tpgi.com/color-contrast-checker/" target="_blank" rel="noopener">TPGi Colour Contrast Analyser</a></strong>
+              - デスクトップアプリ。リアルタイムコントラストチェック
+            </li>
+            <li>
+              <strong><a href="https://wave.webaim.org/" target="_blank" rel="noopener">WAVE</a></strong>
+              - Webページのアクセシビリティチェックツール
+            </li>
+            <li>
+              <strong><a href="https://www.nvaccess.org/" target="_blank" rel="noopener">NVDA</a></strong>
+              - 無料のスクリーンリーダー（Windows）
+            </li>
+          </ul>
+
+          <h3>Color Contrast Requirements (WCAG 2.1)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Normal Text</th>
+                <th>Large Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>AA</strong></td>
+                <td>4.5:1</td>
+                <td>3:1</td>
+              </tr>
+              <tr>
+                <td><strong>AAA</strong></td>
+                <td>7:1</td>
+                <td>4.5:1</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 1rem;"><small>Large text = 18pt以上（24px）または14pt太字以上（18.5px bold）</small></p>
+        </div>
+      </section>
+
+      <!-- Modal & Dialog -->
+      <section id="modal" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Modal & Dialog <span class="badge">NEW</span></h1>
+        <p>モーダルダイアログコンポーネント。オーバーレイと共に表示される対話型ウィンドウです。</p>
+
+        <h2>Basic Modal</h2>
+        <div class="showcase-example">
+          <button class="button btn-primary" onclick="openModal('modal1')">Open Modal</button>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;button class="button btn-primary" onclick="openModal('modal1')"&gt;Open Modal&lt;/button&gt;
+
+&lt;div class="modal-overlay" id="modal1"&gt;
+  &lt;div class="modal"&gt;
+    &lt;div class="modal-header"&gt;
+      &lt;h3&gt;Modal Title&lt;/h3&gt;
+      &lt;button class="modal-close" onclick="closeModal('modal1')"&gt;&times;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="modal-body"&gt;
+      &lt;p&gt;Modal content goes here...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="modal-footer"&gt;
+      &lt;button class="button button-cancel" onclick="closeModal('modal1')"&gt;Cancel&lt;/button&gt;
+      &lt;button class="button btn-primary"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Modal Sizes</h2>
+        <div class="showcase-example">
+          <button class="button btn-secondary" onclick="openModal('modal-sm')">Small Modal</button>
+          <button class="button btn-secondary" onclick="openModal('modal-lg')">Large Modal</button>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="modal modal-sm"&gt;...&lt;/div&gt;  &lt;!-- Small --&gt;
+&lt;div class="modal modal-lg"&gt;...&lt;/div&gt;  &lt;!-- Large --&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Tooltip -->
+      <section id="tooltip" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Tooltip <span class="badge">NEW</span></h1>
+        <p>ホバー時に表示される情報ツールチップ</p>
+
+        <h2>Tooltip Positions</h2>
+        <div class="showcase-example" style="padding: 3rem; text-align: center;">
+          <div class="tooltip tooltip-top" style="margin: 1rem;">
+            <button class="button">Top</button>
+            <span class="tooltip-content">Tooltip on top</span>
+          </div>
+          <div class="tooltip tooltip-bottom" style="margin: 1rem;">
+            <button class="button">Bottom</button>
+            <span class="tooltip-content">Tooltip on bottom</span>
+          </div>
+          <div class="tooltip tooltip-left" style="margin: 1rem;">
+            <button class="button">Left</button>
+            <span class="tooltip-content">Tooltip on left</span>
+          </div>
+          <div class="tooltip tooltip-right" style="margin: 1rem;">
+            <button class="button">Right</button>
+            <span class="tooltip-content">Tooltip on right</span>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="tooltip tooltip-top"&gt;
+  &lt;button class="button"&gt;Hover me&lt;/button&gt;
+  &lt;span class="tooltip-content"&gt;Tooltip text&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Tooltip Colors</h2>
+        <div class="showcase-example" style="padding: 2rem;">
+          <div class="tooltip tooltip-primary" style="margin: 1rem;">
+            <button class="button btn-primary">Primary</button>
+            <span class="tooltip-content">Primary tooltip</span>
+          </div>
+          <div class="tooltip tooltip-success" style="margin: 1rem;">
+            <button class="button btn-success">Success</button>
+            <span class="tooltip-content">Success tooltip</span>
+          </div>
+          <div class="tooltip tooltip-warning" style="margin: 1rem;">
+            <button class="button btn-warning">Warning</button>
+            <span class="tooltip-content">Warning tooltip</span>
+          </div>
+          <div class="tooltip tooltip-danger" style="margin: 1rem;">
+            <button class="button btn-danger">Danger</button>
+            <span class="tooltip-content">Danger tooltip</span>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="tooltip tooltip-primary"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-success"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-warning"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-danger"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Layout Patterns -->
+      <section id="layout-patterns" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Practical Layout Patterns <span class="badge">NEW</span></h1>
+        <p>実用的なレイアウトパターンの実装例</p>
+
+        <h2>Holy Grail Layout (聖杯レイアウト)</h2>
+        <p>ヘッダー、3カラム、フッターの古典的なレイアウト</p>
+        <div class="showcase-example">
+          <div class="layout-demo holy-grail-layout">
+            <div class="layout-header">Header</div>
+            <div class="layout-content">
+              <aside class="layout-sidebar-left">Left Sidebar</aside>
+              <main class="layout-main">Main Content</main>
+              <aside class="layout-sidebar-right">Right Sidebar</aside>
+            </div>
+            <div class="layout-footer">Footer</div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="holy-grail-layout"&gt;
+  &lt;header class="layout-header"&gt;Header&lt;/header&gt;
+  &lt;div class="layout-content"&gt;
+    &lt;aside class="layout-sidebar-left"&gt;Left Sidebar&lt;/aside&gt;
+    &lt;main class="layout-main"&gt;Main Content&lt;/main&gt;
+    &lt;aside class="layout-sidebar-right"&gt;Right Sidebar&lt;/aside&gt;
+  &lt;/div&gt;
+  &lt;footer class="layout-footer"&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Admin Dashboard Layout</h2>
+        <p>サイドバーナビゲーション + メインコンテンツエリア</p>
+        <div class="showcase-example">
+          <div class="layout-demo admin-layout">
+            <aside class="admin-sidebar">
+              <div class="admin-logo">Admin</div>
+              <nav class="admin-nav">
+                <a href="#" class="admin-nav-item active">Dashboard</a>
+                <a href="#" class="admin-nav-item">Users</a>
+                <a href="#" class="admin-nav-item">Settings</a>
+              </nav>
+            </aside>
+            <div class="admin-main">
+              <header class="admin-header">
+                <h2>Dashboard</h2>
+                <div class="admin-user">User Profile</div>
+              </header>
+              <div class="admin-content">
+                <div class="admin-card">Card 1</div>
+                <div class="admin-card">Card 2</div>
+                <div class="admin-card">Card 3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="admin-layout"&gt;
+  &lt;aside class="admin-sidebar"&gt;
+    &lt;div class="admin-logo"&gt;Admin&lt;/div&gt;
+    &lt;nav class="admin-nav"&gt;...&lt;/nav&gt;
+  &lt;/aside&gt;
+  &lt;div class="admin-main"&gt;
+    &lt;header class="admin-header"&gt;...&lt;/header&gt;
+    &lt;div class="admin-content"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Card Grid Layout</h2>
+        <p>レスポンシブなカードグリッド（ECサイト、ギャラリーなど）</p>
+        <div class="showcase-example">
+          <div class="card-grid">
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 1</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 2</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 3</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+            <div class="card-item">
+              <div class="card-image">Image</div>
+              <div class="card-content">
+                <h3>Card Title 4</h3>
+                <p>Card description goes here.</p>
+                <button class="button btn-primary btn-sm">View Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="card-grid"&gt;
+  &lt;div class="card-item"&gt;
+    &lt;div class="card-image"&gt;...&lt;/div&gt;
+    &lt;div class="card-content"&gt;
+      &lt;h3&gt;Title&lt;/h3&gt;
+      &lt;p&gt;Description&lt;/p&gt;
+      &lt;button&gt;Action&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>Video Streaming UI Layout</h2>
+        <p>映像配信サービス風レイアウト</p>
+        <div class="showcase-example">
+          <div class="layout-demo streaming-layout">
+            <header class="streaming-header">
+              <div class="streaming-logo">StreamApp</div>
+              <nav class="streaming-nav">
+                <a href="#">Home</a>
+                <a href="#">Browse</a>
+                <a href="#">My List</a>
+              </nav>
+              <div class="streaming-user">User</div>
+            </header>
+            <div class="streaming-hero">
+              <h2>Featured Content</h2>
+              <p>Watch the latest trending videos</p>
+              <button class="button btn-primary">Play Now</button>
+            </div>
+            <div class="streaming-categories">
+              <h3>Trending Now</h3>
+              <div class="streaming-row">
+                <div class="streaming-card">Video 1</div>
+                <div class="streaming-card">Video 2</div>
+                <div class="streaming-card">Video 3</div>
+                <div class="streaming-card">Video 4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-code">
+          <pre><code>&lt;div class="streaming-layout"&gt;
+  &lt;header class="streaming-header"&gt;...&lt;/header&gt;
+  &lt;div class="streaming-hero"&gt;...&lt;/div&gt;
+  &lt;div class="streaming-categories"&gt;
+    &lt;h3&gt;Category&lt;/h3&gt;
+    &lt;div class="streaming-row"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- Responsive Breakpoints -->
+      <section id="breakpoints" class="showcase-section">
+        <h1><svg class="section-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 3h2v4m-2 0h2"/></svg> Responsive Breakpoints <span class="badge">NEW</span></h1>
+
+        <h2>Breakpoint System</h2>
+        <div class="showcase-example">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>sm</code></td>
+                <td>640px</td>
+                <td>Landscape phones</td>
+              </tr>
+              <tr>
+                <td><code>md</code></td>
+                <td>768px</td>
+                <td>Tablets</td>
+              </tr>
+              <tr>
+                <td><code>lg</code></td>
+                <td>1024px</td>
+                <td>Desktops</td>
+              </tr>
+              <tr>
+                <td><code>xl</code></td>
+                <td>1280px</td>
+                <td>Large desktops</td>
+              </tr>
+              <tr>
+                <td><code>xxl</code></td>
+                <td>1536px</td>
+                <td>Extra large screens</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Usage in SCSS</h2>
+        <div class="showcase-code">
+          <pre><code>// Mobile-first approach
+@include breakpoint(md) {
+  .element { font-size: 1.5rem; }
+}
+
+// Breakpoint range
+@include breakpoint-range(sm, lg) {
+  .element { padding: 2rem; }
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="showcase-footer">
+        <div class="showcase-footer-content">
+          <p>
+            <strong>Asagiri CSS Framework v2.0</strong> - Modern CSS Framework<br>
+            モダナイズされた汎用的なCSSフレームワーク<br>
+            <small>このページでフレームワークの全機能を確認できます。</small>
+          </p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Sidebar Toggle Function
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const showcaseNav = document.getElementById('showcaseNav');
+
+      if (navToggle && showcaseNav) {
+        navToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          showcaseNav.classList.toggle('compact');
+
+          // Save state to localStorage
+          const isCompact = showcaseNav.classList.contains('compact');
+          localStorage.setItem('navCompact', isCompact);
+        });
+
+        // Restore state from localStorage
+        const savedState = localStorage.getItem('navCompact');
+        if (savedState === 'true') {
+          showcaseNav.classList.add('compact');
+        }
+      }
+    })();
+
+    // Modal Functions
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close modal on overlay click
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        closeModal(e.target.id);
+      }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.modal-overlay.active');
+        if (activeModal) {
+          closeModal(activeModal.id);
+        }
+      }
+    });
+
+    // Dark Mode Toggle
+    (function() {
+      const toggle = document.getElementById('darkModeToggle');
+      const icon = document.getElementById('darkModeIcon');
+      const htmlElement = document.documentElement;
+
+      // Sun and moon icons
+      const sunIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+      const moonIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+      // Check for saved theme preference or default to system preference
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+      // Apply initial theme
+      if (currentTheme === 'dark') {
+        htmlElement.setAttribute('data-theme', 'dark');
+        icon.innerHTML = sunIcon;
+      } else {
+        icon.innerHTML = moonIcon;
+      }
+
+      // Toggle theme
+      toggle.addEventListener('click', function() {
+        const theme = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        icon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+      });
+
+      // Listen to system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          htmlElement.setAttribute('data-theme', theme);
+          icon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+        }
+      });
+    })();
+
+    // Add copy buttons to all code blocks
+    document.addEventListener('DOMContentLoaded', function() {
+      const codeBlocks = document.querySelectorAll('.showcase-code');
+
+      codeBlocks.forEach(function(block) {
+        // Create copy button
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        button.setAttribute('aria-label', 'Copy code to clipboard');
+
+        // Add button to code block
+        block.style.position = 'relative';
+        block.appendChild(button);
+
+        // Copy functionality
+        button.addEventListener('click', function() {
+          const code = block.querySelector('pre code');
+          const text = code ? code.textContent : block.querySelector('pre').textContent;
+
+          navigator.clipboard.writeText(text).then(function() {
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            setTimeout(function() {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          }).catch(function(err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed';
+            setTimeout(function() {
+              button.textContent = 'Copy';
+            }, 2000);
+          });
+        });
+      });
+    });
+  </script>
+</body>
 </html>

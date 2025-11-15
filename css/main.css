@@ -219,9 +219,9 @@ summary {
   --color-moonstone: #31a9c7;
   --color-hotpink: #ff69b4;
   /* ----- Primary Variation ----- */
-  --primary-h: 191;
-  --primary-s: 47%;
-  --primary-l: 53%;
+  --primary-h: 262;
+  --primary-s: 69%;
+  --primary-l: 42%;
   --primary-alpha: 100%;
   --color-primary: hsla(
     var(--primary-h),
@@ -243,9 +243,9 @@ summary {
   );
   /* ----- Primary Variation ----- */
   /* ----- Secondary HSLA ---- */
-  --secondary-h: 224;
-  --secondary-s: 23%;
-  --secondary-l: 44%;
+  --secondary-h: 174;
+  --secondary-s: 100%;
+  --secondary-l: 27%;
   --secondary-alpha: 100%;
   --color-secondary: hsla(
     var(--secondary-h),
@@ -262,7 +262,7 @@ summary {
   --color-secondary-dark: hsla(
     var(--secondary-h),
     var(--secondary-s),
-    calc(var(--secondary-l) - 15%),
+    calc(var(--secondary-l) - 10%),
     var(--secondary-alpha)
   );
   /* -----  Color Text ----- */
@@ -284,21 +284,21 @@ summary {
   --color-bg-btn: #1976d2;
   --color-bg-cancel: #92989f;
   /* ----- Color Function ----- */
-  --color-accent: #d429e0;
-  --color-accent-dark: #b923b9;
-  --color-accent-light: #e858f0;
-  --color-success: #00a859;
-  --color-success-dark: #008c4e;
-  --color-success-light: #00d9a6;
-  --color-warning: #ebbb0c;
-  --color-warning-dark: #d99e00;
-  --color-warning-light: #f5e854;
-  --color-danger: #e1323c;
-  --color-danger-dark: #c82727;
-  --color-danger-light: #f8a7a7;
-  --color-info: #1ec2c2;
-  --color-info-dark: #1a9fa2;
-  --color-info-light: #4de5e5;
+  --color-accent: #ec407a;
+  --color-accent-dark: #c2185b;
+  --color-accent-light: #f06292;
+  --color-success: #43a047;
+  --color-success-dark: #2e7d32;
+  --color-success-light: #66bb6a;
+  --color-warning: #f57c00;
+  --color-warning-dark: #e65100;
+  --color-warning-light: #ff9800;
+  --color-danger: #e53935;
+  --color-danger-dark: #c62828;
+  --color-danger-light: #ef5350;
+  --color-info: #2196f3;
+  --color-info-dark: #1976d2;
+  --color-info-light: #42a5f5;
   /* ----- Origin Color ----- */
   --color-elegant: #48626f;
   --color-elegant-dark: #3c4a57;

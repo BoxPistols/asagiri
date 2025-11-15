@@ -18,6 +18,16 @@
   <title>Asagiri CSS Framework Showcase</title>
 </head>
 <body>
+  <!-- Mobile Navigation Toggle -->
+  <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 12h18M3 6h18M3 18h18"/>
+    </svg>
+  </button>
+
+  <!-- Navigation Overlay (for mobile) -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
   <!-- Dark Mode Toggle -->
   <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
     <svg id="darkModeIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -1400,7 +1410,7 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
   </div>
 
   <script>
-    // Sidebar Toggle Function
+    // Desktop Sidebar Toggle Function
     (function() {
       const navToggle = document.getElementById('navToggle');
       const showcaseNav = document.getElementById('showcaseNav');
@@ -1409,18 +1419,67 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
         navToggle.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          showcaseNav.classList.toggle('compact');
 
-          // Save state to localStorage
-          const isCompact = showcaseNav.classList.contains('compact');
-          localStorage.setItem('navCompact', isCompact);
+          // Only toggle compact mode on desktop
+          if (window.innerWidth > 768) {
+            showcaseNav.classList.toggle('compact');
+
+            // Save state to localStorage
+            const isCompact = showcaseNav.classList.contains('compact');
+            localStorage.setItem('navCompact', isCompact);
+          }
         });
 
-        // Restore state from localStorage
-        const savedState = localStorage.getItem('navCompact');
-        if (savedState === 'true') {
-          showcaseNav.classList.add('compact');
+        // Restore state from localStorage (desktop only)
+        if (window.innerWidth > 768) {
+          const savedState = localStorage.getItem('navCompact');
+          if (savedState === 'true') {
+            showcaseNav.classList.add('compact');
+          }
         }
+      }
+    })();
+
+    // Mobile Navigation Toggle Function
+    (function() {
+      const mobileNavToggle = document.getElementById('mobileNavToggle');
+      const showcaseNav = document.getElementById('showcaseNav');
+      const navOverlay = document.getElementById('navOverlay');
+
+      function toggleMobileNav() {
+        showcaseNav.classList.toggle('mobile-open');
+        navOverlay.classList.toggle('active');
+        document.body.style.overflow = showcaseNav.classList.contains('mobile-open') ? 'hidden' : '';
+      }
+
+      function closeMobileNav() {
+        showcaseNav.classList.remove('mobile-open');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      if (mobileNavToggle && showcaseNav && navOverlay) {
+        // Toggle on button click
+        mobileNavToggle.addEventListener('click', toggleMobileNav);
+
+        // Close on overlay click
+        navOverlay.addEventListener('click', closeMobileNav);
+
+        // Close on navigation link click (mobile)
+        showcaseNav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+              closeMobileNav();
+            }
+          });
+        });
+
+        // Close on window resize to desktop
+        window.addEventListener('resize', function() {
+          if (window.innerWidth > 768) {
+            closeMobileNav();
+          }
+        });
       }
     })();
 

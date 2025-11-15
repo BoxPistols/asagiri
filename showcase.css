@@ -500,6 +500,11 @@ body {
   color: var(--showcase-text-tertiary);
 }
 
+/* Mobile Navigation Toggle (hidden on desktop) */
+.mobile-nav-toggle {
+  display: none;
+}
+
 /* Dark Mode Toggle */
 .dark-mode-toggle {
   position: fixed;
@@ -822,9 +827,56 @@ body {
   }
 
   .showcase-nav {
-    width: 100%;
-    height: auto;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .showcase-nav.mobile-open {
+    left: 0;
+  }
+
+  /* Show toggle button on mobile */
+  .mobile-nav-toggle {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    background: var(--color-primary, #6366f1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Overlay for mobile nav */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .nav-overlay.active {
+    display: block;
+  }
+
+  /* Adjust main content padding on mobile */
+  .showcase-main {
+    padding: 1rem;
+    padding-top: 4rem;
   }
 
   .holy-grail-layout .layout-content {

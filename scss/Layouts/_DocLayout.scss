@@ -1,0 +1,84 @@
+/**
+ * Document Layout
+ * Reusable documentation page layout pattern
+ * Used in: Documentation pages, style guides, component libraries
+ */
+
+// Layout Container
+.doc-layout {
+  display: flex;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+// Main Content Area
+.doc-main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+// Section
+.doc-section {
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-secondary, #555);
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-tertiary, #666);
+  }
+}
+
+// Footer
+.doc-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--color-border, #e0e0e0);
+
+  &-content {
+    text-align: center;
+    color: var(--color-text-tertiary, #666);
+  }
+}
+
+// Dark mode support
+[data-theme="dark"] {
+  .doc-section h2 {
+    color: #a8a8a8;
+  }
+
+  .doc-section h3 {
+    color: #888;
+  }
+
+  .doc-footer {
+    border-top-color: #3a3a3a;
+  }
+
+  .doc-footer-content {
+    color: #888;
+  }
+}

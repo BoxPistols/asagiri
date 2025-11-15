@@ -1,0 +1,318 @@
+/**
+ * Layout Patterns
+ * Common layout patterns for web applications
+ * Includes: Holy Grail, Admin Dashboard, Card Grid, Streaming UI
+ */
+
+/* ----- Holy Grail Layout ----- */
+.holy-grail-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+
+  .layout-header,
+  .layout-footer {
+    background: var(--color-primary, #6366f1);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .layout-content {
+    display: flex;
+    flex: 1;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .layout-sidebar-left,
+  .layout-sidebar-right {
+    background: var(--color-secondary-light, #e0e7ff);
+    padding: 1rem;
+    min-width: 150px;
+  }
+
+  .layout-main {
+    flex: 1;
+    background: var(--color-bg-secondary, #f8f9fa);
+    padding: 1rem;
+  }
+}
+
+/* ----- Admin Dashboard Layout ----- */
+.admin-layout {
+  display: flex;
+  min-height: 400px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.admin-sidebar {
+  width: 200px;
+  background: var(--color-primary-dark, #4338ca);
+  color: white;
+  padding: 1rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.admin-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-nav-item {
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s;
+
+  &:hover,
+  &.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+}
+
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-header {
+  background: var(--color-bg-secondary, #f8f9fa);
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.admin-user {
+  background: var(--color-primary, #6366f1);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.admin-card {
+  background: var(--color-bg, #ffffff);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ----- Card Grid Layout ----- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-item {
+  background: var(--color-bg, #ffffff);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.card-image {
+  background: linear-gradient(135deg, var(--color-primary, #6366f1), var(--color-secondary, #ec4899));
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+.card-content {
+  padding: 1.5rem;
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.125rem;
+  }
+
+  p {
+    margin: 0 0 1rem 0;
+    color: var(--color-text-secondary, #666);
+    font-size: 0.875rem;
+  }
+}
+
+/* ----- Streaming UI Layout ----- */
+.streaming-layout {
+  background: #141414;
+  color: white;
+  min-height: 500px;
+}
+
+.streaming-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.streaming-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e50914;
+}
+
+.streaming-nav {
+  display: flex;
+  gap: 1.5rem;
+
+  a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #e50914;
+    }
+  }
+}
+
+.streaming-user {
+  background: #e50914;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.streaming-hero {
+  background: linear-gradient(to bottom, transparent, #141414),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><rect fill="%23333" width="800" height="400"/></svg>');
+  background-size: cover;
+  padding: 4rem 2rem;
+  min-height: 250px;
+
+  h2 {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+  }
+
+  p {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.125rem;
+    opacity: 0.9;
+  }
+}
+
+.streaming-categories {
+  padding: 2rem;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+  }
+}
+
+.streaming-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.streaming-card {
+  background: #333;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* ----- Dark Mode Support ----- */
+[data-theme="dark"] {
+  .holy-grail-layout {
+    .layout-sidebar-left,
+    .layout-sidebar-right {
+      background: rgba(99, 102, 241, 0.2);
+      color: #d4d4d4;
+    }
+
+    .layout-main {
+      background: #2a2a2a;
+    }
+  }
+
+  .admin-header {
+    background: #2a2a2a;
+    border-bottom-color: #3a3a3a;
+  }
+
+  .admin-card {
+    background: #1e1e1e;
+    border-color: #3a3a3a;
+  }
+
+  .card-item {
+    background: #1e1e1e;
+    border-color: #3a3a3a;
+  }
+
+  .card-content p {
+    color: #a8a8a8;
+  }
+}

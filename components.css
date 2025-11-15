@@ -1,45 +1,45 @@
-/* Asagiri CSS Framework Showcase Styles */
+/* Asagiri CSS Framework Components Page Styles */
 
 /* Dark Mode Variables */
 :root {
-  --showcase-bg: #ffffff;
-  --showcase-bg-secondary: #f8f9fa;
-  --showcase-text: #333;
-  --showcase-text-secondary: #555;
-  --showcase-text-tertiary: #666;
-  --showcase-border: #e0e0e0;
-  --showcase-code-bg: #f5f5f5;
-  --showcase-hover: #e0e0e0;
+  --components-bg: #ffffff;
+  --components-bg-secondary: #f8f9fa;
+  --components-text: #333;
+  --components-text-secondary: #555;
+  --components-text-tertiary: #666;
+  --components-border: #e0e0e0;
+  --components-code-bg: #f5f5f5;
+  --components-hover: #e0e0e0;
 }
 
 [data-theme="dark"] {
-  --showcase-bg: #1e1e1e;
-  --showcase-bg-secondary: #2a2a2a;
-  --showcase-text: #d4d4d4;
-  --showcase-text-secondary: #a8a8a8;
-  --showcase-text-tertiary: #888;
-  --showcase-border: #3a3a3a;
-  --showcase-code-bg: #2e2e2e;
-  --showcase-hover: #353535;
+  --components-bg: #1e1e1e;
+  --components-bg-secondary: #2a2a2a;
+  --components-text: #d4d4d4;
+  --components-text-secondary: #a8a8a8;
+  --components-text-tertiary: #888;
+  --components-border: #3a3a3a;
+  --components-code-bg: #2e2e2e;
+  --components-hover: #353535;
 }
 
 /* Layout */
 body {
-  background: var(--showcase-bg);
-  color: var(--showcase-text);
+  background: var(--components-bg);
+  color: var(--components-text);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.showcase-layout {
+.components-layout {
   display: flex;
   min-height: 100vh;
 }
 
 /* Navigation */
-.showcase-nav {
+.components-nav {
   width: 280px;
-  background: var(--showcase-bg-secondary);
-  border-right: 1px solid var(--showcase-border);
+  background: var(--components-bg-secondary);
+  border-right: 1px solid var(--components-border);
   padding: 2rem 1rem;
   position: sticky;
   top: 0;
@@ -49,34 +49,48 @@ body {
   flex-shrink: 0;
 }
 
-.showcase-nav.compact {
-  width: 60px;
+.components-nav.compact {
+  width: 70px;
   padding: 2rem 0.5rem;
 }
 
-.showcase-nav.compact ul {
+.components-nav.compact ul {
   display: none;
 }
 
-.showcase-nav.compact h2 {
+.components-nav.compact h2 {
   justify-content: center;
+  gap: 0 !important;
 }
 
-.showcase-nav.compact .nav-text {
+.components-nav.compact .nav-text {
   display: none;
 }
 
-.showcase-nav h2 {
+.components-nav.compact .nav-logo-link {
+  display: none;
+}
+
+/* Ensure hamburger menu icon remains visible in compact mode */
+.components-nav.compact #navToggle {
+  display: block !important;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.components-nav h2 {
   font-size: 1.5rem;
   margin: 0 0 1rem 0;
   color: var(--color-primary);
 }
 
-.showcase-nav .nav-logo-link:hover {
+.components-nav .nav-logo-link:hover {
   opacity: 0.8;
 }
 
-.showcase-nav #navToggle:hover {
+.components-nav #navToggle:hover {
   opacity: 0.7;
 }
 
@@ -108,101 +122,106 @@ body {
   vertical-align: middle;
 }
 
-.showcase-nav ul {
+.components-nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.showcase-nav li {
+.components-nav li {
   margin: 0.5rem 0;
 }
 
-.showcase-nav a {
+.components-nav a {
   text-decoration: none;
-  color: var(--showcase-text);
+  color: var(--components-text);
   padding: 0.5rem 1rem;
   display: block;
   border-radius: 4px;
   transition: all 0.2s;
 }
 
-.showcase-nav a:hover {
-  background: var(--showcase-hover);
+.components-nav a:hover {
+  background: var(--components-hover);
   color: var(--color-primary);
 }
 
 /* Main Content */
-.showcase-main {
+.components-main {
   flex: 1;
   padding: 2rem;
   max-width: 1200px;
 }
 
 /* Sections */
-.showcase-section {
+.components-section {
   margin-bottom: 4rem;
   padding-top: 2rem;
 }
 
-.showcase-section h1 {
+.components-section h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   border-bottom: 2px solid var(--color-primary);
   padding-bottom: 0.5rem;
 }
 
-.showcase-section h2 {
+.components-section h2 {
   font-size: 1.8rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: var(--showcase-text-secondary);
+  color: var(--components-text-secondary);
 }
 
-.showcase-section h3 {
+.components-section h3 {
   font-size: 1.4rem;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: var(--showcase-text-tertiary);
+  color: var(--components-text-tertiary);
 }
 
 /* Example Containers */
-.showcase-example {
-  background: var(--showcase-bg);
-  border: 1px solid var(--showcase-border);
+.components-example {
+  background: var(--components-bg);
+  border: 1px solid var(--components-border);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 1rem 0;
 }
 
-[data-theme="dark"] .showcase-example {
-  background: var(--showcase-bg-secondary);
-  color: var(--showcase-text);
+[data-theme="dark"] .components-example {
+  background: var(--components-bg-secondary);
+  color: var(--components-text);
 }
 
-.showcase-code {
-  background: var(--showcase-code-bg);
-  border: 1px solid var(--showcase-border);
+.components-code {
+  background: var(--components-code-bg);
+  border: 1px solid var(--components-border);
   border-radius: 4px;
   padding: 1rem;
   margin: 1rem 0;
   overflow-x: auto;
 }
 
-.showcase-code pre {
+.components-code pre {
   margin: 0;
   font-size: 0.9rem;
 }
 
-.showcase-code code,
-.showcase-example code {
-  color: var(--showcase-text);
+[data-theme="dark"] .components-code pre {
+  color: #0bb95c;
+  background: transparent;
 }
 
-[data-theme="dark"] .showcase-code code,
-[data-theme="dark"] .showcase-example code {
-  color: #e7e7e7;
-  background: rgba(255, 255, 255, 0.08);
+.components-code code,
+.components-example code {
+  color: var(--components-text);
+}
+
+[data-theme="dark"] .components-code code,
+[data-theme="dark"] .components-example code {
+  color: #0bb95c;
+  background: rgb(42 55 55 / 93%);
   padding: 0.2em 0.4em;
   border-radius: 3px;
 }
@@ -215,9 +234,9 @@ body {
   padding: 0.4rem 0.8rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--showcase-text);
-  background: var(--showcase-bg);
-  border: 1px solid var(--showcase-border);
+  color: var(--components-text);
+  background: var(--components-bg);
+  border: 1px solid var(--components-border);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -419,20 +438,20 @@ body {
 
 [data-theme="dark"] .layout-box-demo {
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--showcase-border);
+  border-color: var(--components-border);
   color: #d4d4d4;
 }
 
 /* Footer */
-.showcase-footer {
+.components-footer {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 2px solid var(--showcase-border);
+  border-top: 2px solid var(--components-border);
 }
 
-.showcase-footer-content {
+.components-footer-content {
   text-align: center;
-  color: var(--showcase-text-tertiary);
+  color: var(--components-text-tertiary);
 }
 
 /* Dark Mode Toggle */
@@ -470,14 +489,14 @@ body {
 
 /* Layout Pattern Demos */
 .layout-demo {
-  border: 2px dashed var(--showcase-border);
+  border: 2px dashed var(--components-border);
   min-height: 200px;
   font-size: 0.875rem;
-  color: var(--showcase-text);
+  color: var(--components-text);
 }
 
 [data-theme="dark"] .layout-demo {
-  background: var(--showcase-bg-secondary);
+  background: var(--components-bg-secondary);
 }
 
 /* Holy Grail Layout */
@@ -516,7 +535,7 @@ body {
 
 .holy-grail-layout .layout-main {
   flex: 1;
-  background: var(--showcase-bg-secondary);
+  background: var(--components-bg-secondary);
   padding: 1rem;
 }
 
@@ -567,8 +586,8 @@ body {
 }
 
 .admin-header {
-  background: var(--showcase-bg-secondary);
-  border-bottom: 1px solid var(--showcase-border);
+  background: var(--components-bg-secondary);
+  border-bottom: 1px solid var(--components-border);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -597,8 +616,8 @@ body {
 }
 
 .admin-card {
-  background: var(--showcase-bg);
-  border: 1px solid var(--showcase-border);
+  background: var(--components-bg);
+  border: 1px solid var(--components-border);
   border-radius: 8px;
   padding: 2rem;
   text-align: center;
@@ -616,8 +635,8 @@ body {
 }
 
 .card-item {
-  background: var(--showcase-bg);
-  border: 1px solid var(--showcase-border);
+  background: var(--components-bg);
+  border: 1px solid var(--components-border);
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -649,7 +668,7 @@ body {
 
 .card-content p {
   margin: 0 0 1rem 0;
-  color: var(--showcase-text-secondary);
+  color: var(--components-text-secondary);
   font-size: 0.875rem;
 }
 
@@ -752,11 +771,11 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .showcase-layout {
+  .components-layout {
     flex-direction: column;
   }
 
-  .showcase-nav {
+  .components-nav {
     width: 100%;
     height: auto;
     position: relative;

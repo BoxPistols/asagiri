@@ -1,0 +1,140 @@
+/**
+ * Sidebar Navigation
+ * Reusable sidebar navigation pattern with compact mode support
+ * Used in: Documentation pages, admin dashboards, app navigation
+ */
+
+.sidebar-nav {
+  width: 280px;
+  background: var(--color-bg-secondary, #f8f9fa);
+  border-right: 1px solid var(--color-border, #e0e0e0);
+  padding: 2rem 1rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  transition: width 0.3s ease, padding 0.3s ease;
+  flex-shrink: 0;
+
+  // Compact mode
+  &.compact {
+    width: 70px;
+    padding: 2rem 0.5rem;
+
+    ul {
+      display: none;
+    }
+
+    h2 {
+      justify-content: center;
+      gap: 0 !important;
+    }
+
+    .nav-text {
+      display: none;
+    }
+
+    .nav-logo-link {
+      display: none;
+    }
+
+    #navToggle {
+      display: block !important;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+  }
+
+  // Header
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    color: var(--color-primary);
+  }
+
+  .nav-logo-link:hover {
+    opacity: 0.8;
+  }
+
+  #navToggle:hover {
+    opacity: 0.7;
+  }
+
+  // Navigation list
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 0.5rem 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-text, #333);
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    &:hover {
+      background: var(--color-hover, #e0e0e0);
+      color: var(--color-primary);
+    }
+  }
+
+  // Responsive
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+}
+
+// Navigation icons
+.nav-icon,
+.section-icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+.section-icon {
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+// Badge for NEW items
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--color-accent, #ff6b6b);
+  color: white;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+// Dark mode support
+[data-theme="dark"] {
+  .sidebar-nav {
+    background: #2a2a2a;
+    border-right-color: #3a3a3a;
+
+    a {
+      color: #d4d4d4;
+
+      &:hover {
+        background: #353535;
+      }
+    }
+  }
+}

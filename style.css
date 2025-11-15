@@ -1,2 +1,3 @@
-@import "./css/normalize.css";
+/* Asagiri CSS Framework - Main Entry Point */
+/* normalize is already included in main.css via SCSS compilation */
 @import "./css/main.css";

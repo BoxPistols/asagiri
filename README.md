@@ -468,12 +468,12 @@ const buttonClass = computed(() =>
 
 ## ドキュメント
 
-完全なドキュメントとデモは `showcase.html` を参照してください：
+完全なドキュメントとデモは `components.html` を参照してください：
 
 ```bash
 # ローカルサーバーで開く
 python3 -m http.server 8000
-# http://localhost:8000/showcase.html
+# http://localhost:8000/components.html
 ```
 
 ### 主要なユーティリティ
@@ -533,7 +533,7 @@ asagiri/
 │   │   ├── _SpacingSystem.scss # スペーシング
 │   │   └── _Display.scss     # 表示制御
 │   └── Components/           # コンポーネント
-└── showcase.html             # デモ・ドキュメント
+└── components.html             # デモ・ドキュメント
 ```
 
 ### 開発環境のセットアップ
@@ -589,9 +589,9 @@ $breakpoints: (
 npx sass scss/main.scss css/main.css
 ```
 
-#### 4. showcase.htmlを更新
+#### 4. components.htmlを更新
 
-新しい機能を追加したら、必ず `showcase.html` にデモを追加してください。
+新しい機能を追加したら、必ず `components.html` にデモを追加してください。
 
 ### コンパイルコマンド
 
@@ -652,7 +652,7 @@ npm install
 1. ✅ **常にSCSSを編集** - CSSファイルを直接編集しない
 2. ✅ **モバイルファースト** - 小さい画面から設計
 3. ✅ **コメントを残す** - 意図を明確に記載
-4. ✅ **showcase.htmlを更新** - 新機能のデモを追加
+4. ✅ **components.htmlを更新** - 新機能のデモを追加
 5. ✅ **セマンティックバージョニング** - MAJOR.MINOR.PATCH
 
 ### NPM Package運用マニュアル
@@ -1042,7 +1042,7 @@ MIT License - See [LICENSE](LICENSE) for details
 
 - [GitHub Repository](https://github.com/BoxPistols/asagiri)
 - [Issues](https://github.com/BoxPistols/asagiri/issues)
-- [Showcase Demo](./showcase.html)
+- [Showcase Demo](./components.html)
 
 ## 謝辞
 

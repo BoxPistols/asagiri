@@ -5,8 +5,8 @@
 node_modules/
 
 # Documentation and examples
-showcase.html
-showcase.css
+components.html
+components.css
 
 # Build artifacts
 *.log

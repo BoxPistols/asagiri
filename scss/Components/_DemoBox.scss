@@ -1,0 +1,33 @@
+/**
+ * Demo Box Component
+ * Display examples and demonstrations
+ * Used in: Component showcases, examples, previews
+ */
+
+.demo-box {
+  background: var(--color-bg, #ffffff);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+
+  code {
+    color: var(--color-text, #333);
+  }
+}
+
+// Dark mode support
+[data-theme="dark"] {
+  .demo-box {
+    background: #2a2a2a;
+    border-color: #3a3a3a;
+    color: #d4d4d4;
+
+    code {
+      color: #e7e7e7;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+  }
+}

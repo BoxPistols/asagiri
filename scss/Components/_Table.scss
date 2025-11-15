@@ -41,6 +41,38 @@ thead.dark > tr > th {
   background-color: var(--color-item-bg-dark);
 }
 
+// Dark mode support
+[data-theme="dark"] {
+  table {
+    border-color: #3a3a3a;
+    color: #d4d4d4;
+
+    &.stripe {
+      border-color: #3a3a3a;
+
+      tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #d4d4d4;
+      }
+
+      tr:nth-child(odd) {
+        background-color: transparent;
+        color: #d4d4d4;
+      }
+    }
+  }
+
+  td,
+  th {
+    border-color: #3a3a3a;
+    color: #d4d4d4;
+  }
+
+  thead.dark > tr > th {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
 @media (min-width: 40rem) {
   table {
     display: table;

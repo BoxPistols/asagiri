@@ -1,11 +1,28 @@
+// Reset & Normalize
 @use "Normalize";
+
+// Design Tokens
 @use "Tokens/Token" as *;
-@use "Utility/UtilityAll";
-@use "Components/Component";
+
+// Base Styles
 @use "baseAll";
 @use "Typography";
 @use "Button";
 @use "Accessibility";
+
+// Layouts
+@use "Layouts/DocLayout";
+@use "Layouts/SidebarNav";
+@use "Layouts/Patterns";
+
+// Components
+@use "Components/Component";
+@use "Components/CodeBlock";
+@use "Components/DemoBox";
+@use "Components/ColorSwatch";
+
+// Utilities
+@use "Utility/UtilityAll";
 
 .wrap {
   padding: 4vh 2vw;

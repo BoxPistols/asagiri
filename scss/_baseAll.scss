@@ -10,12 +10,13 @@ body {
   $font-weight: 400 !default;
   $font-family: "Inter", "Helvetica Neue", "Helvetica", "Arial", "Noto Sans JP",
     sans-serif !default;
-  $background-color: var(--color-bg);
 
   // Font smoothing for better text rendering
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  background-color: var(--color-bg);
+  color: var(--color-text);
   letter-spacing: 0.01em;
   font: $font-size $font-family;
   font-weight: $font-weight;

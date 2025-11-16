@@ -44,32 +44,32 @@ thead.dark > tr > th {
 // Dark mode support
 [data-theme="dark"] {
   table {
-    border-color: #3a3a3a;
-    color: #d4d4d4;
+    border-color: var(--color-border);
+    color: var(--color-text);
 
     &.stripe {
-      border-color: #3a3a3a;
+      border-color: var(--color-border);
 
       tr:nth-child(even) {
-        background-color: rgba(255, 255, 255, 0.05);
-        color: #d4d4d4;
+        background-color: var(--color-item-bg-light);
+        color: var(--color-text);
       }
 
       tr:nth-child(odd) {
         background-color: transparent;
-        color: #d4d4d4;
+        color: var(--color-text);
       }
     }
   }
 
   td,
   th {
-    border-color: #3a3a3a;
-    color: #d4d4d4;
+    border-color: var(--color-border);
+    color: var(--color-text);
   }
 
   thead.dark > tr > th {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: var(--color-item-bg-dark);
   }
 }
 

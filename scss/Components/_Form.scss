@@ -58,6 +58,15 @@ select:focus {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%235c5c63cc" d="M0,0l6,8l6-8"/></svg>');
 }
 
+// Dark mode select arrow
+[data-theme="dark"] select {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23a1a1aa" d="M0,0l6,8l6-8"/></svg>');
+}
+
+[data-theme="dark"] select:focus {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%2360a5fa" d="M0,0l6,8l6-8"/></svg>');
+}
+
 textarea {
   min-height: 6.5rem;
   padding: 0.5rem 0.8rem;

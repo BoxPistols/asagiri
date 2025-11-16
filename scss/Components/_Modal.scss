@@ -24,9 +24,9 @@
 
 /* Modal Container */
 .modal {
-  background: var(--color-bg-white, #fff);
+  background: var(--color-box);
   border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--box-shadow);
   max-width: 500px;
   width: 90%;
   max-height: 90vh;
@@ -42,7 +42,7 @@
 /* Modal Header */
 .modal-header {
   padding: 1.5rem;
-  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,13 +59,13 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--color-text-secondary, #666);
+  color: var(--color-text-secondary);
   padding: 0.5rem;
   line-height: 1;
   transition: color 0.2s ease;
 
   &:hover {
-    color: var(--color-danger, #ef4444);
+    color: var(--color-danger);
   }
 }
 
@@ -77,7 +77,7 @@
 /* Modal Footer */
 .modal-footer {
   padding: 1rem 1.5rem;
-  border-top: 1px solid var(--color-border, #e0e0e0);
+  border-top: 1px solid var(--color-border);
   display: flex;
   gap: 0.75rem;
   justify-content: flex-end;

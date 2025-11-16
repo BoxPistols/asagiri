@@ -135,7 +135,7 @@ blockquote {
   margin-left: 0;
   padding: 1em 1.5em;
 
-  border-left: 0.3em solid #d1d1d1;
+  border-left: 0.3em solid var(--color-border);
 
   font-size: 0.95rem;
 }
@@ -149,5 +149,5 @@ hr {
   margin: 2rem 0;
 
   border: 0;
-  border-top: 0.1rem solid #dee3e8;
+  border-top: 0.1rem solid var(--color-border-light);
 }

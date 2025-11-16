@@ -180,3 +180,137 @@
   --font-mincho: serif;
   */
 }
+
+/* ================================================
+   DARK MODE THEME
+   ================================================ */
+[data-theme="dark"] {
+  /* ----- Primary Variation (Dark Mode) ----- */
+  /* Increase lightness for better visibility on dark backgrounds */
+  --primary-l: 65%;
+  --color-primary: hsla(
+    var(--primary-h),
+    var(--primary-s),
+    var(--primary-l),
+    var(--primary-alpha)
+  );
+  --color-primary-light: hsla(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) + 15%),
+    var(--primary-alpha)
+  );
+  --color-primary-dark: hsla(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) - 15%),
+    var(--primary-alpha)
+  );
+
+  /* ----- Secondary Variation (Dark Mode) ----- */
+  --secondary-l: 60%;
+  --color-secondary: hsla(
+    var(--secondary-h),
+    var(--secondary-s),
+    var(--secondary-l),
+    var(--secondary-alpha)
+  );
+  --color-secondary-light: hsla(
+    var(--secondary-h),
+    var(--secondary-s),
+    calc(var(--secondary-l) + 15%),
+    var(--secondary-alpha)
+  );
+  --color-secondary-dark: hsla(
+    var(--secondary-h),
+    var(--secondary-s),
+    calc(var(--secondary-l) - 15%),
+    var(--secondary-alpha)
+  );
+
+  /* ----- Text Colors (Dark Mode) ----- */
+  --color-text: #e4e4e7;
+  --color-text-p: #d4d4d8;
+  --color-text-secondary: #a1a1aa;
+  --color-text-a: #60a5fa;
+  --color-text-a-hover: #93c5fd;
+  --color-text-a-visited: #a78bfa;
+
+  /* ----- Background Colors (Dark Mode) ----- */
+  --color-bg: #0f0f0f;
+  --color-item-bg: #1f1f23;
+  --color-item-bg-light: #1f1f23cc;
+  --color-item-bg-dark: #2a2a2e;
+  --color-box: #18181b;
+  --color-bg-code: #1e1e1e;
+  --color-bg-footer: #0a0a0a;
+  --color-bg-strong: #4a4a00;
+  --color-bg-btn: #2563eb;
+  --color-bg-cancel: #52525b;
+
+  /* ----- Functional Colors (Dark Mode) ----- */
+  /* Slightly desaturated and lighter for dark backgrounds */
+  --color-accent: #e879f9;
+  --color-accent-dark: #c026d3;
+  --color-accent-light: #f0abfc;
+
+  --color-success: #22c55e;
+  --color-success-dark: #16a34a;
+  --color-success-light: #4ade80;
+
+  --color-warning: #fbbf24;
+  --color-warning-dark: #f59e0b;
+  --color-warning-light: #fde047;
+
+  --color-danger: #ef4444;
+  --color-danger-dark: #dc2626;
+  --color-danger-light: #f87171;
+
+  --color-info: #22d3ee;
+  --color-info-dark: #06b6d4;
+  --color-info-light: #67e8f9;
+
+  /* ----- Elegant Color (Dark Mode) ----- */
+  --color-elegant: #94a3b8;
+  --color-elegant-dark: #64748b;
+  --color-elegant-light: #cbd5e1;
+  --color-elegant-transparent: rgba(148, 163, 184, 0.5);
+  --color-elegant-transparent-dark: rgba(100, 116, 139, 0.5);
+  --color-elegant-transparent-light: rgba(203, 213, 225, 0.5);
+
+  /* ----- Dark & Light Colors (Dark Mode) ----- */
+  --color-dark: #f4f5f6;
+  --color-dark-dark: #e1e1e1;
+  --color-dark-light: #f9f9f9;
+  --color-dark-transparent: rgba(244, 245, 246, 0.5);
+  --color-dark-transparent-light: rgba(225, 225, 225, 0.3);
+  --color-dark-transparent-lighter: rgba(249, 249, 249, 0.1);
+  --color-dark-transparent-dark: rgba(209, 209, 209, 0.5);
+  --color-dark-transparent-darker: rgba(200, 200, 200, 0.7);
+
+  --color-light: #27272a;
+  --color-light-dark: #18181b;
+  --color-light-light: #3f3f46;
+  --color-light-transparent: rgba(39, 39, 42, 0.5);
+  --color-light-transparent-light: rgba(24, 24, 27, 0.7);
+  --color-light-transparent-lighter: rgba(63, 63, 70, 0.85);
+
+  /* ----- Gray (Dark Mode) ----- */
+  --color-gray: #71717a;
+  --color-gray-dark: #52525b;
+  --color-gray-light: #3f3f46;
+  --color-gray-transparent: rgba(113, 113, 122, 0.5);
+  --color-gray-transparent-light: rgba(113, 113, 122, 0.3);
+  --color-gray-transparent-lighter: rgba(113, 113, 122, 0.1);
+  --color-gray-transparent-dark: rgba(113, 113, 122, 0.7);
+  --color-gray-transparent-darker: rgba(113, 113, 122, 0.85);
+
+  /* ----- Border Colors (Dark Mode) ----- */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-light: rgba(255, 255, 255, 0.05);
+  --color-border-dark: rgba(255, 255, 255, 0.2);
+
+  /* ----- Shadow Elevation (Dark Mode) ----- */
+  --box-shadow: 0.1rem 0.2rem 1rem rgba(0, 0, 0, 0.5);
+  --text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
+}

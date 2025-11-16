@@ -149,7 +149,10 @@ function toggleTheme() {
 - **システム連携** - `prefers-color-scheme`に対応
 - **カスタマイズ可能** - CSS変数で簡単にカスタマイズ
 
-詳細な実装方法とサンプルコードは[ダークモードガイド](./DARK_MODE.md)を参照してください。
+### ドキュメント
+
+- **[テーマ設定Wiki](./WIKI_THEME_HANDLING.md)** - 実装パターン集（バニラJS、React、Vue対応）
+- **[ダークモード詳細ガイド](./DARK_MODE.md)** - カラーシステム、カスタマイズ、トラブルシューティング
 
 ## React / Vue での使用
 

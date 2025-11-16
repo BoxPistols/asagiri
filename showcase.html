@@ -1517,30 +1517,68 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
       }
     });
 
-    // Dark Mode Toggle
+    /**
+     * ダークモードトグル機能
+     *
+     * 機能:
+     * - ユーザーがライト/ダークモードを切り替え可能
+     * - LocalStorageで設定を永続化
+     * - システムのテーマ設定（prefers-color-scheme）を自動検出
+     * - システム設定の変更をリアルタイムで反映
+     *
+     * 実装方法:
+     * 1. HTMLの<html>タグに data-theme="dark" 属性を付与
+     * 2. CSS内で [data-theme="dark"] セレクタを使用
+     * 3. アイコンは太陽（ライトモード時）と月（ダークモード時）で切り替え
+     *
+     * 使い方:
+     * - ボタンクリックで即座に切り替え
+     * - 設定はlocalStorageに保存され、次回訪問時も維持
+     * - ユーザー設定がない場合、システム設定を優先
+     *
+     * アクセシビリティ:
+     * - aria-label付きボタンでスクリーンリーダー対応
+     * - WCAG AA準拠の高コントラスト配色（4.5:1以上）
+     */
     (function() {
+      // DOM要素を取得
       const toggle = document.getElementById('darkModeToggle');
       const icon = document.getElementById('darkModeIcon');
       const htmlElement = document.documentElement;
 
-      // Sun and moon icons
+      // アイコンSVG定義
+      // 太陽アイコン: ダークモード時に表示（「ライトモードに切り替え」の意味）
       const sunIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+
+      // 月アイコン: ライトモード時に表示（「ダークモードに切り替え」の意味）
       const moonIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
 
-      // Check for saved theme preference or default to system preference
+      /**
+       * 初期テーマ設定の優先順位:
+       * 1. LocalStorageに保存された設定（ユーザーの明示的な選択）
+       * 2. システムのprefers-color-scheme設定
+       * 3. デフォルトはライトモード
+       */
       const savedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
 
-      // Apply initial theme
+      // 初期テーマを適用
       if (currentTheme === 'dark') {
         htmlElement.setAttribute('data-theme', 'dark');
-        icon.innerHTML = sunIcon;
+        icon.innerHTML = sunIcon; // ダークモード時は太陽アイコン
       } else {
-        icon.innerHTML = moonIcon;
+        htmlElement.setAttribute('data-theme', 'light');
+        icon.innerHTML = moonIcon; // ライトモード時は月アイコン
       }
 
-      // Toggle theme
+      /**
+       * トグルボタンのクリックイベント
+       * - 現在のテーマを反転
+       * - data-theme属性を更新（これによりCSSが切り替わる）
+       * - LocalStorageに保存（永続化）
+       * - アイコンを更新
+       */
       toggle.addEventListener('click', function() {
         const theme = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         htmlElement.setAttribute('data-theme', theme);
@@ -1548,7 +1586,12 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
         icon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
       });
 
-      // Listen to system theme changes
+      /**
+       * システムのテーマ設定変更を監視
+       * - ユーザーがOSレベルでダーク/ライトモードを変更した場合
+       * - LocalStorageに設定がない場合のみ自動反映
+       * - 明示的なユーザー選択（localStorage設定）を優先
+       */
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
         if (!localStorage.getItem('theme')) {
           const theme = e.matches ? 'dark' : 'light';

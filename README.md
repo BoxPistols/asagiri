@@ -16,6 +16,7 @@
 - [特徴](#特徴)
 - [インストール](#インストール)
 - [クイックスタート](#クイックスタート)
+- [ダークモード](#ダークモード)
 - [React / Vue での使用](#react--vue-での使用)
 - [ドキュメント](#ドキュメント)
 - [運用・更新マニュアル](#運用更新マニュアル)
@@ -113,6 +114,306 @@ npm install asagiri
 </body>
 </html>
 ```
+
+## ダークモード
+
+Asagiriは、`data-theme` 属性を使用した完全なダークモードサポートを提供します。WCAG AA準拠の高コントラスト配色で、アクセシビリティに配慮しています。
+
+### 🌙 基本的な使い方
+
+#### HTMLでダークモードを有効化
+
+```html
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Example</title>
+  <link rel="stylesheet" href="path/to/asagiri/css/main.css">
+</head>
+<body>
+  <!-- ダークモードで表示されます -->
+  <h1>Hello, Dark Mode!</h1>
+</body>
+</html>
+```
+
+#### JavaScriptでダークモードを切り替え
+
+```javascript
+// ダークモードを有効化
+document.documentElement.setAttribute('data-theme', 'dark');
+
+// ライトモードに戻す
+document.documentElement.setAttribute('data-theme', 'light');
+
+// 現在のテーマを確認
+const currentTheme = document.documentElement.getAttribute('data-theme');
+```
+
+### 🔄 ダークモードトグルボタンの実装
+
+完全な実装例（LocalStorage対応、システム設定検出付き）:
+
+```html
+<!-- トグルボタン -->
+<button id="darkModeToggle" aria-label="ダークモード切り替え">
+  <svg id="darkModeIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+
+<script>
+(function() {
+  const toggle = document.getElementById('darkModeToggle');
+  const icon = document.getElementById('darkModeIcon');
+
+  // 太陽アイコン（ライトモード）
+  const sunIcon = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>';
+
+  // 月アイコン（ダークモード）
+  const moonIcon = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+  // 初期テーマを設定
+  function initTheme() {
+    // LocalStorageから設定を取得
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      // システム設定を確認
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+  }
+
+  // テーマを設定
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    updateIcon(theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  // アイコンを更新
+  function updateIcon(theme) {
+    if (theme === 'dark') {
+      icon.innerHTML = moonIcon;
+    } else {
+      icon.innerHTML = sunIcon;
+    }
+  }
+
+  // トグルイベント
+  toggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  });
+
+  // システム設定の変更を監視
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  // 初期化
+  initTheme();
+})();
+</script>
+```
+
+### 🎨 カスタムスタイルでダークモードに対応
+
+独自のコンポーネントでダークモードに対応する方法:
+
+```css
+/* ライトモード（デフォルト） */
+.my-component {
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid #e0e0e0;
+}
+
+/* ダークモード */
+[data-theme="dark"] .my-component {
+  background: #1a1a1a;
+  color: #e8e8e8;
+  border: 1px solid #404040;
+}
+```
+
+### 🎯 Asagiriのダークモード変数
+
+Showcaseで使用されているダークモード専用のCSS変数:
+
+```css
+:root {
+  /* ライトモード（デフォルト） */
+  --showcase-bg: #ffffff;
+  --showcase-bg-secondary: #f8f9fa;
+  --showcase-text: #333;
+  --showcase-text-secondary: #555;
+  --showcase-text-tertiary: #666;
+  --showcase-border: #e0e0e0;
+  --showcase-code-bg: #f5f5f5;
+  --showcase-hover: #e0e0e0;
+}
+
+[data-theme="dark"] {
+  /* ダークモード（WCAG AA準拠） */
+  --showcase-bg: #1a1a1a;
+  --showcase-bg-secondary: #252525;
+  --showcase-text: #e8e8e8;
+  --showcase-text-secondary: #b8b8b8;
+  --showcase-text-tertiary: #999;
+  --showcase-border: #404040;
+  --showcase-code-bg: #252525;
+  --showcase-hover: #383838;
+}
+```
+
+### ♿ アクセシビリティ対応
+
+Asagiriのダークモードは、WCAG AA基準に準拠した高コントラスト配色を採用:
+
+- **テキストコントラスト**: 最低 4.5:1 の比率を確保
+- **コードブロック**: 特に高コントラスト（text: `#f0f0f0`, bg: `#3a3a3a`）
+- **ボーダー**: 要素の境界を明確に視認可能
+- **インタラクティブ要素**: ホバー・フォーカス状態で十分な視認性
+
+#### アクセシビリティテスト
+
+以下のツールでテストすることを推奨:
+
+```bash
+# AXE DevTools（ブラウザ拡張機能）
+# https://www.deque.com/axe/devtools/
+
+# Lighthouse（Chrome DevTools）
+# 「Accessibility」スコアを確認
+
+# WAVE（Webアクセシビリティ評価ツール）
+# https://wave.webaim.org/
+```
+
+### 📱 React/Vueでのダークモード実装
+
+#### React での実装例
+
+```jsx
+import { useState, useEffect } from 'react';
+import 'asagiri/css/main.css';
+
+function DarkModeToggle() {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    // 初期テーマを設定
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+    setTheme(initialTheme);
+    document.documentElement.setAttribute('data-theme', initialTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  return (
+    <button onClick={toggleTheme} aria-label="ダークモード切り替え">
+      {theme === 'dark' ? '☀️' : '🌙'}
+    </button>
+  );
+}
+
+export default DarkModeToggle;
+```
+
+#### Vue 3 での実装例
+
+```vue
+<template>
+  <button @click="toggleTheme" aria-label="ダークモード切り替え">
+    {{ theme === 'dark' ? '☀️' : '🌙' }}
+  </button>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import 'asagiri/css/main.css';
+
+const theme = ref('light');
+
+onMounted(() => {
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+  theme.value = initialTheme;
+  document.documentElement.setAttribute('data-theme', initialTheme);
+});
+
+const toggleTheme = () => {
+  theme.value = theme.value === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme.value);
+  localStorage.setItem('theme', theme.value);
+};
+</script>
+```
+
+### 🔧 トラブルシューティング
+
+#### ダークモードが適用されない
+
+```javascript
+// 確認1: data-theme属性が正しく設定されているか
+console.log(document.documentElement.getAttribute('data-theme'));
+
+// 確認2: CSSが正しく読み込まれているか
+console.log(getComputedStyle(document.body).backgroundColor);
+
+// 確認3: CSSセレクタの優先順位
+// [data-theme="dark"] セレクタより強い指定がないか確認
+```
+
+#### LocalStorageが動作しない
+
+```javascript
+// プライベートブラウジングモードや一部のブラウザでは
+// localStorageが使えない場合があります
+
+function safeLocalStorage() {
+  try {
+    const test = '__test__';
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+if (safeLocalStorage()) {
+  localStorage.setItem('theme', 'dark');
+} else {
+  // CookieやsessionStorageを代替として使用
+  document.cookie = 'theme=dark; path=/; max-age=31536000';
+}
+```
+
+### 📚 参考リンク
+
+- [showcase.html](./showcase.html) - 完全な実装例
+- [showcase.css](./showcase.css) - ダークモードのスタイル定義
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/) - アクセシビリティ基準
 
 ## React / Vue での使用
 

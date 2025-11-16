@@ -5,29 +5,17 @@
  */
 
 .demo-box {
-  background: var(--color-bg, #ffffff);
-  border: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-box);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 1rem 0;
+  color: var(--color-text);
 
   code {
-    color: var(--color-text, #333);
-  }
-}
-
-// Dark mode support
-[data-theme="dark"] {
-  .demo-box {
-    background: #2a2a2a;
-    border-color: #3a3a3a;
-    color: #d4d4d4;
-
-    code {
-      color: #e7e7e7;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 0.2em 0.4em;
-      border-radius: 3px;
-    }
+    color: var(--color-text);
+    background: var(--color-item-bg-light);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
   }
 }

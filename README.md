@@ -16,6 +16,7 @@
 - [特徴](#特徴)
 - [インストール](#インストール)
 - [クイックスタート](#クイックスタート)
+- [ダークモード](#ダークモード)
 - [React / Vue での使用](#react--vue-での使用)
 - [ドキュメント](#ドキュメント)
 - [運用・更新マニュアル](#運用更新マニュアル)
@@ -29,6 +30,7 @@ Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。�
 ### v2.0の主な変更点
 
 - ✨ Modern Normalize v3.0.1に更新
+- 🌙 **包括的なダークモードサポート**（WCAG AA準拠）
 - 🎯 CSS Grid完全サポート
 - 📏 体系的なスペーシングシステム（m-*, p-*）
 - 🎨 流動的タイポグラフィ（clamp関数）
@@ -113,6 +115,41 @@ npm install asagiri
 </body>
 </html>
 ```
+
+## ダークモード
+
+Asagiri v2.0は、包括的なダークモードサポートを提供します。すべてのコンポーネントが自動的にダークテーマに対応します。
+
+### 基本的な使い方
+
+HTML要素に`data-theme="dark"`属性を追加するだけです：
+
+```html
+<html lang="ja" data-theme="dark">
+```
+
+### JavaScriptでの切り替え
+
+```javascript
+// テーマを切り替える
+function toggleTheme() {
+  const html = document.documentElement;
+  const currentTheme = html.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+  html.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+```
+
+### 主な特徴
+
+- **WCAG AA準拠** - コントラスト比4.5:1以上
+- **自動対応** - すべてのコンポーネントが自動的にテーマ切り替え
+- **システム連携** - `prefers-color-scheme`に対応
+- **カスタマイズ可能** - CSS変数で簡単にカスタマイズ
+
+詳細な実装方法とサンプルコードは[ダークモードガイド](./DARK_MODE.md)を参照してください。
 
 ## React / Vue での使用
 

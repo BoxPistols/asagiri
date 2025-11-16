@@ -41,44 +41,25 @@
     font-size: 1.8rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    color: var(--color-text-secondary, #555);
+    color: var(--color-text-secondary);
   }
 
   h3 {
     font-size: 1.4rem;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
-    color: var(--color-text-tertiary, #666);
+    color: var(--color-text-secondary);
   }
 }
 
-// Footer
+/* Footer */
 .doc-footer {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 2px solid var(--color-border, #e0e0e0);
+  border-top: 2px solid var(--color-border);
 
   &-content {
     text-align: center;
-    color: var(--color-text-tertiary, #666);
-  }
-}
-
-// Dark mode support
-[data-theme="dark"] {
-  .doc-section h2 {
-    color: #a8a8a8;
-  }
-
-  .doc-section h3 {
-    color: #888;
-  }
-
-  .doc-footer {
-    border-top-color: #3a3a3a;
-  }
-
-  .doc-footer-content {
-    color: #888;
+    color: var(--color-text-secondary);
   }
 }

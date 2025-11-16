@@ -6,8 +6,8 @@
 
 .sidebar-nav {
   width: 280px;
-  background: var(--color-bg-secondary, #f8f9fa);
-  border-right: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-box);
+  border-right: 1px solid var(--color-border);
   padding: 2rem 1rem;
   position: sticky;
   top: 0;
@@ -75,14 +75,14 @@
 
   a {
     text-decoration: none;
-    color: var(--color-text, #333);
+    color: var(--color-text);
     padding: 0.5rem 1rem;
     display: block;
     border-radius: 4px;
     transition: all 0.2s;
 
     &:hover {
-      background: var(--color-hover, #e0e0e0);
+      background: var(--color-item-bg-light);
       color: var(--color-primary);
     }
   }
@@ -109,32 +109,16 @@
   opacity: 0.8;
 }
 
-// Badge for NEW items
+/* Badge for NEW items */
 .badge {
   display: inline-block;
   padding: 0.2rem 0.5rem;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  background: var(--color-accent, #ff6b6b);
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-white);
   border-radius: 3px;
   margin-left: 0.5rem;
   vertical-align: middle;
-}
-
-// Dark mode support
-[data-theme="dark"] {
-  .sidebar-nav {
-    background: #2a2a2a;
-    border-right-color: #3a3a3a;
-
-    a {
-      color: #d4d4d4;
-
-      &:hover {
-        background: #353535;
-      }
-    }
-  }
 }

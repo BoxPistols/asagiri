@@ -1458,36 +1458,24 @@ body.using-keyboard *:focus {
   font-size: 1.8rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: var(--color-text-secondary, #555);
+  color: var(--color-text-secondary);
 }
 .doc-section h3 {
   font-size: 1.4rem;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: var(--color-text-tertiary, #666);
+  color: var(--color-text-secondary);
 }
 
+/* Footer */
 .doc-footer {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 2px solid var(--color-border, #e0e0e0);
+  border-top: 2px solid var(--color-border);
 }
 .doc-footer-content {
   text-align: center;
-  color: var(--color-text-tertiary, #666);
-}
-
-[data-theme=dark] .doc-section h2 {
-  color: #a8a8a8;
-}
-[data-theme=dark] .doc-section h3 {
-  color: #888;
-}
-[data-theme=dark] .doc-footer {
-  border-top-color: #3a3a3a;
-}
-[data-theme=dark] .doc-footer-content {
-  color: #888;
+  color: var(--color-text-secondary);
 }
 
 /**
@@ -1497,8 +1485,8 @@ body.using-keyboard *:focus {
  */
 .sidebar-nav {
   width: 280px;
-  background: var(--color-bg-secondary, #f8f9fa);
-  border-right: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-box);
+  border-right: 1px solid var(--color-border);
   padding: 2rem 1rem;
   position: sticky;
   top: 0;
@@ -1552,14 +1540,14 @@ body.using-keyboard *:focus {
 }
 .sidebar-nav a {
   text-decoration: none;
-  color: var(--color-text, #333);
+  color: var(--color-text);
   padding: 0.5rem 1rem;
   display: block;
   border-radius: 4px;
   transition: all 0.2s;
 }
 .sidebar-nav a:hover {
-  background: var(--color-hover, #e0e0e0);
+  background: var(--color-item-bg-light);
   color: var(--color-primary);
 }
 @media (max-width: 768px) {
@@ -1583,28 +1571,18 @@ body.using-keyboard *:focus {
   opacity: 0.8;
 }
 
+/* Badge for NEW items */
 .badge {
   display: inline-block;
   padding: 0.2rem 0.5rem;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  background: var(--color-accent, #ff6b6b);
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-white);
   border-radius: 3px;
   margin-left: 0.5rem;
   vertical-align: middle;
-}
-
-[data-theme=dark] .sidebar-nav {
-  background: #2a2a2a;
-  border-right-color: #3a3a3a;
-}
-[data-theme=dark] .sidebar-nav a {
-  color: #d4d4d4;
-}
-[data-theme=dark] .sidebar-nav a:hover {
-  background: #353535;
 }
 
 /**
@@ -2596,8 +2574,8 @@ pre > code {
  * Used in: Documentation, tutorials, code examples
  */
 .code-block {
-  background: var(--color-bg-code, #f5f5f5);
-  border: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-bg-code);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 1rem;
   margin: 1rem 0;
@@ -2607,11 +2585,16 @@ pre > code {
 .code-block pre {
   margin: 0;
   font-size: 0.9rem;
+  background: transparent;
 }
 .code-block code {
-  color: var(--color-text, #333);
+  color: var(--color-text);
+  background: var(--color-item-bg-light);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
 }
 
+/* Copy button */
 .copy-button {
   position: absolute;
   top: 0.5rem;
@@ -2619,9 +2602,9 @@ pre > code {
   padding: 0.4rem 0.8rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--color-text, #333);
-  background: var(--color-bg, #ffffff);
-  border: 1px solid var(--color-border, #e0e0e0);
+  color: var(--color-text);
+  background: var(--color-box);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -2631,42 +2614,17 @@ pre > code {
   justify-content: center;
 }
 .copy-button:hover {
-  background: var(--color-primary, #6366f1);
-  color: white;
-  border-color: var(--color-primary, #6366f1);
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
 }
 .copy-button.copied {
-  background: var(--color-success, #10b981);
-  color: white;
-  border-color: var(--color-success, #10b981);
+  background: var(--color-success);
+  color: var(--color-white);
+  border-color: var(--color-success);
 }
 .copy-button:active {
   transform: scale(0.95);
-}
-
-[data-theme=dark] .code-block {
-  background: #2e2e2e;
-  border-color: #3a3a3a;
-}
-[data-theme=dark] .code-block pre {
-  color: #0bb95c;
-  background: transparent;
-}
-[data-theme=dark] .code-block code {
-  color: #0bb95c;
-  background: rgba(42, 55, 55, 0.93);
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-}
-[data-theme=dark] .copy-button {
-  color: #d4d4d4;
-  background: #1e1e1e;
-  border-color: #3a3a3a;
-}
-[data-theme=dark] .copy-button:hover {
-  background: var(--color-primary, #6366f1);
-  color: white;
-  border-color: var(--color-primary, #6366f1);
 }
 
 /**
@@ -2675,24 +2633,16 @@ pre > code {
  * Used in: Component showcases, examples, previews
  */
 .demo-box {
-  background: var(--color-bg, #ffffff);
-  border: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-box);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 1rem 0;
+  color: var(--color-text);
 }
 .demo-box code {
-  color: var(--color-text, #333);
-}
-
-[data-theme=dark] .demo-box {
-  background: #2a2a2a;
-  border-color: #3a3a3a;
-  color: #d4d4d4;
-}
-[data-theme=dark] .demo-box code {
-  color: #e7e7e7;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text);
+  background: var(--color-item-bg-light);
   padding: 0.2em 0.4em;
   border-radius: 3px;
 }
@@ -2708,7 +2658,7 @@ pre > code {
   height: 80px;
   border-radius: 8px;
   margin: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
   position: relative;
 }
 .color-swatch-label {
@@ -2716,22 +2666,17 @@ pre > code {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-light-transparent-lighter);
   padding: 0.25rem;
   font-size: 0.75rem;
   text-align: center;
   border-radius: 0 0 8px 8px;
-  color: #333;
+  color: var(--color-text);
 }
 .color-swatch-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-}
-
-[data-theme=dark] .color-swatch-label {
-  background: rgba(0, 0, 0, 0.8);
-  color: #e0e0e0;
 }
 
 .color-primary {

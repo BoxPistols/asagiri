@@ -138,8 +138,9 @@ select:focus-visible {
 }
 
 // Dark mode support (respects system preference)
+// Only applies when data-theme is not explicitly set
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --color-bg: #1a1a1a;
     --color-text: #f0f0f0;
     --color-bg-secondary: #2d2d2d;

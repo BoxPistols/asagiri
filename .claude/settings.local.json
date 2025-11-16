@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(tree:*)",
-      "Bash(npm run build)"
+      "Bash(npm run build)",
+      "Bash(npm run build:compressed:*)",
+      "Bash(sass:*)",
+      "Bash(npx sass:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git restore:*)"
     ],
     "deny": [],
     "ask": []

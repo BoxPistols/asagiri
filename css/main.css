@@ -444,20 +444,8 @@ summary {
   --color-elegant-transparent-dark: rgba(100, 116, 139, 0.5);
   --color-elegant-transparent-light: rgba(203, 213, 225, 0.5);
   /* ----- Dark & Light Colors (Dark Mode) ----- */
-  --color-dark: #f4f5f6;
-  --color-dark-dark: #e1e1e1;
-  --color-dark-light: #f9f9f9;
-  --color-dark-transparent: rgba(244, 245, 246, 0.5);
-  --color-dark-transparent-light: rgba(225, 225, 225, 0.3);
-  --color-dark-transparent-lighter: rgba(249, 249, 249, 0.1);
-  --color-dark-transparent-dark: rgba(209, 209, 209, 0.5);
-  --color-dark-transparent-darker: rgba(200, 200, 200, 0.7);
-  --color-light: #27272a;
-  --color-light-dark: #18181b;
-  --color-light-light: #3f3f46;
-  --color-light-transparent: rgba(39, 39, 42, 0.5);
-  --color-light-transparent-light: rgba(24, 24, 27, 0.7);
-  --color-light-transparent-lighter: rgba(63, 63, 70, 0.85);
+  /* Note: Keep semantic meaning - dark = dark colors, light = light colors */
+  /* Do not invert these values in dark mode */
   /* ----- Gray (Dark Mode) ----- */
   --color-gray: #71717a;
   --color-gray-dark: #52525b;
@@ -1344,7 +1332,7 @@ select:focus-visible {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --color-bg: #1a1a1a;
     --color-text: #f0f0f0;
     --color-bg-secondary: #2d2d2d;

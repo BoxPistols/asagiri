@@ -546,6 +546,8 @@ const buttonClass = computed(() =>
 - **[コンポーネント一覧](./showcase.html)** - 24+のコンポーネントデモ
 - **[ダークモード実装ガイド](./docs/guides/dark-mode.html)** - コピペで実装できるダークモード
 - **[テーマカスタマイズ](./docs/guides/theming.html)** - オリジナルテーマの作成方法
+- **[Developer Guide](./docs/guides/developer-guide.html)** - API仕様・アーキテクチャ・拡張ガイド
+- **[API Reference](./docs/api-reference.html)** - 完全なCSS変数・クラス名リファレンス
 
 ### 🧩 コンポーネント別ドキュメント
 

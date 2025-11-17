@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - Asagiri Design System</title>
+    <link rel="stylesheet" href="../dist/asagiri.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        .doc-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .doc-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .doc-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .doc-section h2 {
+            color: var(--color-primary);
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .api-table th,
+        .api-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--color-border);
+            text-align: left;
+            vertical-align: top;
+        }
+        .api-table th {
+            background: var(--color-background);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .api-table code {
+            background: var(--color-background);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.85em;
+            white-space: nowrap;
+        }
+        .search-box {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--color-surface);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: var(--color-background);
+            color: var(--color-text);
+        }
+        .color-preview {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 0.25rem;
+            border: 1px solid var(--color-border);
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        .toc {
+            position: sticky;
+            top: 6rem;
+            background: var(--color-surface);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+        .toc a {
+            color: var(--color-text);
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .toc a:hover {
+            background: var(--color-background);
+            color: var(--color-primary);
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+            .toc {
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <div class="doc-header">
+        <div class="doc-container">
+            <h1>📖 API Reference</h1>
+            <p>Asagiri Design System - 完全なCSS変数・クラス名リファレンス</p>
+            <a href="getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
+        </div>
+    </div>
+
+    <div class="doc-container">
+        <!-- Search -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 検索... (例: --color-primary, .btn, margin)" oninput="filterTables()">
+        </div>
+
+        <div class="two-col">
+            <!-- Table of Contents -->
+            <aside class="toc">
+                <h3>目次</h3>
+                <ul>
+                    <li><a href="#css-variables">CSS Variables</a>
+                        <ul style="margin-left: 1rem;">
+                            <li><a href="#colors">Colors</a></li>
+                            <li><a href="#spacing">Spacing</a></li>
+                            <li><a href="#typography">Typography</a></li>
+                            <li><a href="#borders">Borders</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#utility-classes">Utility Classes</a>
+                        <ul style="margin-left: 1rem;">
+                            <li><a href="#margin">Margin</a></li>
+                            <li><a href="#padding">Padding</a></li>
+                            <li><a href="#display">Display</a></li>
+                            <li><a href="#flexbox">Flexbox</a></li>
+                            <li><a href="#grid">Grid</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#components">Components</a>
+                        <ul style="margin-left: 1rem;">
+                            <li><a href="#button">Button</a></li>
+                            <li><a href="#alert">Alert</a></li>
+                            <li><a href="#badge">Badge</a></li>
+                            <li><a href="#card">Card</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <div>
+                <!-- CSS Variables -->
+                <section id="css-variables" class="doc-section">
+                    <h2>CSS Variables</h2>
+
+                    <h3 id="colors">Colors</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Preview</th>
+                                <th>Light Mode</th>
+                                <th>Dark Mode</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>--color-primary</code></td>
+                                <td><span class="color-preview" style="background: var(--color-primary);"></span></td>
+                                <td>#31a9c7</td>
+                                <td>#60a5fa</td>
+                                <td>プライマリカラー</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-secondary</code></td>
+                                <td><span class="color-preview" style="background: var(--color-secondary);"></span></td>
+                                <td>#5865a7</td>
+                                <td>#a78bfa</td>
+                                <td>セカンダリカラー</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-success</code></td>
+                                <td><span class="color-preview" style="background: var(--color-success);"></span></td>
+                                <td>#00a859</td>
+                                <td>#22c55e</td>
+                                <td>成功色</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-danger</code></td>
+                                <td><span class="color-preview" style="background: var(--color-danger);"></span></td>
+                                <td>#e1323c</td>
+                                <td>#ef4444</td>
+                                <td>危険・エラー色</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-warning</code></td>
+                                <td><span class="color-preview" style="background: var(--color-warning);"></span></td>
+                                <td>#ebbb0c</td>
+                                <td>#fbbf24</td>
+                                <td>警告色</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-info</code></td>
+                                <td><span class="color-preview" style="background: var(--color-info);"></span></td>
+                                <td>#1ec2c2</td>
+                                <td>#22d3ee</td>
+                                <td>情報色</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-text</code></td>
+                                <td><span class="color-preview" style="background: var(--color-text);"></span></td>
+                                <td>#4c5059</td>
+                                <td>#e4e4e7</td>
+                                <td>メインテキスト色</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-bg</code></td>
+                                <td><span class="color-preview" style="background: var(--color-bg);"></span></td>
+                                <td>#f9f9f9</td>
+                                <td>#0f0f0f</td>
+                                <td>背景色</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-box</code></td>
+                                <td><span class="color-preview" style="background: var(--color-box);"></span></td>
+                                <td>#ffffff</td>
+                                <td>#18181b</td>
+                                <td>ボックス・カード背景</td>
+                            </tr>
+                            <tr>
+                                <td><code>--color-border</code></td>
+                                <td><span class="color-preview" style="background: var(--color-border);"></span></td>
+                                <td>rgba(0,0,0,0.2)</td>
+                                <td>rgba(255,255,255,0.1)</td>
+                                <td>ボーダー色</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="spacing">Spacing</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Value</th>
+                                <th>Pixels</th>
+                                <th>Usage Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>--spacing-1</code></td><td>0.25rem</td><td>4px</td><td><code>.m-1</code>, <code>.p-1</code></td></tr>
+                            <tr><td><code>--spacing-2</code></td><td>0.5rem</td><td>8px</td><td><code>.m-2</code>, <code>.p-2</code></td></tr>
+                            <tr><td><code>--spacing-3</code></td><td>0.75rem</td><td>12px</td><td><code>.m-3</code>, <code>.p-3</code></td></tr>
+                            <tr><td><code>--spacing-4</code></td><td>1rem</td><td>16px</td><td><code>.m-4</code>, <code>.p-4</code></td></tr>
+                            <tr><td><code>--spacing-5</code></td><td>1.25rem</td><td>20px</td><td><code>.m-5</code>, <code>.p-5</code></td></tr>
+                            <tr><td><code>--spacing-6</code></td><td>1.5rem</td><td>24px</td><td><code>.m-6</code>, <code>.p-6</code></td></tr>
+                            <tr><td><code>--spacing-8</code></td><td>2rem</td><td>32px</td><td><code>.m-8</code>, <code>.p-8</code></td></tr>
+                            <tr><td><code>--spacing-10</code></td><td>2.5rem</td><td>40px</td><td><code>.m-10</code>, <code>.p-10</code></td></tr>
+                            <tr><td><code>--spacing-12</code></td><td>3rem</td><td>48px</td><td><code>.m-12</code>, <code>.p-12</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="typography">Typography</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Value</th>
+                                <th>Pixels (16px base)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>--font-size-xs</code></td><td>0.75rem</td><td>12px</td></tr>
+                            <tr><td><code>--font-size-sm</code></td><td>0.875rem</td><td>14px</td></tr>
+                            <tr><td><code>--font-size-base</code></td><td>1rem</td><td>16px</td></tr>
+                            <tr><td><code>--font-size-lg</code></td><td>1.125rem</td><td>18px</td></tr>
+                            <tr><td><code>--font-size-xl</code></td><td>1.25rem</td><td>20px</td></tr>
+                            <tr><td><code>--font-size-2xl</code></td><td>1.5rem</td><td>24px</td></tr>
+                            <tr><td><code>--font-size-3xl</code></td><td>1.875rem</td><td>30px</td></tr>
+                            <tr><td><code>--font-size-4xl</code></td><td>2.25rem</td><td>36px</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="borders">Borders & Shadows</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>--border-radius</code></td><td>0.375rem</td><td>基本ボーダー半径</td></tr>
+                            <tr><td><code>--box-shadow</code></td><td>0.1rem 0.2rem 1rem rgba(0,0,0,0.08)</td><td>基本シャドウ</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Utility Classes -->
+                <section id="utility-classes" class="doc-section">
+                    <h2>Utility Classes</h2>
+
+                    <h3 id="margin">Margin</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>CSS</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.m-{n}</code></td><td><code>margin: var(--spacing-{n})</code></td><td>全方向マージン (1-12)</td></tr>
+                            <tr><td><code>.mt-{n}</code></td><td><code>margin-top: var(--spacing-{n})</code></td><td>上マージン</td></tr>
+                            <tr><td><code>.mr-{n}</code></td><td><code>margin-right: var(--spacing-{n})</code></td><td>右マージン</td></tr>
+                            <tr><td><code>.mb-{n}</code></td><td><code>margin-bottom: var(--spacing-{n})</code></td><td>下マージン</td></tr>
+                            <tr><td><code>.ml-{n}</code></td><td><code>margin-left: var(--spacing-{n})</code></td><td>左マージン</td></tr>
+                            <tr><td><code>.mx-{n}</code></td><td><code>margin-left/right: var(--spacing-{n})</code></td><td>水平マージン</td></tr>
+                            <tr><td><code>.my-{n}</code></td><td><code>margin-top/bottom: var(--spacing-{n})</code></td><td>垂直マージン</td></tr>
+                            <tr><td><code>.mx-auto</code></td><td><code>margin-left: auto; margin-right: auto</code></td><td>中央配置</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="padding">Padding</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>CSS</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.p-{n}</code></td><td><code>padding: var(--spacing-{n})</code></td><td>全方向パディング (1-12)</td></tr>
+                            <tr><td><code>.pt-{n}</code></td><td><code>padding-top: var(--spacing-{n})</code></td><td>上パディング</td></tr>
+                            <tr><td><code>.pr-{n}</code></td><td><code>padding-right: var(--spacing-{n})</code></td><td>右パディング</td></tr>
+                            <tr><td><code>.pb-{n}</code></td><td><code>padding-bottom: var(--spacing-{n})</code></td><td>下パディング</td></tr>
+                            <tr><td><code>.pl-{n}</code></td><td><code>padding-left: var(--spacing-{n})</code></td><td>左パディング</td></tr>
+                            <tr><td><code>.px-{n}</code></td><td><code>padding-left/right: var(--spacing-{n})</code></td><td>水平パディング</td></tr>
+                            <tr><td><code>.py-{n}</code></td><td><code>padding-top/bottom: var(--spacing-{n})</code></td><td>垂直パディング</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="display">Display</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>CSS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.d-none</code></td><td><code>display: none</code></td></tr>
+                            <tr><td><code>.d-block</code></td><td><code>display: block</code></td></tr>
+                            <tr><td><code>.d-inline</code></td><td><code>display: inline</code></td></tr>
+                            <tr><td><code>.d-inline-block</code></td><td><code>display: inline-block</code></td></tr>
+                            <tr><td><code>.d-flex</code></td><td><code>display: flex</code></td></tr>
+                            <tr><td><code>.d-inline-flex</code></td><td><code>display: inline-flex</code></td></tr>
+                            <tr><td><code>.d-grid</code></td><td><code>display: grid</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="flexbox">Flexbox</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>CSS</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.flex-row</code></td><td><code>flex-direction: row</code></td><td>横並び</td></tr>
+                            <tr><td><code>.flex-column</code></td><td><code>flex-direction: column</code></td><td>縦並び</td></tr>
+                            <tr><td><code>.justify-start</code></td><td><code>justify-content: flex-start</code></td><td>開始位置</td></tr>
+                            <tr><td><code>.justify-center</code></td><td><code>justify-content: center</code></td><td>中央</td></tr>
+                            <tr><td><code>.justify-end</code></td><td><code>justify-content: flex-end</code></td><td>終了位置</td></tr>
+                            <tr><td><code>.justify-between</code></td><td><code>justify-content: space-between</code></td><td>両端揃え</td></tr>
+                            <tr><td><code>.align-start</code></td><td><code>align-items: flex-start</code></td><td>開始位置</td></tr>
+                            <tr><td><code>.align-center</code></td><td><code>align-items: center</code></td><td>中央</td></tr>
+                            <tr><td><code>.align-end</code></td><td><code>align-items: flex-end</code></td><td>終了位置</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="grid">Grid</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>CSS</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.grid</code></td><td><code>display: grid</code></td><td>グリッド表示</td></tr>
+                            <tr><td><code>.grid-cols-{n}</code></td><td><code>grid-template-columns: repeat({n}, 1fr)</code></td><td>列数 (1-12)</td></tr>
+                            <tr><td><code>.gap-{n}</code></td><td><code>gap: var(--spacing-{n})</code></td><td>グリッド間隔</td></tr>
+                            <tr><td><code>.col-span-{n}</code></td><td><code>grid-column: span {n}</code></td><td>列の跨ぎ (1-12)</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Components -->
+                <section id="components" class="doc-section">
+                    <h2>Components</h2>
+
+                    <h3 id="button">Button</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.btn</code></td><td>基本ボタン</td><td><button class="btn">Button</button></td></tr>
+                            <tr><td><code>.btn-primary</code></td><td>プライマリ</td><td><button class="btn btn-primary">Primary</button></td></tr>
+                            <tr><td><code>.btn-secondary</code></td><td>セカンダリ</td><td><button class="btn btn-secondary">Secondary</button></td></tr>
+                            <tr><td><code>.btn-success</code></td><td>成功</td><td><button class="btn btn-success">Success</button></td></tr>
+                            <tr><td><code>.btn-danger</code></td><td>危険</td><td><button class="btn btn-danger">Danger</button></td></tr>
+                            <tr><td><code>.btn-sm</code></td><td>小サイズ</td><td><button class="btn btn-primary btn-sm">Small</button></td></tr>
+                            <tr><td><code>.btn-lg</code></td><td>大サイズ</td><td><button class="btn btn-primary btn-lg">Large</button></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="alert">Alert</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.alert</code></td><td>基本アラート</td><td><div class="alert">Alert</div></td></tr>
+                            <tr><td><code>.alert-primary</code></td><td>プライマリ</td><td><div class="alert alert-primary">Primary</div></td></tr>
+                            <tr><td><code>.alert-success</code></td><td>成功</td><td><div class="alert alert-success">Success</div></td></tr>
+                            <tr><td><code>.alert-danger</code></td><td>エラー</td><td><div class="alert alert-danger">Danger</div></td></tr>
+                            <tr><td><code>.alert-dismissible</code></td><td>閉じるボタン付き</td><td>-</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="badge">Badge</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.badge</code></td><td>基本バッジ</td><td><span class="badge">Badge</span></td></tr>
+                            <tr><td><code>.badge-primary</code></td><td>プライマリ</td><td><span class="badge badge-primary">Primary</span></td></tr>
+                            <tr><td><code>.badge-success</code></td><td>成功</td><td><span class="badge badge-success">Success</span></td></tr>
+                            <tr><td><code>.badge-pill</code></td><td>ピル型</td><td><span class="badge badge-primary badge-pill">Pill</span></td></tr>
+                            <tr><td><code>.badge-dot</code></td><td>ドット</td><td><span class="badge badge-dot badge-success"></span></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="card">Card</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>.card</code></td><td>基本カード</td></tr>
+                            <tr><td><code>.card-header</code></td><td>カードヘッダー</td></tr>
+                            <tr><td><code>.card-body</code></td><td>カード本体</td></tr>
+                            <tr><td><code>.card-footer</code></td><td>カードフッター</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box" style="background: var(--color-info-bg, #e7f3ff); border-left: 4px solid var(--color-info); padding: 1rem; border-radius: 0.375rem; margin-top: 2rem;">
+                        <strong>💡 その他のコンポーネント：</strong> Tabs, Accordion, Pagination, Breadcrumb, Progress, Loading, Skeleton, Avatar, Form Validation, Dropdown など24+のコンポーネントがあります。詳細は<a href="../showcase.html">ショーケース</a>を参照してください。
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function filterTables() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const tables = document.querySelectorAll('.api-table');
+
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tbody tr');
+                let visibleCount = 0;
+
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // テーブル全体を非表示にする（すべての行が非表示の場合）
+                const section = table.closest('.doc-section, h3');
+                if (visibleCount === 0) {
+                    table.style.opacity = '0.3';
+                } else {
+                    table.style.opacity = '1';
+                }
+            });
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>

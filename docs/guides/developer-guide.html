@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Guide - Asagiri Design System</title>
+    <link rel="stylesheet" href="../../dist/asagiri.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        .doc-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .doc-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .doc-section h2 {
+            color: var(--color-primary);
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+        .code-block {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            float: right;
+            margin-bottom: 0.5rem;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .api-table th,
+        .api-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--color-border);
+            text-align: left;
+        }
+        .api-table th {
+            background: var(--color-background);
+            font-weight: 600;
+        }
+        .api-table code {
+            background: var(--color-background);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+        .nav-pills {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-pills a {
+            padding: 0.5rem 1rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--color-text);
+        }
+        .nav-pills a:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+        .info-box {
+            padding: 1rem;
+            background: var(--color-info-bg, #e7f3ff);
+            border-left: 4px solid var(--color-info);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        .warning-box {
+            padding: 1rem;
+            background: var(--color-warning-bg, #fff3cd);
+            border-left: 4px solid var(--color-warning);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <div class="doc-header">
+        <div class="doc-container">
+            <h1>👨‍💻 Developer Guide</h1>
+            <p>Asagiri Design System - API仕様・アーキテクチャ・拡張ガイド</p>
+            <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
+        </div>
+    </div>
+
+    <div class="doc-container">
+        <!-- クイックナビゲーション -->
+        <div class="nav-pills">
+            <a href="#api-reference">API Reference</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#css-variables">CSS Variables</a>
+            <a href="#typescript">TypeScript</a>
+            <a href="#build">Build System</a>
+            <a href="#contributing">Contributing</a>
+            <a href="#extending">Extending</a>
+        </div>
+
+        <!-- API Reference -->
+        <section id="api-reference" class="doc-section">
+            <h2>📚 API Reference</h2>
+
+            <h3>CSS Class Naming Convention</h3>
+            <p>Asagiriは一貫した命名規則を使用しています：</p>
+
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>パターン</th>
+                        <th>説明</th>
+                        <th>例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.component</code></td>
+                        <td>基本コンポーネント</td>
+                        <td><code>.btn</code>, <code>.card</code>, <code>.alert</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>.component-variant</code></td>
+                        <td>バリエーション</td>
+                        <td><code>.btn-primary</code>, <code>.alert-success</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>.component-size</code></td>
+                        <td>サイズ</td>
+                        <td><code>.btn-sm</code>, <code>.btn-lg</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>.component-state</code></td>
+                        <td>状態</td>
+                        <td><code>.is-active</code>, <code>.is-disabled</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>.component__element</code></td>
+                        <td>子要素（BEM）</td>
+                        <td><code>.card__header</code>, <code>.card__body</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>.utility-value</code></td>
+                        <td>ユーティリティ</td>
+                        <td><code>.m-4</code>, <code>.d-flex</code>, <code>.opacity-50</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Component API</h3>
+            <p>各コンポーネントは以下のAPIパターンに従います：</p>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// 基本構造
+.component {
+  // 基本スタイル
+}
+
+.component-variant {
+  // バリエーション（primary, secondary, success, etc.）
+}
+
+.component-size {
+  // サイズ（sm, md, lg, xl）
+}
+
+.component-state {
+  // 状態（active, disabled, loading）
+}
+
+// 例: Button
+.btn { /* 基本 */ }
+.btn-primary { /* カラー */ }
+.btn-lg { /* サイズ */ }
+.btn[disabled] { /* 状態 */ }</code></pre>
+            </div>
+        </section>
+
+        <!-- Architecture -->
+        <section id="architecture" class="doc-section">
+            <h2>🏗️ Architecture</h2>
+
+            <h3>File Structure</h3>
+            <div class="code-block">
+                <pre><code>asagiri/
+├── scss/
+│   ├── main.scss                 # エントリーポイント
+│   ├── _Normalize.scss           # リセットCSS
+│   ├── _Typography.scss          # タイポグラフィ
+│   ├── _Accessibility.scss       # アクセシビリティ
+│   │
+│   ├── Tokens/                   # デザイントークン
+│   │   ├── _Token.scss           # すべてのトークン
+│   │   ├── _Color.scss           # カラーシステム
+│   │   ├── _Spacing.scss         # スペーシング
+│   │   └── _Breakpoints.scss    # ブレークポイント
+│   │
+│   ├── Components/               # UIコンポーネント
+│   │   ├── _Component.scss       # すべてのコンポーネント
+│   │   ├── _Button.scss          # ボタン
+│   │   ├── _Alert.scss           # アラート
+│   │   ├── _Badge.scss           # バッジ
+│   │   ├── _Card.scss            # カード
+│   │   ├── _Tabs.scss            # タブ
+│   │   ├── _Accordion.scss       # アコーディオン
+│   │   ├── _Pagination.scss      # ページネーション
+│   │   ├── _Breadcrumb.scss      # パンくず
+│   │   ├── _Progress.scss        # プログレスバー
+│   │   ├── _Loading.scss         # ローディング
+│   │   ├── _Skeleton.scss        # スケルトン
+│   │   ├── _Avatar.scss          # アバター
+│   │   ├── _FormValidation.scss  # フォーム検証
+│   │   └── _Dropdown.scss        # ドロップダウン
+│   │
+│   └── Utility/                  # ユーティリティ
+│       ├── _UtilityAll.scss      # すべてのユーティリティ
+│       ├── _Grid.scss            # CSS Grid
+│       ├── _SpacingSystem.scss   # スペーシング
+│       └── _Display.scss         # 表示制御
+│
+├── css/
+│   └── main.css                  # コンパイル済みCSS
+│
+├── index.d.ts                    # TypeScript型定義
+├── index.js                      # CommonJS エントリー
+└── index.mjs                     # ES Module エントリー</code></pre>
+            </div>
+
+            <h3>Design Token System</h3>
+            <p>Asagiriは階層的なデザイントークンシステムを使用：</p>
+
+            <div class="code-block">
+                <pre><code>// Level 1: Primitive Tokens (基本値)
+--primary-h: 191;
+--primary-s: 47%;
+--primary-l: 53%;
+
+// Level 2: Semantic Tokens (意味のあるトークン)
+--color-primary: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 100%);
+
+// Level 3: Component Tokens (コンポーネント固有)
+.btn-primary {
+  background: var(--color-primary);
+}</code></pre>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 利点：</strong> この階層構造により、基本値を変更するだけで全体のテーマを一括変更できます。
+            </div>
+        </section>
+
+        <!-- CSS Variables -->
+        <section id="css-variables" class="doc-section">
+            <h2>🎨 CSS Variables API</h2>
+
+            <h3>Color System</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Description</th>
+                        <th>Default (Light)</th>
+                        <th>Default (Dark)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>--color-primary</code></td>
+                        <td>プライマリカラー</td>
+                        <td>#31a9c7</td>
+                        <td>#60a5fa (lighter)</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-secondary</code></td>
+                        <td>セカンダリカラー</td>
+                        <td>#5865a7</td>
+                        <td>#a78bfa (lighter)</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-success</code></td>
+                        <td>成功色</td>
+                        <td>#00a859</td>
+                        <td>#22c55e</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-danger</code></td>
+                        <td>危険色</td>
+                        <td>#e1323c</td>
+                        <td>#ef4444</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-warning</code></td>
+                        <td>警告色</td>
+                        <td>#ebbb0c</td>
+                        <td>#fbbf24</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-info</code></td>
+                        <td>情報色</td>
+                        <td>#1ec2c2</td>
+                        <td>#22d3ee</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-text</code></td>
+                        <td>テキスト色</td>
+                        <td>#4c5059</td>
+                        <td>#e4e4e7</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-bg</code></td>
+                        <td>背景色</td>
+                        <td>#f9f9f9</td>
+                        <td>#0f0f0f</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-box</code></td>
+                        <td>ボックス背景</td>
+                        <td>#ffffff</td>
+                        <td>#18181b</td>
+                    </tr>
+                    <tr>
+                        <td><code>--color-border</code></td>
+                        <td>ボーダー色</td>
+                        <td>rgba(0,0,0,0.2)</td>
+                        <td>rgba(255,255,255,0.1)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Spacing System</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Value</th>
+                        <th>Pixels</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>--spacing-1</code></td><td>0.25rem</td><td>4px</td></tr>
+                    <tr><td><code>--spacing-2</code></td><td>0.5rem</td><td>8px</td></tr>
+                    <tr><td><code>--spacing-3</code></td><td>0.75rem</td><td>12px</td></tr>
+                    <tr><td><code>--spacing-4</code></td><td>1rem</td><td>16px</td></tr>
+                    <tr><td><code>--spacing-5</code></td><td>1.25rem</td><td>20px</td></tr>
+                    <tr><td><code>--spacing-6</code></td><td>1.5rem</td><td>24px</td></tr>
+                    <tr><td><code>--spacing-8</code></td><td>2rem</td><td>32px</td></tr>
+                    <tr><td><code>--spacing-10</code></td><td>2.5rem</td><td>40px</td></tr>
+                    <tr><td><code>--spacing-12</code></td><td>3rem</td><td>48px</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Programmatic Access</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// JavaScriptでCSS変数を取得
+const root = document.documentElement;
+const primaryColor = getComputedStyle(root).getPropertyValue('--color-primary');
+
+// CSS変数を動的に変更
+root.style.setProperty('--color-primary', '#ff0000');
+
+// すべてのAsagiri CSS変数を取得
+const asagiriVars = Array.from(document.styleSheets)
+  .flatMap(sheet => Array.from(sheet.cssRules))
+  .filter(rule => rule.selectorText === ':root')
+  .flatMap(rule => Array.from(rule.style))
+  .filter(prop => prop.startsWith('--color-') || prop.startsWith('--spacing-'));</code></pre>
+            </div>
+        </section>
+
+        <!-- TypeScript -->
+        <section id="typescript" class="doc-section">
+            <h2>📘 TypeScript Integration</h2>
+
+            <h3>Type Definitions</h3>
+            <p>Asagiriは600+の型定義を提供しています：</p>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>import { AsagiriClass, ButtonClass, AlertClass, BadgeClass } from 'asagiri';
+
+// すべてのAsagiriクラスの型
+type AllClasses = AsagiriClass;
+
+// 特定のコンポーネントの型
+type ButtonClasses = ButtonClass;
+// 'btn' | 'btn-primary' | 'btn-secondary' | 'btn-lg' | ...
+
+// TypeSafeなクラス名使用
+const className: ButtonClass = 'btn-primary'; // ✅ OK
+const invalid: ButtonClass = 'invalid-class'; // ❌ Type Error
+
+// React での使用
+interface ButtonProps {
+  variant?: ButtonClass;
+  children: React.ReactNode;
+}
+
+function Button({ variant = 'btn', children }: ButtonProps) {
+  return <button className={variant}>{children}</button>;
+}
+
+// 使用例
+<Button variant="btn-primary">Click me</Button></code></pre>
+            </div>
+
+            <h3>Helper Functions</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>import { cn, asagiri } from 'asagiri';
+
+// クラス名を結合
+cn('btn', 'btn-primary', 'm-4'); // => 'btn btn-primary m-4'
+
+// 条件付きクラス
+cn('btn', isActive && 'active'); // => 'btn active' (if isActive is true)
+
+// オブジェクト形式
+cn('btn', {
+  'active': isActive,
+  'disabled': isDisabled
+}); // => 'btn active' (if isActive is true)
+
+// 配列形式
+cn(['btn', 'btn-primary']); // => 'btn btn-primary'
+
+// TypeScript で型安全に使用
+const classes: AsagiriClass = cn('m-4', 'p-2', 'd-flex');</code></pre>
+            </div>
+        </section>
+
+        <!-- Build System -->
+        <section id="build" class="doc-section">
+            <h2>⚙️ Build System</h2>
+
+            <h3>Development Setup</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code># リポジトリをクローン
+git clone https://github.com/BoxPistols/asagiri.git
+cd asagiri
+
+# 依存関係をインストール
+npm install
+
+# 開発モード（watch）
+npm run dev
+
+# または手動でコンパイル
+npx sass scss/main.scss css/main.css --watch</code></pre>
+            </div>
+
+            <h3>Build Commands</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>npm run build</code></td>
+                        <td>通常ビルド（開発用、source map付き）</td>
+                    </tr>
+                    <tr>
+                        <td><code>npm run build:compressed</code></td>
+                        <td>圧縮ビルド（本番用、minified）</td>
+                    </tr>
+                    <tr>
+                        <td><code>npm run dev</code></td>
+                        <td>開発モード（watch + live reload）</td>
+                    </tr>
+                    <tr>
+                        <td><code>npm test</code></td>
+                        <td>テスト実行（予定）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Custom Build</h3>
+            <p>必要なコンポーネントだけをインポートしてカスタムビルドを作成：</p>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// custom.scss
+@import 'asagiri/scss/Tokens/Token';
+@import 'asagiri/scss/Normalize';
+
+// 必要なコンポーネントだけインポート
+@import 'asagiri/scss/Components/Button';
+@import 'asagiri/scss/Components/Card';
+@import 'asagiri/scss/Components/Alert';
+
+// カスタムスタイルを追加
+.my-custom-component {
+  color: var(--color-primary);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Contributing -->
+        <section id="contributing" class="doc-section">
+            <h2>🤝 Contributing</h2>
+
+            <h3>開発フロー</h3>
+            <ol>
+                <li><strong>Fork & Clone</strong>
+                    <div class="code-block">
+                        <pre><code>git clone https://github.com/YOUR_USERNAME/asagiri.git
+cd asagiri
+npm install</code></pre>
+                    </div>
+                </li>
+
+                <li><strong>ブランチを作成</strong>
+                    <div class="code-block">
+                        <pre><code>git checkout -b feature/your-feature-name</code></pre>
+                    </div>
+                </li>
+
+                <li><strong>変更を実装</strong>
+                    <ul>
+                        <li>SCSSファイルを編集（<code>scss/</code>ディレクトリ）</li>
+                        <li>TypeScript型定義を更新（必要な場合）</li>
+                        <li>ドキュメントを更新</li>
+                    </ul>
+                </li>
+
+                <li><strong>ビルド & テスト</strong>
+                    <div class="code-block">
+                        <pre><code>npm run build
+npm run build:compressed
+# ブラウザで確認
+python3 -m http.server 8000</code></pre>
+                    </div>
+                </li>
+
+                <li><strong>コミット</strong>
+                    <div class="code-block">
+                        <pre><code>git add .
+git commit -m "feat: add new component"</code></pre>
+                    </div>
+                </li>
+
+                <li><strong>Pull Request</strong>
+                    <div class="code-block">
+                        <pre><code>git push origin feature/your-feature-name
+# GitHubでPull Requestを作成</code></pre>
+                    </div>
+                </li>
+            </ol>
+
+            <h3>Commit Message Convention</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Prefix</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>feat:</code></td>
+                        <td>新機能</td>
+                        <td>feat: add tooltip component</td>
+                    </tr>
+                    <tr>
+                        <td><code>fix:</code></td>
+                        <td>バグ修正</td>
+                        <td>fix: button hover state</td>
+                    </tr>
+                    <tr>
+                        <td><code>docs:</code></td>
+                        <td>ドキュメント</td>
+                        <td>docs: update API reference</td>
+                    </tr>
+                    <tr>
+                        <td><code>style:</code></td>
+                        <td>スタイル変更</td>
+                        <td>style: format SCSS files</td>
+                    </tr>
+                    <tr>
+                        <td><code>refactor:</code></td>
+                        <td>リファクタリング</td>
+                        <td>refactor: simplify color system</td>
+                    </tr>
+                    <tr>
+                        <td><code>test:</code></td>
+                        <td>テスト追加</td>
+                        <td>test: add button tests</td>
+                    </tr>
+                    <tr>
+                        <td><code>chore:</code></td>
+                        <td>雑務</td>
+                        <td>chore: update dependencies</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Extending -->
+        <section id="extending" class="doc-section">
+            <h2>🔌 Extending Asagiri</h2>
+
+            <h3>カスタムコンポーネントの追加</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// 1. 新しいSCSSファイルを作成
+// scss/Components/_Tooltip.scss
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+  &__text {
+    visibility: hidden;
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--border-radius);
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    // ダークモード対応
+    [data-theme="dark"] & {
+      background-color: var(--color-light);
+      color: var(--color-dark);
+    }
+  }
+
+  &:hover &__text {
+    visibility: visible;
+  }
+}
+
+// 2. _Component.scss にインポート追加
+@import "Tooltip";
+
+// 3. TypeScript型定義を追加（index.d.ts）
+export type TooltipClass =
+  | 'tooltip'
+  | 'tooltip__text'
+  | 'tooltip-top'
+  | 'tooltip-bottom'
+  | 'tooltip-left'
+  | 'tooltip-right';
+
+// 4. AsagiriClassに追加
+export type AsagiriClass =
+  | ButtonClass
+  | CardClass
+  | TooltipClass  // ← 追加
+  | ...;</code></pre>
+            </div>
+
+            <h3>カスタムテーマの作成</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// themes/corporate.scss
+@import '../scss/Tokens/Token';
+
+// カスタムカラーパレット
+:root {
+  --color-primary: #003366;      // コーポレートブルー
+  --color-secondary: #6c757d;
+  --color-accent: #ffc107;       // ゴールド
+}
+
+// カスタムコンポーネントスタイル
+.btn {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.card {
+  border: 2px solid var(--color-border);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+// ビルド
+// npx sass themes/corporate.scss css/corporate.css</code></pre>
+            </div>
+
+            <h3>プラグインシステム（予定）</h3>
+            <div class="info-box">
+                <strong>Coming Soon:</strong> プラグインAPIを開発中です。将来的には以下の機能を提供予定：
+                <ul>
+                    <li>コンポーネントの動的登録</li>
+                    <li>テーマのパッケージ化</li>
+                    <li>ユーティリティジェネレーター</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- API Versioning -->
+        <section class="doc-section">
+            <h2>📦 API Versioning & Stability</h2>
+
+            <h3>Semantic Versioning</h3>
+            <p>Asagiriは<a href="https://semver.org/">Semantic Versioning</a>に従います：</p>
+
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Version</th>
+                        <th>Changes</th>
+                        <th>Breaking Changes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>MAJOR</strong> (3.0.0)</td>
+                        <td>破壊的変更</td>
+                        <td>✅ あり</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MINOR</strong> (2.1.0)</td>
+                        <td>機能追加、下位互換性あり</td>
+                        <td>❌ なし</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PATCH</strong> (2.0.1)</td>
+                        <td>バグ修正</td>
+                        <td>❌ なし</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Stability Levels</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Description</th>
+                        <th>Components</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-success">Stable</span></td>
+                        <td>本番環境で使用可能</td>
+                        <td>Button, Card, Alert, Form, Grid</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-info">Beta</span></td>
+                        <td>テスト中、APIが変更される可能性</td>
+                        <td>Dropdown, Tooltip (予定)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-warning">Experimental</span></td>
+                        <td>実験的、大幅に変更される可能性</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>⚠️ Breaking Changes:</strong> メジャーバージョンアップ時は、<a href="https://github.com/BoxPistols/asagiri/releases">リリースノート</a>で移行ガイドを提供します。
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="doc-section">
+            <h2>🔗 Resources</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>📚 Documentation</h4>
+                        <ul>
+                            <li><a href="../getting-started.html">Getting Started</a></li>
+                            <li><a href="../../showcase.html">Component Showcase</a></li>
+                            <li><a href="dark-mode.html">Dark Mode Guide</a></li>
+                            <li><a href="theming.html">Theming Guide</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4>💻 Code</h4>
+                        <ul>
+                            <li><a href="https://github.com/BoxPistols/asagiri">GitHub Repository</a></li>
+                            <li><a href="https://www.npmjs.com/package/asagiri">npm Package</a></li>
+                            <li><a href="https://github.com/BoxPistols/asagiri/issues">Issue Tracker</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4>🛠️ Tools</h4>
+                        <ul>
+                            <li><a href="https://sass-lang.com/">Sass Documentation</a></li>
+                            <li><a href="https://www.typescriptlang.org/">TypeScript</a></li>
+                            <li><a href="https://vitejs.dev/">Vite</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4>📖 Standards</h4>
+                        <ul>
+                            <li><a href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG 2.1</a></li>
+                            <li><a href="https://www.w3.org/TR/wai-aria/">WAI-ARIA</a></li>
+                            <li><a href="https://semver.org/">Semantic Versioning</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ コピーしました！';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>

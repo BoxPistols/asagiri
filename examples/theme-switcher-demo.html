@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        // ⚡ IMPORTANT: ページ読み込み前に実行してフラッシュを防ぐ
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テーマ切り替えデモ - Asagiri</title>
+    <link rel="stylesheet" href="../dist/asagiri.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            padding: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .theme-controls {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+
+        .current-theme {
+            padding: 1rem;
+            background: var(--color-box);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        .demo-section {
+            margin-bottom: 3rem;
+        }
+
+        .component-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🌙 テーマ切り替えデモ</h1>
+        <p>右上のボタンでテーマを切り替えてみてください。設定はブラウザに保存されます。</p>
+
+        <!-- テーマ切り替えコントロール -->
+        <div class="theme-controls">
+            <!-- 方法1: シンプルなトグルボタン -->
+            <button class="btn btn-primary" onclick="toggleTheme()">
+                🌓 テーマ切り替え
+            </button>
+
+            <!-- 方法2: ライト/ダークボタン -->
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-sm btn-outline-primary" onclick="setTheme('light')">
+                    ☀️ ライト
+                </button>
+                <button class="btn btn-sm btn-outline-primary" onclick="setTheme('dark')">
+                    🌙 ダーク
+                </button>
+            </div>
+
+            <!-- 方法3: システム設定に従う -->
+            <button class="btn btn-sm btn-outline-secondary" onclick="setTheme('auto')">
+                💻 システム設定
+            </button>
+        </div>
+
+        <!-- 現在のテーマ表示 -->
+        <div class="current-theme">
+            <h3>現在のテーマ</h3>
+            <p>テーマ: <strong id="currentTheme">-</strong></p>
+            <p>保存状態: <strong id="savedTheme">-</strong></p>
+            <p>システム設定: <strong id="systemTheme">-</strong></p>
+        </div>
+
+        <!-- コンポーネントのデモ -->
+        <section class="demo-section">
+            <h2>コンポーネント一覧</h2>
+            <p>すべてのコンポーネントが自動的にテーマに対応します</p>
+
+            <div class="component-showcase">
+                <!-- Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4>カードコンポーネント</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>テーマを切り替えると、背景色とテキスト色が自動的に変わります。</p>
+                        <button class="btn btn-primary">アクション</button>
+                    </div>
+                </div>
+
+                <!-- Alerts -->
+                <div>
+                    <h4>アラート</h4>
+                    <div class="alert alert-success">成功メッセージ</div>
+                    <div class="alert alert-warning">警告メッセージ</div>
+                    <div class="alert alert-danger">エラーメッセージ</div>
+                </div>
+
+                <!-- Badges -->
+                <div>
+                    <h4>バッジ</h4>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <span class="badge badge-primary">Primary</span>
+                        <span class="badge badge-success">Success</span>
+                        <span class="badge badge-warning">Warning</span>
+                        <span class="badge badge-danger">Danger</span>
+                        <span class="badge badge-info">Info</span>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div>
+                    <h4>ボタン</h4>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-success">Success</button>
+                        <button class="btn btn-danger">Danger</button>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4>フォーム</h4>
+                        <input type="text" placeholder="テキスト入力" style="width: 100%; margin-bottom: 0.5rem;">
+                        <select style="width: 100%; margin-bottom: 0.5rem;">
+                            <option>オプション1</option>
+                            <option>オプション2</option>
+                        </select>
+                        <textarea placeholder="テキストエリア" style="width: 100%;"></textarea>
+                    </div>
+                </div>
+
+                <!-- Progress -->
+                <div>
+                    <h4>プログレス</h4>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-primary" style="width: 60%"></div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <!-- Avatar -->
+                <div>
+                    <h4>アバター</h4>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <div class="avatar avatar-md">
+                            <img src="https://i.pravatar.cc/150?img=1" alt="User">
+                            <span class="avatar-status avatar-status-online"></span>
+                        </div>
+                        <div class="avatar avatar-md">
+                            <img src="https://i.pravatar.cc/150?img=2" alt="User">
+                            <span class="avatar-status avatar-status-away"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 実装コード -->
+        <section class="demo-section">
+            <h2>📋 実装コード（コピーして使えます）</h2>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>基本的な実装</h3>
+                </div>
+                <div class="card-body">
+                    <h4>1. HTMLに data-theme 属性を追加</h4>
+                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;html lang="ja" data-theme="light"&gt;</code></pre>
+
+                    <h4>2. JavaScriptで切り替え関数を実装</h4>
+                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;script&gt;
+// シンプルなトグル
+function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+}
+
+// テーマを設定
+function setTheme(theme) {
+    if (theme === 'auto') {
+        // システム設定に従う
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        theme = prefersDark ? 'dark' : 'light';
+        localStorage.removeItem('theme'); // auto設定を保存
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme !== 'auto') {
+        localStorage.setItem('theme', theme);
+    }
+}
+
+// ページ読み込み時にテーマを復元
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+&lt;/script&gt;</code></pre>
+
+                    <h4>3. ボタンを追加</h4>
+                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;button onclick="toggleTheme()"&gt;🌓 テーマ切り替え&lt;/button&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <div class="card-header">
+                    <h3>高度な実装（フラッシュ防止）</h3>
+                </div>
+                <div class="card-body">
+                    <p>ページ読み込み時のテーマフラッシュを防ぐため、&lt;head&gt;の最初にスクリプトを配置：</p>
+                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;head&gt;
+    &lt;!-- 最初に実行してフラッシュを防ぐ --&gt;
+    &lt;script&gt;
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    &lt;/script&gt;
+
+    &lt;meta charset="UTF-8"&gt;
+    &lt;link rel="stylesheet" href="dist/asagiri.min.css"&gt;
+&lt;/head&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <div class="card-header">
+                    <h3>システム設定との連携</h3>
+                </div>
+                <div class="card-body">
+                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;script&gt;
+// システムのダークモード設定を検出
+function getPreferredTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved;
+
+    // システム設定を確認
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+// システム設定の変更を監視
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    // ユーザーが手動設定していない場合のみ変更
+    if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+    }
+});
+
+// 初期化
+const theme = getPreferredTheme();
+document.documentElement.setAttribute('data-theme', theme);
+&lt;/script&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- よくある質問 -->
+        <section class="demo-section">
+            <h2>💡 よくある質問</h2>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4>Q: テーマが保存されない</h4>
+                    <p>A: <code>localStorage.setItem('theme', newTheme)</code> を実行しているか確認してください。</p>
+
+                    <h4>Q: ページ読み込み時に一瞬別のテーマが表示される</h4>
+                    <p>A: テーマ復元スクリプトを&lt;head&gt;の最初に配置してください（CSSより前）。</p>
+
+                    <h4>Q: 一部のコンポーネントだけダークモードにならない</h4>
+                    <p>A: そのコンポーネントがCSS変数（<code>var(--color-*)</code>）を使用しているか確認してください。</p>
+
+                    <h4>Q: カスタムカラーを使いたい</h4>
+                    <p>A: CSS変数を上書きすることで簡単にカスタマイズできます：</p>
+                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>[data-theme="dark"] {
+    --color-primary: #your-color;
+    --color-bg: #your-bg-color;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ============================================
+        // テーマ切り替え関数
+        // ============================================
+
+        // シンプルなトグル
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+            updateThemeDisplay();
+        }
+
+        // テーマを設定
+        function setTheme(theme) {
+            if (theme === 'auto') {
+                // システム設定に従う
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const actualTheme = prefersDark ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', actualTheme);
+                localStorage.removeItem('theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+            updateThemeDisplay();
+        }
+
+        // 現在のテーマ情報を表示
+        function updateThemeDisplay() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const saved = localStorage.getItem('theme') || 'システム設定に従う';
+            const systemPrefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+            document.getElementById('currentTheme').textContent = current;
+            document.getElementById('savedTheme').textContent = saved;
+            document.getElementById('systemTheme').textContent = systemPrefers;
+        }
+
+        // システム設定の変更を監視
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            // ユーザーが手動設定していない場合のみ変更
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                updateThemeDisplay();
+            }
+        });
+
+        // 初期化
+        window.addEventListener('DOMContentLoaded', () => {
+            updateThemeDisplay();
+        });
+    </script>
+</body>
+</html>

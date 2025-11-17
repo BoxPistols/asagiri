@@ -540,12 +540,32 @@ const buttonClass = computed(() =>
 
 ## ドキュメント
 
-完全なドキュメントとデモは `components.html` を参照してください：
+### 📚 オンラインドキュメント
+
+- **[Getting Started](./docs/getting-started.html)** - 導入ガイドとクイックスタート
+- **[コンポーネント一覧](./showcase.html)** - 24+のコンポーネントデモ
+- **[ダークモード実装ガイド](./docs/guides/dark-mode.html)** - コピペで実装できるダークモード
+- **[テーマカスタマイズ](./docs/guides/theming.html)** - オリジナルテーマの作成方法
+
+### 🧩 コンポーネント別ドキュメント
+
+- **[Alert](./docs/components/alert.html)** - 通知・アラートメッセージ
+- **[Badge](./docs/components/badge.html)** - ステータス・カウント表示
+- その他24+のコンポーネント（[一覧を見る](./showcase.html)）
+
+### 💼 実践的なテンプレート
+
+- **[管理画面ダッシュボード](./examples/admin-dashboard.html)** - サイドバー、統計、テーブル付き
+- **[ログインページ](./examples/login-page.html)** - バリデーション、ソーシャルログイン付き
+
+### ローカルで確認
 
 ```bash
 # ローカルサーバーで開く
 python3 -m http.server 8000
-# http://localhost:8000/components.html
+# http://localhost:8000/docs/getting-started.html
+# http://localhost:8000/showcase.html
+# http://localhost:8000/examples/admin-dashboard.html
 ```
 
 ### 主要なユーティリティ

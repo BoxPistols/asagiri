@@ -1,0 +1,383 @@
+// ============================================================
+// Avatar Component
+// ============================================================
+// User profile images with size variants and status indicators
+//
+// Usage:
+//   <img class="avatar" src="user.jpg" alt="User">
+//   <div class="avatar avatar-lg">JD</div>
+//   <div class="avatar-group">...</div>
+
+// Avatar Base
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--color-gray, #9ca8b3);
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  // Avatar as image
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Avatar Sizes
+.avatar-xs {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.625rem;
+}
+
+.avatar-sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.75rem;
+}
+
+.avatar-md {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.125rem;
+}
+
+.avatar-lg {
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.5rem;
+}
+
+.avatar-xl {
+  width: 6rem;
+  height: 6rem;
+  font-size: 2rem;
+}
+
+.avatar-xxl {
+  width: 8rem;
+  height: 8rem;
+  font-size: 2.5rem;
+}
+
+// Avatar Shapes
+.avatar-square {
+  border-radius: 0.375rem;
+}
+
+.avatar-rounded {
+  border-radius: 0.75rem;
+}
+
+// Avatar with Border
+.avatar-bordered {
+  border: 2px solid var(--color-box, #fff);
+  box-shadow: 0 0 0 1px var(--color-border, rgba(0, 0, 0, 0.1));
+
+  [data-theme="dark"] & {
+    border-color: var(--color-box, #18181b);
+    box-shadow: 0 0 0 1px var(--color-border, rgba(255, 255, 255, 0.1));
+  }
+
+  &.avatar-xs {
+    border-width: 1px;
+  }
+
+  &.avatar-xl,
+  &.avatar-xxl {
+    border-width: 3px;
+  }
+}
+
+// Avatar Color Variants
+.avatar-primary {
+  background-color: var(--color-primary, #31a9c7);
+
+  [data-theme="dark"] & {
+    background-color: var(--color-primary-light, #4ec4df);
+    color: #000;
+  }
+}
+
+.avatar-secondary {
+  background-color: var(--color-secondary, #596784);
+}
+
+.avatar-success {
+  background-color: var(--color-success, #00a859);
+
+  [data-theme="dark"] & {
+    background-color: var(--color-success-light, #22c55e);
+    color: #000;
+  }
+}
+
+.avatar-warning {
+  background-color: var(--color-warning, #ebbb0c);
+  color: #000;
+}
+
+.avatar-danger {
+  background-color: var(--color-danger, #e1323c);
+}
+
+.avatar-info {
+  background-color: var(--color-info, #1ec2c2);
+
+  [data-theme="dark"] & {
+    background-color: var(--color-info-light, #22d3ee);
+    color: #000;
+  }
+}
+
+.avatar-elegant {
+  background-color: var(--color-elegant, #48626f);
+}
+
+// Avatar with Status Indicator
+.avatar-status {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25%;
+    height: 25%;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+    border-radius: 50%;
+    border: 2px solid var(--color-box, #fff);
+    background-color: var(--color-gray, #9ca8b3);
+
+    [data-theme="dark"] & {
+      border-color: var(--color-box, #18181b);
+    }
+  }
+
+  &.avatar-status-online::after {
+    background-color: var(--color-success, #00a859);
+  }
+
+  &.avatar-status-offline::after {
+    background-color: var(--color-gray, #9ca8b3);
+  }
+
+  &.avatar-status-away::after {
+    background-color: var(--color-warning, #ebbb0c);
+  }
+
+  &.avatar-status-busy::after {
+    background-color: var(--color-danger, #e1323c);
+  }
+}
+
+// Avatar Group (overlapping avatars)
+.avatar-group {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0.5rem;
+
+  .avatar {
+    margin-left: -0.5rem;
+    border: 2px solid var(--color-box, #fff);
+    transition: transform 0.2s ease-in-out, z-index 0s 0.2s;
+
+    [data-theme="dark"] & {
+      border-color: var(--color-box, #18181b);
+    }
+
+    &:hover {
+      transform: translateY(-0.25rem);
+      z-index: 10;
+      transition: transform 0.2s ease-in-out, z-index 0s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  // Avatar count indicator
+  .avatar-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    height: 3rem;
+    margin-left: -0.5rem;
+    padding: 0 0.75rem;
+    border: 2px solid var(--color-box, #fff);
+    border-radius: 2rem;
+    background-color: var(--color-bg, #f0f0f0);
+    color: var(--color-text, #4c5059);
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    [data-theme="dark"] & {
+      border-color: var(--color-box, #18181b);
+      background-color: color-mix(in srgb, var(--color-box) 50%, #000);
+      color: var(--color-text, #e4e4e7);
+    }
+  }
+
+  // Sizes for avatar-group
+  &.avatar-group-sm .avatar {
+    width: 2rem;
+    height: 2rem;
+    margin-left: -0.375rem;
+  }
+
+  &.avatar-group-sm .avatar-count {
+    height: 2rem;
+    min-width: 2rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  &.avatar-group-lg .avatar {
+    width: 4rem;
+    height: 4rem;
+    margin-left: -0.75rem;
+    border-width: 3px;
+  }
+
+  &.avatar-group-lg .avatar-count {
+    height: 4rem;
+    min-width: 4rem;
+    padding: 0 1rem;
+    border-width: 3px;
+    font-size: 1rem;
+  }
+}
+
+// Avatar with Icon
+.avatar-icon {
+  .avatar-icon-img {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+// Placeholder Avatar (for loading state)
+.avatar-placeholder {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg, #e0e0e0) 0%,
+    var(--color-box, #f0f0f0) 50%,
+    var(--color-bg, #e0e0e0) 100%
+  );
+  background-size: 200% 100%;
+  animation: avatar-loading 1.5s ease-in-out infinite;
+
+  [data-theme="dark"] & {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-box) 30%, #000) 0%,
+      color-mix(in srgb, var(--color-box) 50%, #000) 50%,
+      color-mix(in srgb, var(--color-box) 30%, #000) 100%
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes avatar-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Interactive Avatar (clickable)
+a.avatar,
+button.avatar,
+.avatar-clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    [data-theme="dark"] & {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #31a9c7);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover,
+    &:active {
+      transform: none;
+    }
+  }
+}
+
+// Avatar List (vertical list of avatars with info)
+.avatar-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3, 0.75rem);
+
+  .avatar-list-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3, 0.75rem);
+
+    .avatar-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .avatar-name {
+        font-weight: 600;
+        color: var(--color-text, #4c5059);
+
+        [data-theme="dark"] & {
+          color: var(--color-text, #e4e4e7);
+        }
+      }
+
+      .avatar-meta {
+        font-size: 0.875rem;
+        color: var(--color-text-muted, #6c757d);
+
+        [data-theme="dark"] & {
+          color: var(--color-text-muted, #9ca3af);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,399 @@
+// ============================================================
+// Badge Component
+// ============================================================
+// Modern badge component for labels, status indicators, and counters
+//
+// Usage:
+//   <span class="badge">Default</span>
+//   <span class="badge badge-primary">Primary</span>
+//   <span class="badge badge-lg">Large</span>
+//   <span class="badge badge-pill">Pill</span>
+//   <span class="badge badge-dot"></span>
+
+// Badge Base Styles
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em 0.5em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-text-inverse, #fff);
+  background-color: var(--color-gray, #6c757d);
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  vertical-align: baseline;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+
+  // Empty badge (for dots)
+  &:empty {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  // Badge inside links
+  a > &,
+  button > & {
+    position: relative;
+    top: -1px;
+  }
+}
+
+// Badge Color Variants
+.badge-primary {
+  color: #fff;
+  background-color: var(--color-primary, #31a9c7);
+
+  [data-theme="dark"] & {
+    color: #000;
+    background-color: var(--color-primary-light, #4ec4df);
+  }
+}
+
+.badge-secondary {
+  color: #fff;
+  background-color: var(--color-secondary, #596784);
+
+  [data-theme="dark"] & {
+    background-color: var(--color-secondary-light, #7a8aac);
+  }
+}
+
+.badge-accent {
+  color: #fff;
+  background-color: var(--color-accent, #d429e0);
+
+  [data-theme="dark"] & {
+    color: #000;
+    background-color: var(--color-accent-light, #e879f9);
+  }
+}
+
+.badge-success {
+  color: #fff;
+  background-color: var(--color-success, #00a859);
+
+  [data-theme="dark"] & {
+    color: #000;
+    background-color: var(--color-success-light, #22c55e);
+  }
+}
+
+.badge-warning {
+  color: #000;
+  background-color: var(--color-warning, #ebbb0c);
+
+  [data-theme="dark"] & {
+    background-color: var(--color-warning-light, #fbbf24);
+  }
+}
+
+.badge-danger {
+  color: #fff;
+  background-color: var(--color-danger, #e1323c);
+
+  [data-theme="dark"] & {
+    background-color: var(--color-danger-light, #ef4444);
+  }
+}
+
+.badge-info {
+  color: #fff;
+  background-color: var(--color-info, #1ec2c2);
+
+  [data-theme="dark"] & {
+    color: #000;
+    background-color: var(--color-info-light, #22d3ee);
+  }
+}
+
+.badge-light {
+  color: var(--color-text, #4c5059);
+  background-color: var(--color-box, #fff);
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+
+  [data-theme="dark"] & {
+    color: var(--color-text, #e4e4e7);
+    background-color: var(--color-box, #18181b);
+    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+  }
+}
+
+.badge-dark {
+  color: #fff;
+  background-color: var(--color-text, #4c5059);
+
+  [data-theme="dark"] & {
+    color: #000;
+    background-color: var(--color-text, #e4e4e7);
+  }
+}
+
+.badge-elegant {
+  color: #fff;
+  background-color: var(--color-elegant, #48626f);
+
+  [data-theme="dark"] & {
+    background-color: var(--color-elegant-light, #5a7a8a);
+  }
+}
+
+// Outline Variants
+.badge-outline {
+  background-color: transparent;
+  border: 1px solid currentColor;
+
+  &.badge-primary {
+    color: var(--color-primary, #31a9c7);
+  }
+
+  &.badge-secondary {
+    color: var(--color-secondary, #596784);
+  }
+
+  &.badge-accent {
+    color: var(--color-accent, #d429e0);
+  }
+
+  &.badge-success {
+    color: var(--color-success, #00a859);
+  }
+
+  &.badge-warning {
+    color: var(--color-warning, #ebbb0c);
+
+    [data-theme="dark"] & {
+      color: var(--color-warning-light, #fbbf24);
+    }
+  }
+
+  &.badge-danger {
+    color: var(--color-danger, #e1323c);
+  }
+
+  &.badge-info {
+    color: var(--color-info, #1ec2c2);
+  }
+
+  &.badge-dark {
+    color: var(--color-text, #4c5059);
+
+    [data-theme="dark"] & {
+      color: var(--color-text, #e4e4e7);
+    }
+  }
+}
+
+// Soft/Subtle Variants (low emphasis)
+.badge-soft {
+  &.badge-primary {
+    color: var(--color-primary-dark, #1a6b7e);
+    background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+
+  &.badge-success {
+    color: #0f5132;
+    background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
+
+    [data-theme="dark"] & {
+      color: #75b798;
+    }
+  }
+
+  &.badge-warning {
+    color: #664d03;
+    background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
+
+    [data-theme="dark"] & {
+      color: #ffda6a;
+    }
+  }
+
+  &.badge-danger {
+    color: #842029;
+    background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
+
+    [data-theme="dark"] & {
+      color: #ea868f;
+    }
+  }
+
+  &.badge-info {
+    color: #055160;
+    background-color: color-mix(in srgb, var(--color-info) 15%, transparent);
+
+    [data-theme="dark"] & {
+      color: #6edff6;
+    }
+  }
+}
+
+// Badge Sizes
+.badge-sm {
+  padding: 0.2em 0.4em;
+  font-size: 0.65rem;
+
+  &:empty {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+}
+
+.badge-lg {
+  padding: 0.35em 0.65em;
+  font-size: 0.875rem;
+
+  &:empty {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
+}
+
+.badge-xl {
+  padding: 0.5em 0.85em;
+  font-size: 1rem;
+
+  &:empty {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+}
+
+// Badge Shapes
+.badge-pill {
+  border-radius: 10rem;
+}
+
+.badge-square {
+  border-radius: 0;
+}
+
+.badge-circle {
+  border-radius: 50%;
+  padding: 0.35em;
+  width: 1.5rem;
+  height: 1.5rem;
+
+  &.badge-sm {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &.badge-lg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &.badge-xl {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+// Dot Badge (status indicator)
+.badge-dot {
+  padding: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+
+  &.badge-sm {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+
+  &.badge-lg {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
+
+  // Pulsing animation for active status
+  &.badge-pulse {
+    animation: badge-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes badge-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Badge with Icon
+.badge-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+
+  .badge-icon {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+// Positioned Badge (for notification counts)
+.badge-positioned {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  border: 2px solid var(--color-bg, #fff);
+
+  [data-theme="dark"] & {
+    border-color: var(--color-bg, #0f0f0f);
+  }
+}
+
+// Relative container for positioned badges
+.position-relative {
+  position: relative;
+}
+
+// Interactive Badge (when inside button or link)
+a.badge,
+button.badge {
+  &:hover {
+    filter: brightness(0.9);
+  }
+
+  &:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Badge Group (horizontal list of badges)
+.badge-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+// Reduced Motion Support
+@media (prefers-reduced-motion: reduce) {
+  .badge,
+  a.badge,
+  button.badge {
+    transition: none;
+
+    &:active {
+      transform: none;
+    }
+  }
+}

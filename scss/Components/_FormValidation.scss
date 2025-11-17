@@ -1,0 +1,302 @@
+// ============================================================
+// Form Validation States
+// ============================================================
+// Visual feedback for form validation
+//
+// Usage:
+//   <input class="form-control is-valid">
+//   <input class="form-control is-invalid">
+//   <div class="invalid-feedback">Error message</div>
+//   <div class="valid-feedback">Success message</div>
+
+// Validation States
+.is-valid,
+.was-validated .form-control:valid,
+.was-validated input:valid,
+.was-validated textarea:valid,
+.was-validated select:valid {
+  border-color: var(--color-success, #00a859) !important;
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300a859' viewBox='0 0 16 16'%3E%3Cpath d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+
+  [data-theme="dark"] & {
+    border-color: var(--color-success-light, #22c55e) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2322c55e' viewBox='0 0 16 16'%3E%3Cpath d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+  }
+
+  &:focus {
+    border-color: var(--color-success, #00a859) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 168, 89, 0.25);
+
+    [data-theme="dark"] & {
+      border-color: var(--color-success-light, #22c55e) !important;
+      box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25);
+    }
+  }
+}
+
+.is-invalid,
+.was-validated .form-control:invalid,
+.was-validated input:invalid,
+.was-validated textarea:invalid,
+.was-validated select:invalid {
+  border-color: var(--color-danger, #e1323c) !important;
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e1323c' viewBox='0 0 16 16'%3E%3Cpath d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/%3E%3Cpath d='M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+
+  [data-theme="dark"] & {
+    border-color: var(--color-danger-light, #ef4444) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ef4444' viewBox='0 0 16 16'%3E%3Cpath d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/%3E%3Cpath d='M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z'/%3E%3C/svg%3E");
+  }
+
+  &:focus {
+    border-color: var(--color-danger, #e1323c) !important;
+    box-shadow: 0 0 0 0.2rem rgba(225, 50, 60, 0.25);
+
+    [data-theme="dark"] & {
+      border-color: var(--color-danger-light, #ef4444) !important;
+      box-shadow: 0 0 0 0.2rem rgba(239, 68, 68, 0.25);
+    }
+  }
+}
+
+// Warning State (custom)
+.is-warning {
+  border-color: var(--color-warning, #ebbb0c) !important;
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ebbb0c' viewBox='0 0 16 16'%3E%3Cpath d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+
+  [data-theme="dark"] & {
+    border-color: var(--color-warning-light, #fbbf24) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fbbf24' viewBox='0 0 16 16'%3E%3Cpath d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/%3E%3C/svg%3E");
+  }
+
+  &:focus {
+    border-color: var(--color-warning, #ebbb0c) !important;
+    box-shadow: 0 0 0 0.2rem rgba(235, 187, 12, 0.25);
+
+    [data-theme="dark"] & {
+      border-color: var(--color-warning-light, #fbbf24) !important;
+      box-shadow: 0 0 0 0.2rem rgba(251, 191, 36, 0.25);
+    }
+  }
+}
+
+// Feedback Messages
+.valid-feedback,
+.invalid-feedback,
+.warning-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.valid-feedback {
+  color: var(--color-success, #00a859);
+
+  [data-theme="dark"] & {
+    color: var(--color-success-light, #22c55e);
+  }
+}
+
+.invalid-feedback {
+  color: var(--color-danger, #e1323c);
+
+  [data-theme="dark"] & {
+    color: var(--color-danger-light, #ef4444);
+  }
+}
+
+.warning-feedback {
+  color: var(--color-warning, #ebbb0c);
+
+  [data-theme="dark"] & {
+    color: var(--color-warning-light, #fbbf24);
+  }
+}
+
+// Show feedback when field is validated
+.is-valid ~ .valid-feedback,
+.is-valid ~ .valid-tooltip,
+.was-validated :valid ~ .valid-feedback,
+.was-validated :valid ~ .valid-tooltip {
+  display: block;
+}
+
+.is-invalid ~ .invalid-feedback,
+.is-invalid ~ .invalid-tooltip,
+.was-validated :invalid ~ .invalid-feedback,
+.was-validated :invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.is-warning ~ .warning-feedback,
+.is-warning ~ .warning-tooltip {
+  display: block;
+}
+
+// Tooltip-style Feedback
+.valid-tooltip,
+.invalid-tooltip,
+.warning-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 5;
+  display: none;
+  max-width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 0.375rem;
+}
+
+.valid-tooltip {
+  background-color: var(--color-success, #00a859);
+}
+
+.invalid-tooltip {
+  background-color: var(--color-danger, #e1323c);
+}
+
+.warning-tooltip {
+  background-color: var(--color-warning, #ebbb0c);
+  color: #000;
+}
+
+// Checkbox & Radio Validation
+.form-check-input {
+  &.is-valid,
+  &.was-validated:valid {
+    border-color: var(--color-success, #00a859);
+
+    &:checked {
+      background-color: var(--color-success, #00a859);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(0, 168, 89, 0.25);
+    }
+
+    ~ .form-check-label {
+      color: var(--color-success, #00a859);
+    }
+  }
+
+  &.is-invalid,
+  &.was-validated:invalid {
+    border-color: var(--color-danger, #e1323c);
+
+    &:checked {
+      background-color: var(--color-danger, #e1323c);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(225, 50, 60, 0.25);
+    }
+
+    ~ .form-check-label {
+      color: var(--color-danger, #e1323c);
+    }
+  }
+}
+
+// Select Validation
+select.is-valid,
+select.is-invalid,
+select.is-warning {
+  background-position:
+    right 0.75rem center,
+    center right 2rem;
+  background-size:
+    16px 12px,
+    calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+// Textarea Validation
+textarea.is-valid,
+textarea.is-invalid,
+textarea.is-warning {
+  background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+}
+
+// Form Group Validation States
+.form-group {
+  &.has-success {
+    .form-control,
+    input,
+    textarea,
+    select {
+      @extend .is-valid;
+    }
+
+    .form-label,
+    label {
+      color: var(--color-success, #00a859);
+    }
+  }
+
+  &.has-error {
+    .form-control,
+    input,
+    textarea,
+    select {
+      @extend .is-invalid;
+    }
+
+    .form-label,
+    label {
+      color: var(--color-danger, #e1323c);
+    }
+  }
+
+  &.has-warning {
+    .form-control,
+    input,
+    textarea,
+    select {
+      @extend .is-warning;
+    }
+
+    .form-label,
+    label {
+      color: var(--color-warning, #ebbb0c);
+    }
+  }
+}
+
+// Help Text (neutral feedback)
+.form-text {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted, #6c757d);
+  line-height: 1.4;
+
+  [data-theme="dark"] & {
+    color: var(--color-text-muted, #9ca3af);
+  }
+}
+
+// Required Field Indicator
+.required,
+.form-required {
+  &::after {
+    content: " *";
+    color: var(--color-danger, #e1323c);
+  }
+}

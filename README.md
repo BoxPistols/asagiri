@@ -4,18 +4,22 @@
 
 🌅 **朝霧** - A modern, lightweight CSS framework
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/BoxPistols/asagiri)
+[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/BoxPistols/asagiri)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![CSS Size](https://img.shields.io/badge/size-60KB-orange.svg)]()
+[![CSS Size](https://img.shields.io/badge/size-63KB-orange.svg)]()
+
+[**📚 Documentation**](docs/getting-started.html) | [**🎨 Showcase**](showcase.html) | [**🚀 Get Started**](#インストール)
 
 </div>
 
 ## 📖 目次
 
 - [概要](#概要)
+- [新機能 v2.1](#新機能-v21)
 - [特徴](#特徴)
 - [インストール](#インストール)
 - [クイックスタート](#クイックスタート)
+- [コンポーネント](#コンポーネント)
 - [ダークモード](#ダークモード)
 - [React / Vue での使用](#react--vue-での使用)
 - [ドキュメント](#ドキュメント)
@@ -26,6 +30,34 @@
 ## 概要
 
 Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。シンプルさを保ちながら、最新のCSS機能を活用した汎用性の高いフレームワークを目指しています。
+
+## 🎉 新機能 v2.1
+
+**13個の新規UIコンポーネント**を追加し、世界トップクラスのデザインシステムに進化しました！
+
+### 新コンポーネント
+
+- ✅ **Alert** - 通知システム（dismissible、サイズバリエーション）
+- ✅ **Badge** - ステータス表示（8色、形状、アニメーション）
+- ✅ **Tabs** - ARIA完全対応タブナビゲーション
+- ✅ **Accordion** - アコーディオンパネル
+- ✅ **Pagination** - ページネーション
+- ✅ **Breadcrumb** - パンくずナビゲーション
+- ✅ **Progress** - プログレスバー（striped、animated）
+- ✅ **Loading** - スピナー（4種類のスタイル）
+- ✅ **Skeleton** - コンテンツプレースホルダー
+- ✅ **Card** - カードコンポーネント（hover、clickable）
+- ✅ **Avatar** - プロフィール画像（グループ、ステータス）
+- ✅ **Form Validation** - バリデーション状態
+- ✅ **Dropdown** - ドロップダウンメニュー
+
+### 強化機能
+
+- 📘 **TypeScript型定義**: 600+ 型定義（400個追加）
+- ♿ **アクセシビリティ**: 完全なARIA対応
+- 🌙 **ダークモード**: 全コンポーネント対応
+- 📱 **レスポンシブ**: モバイルファースト設計
+- ⚡ **パフォーマンス**: Reduced motion サポート
 
 ### v2.0の主な変更点
 

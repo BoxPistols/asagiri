@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component Showcase - Asagiri CSS Framework v2.1</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--color-bg, #f9f9f9);
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      border-radius: 1rem;
+      color: white;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      margin: 0 0 1rem 0;
+    }
+
+    .page-header p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    .theme-toggle-btn {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      font-size: 1.5rem;
+      padding: 0.75rem;
+      background: var(--color-box, #fff);
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .section {
+      background: var(--color-box, #fff);
+      border-radius: 0.75rem;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
+      color: var(--color-primary);
+    }
+
+    .section-subtitle {
+      color: var(--color-text-muted);
+      margin: 0 0 2rem 0;
+    }
+
+    .demo-grid {
+      display: grid;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .demo-item {
+      padding: 1.5rem;
+      background: var(--color-bg);
+      border-radius: 0.5rem;
+      border: 1px solid var(--color-border);
+    }
+
+    .demo-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .code-preview {
+      background: #1a1a1a;
+      color: #e4e4e7;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-family: 'Monaco', monospace;
+      font-size: 0.875rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span id="theme-icon">🌙</span>
+  </button>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="page-header">
+      <h1>Asagiri CSS Framework v2.1</h1>
+      <p>Complete Component Showcase - 24+ Production-Ready Components</p>
+    </header>
+
+    <!-- Alert Component -->
+    <section class="section">
+      <h2 class="section-title">Alert Component</h2>
+      <p class="section-subtitle">Notification system with multiple variants</p>
+
+      <div class="demo-grid">
+        <div class="alert alert-primary">
+          <strong>Info!</strong> This is a primary alert message.
+        </div>
+        <div class="alert alert-success">
+          <strong>Success!</strong> Operation completed successfully.
+        </div>
+        <div class="alert alert-warning">
+          <strong>Warning!</strong> Please check your input.
+        </div>
+        <div class="alert alert-danger">
+          <strong>Error!</strong> Something went wrong.
+        </div>
+        <div class="alert alert-info alert-dismissible">
+          <strong>Dismissible!</strong> Click the × button to close.
+          <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+        </div>
+      </div>
+
+      <div class="code-preview">&lt;div class="alert alert-success"&gt;Success message&lt;/div&gt;</div>
+    </section>
+
+    <!-- Badge Component -->
+    <section class="section">
+      <h2 class="section-title">Badge Component</h2>
+      <p class="section-subtitle">Status indicators with various styles</p>
+
+      <div class="demo-grid">
+        <div class="demo-item">
+          <div class="demo-label">Solid Badges</div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <span class="badge badge-primary">Primary</span>
+            <span class="badge badge-success">Success</span>
+            <span class="badge badge-warning">Warning</span>
+            <span class="badge badge-danger">Danger</span>
+            <span class="badge badge-info">Info</span>
+            <span class="badge badge-elegant">Elegant</span>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Outline Badges</div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <span class="badge badge-outline badge-primary">Primary</span>
+            <span class="badge badge-outline badge-success">Success</span>
+            <span class="badge badge-outline badge-danger">Danger</span>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Pill & Sizes</div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+            <span class="badge badge-primary badge-pill badge-sm">Small</span>
+            <span class="badge badge-success badge-pill">Medium</span>
+            <span class="badge badge-danger badge-pill badge-lg">Large</span>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Status Dots</div>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <span class="badge-dot badge-success"></span> Online
+            <span class="badge-dot badge-warning"></span> Away
+            <span class="badge-dot badge-danger"></span> Busy
+            <span class="badge-dot badge-success badge-pulse"></span> Live
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs Component -->
+    <section class="section">
+      <h2 class="section-title">Tabs Component</h2>
+      <p class="section-subtitle">ARIA-compliant tabbed navigation</p>
+
+      <div class="tabs">
+        <div class="tabs-nav" role="tablist">
+          <button class="tab-link active" role="tab" aria-selected="true" onclick="switchTab(event, 'tab1')">Tab 1</button>
+          <button class="tab-link" role="tab" aria-selected="false" onclick="switchTab(event, 'tab2')">Tab 2</button>
+          <button class="tab-link" role="tab" aria-selected="false" onclick="switchTab(event, 'tab3')">Tab 3</button>
+        </div>
+        <div class="tabs-content">
+          <div class="tab-panel active" role="tabpanel" id="tab1">
+            <p>This is the content of Tab 1. Tabs help organize content into separate views.</p>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="tab2">
+            <p>This is the content of Tab 2. Click different tabs to switch views.</p>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="tab3">
+            <p>This is the content of Tab 3. Fully accessible with keyboard navigation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <div class="demo-label">Pills Style</div>
+        <div class="tabs tabs-pills">
+          <div class="tabs-nav" role="tablist">
+            <button class="tab-link active" role="tab">Home</button>
+            <button class="tab-link" role="tab">Profile</button>
+            <button class="tab-link" role="tab">Settings</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accordion Component -->
+    <section class="section">
+      <h2 class="section-title">Accordion Component</h2>
+      <p class="section-subtitle">Collapsible content panels</p>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+            Section 1
+          </button>
+          <div class="accordion-panel">
+            <p>Content for section 1. Click the header to expand/collapse.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+            Section 2
+          </button>
+          <div class="accordion-panel">
+            <p>Content for section 2. Smooth animation included.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+            Section 3
+          </button>
+          <div class="accordion-panel">
+            <p>Content for section 3. Fully accessible with ARIA attributes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Component -->
+    <section class="section">
+      <h2 class="section-title">Progress Component</h2>
+      <p class="section-subtitle">Progress bars with multiple styles</p>
+
+      <div class="demo-grid">
+        <div>
+          <div class="demo-label">Basic Progress</div>
+          <div class="progress">
+            <div class="progress-bar" style="width: 75%">
+              <span class="progress-label">75%</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="demo-label">Color Variants</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: 60%"></div>
+          </div>
+          <div class="progress" style="margin-top: 0.5rem;">
+            <div class="progress-bar progress-bar-warning" style="width: 40%"></div>
+          </div>
+          <div class="progress" style="margin-top: 0.5rem;">
+            <div class="progress-bar progress-bar-danger" style="width: 90%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="demo-label">Striped & Animated</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 65%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="demo-label">Sizes</div>
+          <div class="progress progress-sm">
+            <div class="progress-bar" style="width: 50%"></div>
+          </div>
+          <div class="progress progress-lg" style="margin-top: 0.5rem;">
+            <div class="progress-bar" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading Component -->
+    <section class="section">
+      <h2 class="section-title">Loading Component</h2>
+      <p class="section-subtitle">Spinner and loading states</p>
+
+      <div class="demo-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="demo-item" style="text-align: center;">
+          <div class="demo-label">Default Spinner</div>
+          <div class="spinner"></div>
+        </div>
+
+        <div class="demo-item" style="text-align: center;">
+          <div class="demo-label">Grow Spinner</div>
+          <div class="spinner spinner-grow"></div>
+        </div>
+
+        <div class="demo-item" style="text-align: center;">
+          <div class="demo-label">Dots Spinner</div>
+          <div class="spinner spinner-dots"></div>
+        </div>
+
+        <div class="demo-item" style="text-align: center;">
+          <div class="demo-label">Pulse Spinner</div>
+          <div class="spinner spinner-pulse"></div>
+        </div>
+
+        <div class="demo-item" style="text-align: center;">
+          <div class="demo-label">Color Variants</div>
+          <div style="display: flex; gap: 1rem; justify-content: center;">
+            <div class="spinner spinner-success spinner-sm"></div>
+            <div class="spinner spinner-warning spinner-sm"></div>
+            <div class="spinner spinner-danger spinner-sm"></div>
+          </div>
+        </div>
+
+        <div class="demo-item" style="text-align: center;">
+          <div class="demo-label">Button Loading</div>
+          <button class="btn btn-primary btn-loading">Loading...</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card Component -->
+    <section class="section">
+      <h2 class="section-title">Card Component</h2>
+      <p class="section-subtitle">Flexible content containers</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <div class="card">
+          <div class="card-header">Card Header</div>
+          <div class="card-body">
+            <h3 class="card-title">Card Title</h3>
+            <p class="card-text">This is a basic card with header, body, and footer.</p>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary btn-sm">Action</button>
+          </div>
+        </div>
+
+        <div class="card card-hover">
+          <div class="card-body">
+            <h3 class="card-title">Hoverable Card</h3>
+            <p class="card-text">Hover over this card to see the effect.</p>
+          </div>
+        </div>
+
+        <div class="card card-primary">
+          <div class="card-header">Primary Card</div>
+          <div class="card-body">
+            <p class="card-text">Card with colored header.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Avatar Component -->
+    <section class="section">
+      <h2 class="section-title">Avatar Component</h2>
+      <p class="section-subtitle">User profile images</p>
+
+      <div class="demo-grid">
+        <div class="demo-item">
+          <div class="demo-label">Sizes</div>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div class="avatar avatar-xs">XS</div>
+            <div class="avatar avatar-sm">SM</div>
+            <div class="avatar">MD</div>
+            <div class="avatar avatar-lg">LG</div>
+            <div class="avatar avatar-xl">XL</div>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Colors</div>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div class="avatar avatar-primary">A</div>
+            <div class="avatar avatar-success">B</div>
+            <div class="avatar avatar-warning">C</div>
+            <div class="avatar avatar-danger">D</div>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">With Status</div>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div class="avatar avatar-status avatar-status-online">A</div>
+            <div class="avatar avatar-status avatar-status-away">B</div>
+            <div class="avatar avatar-status avatar-status-busy">C</div>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Avatar Group</div>
+          <div class="avatar-group">
+            <div class="avatar">A</div>
+            <div class="avatar">B</div>
+            <div class="avatar">C</div>
+            <div class="avatar-count">+5</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pagination Component -->
+    <section class="section">
+      <h2 class="section-title">Pagination Component</h2>
+      <p class="section-subtitle">Page navigation</p>
+
+      <nav class="pagination">
+        <a class="page-link page-prev" href="#">Previous</a>
+        <a class="page-link" href="#">1</a>
+        <a class="page-link active" href="#">2</a>
+        <a class="page-link" href="#">3</a>
+        <a class="page-link page-ellipsis">...</a>
+        <a class="page-link" href="#">10</a>
+        <a class="page-link page-next" href="#">Next</a>
+      </nav>
+
+      <div style="margin-top: 1.5rem;">
+        <div class="demo-label">Pills Style</div>
+        <nav class="pagination pagination-pills">
+          <a class="page-link page-prev" href="#">Prev</a>
+          <a class="page-link" href="#">1</a>
+          <a class="page-link active" href="#">2</a>
+          <a class="page-link" href="#">3</a>
+          <a class="page-link page-next" href="#">Next</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Breadcrumb Component -->
+    <section class="section">
+      <h2 class="section-title">Breadcrumb Component</h2>
+      <p class="section-subtitle">Hierarchical navigation</p>
+
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="#">Home</a>
+        <a class="breadcrumb-item" href="#">Library</a>
+        <a class="breadcrumb-item" href="#">Data</a>
+        <span class="breadcrumb-item active">Bootstrap</span>
+      </nav>
+
+      <div style="margin-top: 1rem;">
+        <div class="demo-label">Arrow Style</div>
+        <nav class="breadcrumb breadcrumb-arrow">
+          <a class="breadcrumb-item" href="#">Home</a>
+          <a class="breadcrumb-item" href="#">Products</a>
+          <span class="breadcrumb-item active">Item</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Dropdown Component -->
+    <section class="section">
+      <h2 class="section-title">Dropdown Component</h2>
+      <p class="section-subtitle">Context menus</p>
+
+      <div class="dropdown" style="position: relative;">
+        <button class="btn btn-primary dropdown-toggle" onclick="toggleDropdown(this)">
+          Dropdown Menu
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skeleton Component -->
+    <section class="section">
+      <h2 class="section-title">Skeleton Component</h2>
+      <p class="section-subtitle">Loading placeholders</p>
+
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-heading"></div>
+        <div class="skeleton skeleton-paragraph">
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
+        </div>
+        <div class="skeleton skeleton-button"></div>
+      </div>
+    </section>
+
+    <!-- Form Validation -->
+    <section class="section">
+      <h2 class="section-title">Form Validation</h2>
+      <p class="section-subtitle">Visual feedback states</p>
+
+      <div style="max-width: 600px;">
+        <div class="form-group">
+          <label>Valid Input</label>
+          <input type="text" class="is-valid" value="Valid input">
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="form-group">
+          <label>Invalid Input</label>
+          <input type="text" class="is-invalid" value="Invalid">
+          <div class="invalid-feedback">Please enter a valid value.</div>
+        </div>
+
+        <div class="form-group">
+          <label>Warning Input</label>
+          <input type="text" class="is-warning" value="Warning">
+          <div class="warning-feedback">This might cause issues.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Initialize theme
+    (function() {
+      const saved = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('theme-icon').textContent = saved === 'dark' ? '☀️' : '🌙';
+    })();
+
+    // Tabs
+    function switchTab(event, tabId) {
+      const tabsContainer = event.target.closest('.tabs');
+      const allLinks = tabsContainer.querySelectorAll('.tab-link');
+      const allPanels = tabsContainer.querySelectorAll('.tab-panel');
+
+      allLinks.forEach(link => {
+        link.classList.remove('active');
+        link.setAttribute('aria-selected', 'false');
+      });
+
+      allPanels.forEach(panel => {
+        panel.classList.remove('active');
+      });
+
+      event.target.classList.add('active');
+      event.target.setAttribute('aria-selected', 'true');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Accordion
+    function toggleAccordion(button) {
+      const panel = button.nextElementSibling;
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+      button.setAttribute('aria-expanded', !isExpanded);
+
+      if (!isExpanded) {
+        panel.classList.add('active');
+        panel.setAttribute('aria-hidden', 'false');
+      } else {
+        panel.classList.remove('active');
+        panel.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    // Dropdown
+    function toggleDropdown(button) {
+      const menu = button.nextElementSibling;
+      menu.classList.toggle('show');
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.matches('.dropdown-toggle')) {
+        const dropdowns = document.querySelectorAll('.dropdown-menu');
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('show');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

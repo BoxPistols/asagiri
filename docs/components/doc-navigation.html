@@ -1,0 +1,352 @@
+<!-- Documentation Navigation Component -->
+<!-- Include this in all documentation pages -->
+
+<style>
+    /* Mobile Navigation */
+    .mobile-nav-toggle {
+        display: none;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        width: 44px;
+        height: 44px;
+        background: var(--color-primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+
+    .mobile-nav-toggle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .mobile-nav-toggle span {
+        font-size: 1.5rem;
+    }
+
+    .doc-nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .doc-nav-overlay.active {
+        opacity: 1;
+    }
+
+    .doc-nav-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        background: var(--color-surface);
+        z-index: 1001;
+        padding: 4rem 0 2rem;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+    }
+
+    .doc-nav-sidebar.active {
+        transform: translateX(0);
+    }
+
+    .nav-section {
+        margin-bottom: 2rem;
+    }
+
+    .nav-section-title {
+        padding: 0 1.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text-muted, #6b7280);
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        color: var(--color-text);
+        text-decoration: none;
+        transition: all 0.2s;
+        border-left: 3px solid transparent;
+    }
+
+    .nav-link:hover {
+        background: var(--color-background);
+        border-left-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .nav-link.active {
+        background: var(--color-background);
+        border-left-color: var(--color-primary);
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+
+    .nav-link-icon {
+        margin-right: 0.5rem;
+    }
+
+    /* Footer Navigation */
+    .doc-footer {
+        margin-top: 4rem;
+        padding: 3rem 0;
+        border-top: 2px solid var(--color-border);
+    }
+
+    .footer-nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-nav-section h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+        color: var(--color-text);
+    }
+
+    .footer-nav-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-nav-section li {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-nav-section a {
+        color: var(--color-text-muted, #6b7280);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .footer-nav-section a:hover {
+        color: var(--color-primary);
+    }
+
+    .footer-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .mobile-nav-toggle {
+            display: flex;
+        }
+
+        .doc-nav-overlay,
+        .doc-nav-sidebar {
+            display: block;
+        }
+
+        .footer-nav-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>
+
+<!-- Mobile Navigation Toggle -->
+<button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="メニューを開く">
+    <span>☰</span>
+</button>
+
+<!-- Navigation Overlay -->
+<div class="doc-nav-overlay" id="navOverlay"></div>
+
+<!-- Navigation Sidebar -->
+<nav class="doc-nav-sidebar" id="navSidebar" role="navigation" aria-label="ドキュメントナビゲーション">
+    <div class="nav-section">
+        <div class="nav-section-title">Getting Started</div>
+        <a href="../getting-started.html" class="nav-link">
+            <span class="nav-link-icon">📚</span> Introduction
+        </a>
+        <a href="../guides/dark-mode.html" class="nav-link">
+            <span class="nav-link-icon">🌙</span> Dark Mode
+        </a>
+        <a href="../guides/theming.html" class="nav-link">
+            <span class="nav-link-icon">🎨</span> Theming
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Guides</div>
+        <a href="../guides/practical-examples.html" class="nav-link">
+            <span class="nav-link-icon">💼</span> Practical Examples
+        </a>
+        <a href="../guides/developer-guide.html" class="nav-link">
+            <span class="nav-link-icon">👨‍💻</span> Developer Guide
+        </a>
+        <a href="../guides/testing-architecture.html" class="nav-link">
+            <span class="nav-link-icon">🧪</span> Testing Architecture
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Reference</div>
+        <a href="../api-reference.html" class="nav-link">
+            <span class="nav-link-icon">📖</span> API Reference
+        </a>
+        <a href="../../showcase.html" class="nav-link">
+            <span class="nav-link-icon">🎭</span> Components Showcase
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Resources</div>
+        <a href="https://github.com/BoxPistols/asagiri" class="nav-link" target="_blank">
+            <span class="nav-link-icon">🔗</span> GitHub
+        </a>
+        <a href="https://github.com/BoxPistols/asagiri/issues" class="nav-link" target="_blank">
+            <span class="nav-link-icon">🐛</span> Issues
+        </a>
+    </div>
+</nav>
+
+<!-- Footer Navigation -->
+<footer class="doc-footer">
+    <div class="footer-nav-grid">
+        <div class="footer-nav-section">
+            <h4>Documentation</h4>
+            <ul>
+                <li><a href="../getting-started.html">Getting Started</a></li>
+                <li><a href="../guides/dark-mode.html">Dark Mode</a></li>
+                <li><a href="../guides/theming.html">Theming</a></li>
+                <li><a href="../guides/practical-examples.html">Examples</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-nav-section">
+            <h4>Developer</h4>
+            <ul>
+                <li><a href="../guides/developer-guide.html">Developer Guide</a></li>
+                <li><a href="../guides/testing-architecture.html">Testing</a></li>
+                <li><a href="../api-reference.html">API Reference</a></li>
+                <li><a href="../../showcase.html">Showcase</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-nav-section">
+            <h4>Community</h4>
+            <ul>
+                <li><a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/issues" target="_blank">Issues</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/discussions" target="_blank">Discussions</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-nav-section">
+            <h4>About</h4>
+            <ul>
+                <li><a href="https://github.com/BoxPistols/asagiri#readme" target="_blank">README</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/blob/main/LICENSE" target="_blank">License (MIT)</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/releases" target="_blank">Changelog</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div>
+            <strong>Asagiri Design System</strong> v2.1 - Modern, Accessible CSS Framework
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+            <a href="https://www.npmjs.com/package/asagiri" target="_blank">npm</a>
+            <a href="https://github.com/BoxPistols/asagiri/blob/main/LICENSE" target="_blank">MIT License</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile Navigation Toggle
+    (function() {
+        const toggle = document.getElementById('mobileNavToggle');
+        const overlay = document.getElementById('navOverlay');
+        const sidebar = document.getElementById('navSidebar');
+
+        if (!toggle || !overlay || !sidebar) return;
+
+        function openNav() {
+            overlay.classList.add('active');
+            sidebar.classList.add('active');
+            toggle.querySelector('span').textContent = '✕';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNav() {
+            overlay.classList.remove('active');
+            sidebar.classList.remove('active');
+            toggle.querySelector('span').textContent = '☰';
+            document.body.style.overflow = '';
+        }
+
+        toggle.addEventListener('click', function() {
+            if (sidebar.classList.contains('active')) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        overlay.addEventListener('click', closeNav);
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+                closeNav();
+            }
+        });
+
+        // Highlight current page
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPath = new URL(link.href).pathname;
+            if (currentPath.includes(linkPath) || linkPath.includes(currentPath.split('/').pop())) {
+                link.classList.add('active');
+            }
+        });
+    })();
+</script>

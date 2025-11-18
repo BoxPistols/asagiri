@@ -548,6 +548,7 @@ const buttonClass = computed(() =>
 - **[ダークモード実装ガイド](./docs/guides/dark-mode.html)** - コピペで実装できるダークモード
 - **[テーマカスタマイズ](./docs/guides/theming.html)** - オリジナルテーマの作成方法
 - **[Developer Guide](./docs/guides/developer-guide.html)** - API仕様・アーキテクチャ・拡張ガイド
+- **[Testing Architecture](./docs/guides/testing-architecture.html)** - テスト設計アーキテクチャ完全ガイド
 - **[API Reference](./docs/api-reference.html)** - 完全なCSS変数・クラス名リファレンス
 
 ### 🧩 コンポーネント別ドキュメント

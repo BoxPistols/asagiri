@@ -1,0 +1,46 @@
+{
+  "name": "asagiri-docs",
+  "version": "1.0.0",
+  "description": "Asagiri CSS Framework Documentation MCP Server",
+  "skills": [
+    {
+      "name": "asagiri-docs",
+      "description": "Search and reference Asagiri framework documentation",
+      "path": "skills/asagiri-docs.md",
+      "triggers": [
+        "asagiri",
+        "dark mode",
+        "theme",
+        "css framework",
+        "components",
+        "testing",
+        "accessibility"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "type": "documentation",
+      "paths": [
+        "docs/**/*.html",
+        "README.md",
+        "package.json"
+      ]
+    }
+  ],
+  "search": {
+    "enabled": true,
+    "indexes": [
+      {
+        "name": "documentation",
+        "paths": ["docs/**/*.html"],
+        "exclude": ["node_modules/**", "dist/**"]
+      },
+      {
+        "name": "code",
+        "paths": ["scss/**/*.scss"],
+        "exclude": ["node_modules/**"]
+      }
+    ]
+  }
+}

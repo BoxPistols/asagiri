@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>実用的なコード例集 - Asagiri Design System</title>
+    <link rel="stylesheet" href="../../dist/asagiri.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        .doc-header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .doc-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .doc-section h2 {
+            color: var(--color-primary);
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+        .code-block {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+        .demo-box {
+            padding: 1.5rem;
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+
+        /* テーマ切り替え - 右上固定（スクロール追従なし） */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        /* スクロールトップボタン - 右下固定 */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--color-primary-dark, #2563eb);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        .example-preview {
+            border: 2px dashed var(--color-border);
+            padding: 2rem;
+            margin: 1rem 0;
+            border-radius: var(--border-radius);
+            background: var(--color-background);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-info);
+            color: white;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <!-- スクロールトップボタン -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
+        ↑
+    </button>
+
+    <div class="doc-header">
+        <div class="doc-container">
+            <h1>💼 実用的なコード例集</h1>
+            <p>コピー&ペーストですぐに使える実装例</p>
+            <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
+        </div>
+    </div>
+
+    <div class="doc-container">
+        <!-- フォーム関連 -->
+        <section class="doc-section">
+            <h2>📝 フォーム実装例</h2>
+
+            <h3>ログインフォーム</h3>
+            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">難易度: ⭐</div>
+
+            <div class="example-preview">
+                <div style="max-width: 400px; margin: 0 auto;">
+                    <h3>ログイン</h3>
+                    <form>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">メールアドレス</label>
+                            <input type="email" placeholder="your@email.com" style="width: 100%;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">パスワード</label>
+                            <input type="password" placeholder="••••••••" style="width: 100%;">
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox"> ログイン状態を保持
+                            </label>
+                            <a href="#" style="font-size: 0.9rem;">パスワードを忘れた？</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">ログイン</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;form&gt;
+  &lt;div style="margin-bottom: 1rem;"&gt;
+    &lt;label style="display: block; margin-bottom: 0.5rem;"&gt;メールアドレス&lt;/label&gt;
+    &lt;input type="email" placeholder="your@email.com" style="width: 100%;"&gt;
+  &lt;/div&gt;
+
+  &lt;div style="margin-bottom: 1rem;"&gt;
+    &lt;label style="display: block; margin-bottom: 0.5rem;"&gt;パスワード&lt;/label&gt;
+    &lt;input type="password" placeholder="••••••••" style="width: 100%;"&gt;
+  &lt;/div&gt;
+
+  &lt;div style="display: flex; justify-content: space-between; margin-bottom: 1rem;"&gt;
+    &lt;label&gt;
+      &lt;input type="checkbox"&gt; ログイン状態を保持
+    &lt;/label&gt;
+    &lt;a href="#"&gt;パスワードを忘れた？&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit" class="btn btn-primary" style="width: 100%;"&gt;ログイン&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>検索フォーム</h3>
+            <div class="tag">実用度: ★★★★★</div>
+
+            <div class="example-preview">
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="search" placeholder="検索..." style="flex: 1;">
+                    <button class="btn btn-primary">🔍 検索</button>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
+  &lt;input type="search" placeholder="検索..." style="flex: 1;"&gt;
+  &lt;button class="btn btn-primary"&gt;🔍 検索&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>ファイルアップロードエリア</h3>
+            <div class="tag">実用度: ★★★★☆</div>
+
+            <div class="example-preview">
+                <div style="border: 2px dashed var(--color-border); padding: 3rem; text-align: center; border-radius: var(--border-radius); cursor: pointer;" onclick="document.getElementById('fileInput').click()">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                    <p>ファイルをドラッグ&ドロップ</p>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary, #666);">または クリックして選択</p>
+                    <input type="file" id="fileInput" multiple style="display: none;">
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div style="border: 2px dashed var(--color-border); padding: 3rem; text-align: center; cursor: pointer;"
+     onclick="document.getElementById('fileInput').click()"&gt;
+  &lt;div style="font-size: 3rem; margin-bottom: 1rem;"&gt;📁&lt;/div&gt;
+  &lt;p&gt;ファイルをドラッグ&ドロップ&lt;/p&gt;
+  &lt;p style="font-size: 0.9rem;"&gt;または クリックして選択&lt;/p&gt;
+  &lt;input type="file" id="fileInput" multiple style="display: none;"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- カード・リスト -->
+        <section class="doc-section">
+            <h2>📇 カード・リスト実装例</h2>
+
+            <h3>商品カードグリッド</h3>
+            <div class="tag">実用度: ★★★★★</div>
+
+            <div class="example-preview">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product" style="width: 100%; border-radius: var(--border-radius) var(--border-radius) 0 0;">
+                        <div class="card-body">
+                            <h4 style="margin-top: 0;">商品名</h4>
+                            <p>商品の説明文がここに入ります。</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong style="font-size: 1.25rem; color: var(--color-primary);">¥9,800</strong>
+                                <button class="btn btn-sm btn-primary">カートに追加</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product" style="width: 100%; border-radius: var(--border-radius) var(--border-radius) 0 0;">
+                        <div class="card-body">
+                            <h4 style="margin-top: 0;">商品名</h4>
+                            <p>商品の説明文がここに入ります。</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong style="font-size: 1.25rem; color: var(--color-primary);">¥12,800</strong>
+                                <button class="btn btn-sm btn-primary">カートに追加</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;"&gt;
+  &lt;div class="card"&gt;
+    &lt;img src="product.jpg" alt="Product" style="width: 100%; border-radius: var(--border-radius) var(--border-radius) 0 0;"&gt;
+    &lt;div class="card-body"&gt;
+      &lt;h4&gt;商品名&lt;/h4&gt;
+      &lt;p&gt;商品の説明文&lt;/p&gt;
+      &lt;div style="display: flex; justify-content: space-between; align-items: center;"&gt;
+        &lt;strong style="font-size: 1.25rem; color: var(--color-primary);"&gt;¥9,800&lt;/strong&gt;
+        &lt;button class="btn btn-sm btn-primary"&gt;カートに追加&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>ユーザーリスト</h3>
+            <div class="tag">実用度: ★★★★★</div>
+
+            <div class="example-preview">
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="card">
+                        <div class="card-body" style="display: flex; align-items: center; gap: 1rem;">
+                            <div class="avatar avatar-md">
+                                <img src="https://i.pravatar.cc/150?img=1" alt="User">
+                                <span class="avatar-status avatar-status-online"></span>
+                            </div>
+                            <div style="flex: 1;">
+                                <strong>田中太郎</strong>
+                                <div style="font-size: 0.9rem; color: var(--color-text-secondary, #666);">tanaka@example.com</div>
+                            </div>
+                            <span class="badge badge-success badge-pill">アクティブ</span>
+                            <button class="btn btn-sm btn-outline-primary">編集</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="display: flex; align-items: center; gap: 1rem;">
+                            <div class="avatar avatar-md">
+                                <img src="https://i.pravatar.cc/150?img=2" alt="User">
+                                <span class="avatar-status avatar-status-away"></span>
+                            </div>
+                            <div style="flex: 1;">
+                                <strong>佐藤花子</strong>
+                                <div style="font-size: 0.9rem; color: var(--color-text-secondary, #666);">sato@example.com</div>
+                            </div>
+                            <span class="badge badge-warning badge-pill">離席中</span>
+                            <button class="btn btn-sm btn-outline-primary">編集</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-body" style="display: flex; align-items: center; gap: 1rem;"&gt;
+    &lt;div class="avatar avatar-md"&gt;
+      &lt;img src="user.jpg" alt="User"&gt;
+      &lt;span class="avatar-status avatar-status-online"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div style="flex: 1;"&gt;
+      &lt;strong&gt;田中太郎&lt;/strong&gt;
+      &lt;div style="font-size: 0.9rem;"&gt;tanaka@example.com&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="badge badge-success badge-pill"&gt;アクティブ&lt;/span&gt;
+    &lt;button class="btn btn-sm btn-outline-primary"&gt;編集&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- モーダル・ダイアログ -->
+        <section class="doc-section">
+            <h2>💬 モーダル・ダイアログ</h2>
+
+            <h3>確認ダイアログ</h3>
+            <div class="tag">実用度: ★★★★★</div>
+
+            <div class="example-preview">
+                <button class="btn btn-danger" onclick="showDialog()">削除</button>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;!-- ボタン --&gt;
+&lt;button class="btn btn-danger" onclick="showDialog()"&gt;削除&lt;/button&gt;
+
+&lt;!-- モーダル --&gt;
+&lt;div id="modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999;"&gt;
+  &lt;div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--color-box); padding: 2rem; border-radius: var(--border-radius); max-width: 400px; width: 90%;"&gt;
+    &lt;h3&gt;本当に削除しますか？&lt;/h3&gt;
+    &lt;p&gt;この操作は取り消せません。&lt;/p&gt;
+    &lt;div style="display: flex; gap: 1rem; margin-top: 1.5rem;"&gt;
+      &lt;button class="btn btn-secondary" onclick="closeDialog()" style="flex: 1;"&gt;キャンセル&lt;/button&gt;
+      &lt;button class="btn btn-danger" onclick="confirmDelete()" style="flex: 1;"&gt;削除&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function showDialog() {
+  document.getElementById('modal').style.display = 'block';
+}
+
+function closeDialog() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+function confirmDelete() {
+  alert('削除されました');
+  closeDialog();
+}
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- 通知・フィードバック -->
+        <section class="doc-section">
+            <h2>🔔 通知・フィードバック</h2>
+
+            <h3>トースト通知</h3>
+            <div class="tag">実用度: ★★★★★</div>
+
+            <div class="example-preview">
+                <button class="btn btn-success" onclick="showToast('success', '保存しました！')">成功通知</button>
+                <button class="btn btn-danger" onclick="showToast('danger', 'エラーが発生しました')">エラー通知</button>
+                <button class="btn btn-info" onclick="showToast('info', '新しいメッセージがあります')">情報通知</button>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;!-- トースト表示エリア --&gt;
+&lt;div id="toastContainer" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+function showToast(type, message) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `alert alert-${type} alert-dismissible`;
+  toast.style.cssText = 'margin-bottom: 0.5rem; animation: slideIn 0.3s ease;';
+  toast.innerHTML = `
+    ${message}
+    &lt;button class="alert-close" onclick="this.parentElement.remove()"&gt;×&lt;/button&gt;
+  `;
+
+  container.appendChild(toast);
+
+  // 3秒後に自動削除
+  setTimeout(() => {
+    toast.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+// アニメーション
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from { transform: translateX(400px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(400px); opacity: 0; }
+  }
+`;
+document.head.appendChild(style);
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <h3>ローディング表示</h3>
+            <div class="tag">実用度: ★★★★★</div>
+
+            <div class="example-preview">
+                <button class="btn btn-primary" onclick="simulateLoading(this)">
+                    データを読み込む
+                </button>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;button class="btn btn-primary" onclick="simulateLoading(this)"&gt;
+  データを読み込む
+&lt;/button&gt;
+
+&lt;script&gt;
+function simulateLoading(btn) {
+  // ローディング開始
+  btn.disabled = true;
+  btn.innerHTML = '&lt;span class="loading loading-spinner"&gt;&lt;/span&gt; 読み込み中...';
+
+  // 3秒後に完了
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = 'データを読み込む';
+  }, 3000);
+}
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- データ表示 -->
+        <section class="doc-section">
+            <h2>📊 データ表示</h2>
+
+            <h3>統計ダッシュボード</h3>
+            <div class="tag">実用度: ★★★★★</div>
+
+            <div class="example-preview">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <span style="color: var(--color-text-secondary, #666);">総売上</span>
+                                <span style="font-size: 2rem;">💰</span>
+                            </div>
+                            <div style="font-size: 2rem; font-weight: bold;">¥1,234,567</div>
+                            <div style="color: var(--color-success); font-size: 0.9rem; margin-top: 0.5rem;">↑ 12.5% 先月比</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <span style="color: var(--color-text-secondary, #666);">新規ユーザー</span>
+                                <span style="font-size: 2rem;">👥</span>
+                            </div>
+                            <div style="font-size: 2rem; font-weight: bold;">2,543</div>
+                            <div style="color: var(--color-success); font-size: 0.9rem; margin-top: 0.5rem;">↑ 8.2% 先月比</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;"&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="card-body"&gt;
+      &lt;div style="display: flex; justify-content: space-between; margin-bottom: 1rem;"&gt;
+        &lt;span style="color: var(--color-text-secondary);"&gt;総売上&lt;/span&gt;
+        &lt;span style="font-size: 2rem;"&gt;💰&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div style="font-size: 2rem; font-weight: bold;"&gt;¥1,234,567&lt;/div&gt;
+      &lt;div style="color: var(--color-success); font-size: 0.9rem; margin-top: 0.5rem;"&gt;
+        ↑ 12.5% 先月比
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- ナビゲーション -->
+        <section class="doc-section">
+            <h2>🧭 ナビゲーション</h2>
+
+            <h3>ステップ表示</h3>
+            <div class="tag">実用度: ★★★★☆</div>
+
+            <div class="example-preview">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 40px; height: 40px; background: var(--color-success); color: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 0.5rem;">✓</div>
+                        <div style="font-size: 0.9rem;">注文情報</div>
+                    </div>
+                    <div style="height: 2px; background: var(--color-success); flex: 1;"></div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 40px; height: 40px; background: var(--color-primary); color: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 0.5rem;">2</div>
+                        <div style="font-size: 0.9rem;">配送先</div>
+                    </div>
+                    <div style="height: 2px; background: var(--color-border); flex: 1;"></div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 40px; height: 40px; background: var(--color-border); color: var(--color-text); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 0.5rem;">3</div>
+                        <div style="font-size: 0.9rem; color: var(--color-text-secondary, #666);">支払い</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div style="display: flex; justify-content: space-between; align-items: center;"&gt;
+  &lt;!-- ステップ1: 完了 --&gt;
+  &lt;div style="text-align: center; flex: 1;"&gt;
+    &lt;div style="width: 40px; height: 40px; background: var(--color-success); color: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;"&gt;✓&lt;/div&gt;
+    &lt;div&gt;注文情報&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div style="height: 2px; background: var(--color-success); flex: 1;"&gt;&lt;/div&gt;
+
+  &lt;!-- ステップ2: 現在 --&gt;
+  &lt;div style="text-align: center; flex: 1;"&gt;
+    &lt;div style="width: 40px; height: 40px; background: var(--color-primary); color: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;"&gt;2&lt;/div&gt;
+    &lt;div&gt;配送先&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div style="height: 2px; background: var(--color-border); flex: 1;"&gt;&lt;/div&gt;
+
+  &lt;!-- ステップ3: 未完了 --&gt;
+  &lt;div style="text-align: center; flex: 1;"&gt;
+    &lt;div style="width: 40px; height: 40px; background: var(--color-border); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;"&gt;3&lt;/div&gt;
+    &lt;div&gt;支払い&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+    </div>
+
+    <!-- トースト表示エリア -->
+    <div id="toastContainer" style="position: fixed; top: 5rem; right: 1rem; z-index: 9999;"></div>
+
+    <!-- モーダル -->
+    <div id="modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;" onclick="if(event.target === this) closeDialog()">
+        <div style="background: var(--color-box); padding: 2rem; border-radius: var(--border-radius); max-width: 400px; width: 90%;">
+            <h3 style="margin-top: 0;">本当に削除しますか？</h3>
+            <p>この操作は取り消せません。</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button class="btn btn-secondary" onclick="closeDialog()" style="flex: 1;">キャンセル</button>
+                <button class="btn btn-danger" onclick="confirmDelete()" style="flex: 1;">削除</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ コピーしました！';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // スクロールトップボタン
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // トースト通知
+        function showToast(type, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type} alert-dismissible`;
+            toast.style.cssText = 'margin-bottom: 0.5rem; animation: slideIn 0.3s ease;';
+            toast.innerHTML = `
+                ${message}
+                <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // アニメーション
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // モーダル
+        function showDialog() {
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeDialog() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function confirmDelete() {
+            showToast('success', '削除されました');
+            closeDialog();
+        }
+
+        // ローディングシミュレーション
+        function simulateLoading(btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading loading-spinner"></span> 読み込み中...';
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = 'データを読み込む';
+                showToast('success', 'データを読み込みました！');
+            }, 3000);
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>

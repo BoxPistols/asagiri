@@ -544,6 +544,7 @@ const buttonClass = computed(() =>
 
 - **[Getting Started](./docs/getting-started.html)** - 導入ガイドとクイックスタート
 - **[コンポーネント一覧](./showcase.html)** - 24+のコンポーネントデモ
+- **[実用的なコード例集](./docs/guides/practical-examples.html)** - コピペですぐ使える実装例
 - **[ダークモード実装ガイド](./docs/guides/dark-mode.html)** - コピペで実装できるダークモード
 - **[テーマカスタマイズ](./docs/guides/theming.html)** - オリジナルテーマの作成方法
 - **[Developer Guide](./docs/guides/developer-guide.html)** - API仕様・アーキテクチャ・拡張ガイド

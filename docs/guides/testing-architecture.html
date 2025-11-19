@@ -199,6 +199,97 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.3);
         }
 
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            flex-wrap: wrap;
+        }
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .breadcrumb-item a {
+            color: var(--color-text-muted, #6b7280);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb-item a:hover {
+            color: var(--color-primary);
+        }
+        .breadcrumb-item.active {
+            color: var(--color-text);
+            font-weight: 500;
+        }
+        .breadcrumb-separator {
+            color: var(--color-text-muted, #6b7280);
+            user-select: none;
+        }
+
+        /* Previous/Next Navigation */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--color-border);
+        }
+        .page-nav-link {
+            flex: 1;
+            max-width: 45%;
+            padding: 1.5rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all 0.3s ease;
+        }
+        .page-nav-link:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .page-nav-link.prev {
+            text-align: left;
+        }
+        .page-nav-link.next {
+            text-align: right;
+            margin-left: auto;
+        }
+        .page-nav-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted, #6b7280);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .page-nav-title {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        .page-nav-arrow {
+            font-size: 1.25rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .page-nav-link.prev:hover .page-nav-arrow {
+            transform: translateX(-4px);
+        }
+        .page-nav-link.next:hover .page-nav-arrow {
+            transform: translateX(4px);
+        }
+
         /* Mobile Navigation */
         @media (max-width: 768px) {
             .doc-container {
@@ -212,6 +303,16 @@
             }
             .nav-pills a {
                 text-align: center;
+            }
+            .page-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .page-nav-link {
+                max-width: 100%;
+            }
+            .breadcrumb {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -238,6 +339,25 @@
     </div>
 
     <div class="doc-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="パンくずナビゲーション">
+            <div class="breadcrumb-item">
+                <a href="../../index.html">Home</a>
+                <span class="breadcrumb-separator">/</span>
+            </div>
+            <div class="breadcrumb-item">
+                <a href="../getting-started.html">Docs</a>
+                <span class="breadcrumb-separator">/</span>
+            </div>
+            <div class="breadcrumb-item">
+                <a href="./developer-guide.html">Guides</a>
+                <span class="breadcrumb-separator">/</span>
+            </div>
+            <div class="breadcrumb-item active">
+                Testing Architecture
+            </div>
+        </nav>
+
         <!-- クイックナビゲーション -->
         <div class="nav-pills">
             <a href="#overview">概要</a>
@@ -956,6 +1076,22 @@ jobs:
                 <a href="../getting-started.html">Getting Started</a>
             </div>
         </section>
+
+        <!-- Previous/Next Navigation -->
+        <nav class="page-nav" aria-label="ページナビゲーション">
+            <a href="./developer-guide.html" class="page-nav-link prev">
+                <span class="page-nav-label">
+                    <span class="page-nav-arrow">←</span> Previous
+                </span>
+                <span class="page-nav-title">Developer Guide</span>
+            </a>
+            <a href="./practical-examples.html" class="page-nav-link next">
+                <span class="page-nav-label">
+                    Next <span class="page-nav-arrow">→</span>
+                </span>
+                <span class="page-nav-title">Practical Examples</span>
+            </a>
+        </nav>
     </div>
 
     <script>

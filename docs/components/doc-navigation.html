@@ -2,6 +2,166 @@
 <!-- Include this in all documentation pages -->
 
 <style>
+    /* Breadcrumb Navigation */
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        font-size: 0.875rem;
+        flex-wrap: wrap;
+    }
+
+    .breadcrumb-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .breadcrumb-item a {
+        color: var(--color-text-muted, #6b7280);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .breadcrumb-item a:hover {
+        color: var(--color-primary);
+    }
+
+    .breadcrumb-item.active {
+        color: var(--color-text);
+        font-weight: 500;
+    }
+
+    .breadcrumb-separator {
+        color: var(--color-text-muted, #6b7280);
+        user-select: none;
+    }
+
+    /* Previous/Next Navigation */
+    .page-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-top: 4rem;
+        padding-top: 3rem;
+        border-top: 2px solid var(--color-border);
+    }
+
+    .page-nav-link {
+        flex: 1;
+        max-width: 45%;
+        padding: 1.5rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        color: var(--color-text);
+        transition: all 0.3s ease;
+    }
+
+    .page-nav-link:hover {
+        border-color: var(--color-primary);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+
+    .page-nav-link.prev {
+        text-align: left;
+    }
+
+    .page-nav-link.next {
+        text-align: right;
+        margin-left: auto;
+    }
+
+    .page-nav-label {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text-muted, #6b7280);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .page-nav-title {
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--color-primary);
+    }
+
+    .page-nav-arrow {
+        font-size: 1.25rem;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .page-nav-link.prev:hover .page-nav-arrow {
+        transform: translateX(-4px);
+    }
+
+    .page-nav-link.next:hover .page-nav-arrow {
+        transform: translateX(4px);
+    }
+
+    /* Table of Contents (improved) */
+    .doc-toc {
+        position: sticky;
+        top: 5rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        max-height: calc(100vh - 8rem);
+        overflow-y: auto;
+    }
+
+    .doc-toc h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text);
+    }
+
+    .doc-toc ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .doc-toc li {
+        margin-bottom: 0.5rem;
+    }
+
+    .doc-toc a {
+        color: var(--color-text-muted, #6b7280);
+        text-decoration: none;
+        display: block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        transition: all 0.2s;
+        font-size: 0.875rem;
+    }
+
+    .doc-toc a:hover {
+        background: var(--color-background);
+        color: var(--color-primary);
+    }
+
+    .doc-toc a.active {
+        background: var(--color-background);
+        color: var(--color-primary);
+        font-weight: 600;
+        border-left: 2px solid var(--color-primary);
+        padding-left: calc(0.5rem - 2px);
+    }
+
     /* Mobile Navigation */
     .mobile-nav-toggle {
         display: none;
@@ -349,4 +509,130 @@
             }
         });
     })();
+
+    // Table of Contents Active Link
+    (function() {
+        const tocLinks = document.querySelectorAll('.doc-toc a');
+        if (tocLinks.length === 0) return;
+
+        const observerOptions = {
+            rootMargin: '-80px 0px -80% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const tocLink = document.querySelector(`.doc-toc a[href="#${id}"]`);
+
+                if (entry.isIntersecting && tocLink) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    tocLink.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections with IDs
+        document.querySelectorAll('[id]').forEach(section => {
+            observer.observe(section);
+        });
+    })();
+
+    // Breadcrumb Generator
+    window.generateBreadcrumb = function(items) {
+        const breadcrumb = document.createElement('nav');
+        breadcrumb.className = 'breadcrumb';
+        breadcrumb.setAttribute('aria-label', 'パンくずナビゲーション');
+
+        items.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'breadcrumb-item';
+
+            if (index < items.length - 1) {
+                const link = document.createElement('a');
+                link.href = item.url;
+                link.textContent = item.label;
+                div.appendChild(link);
+
+                const separator = document.createElement('span');
+                separator.className = 'breadcrumb-separator';
+                separator.textContent = '/';
+                div.appendChild(separator);
+            } else {
+                div.className += ' active';
+                div.textContent = item.label;
+            }
+
+            breadcrumb.appendChild(div);
+        });
+
+        return breadcrumb;
+    };
+
+    // Page Navigation Generator
+    window.generatePageNav = function(prev, next) {
+        const nav = document.createElement('nav');
+        nav.className = 'page-nav';
+        nav.setAttribute('aria-label', 'ページナビゲーション');
+
+        if (prev) {
+            const prevLink = document.createElement('a');
+            prevLink.href = prev.url;
+            prevLink.className = 'page-nav-link prev';
+            prevLink.innerHTML = `
+                <span class="page-nav-label">
+                    <span class="page-nav-arrow">←</span> Previous
+                </span>
+                <span class="page-nav-title">${prev.title}</span>
+            `;
+            nav.appendChild(prevLink);
+        }
+
+        if (next) {
+            const nextLink = document.createElement('a');
+            nextLink.href = next.url;
+            nextLink.className = 'page-nav-link next';
+            nextLink.innerHTML = `
+                <span class="page-nav-label">
+                    Next <span class="page-nav-arrow">→</span>
+                </span>
+                <span class="page-nav-title">${next.title}</span>
+            `;
+            nav.appendChild(nextLink);
+        }
+
+        return nav;
+    };
 </script>
+
+<!--
+Usage Examples:
+
+1. Breadcrumb Navigation:
+<script>
+const breadcrumbItems = [
+    { label: 'Home', url: '../index.html' },
+    { label: 'Guides', url: './guides/' },
+    { label: 'Dark Mode', url: '' }  // Current page (no URL)
+];
+const breadcrumb = generateBreadcrumb(breadcrumbItems);
+document.querySelector('.doc-container').prepend(breadcrumb);
+</script>
+
+2. Previous/Next Navigation:
+<script>
+const prevPage = { title: 'Getting Started', url: '../getting-started.html' };
+const nextPage = { title: 'Theming', url: './theming.html' };
+const pageNav = generatePageNav(prevPage, nextPage);
+document.querySelector('.doc-container').appendChild(pageNav);
+</script>
+
+3. Table of Contents:
+<aside class="doc-toc">
+    <h3>目次</h3>
+    <ul>
+        <li><a href="#section1">セクション1</a></li>
+        <li><a href="#section2">セクション2</a></li>
+    </ul>
+</aside>
+-->

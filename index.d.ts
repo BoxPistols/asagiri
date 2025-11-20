@@ -188,26 +188,309 @@ export type ButtonClass =
   | 'btn-lg'
   | 'btn-block';
 
-// Alert classes
+// Alert classes (Enhanced v2.1)
 export type AlertClass =
   | 'alert'
   | 'alert-primary'
   | 'alert-secondary'
   | 'alert-success'
-  | 'alert-danger'
   | 'alert-warning'
+  | 'alert-danger'
   | 'alert-info'
   | 'alert-light'
-  | 'alert-dark';
+  | 'alert-dark'
+  | 'alert-dismissible'
+  | 'alert-close'
+  | 'alert-heading'
+  | 'alert-solid'
+  | 'alert-sm'
+  | 'alert-lg'
+  | 'alert-with-icon'
+  | 'alert-icon'
+  | 'alert-content';
 
-// Card classes
+// Badge classes (New v2.1)
+export type BadgeClass =
+  | 'badge'
+  | 'badge-primary'
+  | 'badge-secondary'
+  | 'badge-accent'
+  | 'badge-success'
+  | 'badge-warning'
+  | 'badge-danger'
+  | 'badge-info'
+  | 'badge-light'
+  | 'badge-dark'
+  | 'badge-elegant'
+  | 'badge-outline'
+  | 'badge-soft'
+  | 'badge-sm'
+  | 'badge-lg'
+  | 'badge-xl'
+  | 'badge-pill'
+  | 'badge-square'
+  | 'badge-circle'
+  | 'badge-dot'
+  | 'badge-pulse'
+  | 'badge-with-icon'
+  | 'badge-icon'
+  | 'badge-positioned'
+  | 'badge-group';
+
+// Tabs classes (New v2.1)
+export type TabsClass =
+  | 'tabs'
+  | 'tabs-nav'
+  | 'tab-link'
+  | 'tab-icon'
+  | 'tabs-content'
+  | 'tab-panel'
+  | 'tabs-pills'
+  | 'tabs-pills-outline'
+  | 'tabs-vertical'
+  | 'tabs-justified'
+  | 'tabs-centered'
+  | 'tabs-right'
+  | 'tabs-sm'
+  | 'tabs-lg'
+  | 'tabs-animated'
+  | 'tabs-scrollable';
+
+// Accordion classes (New v2.1)
+export type AccordionClass =
+  | 'accordion'
+  | 'accordion-item'
+  | 'accordion-header'
+  | 'accordion-panel'
+  | 'accordion-flush'
+  | 'accordion-compact'
+  | 'accordion-always-open';
+
+// Pagination classes (New v2.1)
+export type PaginationClass =
+  | 'pagination'
+  | 'page-link'
+  | 'page-prev'
+  | 'page-next'
+  | 'page-ellipsis'
+  | 'pagination-pills'
+  | 'pagination-sm'
+  | 'pagination-lg'
+  | 'pagination-simple';
+
+// Breadcrumb classes (New v2.1)
+export type BreadcrumbClass =
+  | 'breadcrumb'
+  | 'breadcrumb-item'
+  | 'breadcrumb-arrow'
+  | 'breadcrumb-dot'
+  | 'breadcrumb-gt'
+  | 'breadcrumb-compact'
+  | 'breadcrumb-bg'
+  | 'breadcrumb-item-icon'
+  | 'breadcrumb-icon'
+  | 'breadcrumb-responsive'
+  | 'breadcrumb-keep';
+
+// Progress classes (New v2.1)
+export type ProgressClass =
+  | 'progress'
+  | 'progress-bar'
+  | 'progress-label'
+  | 'progress-bar-success'
+  | 'progress-bar-warning'
+  | 'progress-bar-danger'
+  | 'progress-bar-info'
+  | 'progress-sm'
+  | 'progress-lg'
+  | 'progress-xl'
+  | 'progress-bar-striped'
+  | 'progress-bar-animated'
+  | 'progress-indeterminate'
+  | 'progress-stacked'
+  | 'progress-vertical'
+  | 'progress-with-label'
+  | 'progress-label-text'
+  | 'progress-rounded'
+  | 'progress-square';
+
+// Loading/Spinner classes (New v2.1)
+export type LoadingClass =
+  | 'spinner'
+  | 'spinner-sm'
+  | 'spinner-lg'
+  | 'spinner-xl'
+  | 'spinner-primary'
+  | 'spinner-success'
+  | 'spinner-warning'
+  | 'spinner-danger'
+  | 'spinner-info'
+  | 'spinner-light'
+  | 'spinner-dark'
+  | 'spinner-grow'
+  | 'spinner-border'
+  | 'spinner-dots'
+  | 'spinner-pulse'
+  | 'loading-overlay'
+  | 'btn-loading'
+  | 'button-loading'
+  | 'loading-text';
+
+// Skeleton classes (New v2.1)
+export type SkeletonClass =
+  | 'skeleton'
+  | 'skeleton-text'
+  | 'skeleton-text-sm'
+  | 'skeleton-text-lg'
+  | 'skeleton-heading'
+  | 'skeleton-h1'
+  | 'skeleton-h2'
+  | 'skeleton-h3'
+  | 'skeleton-paragraph'
+  | 'skeleton-rect'
+  | 'skeleton-square'
+  | 'skeleton-circle'
+  | 'skeleton-avatar'
+  | 'skeleton-avatar-sm'
+  | 'skeleton-avatar-md'
+  | 'skeleton-avatar-lg'
+  | 'skeleton-avatar-xl'
+  | 'skeleton-button'
+  | 'skeleton-button-sm'
+  | 'skeleton-button-lg'
+  | 'skeleton-button-block'
+  | 'skeleton-card'
+  | 'skeleton-table-row'
+  | 'skeleton-list-item'
+  | 'skeleton-media'
+  | 'skeleton-image'
+  | 'skeleton-body'
+  | 'skeleton-content'
+  | 'skeleton-pulse'
+  | 'skeleton-wave'
+  | 'skeleton-static'
+  | 'skeleton-group'
+  | 'skeleton-post'
+  | 'skeleton-meta'
+  | 'skeleton-profile'
+  | 'skeleton-info';
+
+// Card classes (Enhanced v2.1)
 export type CardClass =
   | 'card'
   | 'card-header'
+  | 'card-header-icon'
   | 'card-body'
   | 'card-footer'
   | 'card-title'
-  | 'card-text';
+  | 'card-subtitle'
+  | 'card-text'
+  | 'card-img'
+  | 'card-img-top'
+  | 'card-img-bottom'
+  | 'card-img-overlay'
+  | 'card-link'
+  | 'card-actions'
+  | 'card-actions-end'
+  | 'card-actions-center'
+  | 'card-actions-between'
+  | 'card-hover'
+  | 'card-clickable'
+  | 'card-sm'
+  | 'card-lg'
+  | 'card-borderless'
+  | 'card-flat'
+  | 'card-outlined'
+  | 'card-primary'
+  | 'card-success'
+  | 'card-warning'
+  | 'card-danger'
+  | 'card-info'
+  | 'card-horizontal'
+  | 'card-group'
+  | 'card-deck'
+  | 'card-columns';
+
+// Avatar classes (New v2.1)
+export type AvatarClass =
+  | 'avatar'
+  | 'avatar-xs'
+  | 'avatar-sm'
+  | 'avatar-md'
+  | 'avatar-lg'
+  | 'avatar-xl'
+  | 'avatar-xxl'
+  | 'avatar-square'
+  | 'avatar-rounded'
+  | 'avatar-bordered'
+  | 'avatar-primary'
+  | 'avatar-secondary'
+  | 'avatar-success'
+  | 'avatar-warning'
+  | 'avatar-danger'
+  | 'avatar-info'
+  | 'avatar-elegant'
+  | 'avatar-status'
+  | 'avatar-status-online'
+  | 'avatar-status-offline'
+  | 'avatar-status-away'
+  | 'avatar-status-busy'
+  | 'avatar-group'
+  | 'avatar-count'
+  | 'avatar-group-sm'
+  | 'avatar-group-lg'
+  | 'avatar-icon'
+  | 'avatar-icon-img'
+  | 'avatar-placeholder'
+  | 'avatar-clickable'
+  | 'avatar-list'
+  | 'avatar-list-item'
+  | 'avatar-info'
+  | 'avatar-name'
+  | 'avatar-meta';
+
+// Form Validation classes (New v2.1)
+export type FormValidationClass =
+  | 'is-valid'
+  | 'is-invalid'
+  | 'is-warning'
+  | 'valid-feedback'
+  | 'invalid-feedback'
+  | 'warning-feedback'
+  | 'valid-tooltip'
+  | 'invalid-tooltip'
+  | 'warning-tooltip'
+  | 'was-validated'
+  | 'form-check-input'
+  | 'form-check-label'
+  | 'has-success'
+  | 'has-error'
+  | 'has-warning'
+  | 'required'
+  | 'form-required';
+
+// Dropdown classes (New v2.1)
+export type DropdownClass =
+  | 'dropdown'
+  | 'dropdown-toggle'
+  | 'dropdown-toggle-no-caret'
+  | 'dropdown-menu'
+  | 'dropdown-item'
+  | 'dropdown-header'
+  | 'dropdown-divider'
+  | 'dropdown-item-text'
+  | 'dropdown-menu-right'
+  | 'dropdown-menu-center'
+  | 'dropup'
+  | 'dropend'
+  | 'dropstart'
+  | 'dropdown-item-icon'
+  | 'dropdown-icon'
+  | 'dropdown-menu-sm'
+  | 'dropdown-menu-lg'
+  | 'dropdown-search'
+  | 'dropdown-item-badge'
+  | 'dropdown-menu-responsive';
 
 // Form classes
 export type FormClass =
@@ -267,7 +550,18 @@ export type AsagiriComponentClass =
   | TypographyClass
   | ButtonClass
   | AlertClass
+  | BadgeClass
+  | TabsClass
+  | AccordionClass
+  | PaginationClass
+  | BreadcrumbClass
+  | ProgressClass
+  | LoadingClass
+  | SkeletonClass
   | CardClass
+  | AvatarClass
+  | FormValidationClass
+  | DropdownClass
   | FormClass
   | ContainerClass
   | RowColClass;

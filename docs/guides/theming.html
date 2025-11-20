@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テーマカスタマイズガイド - Asagiri</title>
+    <link rel="stylesheet" href="../../dist/asagiri.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        .doc-header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .doc-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .doc-section h2 {
+            color: var(--color-primary);
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+        .code-block {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            float: right;
+            margin-bottom: 0.5rem;
+        }
+        .demo-box {
+            padding: 1.5rem;
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .color-item {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border);
+        }
+        .color-swatch {
+            width: 100%;
+            height: 80px;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+        }
+        .info-box {
+            padding: 1rem;
+            background: var(--color-info-bg, #e7f3ff);
+            border-left: 4px solid var(--color-info);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        .success-box {
+            padding: 1rem;
+            background: var(--color-success-bg, #d4edda);
+            border-left: 4px solid var(--color-success);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-top:hover {
+            background: var(--color-primary-dark, #2563eb);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
+        ↑
+    </button>
+
+    <div class="doc-header">
+        <div class="doc-container">
+            <h1>🎨 テーマカスタマイズガイド</h1>
+            <p>Asagiriのテーマをカスタマイズして、オリジナルのデザインシステムを作成</p>
+            <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
+        </div>
+    </div>
+
+    <div class="doc-container">
+        <!-- 基本的なカスタマイズ -->
+        <section class="doc-section">
+            <h2>⚡ クイックスタート</h2>
+            <p>CSS変数をオーバーライドするだけで、簡単にテーマをカスタマイズできます。</p>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja" data-theme="light"&gt;
+&lt;head&gt;
+    &lt;link rel="stylesheet" href="dist/asagiri.min.css"&gt;
+    &lt;style&gt;
+        /* カスタムテーマ */
+        :root,
+        [data-theme="light"] {
+            --color-primary: #8b5cf6;      /* 紫色をプライマリカラーに */
+            --color-secondary: #ec4899;    /* ピンクをセカンダリに */
+            --border-radius: 1rem;         /* 角を丸く */
+        }
+
+        [data-theme="dark"] {
+            --color-primary: #a78bfa;
+            --color-secondary: #f472b6;
+            --color-background: #1a1a2e;
+            --color-surface: #16213e;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- ここにコンテンツ --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ これだけ！</strong> CSS変数を変更するだけで、すべてのコンポーネントに反映されます。
+            </div>
+        </section>
+
+        <!-- 利用可能なCSS変数 -->
+        <section class="doc-section">
+            <h2>📚 利用可能なCSS変数一覧</h2>
+
+            <h3>カラー変数</h3>
+            <div class="color-grid">
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-primary);"></div>
+                    <code>--color-primary</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">プライマリカラー</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-secondary);"></div>
+                    <code>--color-secondary</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">セカンダリカラー</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-success);"></div>
+                    <code>--color-success</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">成功</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-danger);"></div>
+                    <code>--color-danger</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">危険・エラー</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-warning);"></div>
+                    <code>--color-warning</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">警告</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-info);"></div>
+                    <code>--color-info</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">情報</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-background);"></div>
+                    <code>--color-background</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">背景色</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-surface);"></div>
+                    <code>--color-surface</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">サーフェス</p>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--color-text); color: var(--color-background);">Text</div>
+                    <code>--color-text</code>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">テキスト色</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">サイズ・スペーシング変数</h3>
+            <div class="code-block">
+                <pre><code>--border-radius: 0.375rem;      /* ボーダーの丸み */
+--spacing-1: 0.25rem;           /* 4px */
+--spacing-2: 0.5rem;            /* 8px */
+--spacing-3: 0.75rem;           /* 12px */
+--spacing-4: 1rem;              /* 16px */
+--spacing-5: 1.25rem;           /* 20px */
+--spacing-6: 1.5rem;            /* 24px */
+--spacing-8: 2rem;              /* 32px */
+--spacing-10: 2.5rem;           /* 40px */
+--spacing-12: 3rem;             /* 48px */
+
+--font-size-xs: 0.75rem;        /* 12px */
+--font-size-sm: 0.875rem;       /* 14px */
+--font-size-base: 1rem;         /* 16px */
+--font-size-lg: 1.125rem;       /* 18px */
+--font-size-xl: 1.25rem;        /* 20px */
+--font-size-2xl: 1.5rem;        /* 24px */
+--font-size-3xl: 1.875rem;      /* 30px */
+--font-size-4xl: 2.25rem;       /* 36px */</code></pre>
+            </div>
+        </section>
+
+        <!-- プリセットテーマ -->
+        <section class="doc-section">
+            <h2>🎯 プリセットテーマ</h2>
+            <p>以下のテーマをコピーして、すぐに使えます。</p>
+
+            <h3>🌸 ピンクテーマ</h3>
+            <div class="demo-box">
+                <button class="btn btn-primary" style="--color-primary: #ec4899;">プライマリボタン</button>
+                <button class="btn btn-success" style="--color-success: #f472b6;">成功ボタン</button>
+                <span class="badge" style="background: #ec4899; color: white;">バッジ</span>
+            </div>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>:root {
+    --color-primary: #ec4899;
+    --color-secondary: #f472b6;
+    --color-success: #a855f7;
+    --color-info: #f9a8d4;
+}</code></pre>
+            </div>
+
+            <h3>🌿 グリーンテーマ</h3>
+            <div class="demo-box">
+                <button class="btn btn-primary" style="--color-primary: #10b981;">プライマリボタン</button>
+                <button class="btn btn-success" style="--color-success: #34d399;">成功ボタン</button>
+                <span class="badge" style="background: #10b981; color: white;">バッジ</span>
+            </div>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>:root {
+    --color-primary: #10b981;
+    --color-secondary: #34d399;
+    --color-success: #059669;
+    --color-info: #6ee7b7;
+}</code></pre>
+            </div>
+
+            <h3>🔥 オレンジテーマ</h3>
+            <div class="demo-box">
+                <button class="btn btn-primary" style="--color-primary: #f97316;">プライマリボタン</button>
+                <button class="btn btn-success" style="--color-success: #fb923c;">成功ボタン</button>
+                <span class="badge" style="background: #f97316; color: white;">バッジ</span>
+            </div>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>:root {
+    --color-primary: #f97316;
+    --color-secondary: #fb923c;
+    --color-warning: #fdba74;
+    --color-info: #fbbf24;
+}</code></pre>
+            </div>
+
+            <h3>🌌 ダークパープルテーマ</h3>
+            <div class="demo-box">
+                <button class="btn btn-primary" style="--color-primary: #8b5cf6;">プライマリボタン</button>
+                <button class="btn btn-success" style="--color-success: #a78bfa;">成功ボタン</button>
+                <span class="badge" style="background: #8b5cf6; color: white;">バッジ</span>
+            </div>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>:root {
+    --color-primary: #8b5cf6;
+    --color-secondary: #a78bfa;
+    --color-success: #c084fc;
+    --color-info: #e9d5ff;
+}
+
+[data-theme="dark"] {
+    --color-background: #1a1a2e;
+    --color-surface: #16213e;
+    --color-text: #f1f5f9;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 企業ブランドカラー -->
+        <section class="doc-section">
+            <h2>🏢 企業ブランドカラーの適用</h2>
+            <p>既存のブランドカラーをAsagiriに適用する方法</p>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;style&gt;
+/* 例: 自社のブランドカラーを使用 */
+:root {
+    /* ブランドカラー */
+    --brand-primary: #your-brand-color;
+    --brand-secondary: #your-secondary-color;
+
+    /* Asagiriの変数にマッピング */
+    --color-primary: var(--brand-primary);
+    --color-secondary: var(--brand-secondary);
+
+    /* プライマリカラーから派生色を自動生成（オプション） */
+    --color-primary-light: color-mix(in srgb, var(--color-primary) 80%, white);
+    --color-primary-dark: color-mix(in srgb, var(--color-primary) 80%, black);
+}
+&lt;/style&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- 完全カスタムテーマ -->
+        <section class="doc-section">
+            <h2>🎨 完全カスタムテーマの作成</h2>
+            <p>独自のテーマファイルを作成する方法</p>
+
+            <p><strong>custom-theme.css を作成：</strong></p>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>/* custom-theme.css */
+
+/* ============================================
+   カスタムテーマ: "My Brand"
+   ============================================ */
+
+:root,
+[data-theme="light"] {
+    /* カラーパレット */
+    --color-primary: #your-primary-color;
+    --color-primary-dark: #your-primary-dark;
+    --color-primary-light: #your-primary-light;
+
+    --color-secondary: #your-secondary-color;
+    --color-secondary-dark: #your-secondary-dark;
+    --color-secondary-light: #your-secondary-light;
+
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
+    --color-info: #3b82f6;
+
+    /* レイアウト */
+    --color-background: #ffffff;
+    --color-surface: #f9fafb;
+    --color-text: #1f2937;
+    --color-text-secondary: #6b7280;
+    --color-border: #e5e7eb;
+
+    /* スペーシング */
+    --spacing-unit: 0.25rem;
+    --border-radius: 0.5rem;
+
+    /* フォント */
+    --font-family: 'Your Custom Font', -apple-system, sans-serif;
+    --font-size-base: 16px;
+}
+
+[data-theme="dark"] {
+    --color-primary: #your-primary-color-dark;
+    --color-secondary: #your-secondary-color-dark;
+
+    --color-background: #0f172a;
+    --color-surface: #1e293b;
+    --color-text: #f1f5f9;
+    --color-text-secondary: #94a3b8;
+    --color-border: #334155;
+}
+
+/* カスタムコンポーネントスタイル */
+.btn {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}</code></pre>
+            </div>
+
+            <p><strong>HTMLで読み込む：</strong></p>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;link rel="stylesheet" href="dist/asagiri.min.css"&gt;
+&lt;link rel="stylesheet" href="custom-theme.css"&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- ダイナミックテーマ切り替え -->
+        <section class="doc-section">
+            <h2>🔄 複数テーマの切り替え</h2>
+            <p>ユーザーが複数のテーマから選べるようにする</p>
+
+            <div class="demo-box">
+                <h4>テーマを選択：</h4>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-sm" onclick="applyTheme('default')">デフォルト</button>
+                    <button class="btn btn-sm" onclick="applyTheme('pink')">ピンク</button>
+                    <button class="btn btn-sm" onclick="applyTheme('green')">グリーン</button>
+                    <button class="btn btn-sm" onclick="applyTheme('purple')">パープル</button>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;style&gt;
+/* テーマ定義 */
+[data-color-theme="default"] {
+    --color-primary: #3b82f6;
+    --color-secondary: #8b5cf6;
+}
+
+[data-color-theme="pink"] {
+    --color-primary: #ec4899;
+    --color-secondary: #f472b6;
+}
+
+[data-color-theme="green"] {
+    --color-primary: #10b981;
+    --color-secondary: #34d399;
+}
+
+[data-color-theme="purple"] {
+    --color-primary: #8b5cf6;
+    --color-secondary: #a78bfa;
+}
+&lt;/style&gt;
+
+&lt;script&gt;
+function applyTheme(themeName) {
+    document.documentElement.setAttribute('data-color-theme', themeName);
+    localStorage.setItem('color-theme', themeName);
+}
+
+// ページ読み込み時にテーマを復元
+const savedColorTheme = localStorage.getItem('color-theme') || 'default';
+document.documentElement.setAttribute('data-color-theme', savedColorTheme);
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- ベストプラクティス -->
+        <section class="doc-section">
+            <h2>⭐ ベストプラクティス</h2>
+
+            <div class="info-box">
+                <h4>✅ 推奨事項</h4>
+                <ul>
+                    <li><strong>コントラスト比を確保：</strong> WCAG AA基準（4.5:1以上）を満たす</li>
+                    <li><strong>一貫性を保つ：</strong> カラーパレットは5-8色に絞る</li>
+                    <li><strong>意味のある色使い：</strong> 成功=緑、エラー=赤など、ユーザーの期待に沿う</li>
+                    <li><strong>ダークモード対応：</strong> ライトとダーク両方のテーマを定義</li>
+                    <li><strong>アクセシビリティ：</strong> 色だけで情報を伝えない</li>
+                </ul>
+            </div>
+
+            <h3>カラーコントラストチェックツール</h3>
+            <ul>
+                <li><a href="https://webaim.org/resources/contrastchecker/" target="_blank">WebAIM Contrast Checker</a></li>
+                <li><a href="https://colorable.jxnblk.com/" target="_blank">Colorable</a></li>
+                <li><a href="https://accessible-colors.com/" target="_blank">Accessible Colors</a></li>
+            </ul>
+        </section>
+
+        <!-- テーマジェネレーター -->
+        <section class="doc-section">
+            <h2>🛠️ テーマジェネレーターツール</h2>
+            <p>カラーパレットを自動生成するツール：</p>
+            <ul>
+                <li><a href="https://coolors.co/" target="_blank">Coolors</a> - カラーパレット生成</li>
+                <li><a href="https://mycolor.space/" target="_blank">ColorSpace</a> - グラデーション生成</li>
+                <li><a href="https://palettte.app/" target="_blank">Palettte</a> - UI カラーパレット</li>
+                <li><a href="https://tailwindcss.com/docs/customizing-colors" target="_blank">Tailwind Colors</a> - カラーシステム参考</li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function applyTheme(themeName) {
+            document.documentElement.setAttribute('data-color-theme', themeName);
+            localStorage.setItem('color-theme', themeName);
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ コピーしました！';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        if (scrollTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

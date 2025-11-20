@@ -1,0 +1,392 @@
+// ============================================================
+// Tabs Component
+// ============================================================
+// Accessible tab navigation with ARIA support
+//
+// HTML Structure (ARIA compliant):
+//   <div class="tabs">
+//     <div class="tabs-nav" role="tablist">
+//       <button class="tab-link active" role="tab" aria-selected="true" aria-controls="tab1">Tab 1</button>
+//       <button class="tab-link" role="tab" aria-selected="false" aria-controls="tab2">Tab 2</button>
+//     </div>
+//     <div class="tabs-content">
+//       <div class="tab-panel active" role="tabpanel" id="tab1">Content 1</div>
+//       <div class="tab-panel" role="tabpanel" id="tab2">Content 2</div>
+//     </div>
+//   </div>
+
+// Tabs Container
+.tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+// Tabs Navigation
+.tabs-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--color-border, rgba(0, 0, 0, 0.1));
+  margin-bottom: var(--spacing-4, 1rem);
+
+  [data-theme="dark"] & {
+    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+  }
+}
+
+// Tab Link (Button)
+.tab-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: var(--color-text-muted, #6c757d);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+
+  &:hover:not(.active):not([disabled]) {
+    color: var(--color-text, #4c5059);
+    border-color: var(--color-border-light, rgba(0, 0, 0, 0.05));
+    background-color: var(--color-hover, rgba(0, 0, 0, 0.03));
+
+    [data-theme="dark"] & {
+      color: var(--color-text, #e4e4e7);
+      border-color: var(--color-border-light, rgba(255, 255, 255, 0.05));
+      background-color: var(--color-hover, rgba(255, 255, 255, 0.05));
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #31a9c7);
+    outline-offset: 2px;
+    z-index: 1;
+  }
+
+  &.active,
+  &[aria-selected="true"] {
+    color: var(--color-primary, #31a9c7);
+    border-color: var(--color-primary, #31a9c7);
+    font-weight: 600;
+
+    [data-theme="dark"] & {
+      color: var(--color-primary-light, #4ec4df);
+      border-color: var(--color-primary-light, #4ec4df);
+    }
+  }
+
+  &[disabled] {
+    color: var(--color-text-disabled, #adb5bd);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  // Tab icon
+  .tab-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  // Badge inside tab
+  .badge {
+    margin-left: 0.25rem;
+  }
+}
+
+// Tabs Content
+.tabs-content {
+  position: relative;
+}
+
+// Tab Panel
+.tab-panel {
+  display: none;
+  animation: tab-fade-in 0.2s ease-in-out;
+
+  &.active,
+  &[aria-hidden="false"] {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Tab Variants
+
+// Pills Style
+.tabs-pills {
+  .tabs-nav {
+    border-bottom: none;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-4, 1rem);
+  }
+
+  .tab-link {
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
+    margin-bottom: 0;
+
+    &.active,
+    &[aria-selected="true"] {
+      color: #fff;
+      background-color: var(--color-primary, #31a9c7);
+      border-color: var(--color-primary, #31a9c7);
+
+      [data-theme="dark"] & {
+        color: #000;
+        background-color: var(--color-primary-light, #4ec4df);
+        border-color: var(--color-primary-light, #4ec4df);
+      }
+    }
+  }
+}
+
+// Outline Pills Style
+.tabs-pills-outline {
+  .tabs-nav {
+    border-bottom: none;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-4, 1rem);
+  }
+
+  .tab-link {
+    border-radius: 0.375rem;
+    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.2));
+    margin-bottom: 0;
+
+    [data-theme="dark"] & {
+      border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+    }
+
+    &.active,
+    &[aria-selected="true"] {
+      color: var(--color-primary, #31a9c7);
+      background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      border-color: var(--color-primary, #31a9c7);
+
+      [data-theme="dark"] & {
+        color: var(--color-primary-light, #4ec4df);
+        border-color: var(--color-primary-light, #4ec4df);
+      }
+    }
+  }
+}
+
+// Vertical Tabs
+.tabs-vertical {
+  flex-direction: row;
+  gap: var(--spacing-4, 1rem);
+
+  .tabs-nav {
+    flex-direction: column;
+    border-bottom: none;
+    border-right: 2px solid var(--color-border, rgba(0, 0, 0, 0.1));
+    margin-bottom: 0;
+    margin-right: 0;
+    min-width: 200px;
+
+    [data-theme="dark"] & {
+      border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+    }
+  }
+
+  .tab-link {
+    justify-content: flex-start;
+    text-align: left;
+    border-bottom: none;
+    border-right: 2px solid transparent;
+    margin-bottom: 0;
+    margin-right: -2px;
+
+    &.active,
+    &[aria-selected="true"] {
+      border-right-color: var(--color-primary, #31a9c7);
+    }
+  }
+
+  .tabs-content {
+    flex: 1;
+  }
+}
+
+// Justified Tabs (equal width)
+.tabs-justified {
+  .tabs-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+
+  .tab-link {
+    width: 100%;
+  }
+}
+
+// Centered Tabs
+.tabs-centered {
+  .tabs-nav {
+    justify-content: center;
+  }
+}
+
+// Right-aligned Tabs
+.tabs-right {
+  .tabs-nav {
+    justify-content: flex-end;
+  }
+}
+
+// Tab Sizes
+.tabs-sm {
+  .tab-link {
+    padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
+    font-size: 0.875rem;
+
+    .tab-icon {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}
+
+.tabs-lg {
+  .tab-link {
+    padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
+    font-size: 1rem;
+
+    .tab-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+// Underline Animation
+.tabs-animated {
+  .tabs-nav {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-primary, #31a9c7);
+      transition: all 0.3s ease-in-out;
+
+      [data-theme="dark"] & {
+        background-color: var(--color-primary-light, #4ec4df);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tabs-nav::after {
+      transition: none;
+    }
+  }
+}
+
+// Scrollable Tabs (for many tabs)
+.tabs-scrollable {
+  .tabs-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border, rgba(0, 0, 0, 0.2)) transparent;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-border, rgba(0, 0, 0, 0.2));
+      border-radius: 2px;
+    }
+
+    [data-theme="dark"] & {
+      scrollbar-color: var(--color-border, rgba(255, 255, 255, 0.1)) transparent;
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--color-border, rgba(255, 255, 255, 0.1));
+      }
+    }
+  }
+}
+
+// Responsive Behavior
+@media (max-width: 48em) {
+  .tabs-vertical {
+    flex-direction: column;
+
+    .tabs-nav {
+      border-right: none;
+      border-bottom: 2px solid var(--color-border, rgba(0, 0, 0, 0.1));
+      margin-right: 0;
+      margin-bottom: var(--spacing-4, 1rem);
+      min-width: auto;
+
+      [data-theme="dark"] & {
+        border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+      }
+    }
+
+    .tab-link {
+      border-right: none;
+      border-bottom: 2px solid transparent;
+      margin-right: 0;
+      margin-bottom: -2px;
+
+      &.active,
+      &[aria-selected="true"] {
+        border-right-color: transparent;
+        border-bottom-color: var(--color-primary, #31a9c7);
+      }
+    }
+  }
+
+  // Auto-scroll on mobile
+  .tabs-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// Reduced Motion
+@media (prefers-reduced-motion: reduce) {
+  .tab-link {
+    transition: none;
+  }
+}

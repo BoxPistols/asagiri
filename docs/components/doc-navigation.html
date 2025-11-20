@@ -1,0 +1,638 @@
+<!-- Documentation Navigation Component -->
+<!-- Include this in all documentation pages -->
+
+<style>
+    /* Breadcrumb Navigation */
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        font-size: 0.875rem;
+        flex-wrap: wrap;
+    }
+
+    .breadcrumb-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .breadcrumb-item a {
+        color: var(--color-text-muted, #6b7280);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .breadcrumb-item a:hover {
+        color: var(--color-primary);
+    }
+
+    .breadcrumb-item.active {
+        color: var(--color-text);
+        font-weight: 500;
+    }
+
+    .breadcrumb-separator {
+        color: var(--color-text-muted, #6b7280);
+        user-select: none;
+    }
+
+    /* Previous/Next Navigation */
+    .page-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-top: 4rem;
+        padding-top: 3rem;
+        border-top: 2px solid var(--color-border);
+    }
+
+    .page-nav-link {
+        flex: 1;
+        max-width: 45%;
+        padding: 1.5rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        color: var(--color-text);
+        transition: all 0.3s ease;
+    }
+
+    .page-nav-link:hover {
+        border-color: var(--color-primary);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+
+    .page-nav-link.prev {
+        text-align: left;
+    }
+
+    .page-nav-link.next {
+        text-align: right;
+        margin-left: auto;
+    }
+
+    .page-nav-label {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text-muted, #6b7280);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .page-nav-title {
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--color-primary);
+    }
+
+    .page-nav-arrow {
+        font-size: 1.25rem;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .page-nav-link.prev:hover .page-nav-arrow {
+        transform: translateX(-4px);
+    }
+
+    .page-nav-link.next:hover .page-nav-arrow {
+        transform: translateX(4px);
+    }
+
+    /* Table of Contents (improved) */
+    .doc-toc {
+        position: sticky;
+        top: 5rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        max-height: calc(100vh - 8rem);
+        overflow-y: auto;
+    }
+
+    .doc-toc h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text);
+    }
+
+    .doc-toc ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .doc-toc li {
+        margin-bottom: 0.5rem;
+    }
+
+    .doc-toc a {
+        color: var(--color-text-muted, #6b7280);
+        text-decoration: none;
+        display: block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        transition: all 0.2s;
+        font-size: 0.875rem;
+    }
+
+    .doc-toc a:hover {
+        background: var(--color-background);
+        color: var(--color-primary);
+    }
+
+    .doc-toc a.active {
+        background: var(--color-background);
+        color: var(--color-primary);
+        font-weight: 600;
+        border-left: 2px solid var(--color-primary);
+        padding-left: calc(0.5rem - 2px);
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav-toggle {
+        display: none;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        width: 44px;
+        height: 44px;
+        background: var(--color-primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+
+    .mobile-nav-toggle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .mobile-nav-toggle span {
+        font-size: 1.5rem;
+    }
+
+    .doc-nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .doc-nav-overlay.active {
+        opacity: 1;
+    }
+
+    .doc-nav-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        background: var(--color-surface);
+        z-index: 1001;
+        padding: 4rem 0 2rem;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+    }
+
+    .doc-nav-sidebar.active {
+        transform: translateX(0);
+    }
+
+    .nav-section {
+        margin-bottom: 2rem;
+    }
+
+    .nav-section-title {
+        padding: 0 1.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text-muted, #6b7280);
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        color: var(--color-text);
+        text-decoration: none;
+        transition: all 0.2s;
+        border-left: 3px solid transparent;
+    }
+
+    .nav-link:hover {
+        background: var(--color-background);
+        border-left-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .nav-link.active {
+        background: var(--color-background);
+        border-left-color: var(--color-primary);
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+
+    .nav-link-icon {
+        margin-right: 0.5rem;
+    }
+
+    /* Footer Navigation */
+    .doc-footer {
+        margin-top: 4rem;
+        padding: 3rem 0;
+        border-top: 2px solid var(--color-border);
+    }
+
+    .footer-nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-nav-section h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+        color: var(--color-text);
+    }
+
+    .footer-nav-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-nav-section li {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-nav-section a {
+        color: var(--color-text-muted, #6b7280);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .footer-nav-section a:hover {
+        color: var(--color-primary);
+    }
+
+    .footer-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .mobile-nav-toggle {
+            display: flex;
+        }
+
+        .doc-nav-overlay,
+        .doc-nav-sidebar {
+            display: block;
+        }
+
+        .footer-nav-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>
+
+<!-- Mobile Navigation Toggle -->
+<button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="メニューを開く">
+    <span>☰</span>
+</button>
+
+<!-- Navigation Overlay -->
+<div class="doc-nav-overlay" id="navOverlay"></div>
+
+<!-- Navigation Sidebar -->
+<nav class="doc-nav-sidebar" id="navSidebar" role="navigation" aria-label="ドキュメントナビゲーション">
+    <div class="nav-section">
+        <div class="nav-section-title">Getting Started</div>
+        <a href="../getting-started.html" class="nav-link">
+            <span class="nav-link-icon">📚</span> Introduction
+        </a>
+        <a href="../guides/dark-mode.html" class="nav-link">
+            <span class="nav-link-icon">🌙</span> Dark Mode
+        </a>
+        <a href="../guides/theming.html" class="nav-link">
+            <span class="nav-link-icon">🎨</span> Theming
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Guides</div>
+        <a href="../guides/practical-examples.html" class="nav-link">
+            <span class="nav-link-icon">💼</span> Practical Examples
+        </a>
+        <a href="../guides/developer-guide.html" class="nav-link">
+            <span class="nav-link-icon">👨‍💻</span> Developer Guide
+        </a>
+        <a href="../guides/testing-architecture.html" class="nav-link">
+            <span class="nav-link-icon">🧪</span> Testing Architecture
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Reference</div>
+        <a href="../api-reference.html" class="nav-link">
+            <span class="nav-link-icon">📖</span> API Reference
+        </a>
+        <a href="../../showcase.html" class="nav-link">
+            <span class="nav-link-icon">🎭</span> Components Showcase
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Resources</div>
+        <a href="https://github.com/BoxPistols/asagiri" class="nav-link" target="_blank">
+            <span class="nav-link-icon">🔗</span> GitHub
+        </a>
+        <a href="https://github.com/BoxPistols/asagiri/issues" class="nav-link" target="_blank">
+            <span class="nav-link-icon">🐛</span> Issues
+        </a>
+    </div>
+</nav>
+
+<!-- Footer Navigation -->
+<footer class="doc-footer">
+    <div class="footer-nav-grid">
+        <div class="footer-nav-section">
+            <h4>Documentation</h4>
+            <ul>
+                <li><a href="../getting-started.html">Getting Started</a></li>
+                <li><a href="../guides/dark-mode.html">Dark Mode</a></li>
+                <li><a href="../guides/theming.html">Theming</a></li>
+                <li><a href="../guides/practical-examples.html">Examples</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-nav-section">
+            <h4>Developer</h4>
+            <ul>
+                <li><a href="../guides/developer-guide.html">Developer Guide</a></li>
+                <li><a href="../guides/testing-architecture.html">Testing</a></li>
+                <li><a href="../api-reference.html">API Reference</a></li>
+                <li><a href="../../showcase.html">Showcase</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-nav-section">
+            <h4>Community</h4>
+            <ul>
+                <li><a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/issues" target="_blank">Issues</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/discussions" target="_blank">Discussions</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-nav-section">
+            <h4>About</h4>
+            <ul>
+                <li><a href="https://github.com/BoxPistols/asagiri#readme" target="_blank">README</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/blob/main/LICENSE" target="_blank">License (MIT)</a></li>
+                <li><a href="https://github.com/BoxPistols/asagiri/releases" target="_blank">Changelog</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div>
+            <strong>Asagiri Design System</strong> v2.1 - Modern, Accessible CSS Framework
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+            <a href="https://www.npmjs.com/package/asagiri" target="_blank">npm</a>
+            <a href="https://github.com/BoxPistols/asagiri/blob/main/LICENSE" target="_blank">MIT License</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile Navigation Toggle
+    (function() {
+        const toggle = document.getElementById('mobileNavToggle');
+        const overlay = document.getElementById('navOverlay');
+        const sidebar = document.getElementById('navSidebar');
+
+        if (!toggle || !overlay || !sidebar) return;
+
+        function openNav() {
+            overlay.classList.add('active');
+            sidebar.classList.add('active');
+            toggle.querySelector('span').textContent = '✕';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNav() {
+            overlay.classList.remove('active');
+            sidebar.classList.remove('active');
+            toggle.querySelector('span').textContent = '☰';
+            document.body.style.overflow = '';
+        }
+
+        toggle.addEventListener('click', function() {
+            if (sidebar.classList.contains('active')) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        overlay.addEventListener('click', closeNav);
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+                closeNav();
+            }
+        });
+
+        // Highlight current page
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPath = new URL(link.href).pathname;
+            if (currentPath.includes(linkPath) || linkPath.includes(currentPath.split('/').pop())) {
+                link.classList.add('active');
+            }
+        });
+    })();
+
+    // Table of Contents Active Link
+    (function() {
+        const tocLinks = document.querySelectorAll('.doc-toc a');
+        if (tocLinks.length === 0) return;
+
+        const observerOptions = {
+            rootMargin: '-80px 0px -80% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const tocLink = document.querySelector(`.doc-toc a[href="#${id}"]`);
+
+                if (entry.isIntersecting && tocLink) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    tocLink.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections with IDs
+        document.querySelectorAll('[id]').forEach(section => {
+            observer.observe(section);
+        });
+    })();
+
+    // Breadcrumb Generator
+    window.generateBreadcrumb = function(items) {
+        const breadcrumb = document.createElement('nav');
+        breadcrumb.className = 'breadcrumb';
+        breadcrumb.setAttribute('aria-label', 'パンくずナビゲーション');
+
+        items.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'breadcrumb-item';
+
+            if (index < items.length - 1) {
+                const link = document.createElement('a');
+                link.href = item.url;
+                link.textContent = item.label;
+                div.appendChild(link);
+
+                const separator = document.createElement('span');
+                separator.className = 'breadcrumb-separator';
+                separator.textContent = '/';
+                div.appendChild(separator);
+            } else {
+                div.className += ' active';
+                div.textContent = item.label;
+            }
+
+            breadcrumb.appendChild(div);
+        });
+
+        return breadcrumb;
+    };
+
+    // Page Navigation Generator
+    window.generatePageNav = function(prev, next) {
+        const nav = document.createElement('nav');
+        nav.className = 'page-nav';
+        nav.setAttribute('aria-label', 'ページナビゲーション');
+
+        if (prev) {
+            const prevLink = document.createElement('a');
+            prevLink.href = prev.url;
+            prevLink.className = 'page-nav-link prev';
+            prevLink.innerHTML = `
+                <span class="page-nav-label">
+                    <span class="page-nav-arrow">←</span> Previous
+                </span>
+                <span class="page-nav-title">${prev.title}</span>
+            `;
+            nav.appendChild(prevLink);
+        }
+
+        if (next) {
+            const nextLink = document.createElement('a');
+            nextLink.href = next.url;
+            nextLink.className = 'page-nav-link next';
+            nextLink.innerHTML = `
+                <span class="page-nav-label">
+                    Next <span class="page-nav-arrow">→</span>
+                </span>
+                <span class="page-nav-title">${next.title}</span>
+            `;
+            nav.appendChild(nextLink);
+        }
+
+        return nav;
+    };
+</script>
+
+<!--
+Usage Examples:
+
+1. Breadcrumb Navigation:
+<script>
+const breadcrumbItems = [
+    { label: 'Home', url: '../index.html' },
+    { label: 'Guides', url: './guides/' },
+    { label: 'Dark Mode', url: '' }  // Current page (no URL)
+];
+const breadcrumb = generateBreadcrumb(breadcrumbItems);
+document.querySelector('.doc-container').prepend(breadcrumb);
+</script>
+
+2. Previous/Next Navigation:
+<script>
+const prevPage = { title: 'Getting Started', url: '../getting-started.html' };
+const nextPage = { title: 'Theming', url: './theming.html' };
+const pageNav = generatePageNav(prevPage, nextPage);
+document.querySelector('.doc-container').appendChild(pageNav);
+</script>
+
+3. Table of Contents:
+<aside class="doc-toc">
+    <h3>目次</h3>
+    <ul>
+        <li><a href="#section1">セクション1</a></li>
+        <li><a href="#section2">セクション2</a></li>
+    </ul>
+</aside>
+-->

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Template - Asagiri</title>
+    <link rel="stylesheet" href="../dist/asagiri.min.css">
+    <style>
+        body {
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary, #8b5cf6) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Avatar Large */
+        .avatar-hero {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .skill-card {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-level {
+            font-size: 0.875rem;
+            color: var(--color-text-muted, #6b7280);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .portfolio-card {
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary, #8b5cf6) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-description {
+            color: var(--color-text-muted, #6b7280);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--color-background);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            border: 1px solid var(--color-border);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--color-surface);
+            padding: 4rem 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--color-background);
+            border: 2px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="avatar-hero" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: white;">
+                👨‍💻
+            </div>
+            <h1>John Developer</h1>
+            <p>Full-Stack Developer & UI/UX Designer</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#portfolio" class="btn btn-outline-light btn-lg">View Portfolio</a>
+                <a href="#contact" class="btn btn-light btn-lg">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <div class="container" style="max-width: 1200px; padding: 4rem 2rem;">
+        <section style="margin-bottom: 4rem;">
+            <h2 style="text-align: center; margin-bottom: 1rem;">About Me</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: var(--color-text-muted, #6b7280); font-size: 1.125rem;">
+                情熱的なフルスタック開発者として、美しく機能的なWebアプリケーションを構築しています。
+                ユーザー体験を第一に考え、最新の技術を活用したソリューションを提供します。
+            </p>
+
+            <!-- Skills -->
+            <h3 style="text-align: center; margin-bottom: 2rem;">Skills & Expertise</h3>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">⚛️</div>
+                    <div class="skill-name">React</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <div class="skill-name">UI/UX Design</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🟢</div>
+                    <div class="skill-name">Node.js</div>
+                    <div class="skill-level">Intermediate</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🗄️</div>
+                    <div class="skill-name">Database</div>
+                    <div class="skill-level">Intermediate</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎭</div>
+                    <div class="skill-name">TypeScript</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🚀</div>
+                    <div class="skill-name">DevOps</div>
+                    <div class="skill-level">Beginner</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio -->
+        <section id="portfolio" style="margin-bottom: 4rem;">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Featured Projects</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: var(--color-text-muted, #6b7280);">
+                実際のプロジェクトから選りすぐりの作品をご紹介します
+            </p>
+
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image">🏪</div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">E-Commerce Platform</h3>
+                        <p class="portfolio-description">
+                            モダンなオンラインショッピング体験を提供するフルスタックECサイト
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">React</span>
+                            <span class="portfolio-tag">Node.js</span>
+                            <span class="portfolio-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">📱</div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Mobile App Dashboard</h3>
+                        <p class="portfolio-description">
+                            リアルタイム分析機能を備えたモバイルアプリ管理ダッシュボード
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Vue.js</span>
+                            <span class="portfolio-tag">Firebase</span>
+                            <span class="portfolio-tag">Chart.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🎨</div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Design System</h3>
+                        <p class="portfolio-description">
+                            企業向けデザインシステムとコンポーネントライブラリ
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">React</span>
+                            <span class="portfolio-tag">Storybook</span>
+                            <span class="portfolio-tag">Figma</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">📝</div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Blog Platform</h3>
+                        <p class="portfolio-description">
+                            Markdown対応の高速ブログプラットフォーム
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Next.js</span>
+                            <span class="portfolio-tag">MDX</span>
+                            <span class="portfolio-tag">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">🎯</div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Task Management App</h3>
+                        <p class="portfolio-description">
+                            チーム協働のためのプロジェクト管理ツール
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">React</span>
+                            <span class="portfolio-tag">Redux</span>
+                            <span class="portfolio-tag">Express</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">🌐</div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Corporate Website</h3>
+                        <p class="portfolio-description">
+                            レスポンシブ対応の企業コーポレートサイト
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">HTML/CSS</span>
+                            <span class="portfolio-tag">JavaScript</span>
+                            <span class="portfolio-tag">Asagiri</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-section">
+                <h2>Let's Work Together</h2>
+                <p style="max-width: 600px; margin: 1rem auto 2rem; color: var(--color-text-muted, #6b7280); font-size: 1.125rem;">
+                    新しいプロジェクトのご相談、お仕事のご依頼、お気軽にお問い合わせください。
+                </p>
+
+                <a href="mailto:hello@example.com" class="btn btn-primary btn-lg">📧 Send Message</a>
+
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub">🔗</a>
+                    <a href="#" class="social-link" title="Twitter">🐦</a>
+                    <a href="#" class="social-link" title="LinkedIn">💼</a>
+                    <a href="#" class="social-link" title="Dribbble">🎨</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--color-border); margin-top: 4rem;">
+        <p style="color: var(--color-text-muted, #6b7280);">
+            © 2025 John Developer. Built with <strong>Asagiri Design System</strong>
+        </p>
+        <p style="margin-top: 0.5rem;">
+            <a href="../docs/getting-started.html" style="color: var(--color-primary);">View Documentation</a>
+        </p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

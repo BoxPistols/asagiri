@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Architecture - Asagiri Design System</title>
+    <link rel="stylesheet" href="../../dist/asagiri.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        .doc-header {
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .doc-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .doc-section h2 {
+            color: var(--color-primary);
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+        .code-block {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            float: right;
+            margin-bottom: 0.5rem;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+        .info-box {
+            padding: 1rem;
+            background: var(--color-info-bg, #e7f3ff);
+            border-left: 4px solid var(--color-info);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        .success-box {
+            padding: 1rem;
+            background: var(--color-success-bg, #d4edda);
+            border-left: 4px solid var(--color-success);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        .warning-box {
+            padding: 1rem;
+            background: var(--color-warning-bg, #fff3cd);
+            border-left: 4px solid var(--color-warning);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .test-card {
+            background: var(--color-background);
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .test-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-card h4 {
+            margin-top: 0;
+            color: var(--color-primary);
+        }
+        .test-level {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .level-critical {
+            background: #fecaca;
+            color: #991b1b;
+        }
+        .level-high {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+        .level-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .level-low {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        [data-theme="dark"] .level-critical {
+            background: #7f1d1d;
+            color: #fecaca;
+        }
+        [data-theme="dark"] .level-high {
+            background: #7c2d12;
+            color: #fed7aa;
+        }
+        [data-theme="dark"] .level-medium {
+            background: #78350f;
+            color: #fef3c7;
+        }
+        [data-theme="dark"] .level-low {
+            background: #064e3b;
+            color: #d1fae5;
+        }
+        .nav-pills {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-pills a {
+            padding: 0.5rem 1rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all 0.2s;
+        }
+        .nav-pills a:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-top:hover {
+            background: var(--color-primary-dark, #2563eb);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            flex-wrap: wrap;
+        }
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .breadcrumb-item a {
+            color: var(--color-text-muted, #6b7280);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb-item a:hover {
+            color: var(--color-primary);
+        }
+        .breadcrumb-item.active {
+            color: var(--color-text);
+            font-weight: 500;
+        }
+        .breadcrumb-separator {
+            color: var(--color-text-muted, #6b7280);
+            user-select: none;
+        }
+
+        /* Previous/Next Navigation */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--color-border);
+        }
+        .page-nav-link {
+            flex: 1;
+            max-width: 45%;
+            padding: 1.5rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all 0.3s ease;
+        }
+        .page-nav-link:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .page-nav-link.prev {
+            text-align: left;
+        }
+        .page-nav-link.next {
+            text-align: right;
+            margin-left: auto;
+        }
+        .page-nav-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted, #6b7280);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .page-nav-title {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        .page-nav-arrow {
+            font-size: 1.25rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .page-nav-link.prev:hover .page-nav-arrow {
+            transform: translateX(-4px);
+        }
+        .page-nav-link.next:hover .page-nav-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .doc-container {
+                padding: 0 1rem 2rem;
+            }
+            .doc-section {
+                padding: 1.5rem;
+            }
+            .nav-pills {
+                flex-direction: column;
+            }
+            .nav-pills a {
+                text-align: center;
+            }
+            .page-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .page-nav-link {
+                max-width: 100%;
+            }
+            .breadcrumb {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
+        ↑
+    </button>
+
+    <div class="doc-header">
+        <div class="doc-container">
+            <h1>🧪 Testing Architecture</h1>
+            <p>Asagiri Design System - テスト設計アーキテクチャ完全ガイド</p>
+            <div style="margin-top: 1rem;">
+                <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
+                <a href="../api-reference.html" class="btn btn-outline-light" style="margin-left: 0.5rem;">API Reference</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="doc-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="パンくずナビゲーション">
+            <div class="breadcrumb-item">
+                <a href="../../index.html">Home</a>
+                <span class="breadcrumb-separator">/</span>
+            </div>
+            <div class="breadcrumb-item">
+                <a href="../getting-started.html">Docs</a>
+                <span class="breadcrumb-separator">/</span>
+            </div>
+            <div class="breadcrumb-item">
+                <a href="./developer-guide.html">Guides</a>
+                <span class="breadcrumb-separator">/</span>
+            </div>
+            <div class="breadcrumb-item active">
+                Testing Architecture
+            </div>
+        </nav>
+
+        <!-- クイックナビゲーション -->
+        <div class="nav-pills">
+            <a href="#overview">概要</a>
+            <a href="#visual-regression">ビジュアルテスト</a>
+            <a href="#accessibility">アクセシビリティ</a>
+            <a href="#cross-browser">クロスブラウザ</a>
+            <a href="#performance">パフォーマンス</a>
+            <a href="#unit-tests">ユニットテスト</a>
+            <a href="#ci-cd">CI/CD</a>
+            <a href="#best-practices">ベストプラクティス</a>
+        </div>
+
+        <!-- 概要 -->
+        <section id="overview" class="doc-section">
+            <h2>📋 テスト戦略の概要</h2>
+            <p>Asagiriは、高品質なCSSフレームワークを保証するため、複数の層でテストを実施します。</p>
+
+            <h3>テストピラミッド</h3>
+            <div class="test-grid">
+                <div class="test-card">
+                    <span class="test-level level-critical">Critical</span>
+                    <h4>ビジュアルリグレッションテスト</h4>
+                    <p>UIの意図しない変更を検出</p>
+                    <ul style="font-size: 0.9rem; margin-bottom: 0;">
+                        <li>Chromatic</li>
+                        <li>Percy</li>
+                        <li>BackstopJS</li>
+                    </ul>
+                </div>
+
+                <div class="test-card">
+                    <span class="test-level level-critical">Critical</span>
+                    <h4>アクセシビリティテスト</h4>
+                    <p>WCAG 2.1 AA準拠を保証</p>
+                    <ul style="font-size: 0.9rem; margin-bottom: 0;">
+                        <li>axe-core</li>
+                        <li>WAVE</li>
+                        <li>pa11y</li>
+                    </ul>
+                </div>
+
+                <div class="test-card">
+                    <span class="test-level level-high">High</span>
+                    <h4>クロスブラウザテスト</h4>
+                    <p>主要ブラウザでの互換性</p>
+                    <ul style="font-size: 0.9rem; margin-bottom: 0;">
+                        <li>BrowserStack</li>
+                        <li>Sauce Labs</li>
+                        <li>Playwright</li>
+                    </ul>
+                </div>
+
+                <div class="test-card">
+                    <span class="test-level level-high">High</span>
+                    <h4>パフォーマンステスト</h4>
+                    <p>ロード時間とレンダリング最適化</p>
+                    <ul style="font-size: 0.9rem; margin-bottom: 0;">
+                        <li>Lighthouse</li>
+                        <li>WebPageTest</li>
+                        <li>Bundle Size</li>
+                    </ul>
+                </div>
+
+                <div class="test-card">
+                    <span class="test-level level-medium">Medium</span>
+                    <h4>デザイントークンテスト</h4>
+                    <p>CSS変数の整合性チェック</p>
+                    <ul style="font-size: 0.9rem; margin-bottom: 0;">
+                        <li>Token Validator</li>
+                        <li>Contrast Checker</li>
+                    </ul>
+                </div>
+
+                <div class="test-card">
+                    <span class="test-level level-medium">Medium</span>
+                    <h4>SCSSユニットテスト</h4>
+                    <p>関数とミックスインの検証</p>
+                    <ul style="font-size: 0.9rem; margin-bottom: 0;">
+                        <li>True (Sass testing)</li>
+                        <li>Jest + Sass</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 テスト自動化の目標:</strong>
+                <ul style="margin-bottom: 0;">
+                    <li>コミット前: ローカルリントとフォーマットチェック</li>
+                    <li>PR作成時: ビジュアルリグレッションとアクセシビリティテスト</li>
+                    <li>マージ前: 全テストスイート実行</li>
+                    <li>リリース時: パフォーマンス監視とバンドルサイズチェック</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ビジュアルリグレッションテスト -->
+        <section id="visual-regression" class="doc-section">
+            <h2>👁️ ビジュアルリグレッションテスト</h2>
+            <p>UIの予期しない変更を自動的に検出するための重要なテスト層です。</p>
+
+            <h3>🎨 Chromatic（推奨）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code># インストール
+npm install --save-dev chromatic
+
+# package.json にスクリプト追加
+{
+  "scripts": {
+    "chromatic": "chromatic --project-token=&lt;your-token&gt;"
+  }
+}
+
+# 実行
+npm run chromatic</code></pre>
+            </div>
+
+            <h3>📸 Percy（GitHub Actions統合）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code># .github/workflows/visual-tests.yml
+name: Visual Tests
+on: [pull_request]
+
+jobs:
+  percy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run build
+      - name: Percy Test
+        run: npx percy snapshot ./showcase.html
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}</code></pre>
+            </div>
+
+            <h3>🔍 BackstopJS（セルフホスト）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// backstop.config.js
+module.exports = {
+  id: "asagiri",
+  viewports: [
+    {
+      label: "phone",
+      width: 375,
+      height: 667
+    },
+    {
+      label: "tablet",
+      width: 768,
+      height: 1024
+    },
+    {
+      label: "desktop",
+      width: 1920,
+      height: 1080
+    }
+  ],
+  scenarios: [
+    {
+      label: "Components Showcase",
+      url: "http://localhost:8080/showcase.html",
+      selectors: [".btn", ".card", ".alert"],
+      delay: 500
+    },
+    {
+      label: "Dark Mode",
+      url: "http://localhost:8080/showcase.html",
+      selectors: ["body"],
+      onBeforeScript: "dark-mode.js"
+    }
+  ],
+  paths: {
+    bitmaps_reference: "backstop_data/bitmaps_reference",
+    bitmaps_test: "backstop_data/bitmaps_test",
+    html_report: "backstop_data/html_report"
+  }
+};</code></pre>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ ベストプラクティス:</strong>
+                <ul style="margin-bottom: 0;">
+                    <li>コンポーネント単位でスナップショットを取得</li>
+                    <li>ライトモードとダークモードの両方をテスト</li>
+                    <li>複数の画面サイズでテスト（モバイル、タブレット、デスクトップ）</li>
+                    <li>アニメーション完了後にスナップショット取得</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- アクセシビリティテスト -->
+        <section id="accessibility" class="doc-section">
+            <h2>♿ アクセシビリティテスト</h2>
+            <p>WCAG 2.1 AA準拠を保証し、すべてのユーザーが利用可能なUIを提供します。</p>
+
+            <h3>🔍 axe-core（自動テスト）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// accessibility.test.js
+const { AxePuppeteer } = require('@axe-core/puppeteer');
+const puppeteer = require('puppeteer');
+
+describe('Accessibility Tests', () => {
+  let browser;
+  let page;
+
+  beforeAll(async () => {
+    browser = await puppeteer.launch();
+    page = await browser.newPage();
+  });
+
+  afterAll(async () => {
+    await browser.close();
+  });
+
+  test('Components showcase should be accessible', async () => {
+    await page.goto('http://localhost:8080/showcase.html');
+    const results = await new AxePuppeteer(page).analyze();
+
+    expect(results.violations).toHaveLength(0);
+  });
+
+  test('Dark mode should be accessible', async () => {
+    await page.goto('http://localhost:8080/showcase.html');
+    await page.evaluate(() => {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    });
+
+    const results = await new AxePuppeteer(page).analyze();
+    expect(results.violations).toHaveLength(0);
+  });
+});</code></pre>
+            </div>
+
+            <h3>🎯 pa11y（CI統合）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// pa11y.config.js
+module.exports = {
+  standard: 'WCAG2AA',
+  urls: [
+    'http://localhost:8080/showcase.html',
+    'http://localhost:8080/docs/getting-started.html'
+  ],
+  chromeLaunchConfig: {
+    args: ['--no-sandbox']
+  },
+  runners: ['axe', 'htmlcs'],
+  threshold: 0 // 0 violations allowed
+};
+
+// package.json
+{
+  "scripts": {
+    "test:a11y": "pa11y-ci --config pa11y.config.js"
+  }
+}</code></pre>
+            </div>
+
+            <h3>📊 コントラスト比チェック</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// contrast-check.js
+const Color = require('colorjs.io');
+
+const colorPairs = [
+  { bg: '#ffffff', fg: '#4c5059', name: 'Text on Light' },
+  { bg: '#0f0f0f', fg: '#e4e4e7', name: 'Text on Dark' },
+  { bg: '#31a9c7', fg: '#ffffff', name: 'Primary Button' }
+];
+
+colorPairs.forEach(pair => {
+  const ratio = Color.contrastRatio(pair.bg, pair.fg);
+  const wcagAA = ratio >= 4.5;
+  const wcagAAA = ratio >= 7;
+
+  console.log(`${pair.name}: ${ratio.toFixed(2)}:1`);
+  console.log(`  WCAG AA: ${wcagAA ? '✅' : '❌'}`);
+  console.log(`  WCAG AAA: ${wcagAAA ? '✅' : '❌'}`);
+});</code></pre>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ チェック項目:</strong>
+                <ul style="margin-bottom: 0;">
+                    <li>テキストコントラスト比: 4.5:1 以上（WCAG AA）</li>
+                    <li>大きいテキスト: 3:1 以上</li>
+                    <li>UIコンポーネント: 3:1 以上</li>
+                    <li>キーボードナビゲーション対応</li>
+                    <li>スクリーンリーダー互換性</li>
+                    <li>focus indicatorの視認性</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- クロスブラウザテスト -->
+        <section id="cross-browser" class="doc-section">
+            <h2>🌐 クロスブラウザテスト</h2>
+            <p>主要ブラウザ（Chrome、Firefox、Safari、Edge）での互換性を保証します。</p>
+
+            <h3>🎭 Playwright（推奨）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// playwright.config.js
+module.exports = {
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] }
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] }
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] }
+    },
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 5'] }
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 13'] }
+    }
+  ]
+};
+
+// tests/cross-browser.spec.js
+test.describe('Cross Browser Tests', () => {
+  test('buttons render correctly', async ({ page }) => {
+    await page.goto('http://localhost:8080/showcase.html');
+
+    const button = page.locator('.btn-primary').first();
+    await expect(button).toBeVisible();
+    await expect(button).toHaveCSS('background-color', 'rgb(49, 169, 199)');
+  });
+});</code></pre>
+            </div>
+
+            <h3>🔧 BrowserStack（実機テスト）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// browserstack.config.js
+exports.config = {
+  user: process.env.BROWSERSTACK_USERNAME,
+  key: process.env.BROWSERSTACK_ACCESS_KEY,
+
+  capabilities: [
+    {
+      browserName: 'Chrome',
+      browser_version: 'latest',
+      os: 'Windows',
+      os_version: '11'
+    },
+    {
+      browserName: 'Safari',
+      browser_version: 'latest',
+      os: 'OS X',
+      os_version: 'Ventura'
+    },
+    {
+      browserName: 'Edge',
+      browser_version: 'latest',
+      os: 'Windows',
+      os_version: '11'
+    }
+  ]
+};</code></pre>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 テスト対象ブラウザ:</strong>
+                <ul style="margin-bottom: 0;">
+                    <li>Chrome (最新版 + 2つ前のバージョン)</li>
+                    <li>Firefox (最新版 + ESR)</li>
+                    <li>Safari (最新版 + 1つ前のバージョン)</li>
+                    <li>Edge (最新版)</li>
+                    <li>モバイル: iOS Safari, Chrome for Android</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- パフォーマンステスト -->
+        <section id="performance" class="doc-section">
+            <h2>⚡ パフォーマンステスト</h2>
+            <p>高速なロード時間とスムーズなレンダリングを保証します。</p>
+
+            <h3>📊 Lighthouse CI</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// lighthouserc.js
+module.exports = {
+  ci: {
+    collect: {
+      url: [
+        'http://localhost:8080/showcase.html',
+        'http://localhost:8080/docs/getting-started.html'
+      ],
+      numberOfRuns: 3
+    },
+    assert: {
+      assertions: {
+        'categories:performance': ['error', { minScore: 0.9 }],
+        'categories:accessibility': ['error', { minScore: 0.95 }],
+        'categories:best-practices': ['error', { minScore: 0.9 }],
+        'first-contentful-paint': ['error', { maxNumericValue: 2000 }],
+        'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
+        'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }]
+      }
+    },
+    upload: {
+      target: 'temporary-public-storage'
+    }
+  }
+};</code></pre>
+            </div>
+
+            <h3>📦 Bundle Size Check</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// package.json
+{
+  "scripts": {
+    "size": "size-limit",
+    "size:why": "size-limit --why"
+  }
+}
+
+// .size-limit.js
+module.exports = [
+  {
+    name: "Asagiri Full",
+    path: "dist/asagiri.min.css",
+    limit: "50 KB",
+    gzip: true
+  },
+  {
+    name: "Asagiri Core",
+    path: "dist/asagiri.core.min.css",
+    limit: "20 KB",
+    gzip: true
+  }
+];</code></pre>
+            </div>
+
+            <h3>🎯 パフォーマンス目標</h3>
+            <table class="api-table" style="width: 100%; margin: 1rem 0;">
+                <thead>
+                    <tr>
+                        <th>指標</th>
+                        <th>目標値</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>FCP</code></td>
+                        <td>&lt; 2.0s</td>
+                        <td>First Contentful Paint</td>
+                    </tr>
+                    <tr>
+                        <td><code>LCP</code></td>
+                        <td>&lt; 2.5s</td>
+                        <td>Largest Contentful Paint</td>
+                    </tr>
+                    <tr>
+                        <td><code>CLS</code></td>
+                        <td>&lt; 0.1</td>
+                        <td>Cumulative Layout Shift</td>
+                    </tr>
+                    <tr>
+                        <td><code>TTI</code></td>
+                        <td>&lt; 3.8s</td>
+                        <td>Time to Interactive</td>
+                    </tr>
+                    <tr>
+                        <td><code>Bundle Size</code></td>
+                        <td>&lt; 50 KB (gzip)</td>
+                        <td>Full framework size</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ユニットテスト -->
+        <section id="unit-tests" class="doc-section">
+            <h2>🧩 SCSSユニットテスト</h2>
+            <p>Sassの関数、ミックスイン、ロジックをテストします。</p>
+
+            <h3>True（Sassテストフレームワーク）</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// tests/scss/_colors.scss
+@use 'true' as *;
+@use '../../scss/Tokens/Color' as *;
+
+@include test-module('Color Functions') {
+  @include test('color-mix function') {
+    @include assert-equal(
+      color-mix(in srgb, red 50%, blue),
+      #8000ff,
+      'Should mix colors correctly'
+    );
+  }
+
+  @include test('CSS variable generation') {
+    @include assert-true(
+      variable-exists(color-primary),
+      'Primary color variable should exist'
+    );
+  }
+}</code></pre>
+            </div>
+
+            <h3>Jest + Sass</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>// tests/design-tokens.test.js
+const sass = require('sass');
+const path = require('path');
+
+describe('Design Tokens', () => {
+  let compiledCSS;
+
+  beforeAll(() => {
+    const result = sass.compile(
+      path.join(__dirname, '../scss/main.scss')
+    );
+    compiledCSS = result.css.toString();
+  });
+
+  test('Primary color is defined', () => {
+    expect(compiledCSS).toContain('--color-primary');
+  });
+
+  test('Spacing scale is consistent', () => {
+    const spacingVars = [
+      '--spacing-1', '--spacing-2', '--spacing-3',
+      '--spacing-4', '--spacing-5', '--spacing-6'
+    ];
+
+    spacingVars.forEach(variable => {
+      expect(compiledCSS).toContain(variable);
+    });
+  });
+
+  test('Dark theme overrides are present', () => {
+    expect(compiledCSS).toContain('[data-theme="dark"]');
+  });
+});</code></pre>
+            </div>
+        </section>
+
+        <!-- CI/CD -->
+        <section id="ci-cd" class="doc-section">
+            <h2>🚀 CI/CD パイプライン</h2>
+            <p>GitHub Actionsを使用した自動テストとデプロイメント。</p>
+
+            <h3>完全なテストパイプライン</h3>
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code># .github/workflows/test.yml
+name: Test Suite
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run lint:scss
+      - run: npm run lint:css
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run build
+      - run: npm run size
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm test
+
+  visual-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run build
+      - run: npm run chromatic
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_TOKEN }}
+
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run build
+      - run: npm start &
+      - run: npm run test:a11y
+
+  cross-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npm run test:cross-browser
+
+  performance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run build
+      - run: npm start &
+      - run: npm run lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_TOKEN }}</code></pre>
+            </div>
+        </section>
+
+        <!-- ベストプラクティス -->
+        <section id="best-practices" class="doc-section">
+            <h2>⭐ ベストプラクティス</h2>
+
+            <h3>✅ テストを成功させるための推奨事項</h3>
+            <div class="success-box">
+                <ul style="margin-bottom: 0;">
+                    <li><strong>小さく始める:</strong> 最も重要なコンポーネントから優先的にテスト</li>
+                    <li><strong>自動化する:</strong> CI/CDパイプラインに統合して手動テストを削減</li>
+                    <li><strong>定期的に実行:</strong> PR作成時、マージ前、リリース前に必ず実行</li>
+                    <li><strong>メトリクスを追跡:</strong> テストカバレッジとパフォーマンス指標をモニタリング</li>
+                    <li><strong>失敗を学習に変える:</strong> テスト失敗時は原因を分析してドキュメント化</li>
+                </ul>
+            </div>
+
+            <h3>❌ よくある落とし穴</h3>
+            <div class="warning-box">
+                <ul style="margin-bottom: 0;">
+                    <li><strong>過剰なテスト:</strong> すべてをテストしようとしてメンテナンスコストが増大</li>
+                    <li><strong>フレイキーテスト:</strong> 不安定なテストは信頼性を損なう</li>
+                    <li><strong>遅いテスト:</strong> 実行時間が長いとCI/CDがボトルネックに</li>
+                    <li><strong>outdatedスナップショット:</strong> 定期的な更新を忘れない</li>
+                </ul>
+            </div>
+
+            <h3>📚 推奨ツールスタック</h3>
+            <table class="api-table" style="width: 100%; margin: 1rem 0;">
+                <thead>
+                    <tr>
+                        <th>カテゴリ</th>
+                        <th>ツール</th>
+                        <th>理由</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ビジュアル</td>
+                        <td>Chromatic</td>
+                        <td>Storybook統合、PR自動コメント</td>
+                    </tr>
+                    <tr>
+                        <td>アクセシビリティ</td>
+                        <td>axe-core + pa11y</td>
+                        <td>業界標準、CI/CD対応</td>
+                    </tr>
+                    <tr>
+                        <td>クロスブラウザ</td>
+                        <td>Playwright</td>
+                        <td>高速、信頼性高い、実機不要</td>
+                    </tr>
+                    <tr>
+                        <td>パフォーマンス</td>
+                        <td>Lighthouse CI</td>
+                        <td>無料、詳細なレポート</td>
+                    </tr>
+                    <tr>
+                        <td>ユニットテスト</td>
+                        <td>Jest + True</td>
+                        <td>JavaScriptとSassの両対応</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🔗 次のステップ</h3>
+            <div class="nav-pills">
+                <a href="./developer-guide.html">Developer Guide</a>
+                <a href="../api-reference.html">API Reference</a>
+                <a href="./practical-examples.html">実用例</a>
+                <a href="../getting-started.html">Getting Started</a>
+            </div>
+        </section>
+
+        <!-- Previous/Next Navigation -->
+        <nav class="page-nav" aria-label="ページナビゲーション">
+            <a href="./developer-guide.html" class="page-nav-link prev">
+                <span class="page-nav-label">
+                    <span class="page-nav-arrow">←</span> Previous
+                </span>
+                <span class="page-nav-title">Developer Guide</span>
+            </a>
+            <a href="./practical-examples.html" class="page-nav-link next">
+                <span class="page-nav-label">
+                    Next <span class="page-nav-arrow">→</span>
+                </span>
+                <span class="page-nav-title">Practical Examples</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ コピーしました！';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        if (scrollTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

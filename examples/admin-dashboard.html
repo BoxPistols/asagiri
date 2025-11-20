@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        // テーマフラッシュを防ぐ
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理画面ダッシュボード - Asagiri</title>
+    <link rel="stylesheet" href="../dist/asagiri.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            overflow-x: hidden;
+        }
+
+        /* レイアウト */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* サイドバー */
+        .sidebar {
+            width: 260px;
+            background: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .sidebar-header h2 {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-text-secondary, #6b7280);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--color-text);
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: var(--color-background);
+        }
+
+        .nav-item.active {
+            background: var(--color-primary);
+            color: white;
+            border-left: 3px solid var(--color-primary-dark, #2563eb);
+        }
+
+        .nav-item-icon {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        /* メインコンテンツ */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* トップバー */
+        .topbar {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .topbar-search {
+            position: relative;
+        }
+
+        .topbar-search input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: var(--color-background);
+            color: var(--color-text);
+            width: 300px;
+        }
+
+        .topbar-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .topbar-icon-btn {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--color-text);
+            border-radius: var(--border-radius);
+        }
+
+        .topbar-icon-btn:hover {
+            background: var(--color-background);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--color-danger);
+            border-radius: 50%;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .user-menu:hover {
+            background: var(--color-background);
+        }
+
+        /* コンテンツエリア */
+        .content-area {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+        }
+
+        /* 統計カード */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--color-surface);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--color-border);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary, #6b7280);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+        }
+
+        .stat-change.positive {
+            color: var(--color-success);
+        }
+
+        .stat-change.negative {
+            color: var(--color-danger);
+        }
+
+        /* グリッドレイアウト */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* テーブル */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .data-table th {
+            background: var(--color-background);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: var(--color-text-secondary, #6b7280);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--color-background);
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .topbar-search input {
+                width: 200px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* モバイルオーバーレイ */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- サイドバー -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>📊 Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">メイン</div>
+                    <a href="#" class="nav-item active">
+                        <span class="nav-item-icon">📈</span>
+                        <span>ダッシュボード</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">📊</span>
+                        <span>分析</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">管理</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">👥</span>
+                        <span>ユーザー管理</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">📦</span>
+                        <span>商品管理</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">🛒</span>
+                        <span>注文管理</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">💳</span>
+                        <span>決済管理</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">コンテンツ</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">📝</span>
+                        <span>記事</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">💬</span>
+                        <span>コメント</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">🖼️</span>
+                        <span>メディア</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">設定</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">⚙️</span>
+                        <span>システム設定</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">🔐</span>
+                        <span>セキュリティ</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- サイドバーオーバーレイ（モバイル用） -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+        <!-- メインコンテンツ -->
+        <div class="main-content">
+            <!-- トップバー -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <div class="topbar-search">
+                        <input type="search" placeholder="検索...">
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-icon-btn" onclick="toggleTheme()" title="テーマ切替">
+                        🌓
+                    </button>
+                    <button class="topbar-icon-btn" title="通知">
+                        🔔
+                        <span class="notification-badge"></span>
+                    </button>
+                    <div class="user-menu">
+                        <div class="avatar avatar-sm">
+                            <img src="https://i.pravatar.cc/150?img=5" alt="User">
+                            <span class="avatar-status avatar-status-online"></span>
+                        </div>
+                        <span>管理者</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- コンテンツエリア -->
+            <main class="content-area">
+                <!-- ページヘッダー -->
+                <div class="page-header">
+                    <h1>ダッシュボード</h1>
+                    <nav class="breadcrumb">
+                        <a href="#">ホーム</a> / <span>ダッシュボード</span>
+                    </nav>
+                </div>
+
+                <!-- 統計カード -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">総売上</div>
+                            <div class="stat-icon">💰</div>
+                        </div>
+                        <div class="stat-value">¥1,234,567</div>
+                        <div class="stat-change positive">↑ 12.5% 先月比</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">新規ユーザー</div>
+                            <div class="stat-icon">👥</div>
+                        </div>
+                        <div class="stat-value">2,543</div>
+                        <div class="stat-change positive">↑ 8.2% 先月比</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">注文数</div>
+                            <div class="stat-icon">🛍️</div>
+                        </div>
+                        <div class="stat-value">892</div>
+                        <div class="stat-change negative">↓ 3.1% 先月比</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">コンバージョン率</div>
+                            <div class="stat-icon">📈</div>
+                        </div>
+                        <div class="stat-value">3.24%</div>
+                        <div class="stat-change positive">↑ 0.5% 先月比</div>
+                    </div>
+                </div>
+
+                <!-- グリッドレイアウト -->
+                <div class="dashboard-grid">
+                    <!-- 最近の注文 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>最近の注文</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>注文ID</th>
+                                        <th>顧客名</th>
+                                        <th>金額</th>
+                                        <th>ステータス</th>
+                                        <th>日時</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#12345</td>
+                                        <td>田中太郎</td>
+                                        <td>¥12,800</td>
+                                        <td><span class="badge badge-success">完了</span></td>
+                                        <td>2025-11-17 14:32</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#12344</td>
+                                        <td>佐藤花子</td>
+                                        <td>¥8,500</td>
+                                        <td><span class="badge badge-warning">処理中</span></td>
+                                        <td>2025-11-17 13:15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#12343</td>
+                                        <td>鈴木一郎</td>
+                                        <td>¥24,300</td>
+                                        <td><span class="badge badge-success">完了</span></td>
+                                        <td>2025-11-17 11:42</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#12342</td>
+                                        <td>高橋美咲</td>
+                                        <td>¥15,600</td>
+                                        <td><span class="badge badge-info">発送済</span></td>
+                                        <td>2025-11-17 10:28</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#12341</td>
+                                        <td>伊藤健太</td>
+                                        <td>¥9,200</td>
+                                        <td><span class="badge badge-danger">キャンセル</span></td>
+                                        <td>2025-11-17 09:15</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- アクティビティ -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>最近のアクティビティ</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; gap: 1rem;">
+                                    <div class="avatar avatar-sm">
+                                        <img src="https://i.pravatar.cc/150?img=1" alt="User">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div><strong>田中太郎</strong>が新規登録</div>
+                                        <div style="font-size: 0.875rem; color: var(--color-text-secondary, #6b7280);">5分前</div>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 1rem;">
+                                    <div class="avatar avatar-sm">
+                                        <img src="https://i.pravatar.cc/150?img=2" alt="User">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div><strong>佐藤花子</strong>が注文を完了</div>
+                                        <div style="font-size: 0.875rem; color: var(--color-text-secondary, #6b7280);">15分前</div>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 1rem;">
+                                    <div class="avatar avatar-sm">
+                                        <img src="https://i.pravatar.cc/150?img=3" alt="User">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div><strong>鈴木一郎</strong>がレビューを投稿</div>
+                                        <div style="font-size: 0.875rem; color: var(--color-text-secondary, #6b7280);">1時間前</div>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 1rem;">
+                                    <div class="avatar avatar-sm">
+                                        <img src="https://i.pravatar.cc/150?img=4" alt="User">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div><strong>高橋美咲</strong>が商品を追加</div>
+                                        <div style="font-size: 0.875rem; color: var(--color-text-secondary, #6b7280);">2時間前</div>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 1rem;">
+                                    <div class="avatar avatar-sm">
+                                        <img src="https://i.pravatar.cc/150?img=5" alt="User">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div><strong>システム</strong>がバックアップを完了</div>
+                                        <div style="font-size: 0.875rem; color: var(--color-text-secondary, #6b7280);">3時間前</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- アラート例 -->
+                <div class="alert alert-info alert-dismissible">
+                    <strong>お知らせ：</strong> システムメンテナンスを11月20日 2:00-4:00に実施します。
+                    <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // テーマ切り替え
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // サイドバー切り替え（モバイル）
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // ナビゲーションアイテムのアクティブ切り替え
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // テーマを復元
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>

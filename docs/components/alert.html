@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert - Asagiri Design System</title>
+    <link rel="stylesheet" href="../../dist/asagiri.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        .doc-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .doc-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .doc-section h2 {
+            color: var(--color-primary);
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+        .code-block {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            float: right;
+            margin-bottom: 0.5rem;
+        }
+        .demo-box {
+            padding: 1.5rem;
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+        .property-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .property-table th,
+        .property-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--color-border);
+            text-align: left;
+        }
+        .property-table th {
+            background: var(--color-surface);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <div class="doc-header">
+        <div class="doc-container">
+            <h1>Alert コンポーネント</h1>
+            <p>重要な情報をユーザーに伝えるためのアラート・通知コンポーネント</p>
+            <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
+        </div>
+    </div>
+
+    <div class="doc-container">
+        <!-- 基本的な使い方 -->
+        <section class="doc-section">
+            <h2>📋 基本的な使い方</h2>
+            <p>以下のコードをコピーして、そのまま使用できます。</p>
+
+            <div class="demo-box">
+                <div class="alert alert-primary">
+                    これは基本的なアラートです。重要な情報を表示できます。
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div class="alert alert-primary"&gt;
+    これは基本的なアラートです。重要な情報を表示できます。
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- カラーバリエーション -->
+        <section class="doc-section">
+            <h2>🎨 カラーバリエーション</h2>
+            <p>8つのカラーバリエーションが用意されています。コピーして用途に合わせて使い分けてください。</p>
+
+            <div class="demo-box">
+                <div class="alert alert-primary">Primary - 主要な情報</div>
+                <div class="alert alert-secondary">Secondary - 補足情報</div>
+                <div class="alert alert-success">Success - 成功メッセージ</div>
+                <div class="alert alert-danger">Danger - エラーメッセージ</div>
+                <div class="alert alert-warning">Warning - 警告メッセージ</div>
+                <div class="alert alert-info">Info - お知らせ</div>
+                <div class="alert alert-light">Light - 明るい背景</div>
+                <div class="alert alert-dark">Dark - 暗い背景</div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div class="alert alert-primary"&gt;Primary - 主要な情報&lt;/div&gt;
+&lt;div class="alert alert-secondary"&gt;Secondary - 補足情報&lt;/div&gt;
+&lt;div class="alert alert-success"&gt;Success - 成功メッセージ&lt;/div&gt;
+&lt;div class="alert alert-danger"&gt;Danger - エラーメッセージ&lt;/div&gt;
+&lt;div class="alert alert-warning"&gt;Warning - 警告メッセージ&lt;/div&gt;
+&lt;div class="alert alert-info"&gt;Info - お知らせ&lt;/div&gt;
+&lt;div class="alert alert-light"&gt;Light - 明るい背景&lt;/div&gt;
+&lt;div class="alert alert-dark"&gt;Dark - 暗い背景&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- 閉じるボタン付き -->
+        <section class="doc-section">
+            <h2>❌ 閉じるボタン付きアラート</h2>
+            <p><code>alert-dismissible</code>クラスを追加すると、ユーザーが閉じられるアラートになります。</p>
+
+            <div class="demo-box">
+                <div class="alert alert-success alert-dismissible">
+                    <strong>成功！</strong> データが正常に保存されました。
+                    <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+                </div>
+                <div class="alert alert-warning alert-dismissible">
+                    <strong>注意：</strong> この操作は取り消せません。
+                    <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div class="alert alert-success alert-dismissible"&gt;
+    &lt;strong&gt;成功！&lt;/strong&gt; データが正常に保存されました。
+    &lt;button class="alert-close" onclick="this.parentElement.remove()"&gt;×&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- サイズバリエーション -->
+        <section class="doc-section">
+            <h2>📏 サイズバリエーション</h2>
+
+            <div class="demo-box">
+                <div class="alert alert-info alert-sm">小さいアラート（alert-sm）</div>
+                <div class="alert alert-info">標準サイズのアラート</div>
+                <div class="alert alert-info alert-lg">大きいアラート（alert-lg）</div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div class="alert alert-info alert-sm"&gt;小さいアラート&lt;/div&gt;
+&lt;div class="alert alert-info"&gt;標準サイズのアラート&lt;/div&gt;
+&lt;div class="alert alert-info alert-lg"&gt;大きいアラート&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- ソリッドバリエーション -->
+        <section class="doc-section">
+            <h2>🎯 ソリッドバリエーション</h2>
+            <p><code>alert-solid-*</code>クラスで、背景色が濃いバージョンを使用できます。</p>
+
+            <div class="demo-box">
+                <div class="alert alert-solid-primary">Solid Primary Alert</div>
+                <div class="alert alert-solid-success">Solid Success Alert</div>
+                <div class="alert alert-solid-danger">Solid Danger Alert</div>
+                <div class="alert alert-solid-warning">Solid Warning Alert</div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div class="alert alert-solid-primary"&gt;Solid Primary Alert&lt;/div&gt;
+&lt;div class="alert alert-solid-success"&gt;Solid Success Alert&lt;/div&gt;
+&lt;div class="alert alert-solid-danger"&gt;Solid Danger Alert&lt;/div&gt;
+&lt;div class="alert alert-solid-warning"&gt;Solid Warning Alert&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- リンク付きアラート -->
+        <section class="doc-section">
+            <h2>🔗 リンク付きアラート</h2>
+            <p><code>alert-link</code>クラスで、アラート内のリンクを強調できます。</p>
+
+            <div class="demo-box">
+                <div class="alert alert-primary">
+                    新しいアップデートが利用可能です。
+                    <a href="#" class="alert-link">詳細を確認する</a>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;div class="alert alert-primary"&gt;
+    新しいアップデートが利用可能です。
+    &lt;a href="#" class="alert-link"&gt;詳細を確認する&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- ダークモード -->
+        <section class="doc-section">
+            <h2>🌙 ダークモード対応</h2>
+            <p>Asagiriのアラートは自動的にダークモードに対応します。右上のボタンでテーマを切り替えて確認してください。</p>
+
+            <div class="code-block">
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <pre><code>&lt;!-- HTMLタグにdata-theme属性を追加するだけ --&gt;
+&lt;html data-theme="dark"&gt;
+
+&lt;!-- JavaScriptで切り替え --&gt;
+&lt;script&gt;
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+}
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- 利用可能なクラス -->
+        <section class="doc-section">
+            <h2>📚 利用可能なクラス一覧</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>クラス名</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.alert</code></td>
+                        <td>基本クラス（必須）</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-primary</code></td>
+                        <td>プライマリカラー</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-success</code></td>
+                        <td>成功メッセージ</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-danger</code></td>
+                        <td>エラーメッセージ</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-warning</code></td>
+                        <td>警告メッセージ</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-dismissible</code></td>
+                        <td>閉じるボタン付き</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-sm</code></td>
+                        <td>小サイズ</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-lg</code></td>
+                        <td>大サイズ</td>
+                    </tr>
+                    <tr>
+                        <td><code>.alert-solid-*</code></td>
+                        <td>ソリッドバリエーション</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ コピーしました！';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // テーマを復元
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>

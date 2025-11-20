@@ -1,3 +1,9 @@
+// ============================================================
+// Components Index
+// ============================================================
+// Central import file for all UI components
+
+// Original Components
 @forward "List";
 @forward "Form";
 @forward "Table";
@@ -5,3 +11,18 @@
 @forward "Code";
 @forward "Modal";
 @forward "Tooltip";
+
+// New Enhanced Components (v2.1)
+@forward "Alert";
+@forward "Badge";
+@forward "Tabs";
+@forward "Accordion";
+@forward "Pagination";
+@forward "Breadcrumb";
+@forward "Progress";
+@forward "Loading";
+@forward "Skeleton";
+@forward "Card";
+@forward "Avatar";
+@forward "FormValidation";
+@forward "Dropdown";

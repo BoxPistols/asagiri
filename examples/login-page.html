@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <script>
+        // テーマフラッシュを防ぐ
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン - Asagiri</title>
+    <link rel="stylesheet" href="../dist/asagiri.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-card {
+            background: var(--color-surface);
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .login-header {
+            text-align: center;
+            padding: 2rem 2rem 1.5rem;
+        }
+
+        .login-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-title {
+            font-size: 1.75rem;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: var(--color-text-secondary, #6b7280);
+            font-size: 0.95rem;
+        }
+
+        .login-body {
+            padding: 0 2rem 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: var(--color-background);
+            color: var(--color-text);
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-input.is-invalid {
+            border-color: var(--color-danger);
+        }
+
+        .form-input.is-valid {
+            border-color: var(--color-success);
+        }
+
+        .invalid-feedback {
+            color: var(--color-danger);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-input.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-check input[type="checkbox"] {
+            width: 1.125rem;
+            height: 1.125rem;
+            cursor: pointer;
+        }
+
+        .form-check label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 1.5rem;
+        }
+
+        .forgot-password a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--border-radius);
+            background: var(--color-primary);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .login-button:hover {
+            background: var(--color-primary-dark, #2563eb);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            color: var(--color-text-secondary, #6b7280);
+            font-size: 0.875rem;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 0.875rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: var(--color-surface);
+            color: var(--color-text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .social-btn:hover {
+            background: var(--color-background);
+            border-color: var(--color-primary);
+        }
+
+        .login-footer {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: var(--color-background);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .login-footer p {
+            color: var(--color-text-secondary, #6b7280);
+            font-size: 0.9rem;
+        }
+
+        .login-footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .alert {
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 480px) {
+            .login-header {
+                padding: 1.5rem 1.5rem 1rem;
+            }
+
+            .login-body {
+                padding: 0 1.5rem 1.5rem;
+            }
+
+            .login-title {
+                font-size: 1.5rem;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌓 テーマ切替
+    </button>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">🔐</div>
+                <h1 class="login-title">ログイン</h1>
+                <p class="login-subtitle">アカウントにサインインしてください</p>
+            </div>
+
+            <div class="login-body">
+                <!-- アラート例 -->
+                <div id="loginAlert" style="display: none;"></div>
+
+                <!-- ログインフォーム -->
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="email">メールアドレス</label>
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-input"
+                            placeholder="your@email.com"
+                            required
+                        >
+                        <div class="invalid-feedback">有効なメールアドレスを入力してください</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">パスワード</label>
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-input"
+                            placeholder="••••••••"
+                            required
+                        >
+                        <div class="invalid-feedback">パスワードを入力してください</div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div class="form-check">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">ログイン状態を保持</label>
+                        </div>
+                        <div class="forgot-password">
+                            <a href="#" onclick="showForgotPassword(event)">パスワードを忘れた？</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-button" id="loginBtn">
+                        ログイン
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>または</span>
+                </div>
+
+                <!-- ソーシャルログイン -->
+                <div class="social-login">
+                    <button class="social-btn" onclick="socialLogin('google')">
+                        <span>🔍</span>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn" onclick="socialLogin('github')">
+                        <span>💻</span>
+                        <span>GitHub</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="login-footer">
+                <p>アカウントをお持ちでない方は <a href="#" onclick="showSignup(event)">新規登録</a></p>
+            </div>
+        </div>
+
+        <!-- デモ情報 -->
+        <div class="card" style="margin-top: 1rem; background: rgba(255,255,255,0.9);">
+            <div class="card-body">
+                <p style="margin: 0; text-align: center; font-size: 0.875rem;">
+                    <strong>デモ:</strong> 任意のメールアドレスとパスワードでログインできます
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // テーマ切り替え
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // ログイン処理
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const loginBtn = document.getElementById('loginBtn');
+            const alertDiv = document.getElementById('loginAlert');
+
+            // バリデーション
+            let isValid = true;
+
+            if (!email.value || !email.validity.valid) {
+                email.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                email.classList.remove('is-invalid');
+                email.classList.add('is-valid');
+            }
+
+            if (!password.value || password.value.length < 6) {
+                password.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                password.classList.remove('is-invalid');
+                password.classList.add('is-valid');
+            }
+
+            if (!isValid) {
+                showAlert('入力内容を確認してください', 'danger');
+                return;
+            }
+
+            // ローディング状態
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'ログイン中...';
+
+            // デモ用: 2秒後にログイン成功
+            setTimeout(() => {
+                showAlert('ログインに成功しました！', 'success');
+                setTimeout(() => {
+                    // 実際のアプリでは、ここでリダイレクトします
+                    // window.location.href = '/dashboard';
+                    alert('管理画面にリダイレクトします（デモ）');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'ログイン';
+                }, 1000);
+            }, 2000);
+        }
+
+        // アラート表示
+        function showAlert(message, type = 'info') {
+            const alertDiv = document.getElementById('loginAlert');
+            alertDiv.className = `alert alert-${type} alert-dismissible`;
+            alertDiv.innerHTML = `
+                ${message}
+                <button class="alert-close" onclick="this.parentElement.style.display='none'">×</button>
+            `;
+            alertDiv.style.display = 'block';
+        }
+
+        // ソーシャルログイン
+        function socialLogin(provider) {
+            showAlert(`${provider}でログイン中...`, 'info');
+            // 実際のアプリでは、OAuth認証を実装します
+            setTimeout(() => {
+                showAlert(`${provider}ログインに成功しました！`, 'success');
+            }, 1500);
+        }
+
+        // パスワード忘れ
+        function showForgotPassword(event) {
+            event.preventDefault();
+            const email = prompt('パスワードリセット用のメールアドレスを入力してください:');
+            if (email) {
+                showAlert(`${email}にパスワードリセットのメールを送信しました`, 'success');
+            }
+        }
+
+        // 新規登録
+        function showSignup(event) {
+            event.preventDefault();
+            alert('新規登録ページにリダイレクトします（デモ）\n\n実際のアプリでは signup.html などにリダイレクトします');
+        }
+
+        // リアルタイムバリデーション
+        document.getElementById('email').addEventListener('input', function() {
+            if (this.value && this.validity.valid) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else if (this.value) {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            } else {
+                this.classList.remove('is-valid', 'is-invalid');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            if (this.value.length >= 6) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else if (this.value) {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            } else {
+                this.classList.remove('is-valid', 'is-invalid');
+            }
+        });
+
+        // テーマを復元
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>

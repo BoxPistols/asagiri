@@ -3,3 +3,41 @@ node_modules
 
 # NPM package
 *.tgz
+
+# Build outputs
+dist/
+*.css.map
+
+# Storybook
+storybook-static/
+.storybook-out/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temp
+.tmp/
+temp/
+*.tmp
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

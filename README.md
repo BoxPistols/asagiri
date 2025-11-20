@@ -572,6 +572,35 @@ python3 -m http.server 8000
 # http://localhost:8000/examples/admin-dashboard.html
 ```
 
+### 🧪 Storybook - インタラクティブなコンポーネントカタログ
+
+Asagiriのすべてのコンポーネントを、Storybookで実際に操作しながら確認できます。
+
+```bash
+# Storybookを起動
+npm run storybook
+
+# ブラウザで開く
+# http://localhost:6006
+```
+
+**Storybookの機能：**
+- ✅ **全24+コンポーネント**をインタラクティブに検証
+- ✅ **デザイントークン**の完全なドキュメント
+- ✅ **アクセシビリティテスト**（axe-core統合）
+- ✅ **ビジュアルリグレッションテスト**（Chromatic対応）
+- ✅ **レスポンシブテスト**（複数のビューポート）
+- ✅ **ダークモード切り替え**（ツールバーから）
+
+**Storybookをビルド：**
+
+```bash
+# 静的サイトとしてビルド
+npm run build-storybook
+
+# 出力先: storybook-static/
+```
+
 ### 主要なユーティリティ
 
 #### スペーシング

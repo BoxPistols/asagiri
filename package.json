@@ -53,11 +53,30 @@
   "scripts": {
     "build": "sass scss/main.scss css/main.css --style=expanded --no-source-map",
     "build:compressed": "sass scss/main.scss css/main.min.css --style=compressed --no-source-map",
+    "build:dist": "sass scss/main.scss dist/asagiri.min.css --style=compressed --no-source-map",
     "watch": "sass scss/main.scss css/main.css --watch --style=expanded",
-    "prepublishOnly": "npm run build && npm run build:compressed"
+    "prepublishOnly": "npm run build && npm run build:compressed",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:visual": "npm run build-storybook && npx chromatic",
+    "test:a11y": "npm run build-storybook && npx storybook-test-runner --coverage",
+    "lint:styles": "stylelint 'scss/**/*.scss'",
+    "analyze:tokens": "node scripts/analyze-design-tokens.js"
   },
   "devDependencies": {
-    "sass": "^1.94.0"
+    "sass": "^1.94.0",
+    "@storybook/html": "^7.6.0",
+    "@storybook/html-vite": "^7.6.0",
+    "@storybook/addon-essentials": "^7.6.0",
+    "@storybook/addon-interactions": "^7.6.0",
+    "@storybook/addon-links": "^7.6.0",
+    "@storybook/addon-a11y": "^7.6.0",
+    "@storybook/test": "^7.6.0",
+    "@storybook/test-runner": "^0.16.0",
+    "chromatic": "^10.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard-scss": "^13.0.0",
+    "vite": "^5.0.0"
   },
   "engines": {
     "node": ">=14.0.0"

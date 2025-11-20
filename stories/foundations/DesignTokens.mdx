@@ -1,0 +1,180 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+
+<Meta title="Foundations/Design Tokens" />
+
+# Design Tokens
+
+Asagiri uses CSS Custom Properties (CSS Variables) as design tokens for consistent theming and easy customization.
+
+## Color Tokens
+
+### Primary Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    subtitle="Main brand color"
+    colors={{
+      Primary: 'var(--color-primary)',
+      'Primary Light': 'var(--color-primary-light)',
+      'Primary Dark': 'var(--color-primary-dark)',
+    }}
+  />
+  <ColorItem
+    title="Secondary"
+    subtitle="Secondary brand color"
+    colors={{
+      Secondary: 'var(--color-secondary)',
+      'Secondary Light': 'var(--color-secondary-light)',
+      'Secondary Dark': 'var(--color-secondary-dark)',
+    }}
+  />
+</ColorPalette>
+
+### Semantic Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Success"
+    subtitle="Success states"
+    colors={{
+      Success: 'var(--color-success)',
+    }}
+  />
+  <ColorItem
+    title="Danger"
+    subtitle="Error and danger states"
+    colors={{
+      Danger: 'var(--color-danger)',
+    }}
+  />
+  <ColorItem
+    title="Warning"
+    subtitle="Warning states"
+    colors={{
+      Warning: 'var(--color-warning)',
+    }}
+  />
+  <ColorItem
+    title="Info"
+    subtitle="Info states"
+    colors={{
+      Info: 'var(--color-info)',
+    }}
+  />
+</ColorPalette>
+
+### Neutral Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Background"
+    subtitle="Page and surface backgrounds"
+    colors={{
+      Background: 'var(--color-background)',
+      Surface: 'var(--color-surface)',
+    }}
+  />
+  <ColorItem
+    title="Text"
+    subtitle="Text colors"
+    colors={{
+      Text: 'var(--color-text)',
+      'Text Muted': 'var(--color-text-muted)',
+    }}
+  />
+  <ColorItem
+    title="Border"
+    subtitle="Border colors"
+    colors={{
+      Border: 'var(--color-border)',
+    }}
+  />
+</ColorPalette>
+
+## Spacing Scale
+
+Asagiri uses a consistent spacing scale based on rem units:
+
+| Token | Value | Pixels (16px base) |
+|-------|-------|-------------------|
+| `--spacing-1` | 0.25rem | 4px |
+| `--spacing-2` | 0.5rem | 8px |
+| `--spacing-3` | 0.75rem | 12px |
+| `--spacing-4` | 1rem | 16px |
+| `--spacing-5` | 1.25rem | 20px |
+| `--spacing-6` | 1.5rem | 24px |
+| `--spacing-8` | 2rem | 32px |
+| `--spacing-10` | 2.5rem | 40px |
+| `--spacing-12` | 3rem | 48px |
+
+## Typography Scale
+
+| Token | Value | Description |
+|-------|-------|-------------|
+| `--font-size-xs` | 0.75rem | Extra small (12px) |
+| `--font-size-sm` | 0.875rem | Small (14px) |
+| `--font-size-base` | 1rem | Base (16px) |
+| `--font-size-lg` | 1.125rem | Large (18px) |
+| `--font-size-xl` | 1.25rem | Extra large (20px) |
+| `--font-size-2xl` | 1.5rem | 2X large (24px) |
+| `--font-size-3xl` | 1.875rem | 3X large (30px) |
+| `--font-size-4xl` | 2.25rem | 4X large (36px) |
+
+## Border Radius
+
+| Token | Value | Description |
+|-------|-------|-------------|
+| `--border-radius` | 0.375rem | Default border radius (6px) |
+| `--border-radius-sm` | 0.25rem | Small radius (4px) |
+| `--border-radius-lg` | 0.5rem | Large radius (8px) |
+| `--border-radius-full` | 9999px | Fully rounded |
+
+## Usage
+
+### In CSS
+
+```css
+.my-component {
+  color: var(--color-text);
+  background: var(--color-surface);
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius);
+}
+```
+
+### Overriding Tokens
+
+```css
+:root {
+  --color-primary: #your-color;
+  --border-radius: 1rem;
+}
+```
+
+### Dark Mode
+
+```css
+[data-theme="dark"] {
+  --color-background: #0f0f0f;
+  --color-text: #e4e4e7;
+}
+```
+
+## Best Practices
+
+1. **Always use tokens** instead of hardcoded values
+2. **Don't create new tokens** without checking existing ones first
+3. **Maintain consistency** across light and dark themes
+4. **Test accessibility** when modifying color tokens
+5. **Document custom tokens** with clear comments
+
+## Token Audit
+
+Run the token analyzer to see all available tokens:
+
+```bash
+npm run analyze:tokens
+```
+
+This will generate a complete token documentation in `docs/design-tokens.md`.

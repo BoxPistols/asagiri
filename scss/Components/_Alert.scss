@@ -134,6 +134,66 @@
   }
 }
 
+.alert-secondary {
+  color: #41464b;
+  background-color: color-mix(in srgb, var(--color-gray) 15%, transparent);
+  border-color: color-mix(in srgb, var(--color-gray) 30%, transparent);
+
+  [data-theme="dark"] & {
+    color: #a1a1aa;
+    background-color: color-mix(in srgb, var(--color-gray) 20%, transparent);
+    border-color: color-mix(in srgb, var(--color-gray) 35%, transparent);
+  }
+
+  a {
+    color: #34383c;
+
+    [data-theme="dark"] & {
+      color: #d4d4d8;
+    }
+  }
+}
+
+.alert-light {
+  color: #636464;
+  background-color: color-mix(in srgb, var(--color-light) 25%, transparent);
+  border-color: color-mix(in srgb, var(--color-light-dark) 40%, transparent);
+
+  [data-theme="dark"] & {
+    color: #f4f5f6;
+    background-color: color-mix(in srgb, var(--color-light) 10%, transparent);
+    border-color: color-mix(in srgb, var(--color-light) 20%, transparent);
+  }
+
+  a {
+    color: #4f5050;
+
+    [data-theme="dark"] & {
+      color: #ffffff;
+    }
+  }
+}
+
+.alert-dark {
+  color: #141619;
+  background-color: color-mix(in srgb, var(--color-dark) 15%, transparent);
+  border-color: color-mix(in srgb, var(--color-dark) 30%, transparent);
+
+  [data-theme="dark"] & {
+    color: #e4e4e7;
+    background-color: color-mix(in srgb, var(--color-dark) 25%, transparent);
+    border-color: color-mix(in srgb, var(--color-dark) 40%, transparent);
+  }
+
+  a {
+    color: #0a0b0d;
+
+    [data-theme="dark"] & {
+      color: #ffffff;
+    }
+  }
+}
+
 // Dismissible Alert
 .alert-dismissible {
   padding-right: var(--spacing-12, 3rem);
@@ -192,6 +252,12 @@
     border-color: var(--color-primary);
   }
 
+  &.alert-secondary {
+    color: #fff;
+    background-color: var(--color-gray);
+    border-color: var(--color-gray);
+  }
+
   &.alert-success {
     color: #fff;
     background-color: var(--color-success);
@@ -218,6 +284,18 @@
     color: #fff;
     background-color: var(--color-info);
     border-color: var(--color-info);
+  }
+
+  &.alert-light {
+    color: #000;
+    background-color: var(--color-light);
+    border-color: var(--color-light);
+  }
+
+  &.alert-dark {
+    color: #fff;
+    background-color: var(--color-dark);
+    border-color: var(--color-dark);
   }
 }
 

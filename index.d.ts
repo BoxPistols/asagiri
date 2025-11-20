@@ -192,10 +192,13 @@ export type ButtonClass =
 export type AlertClass =
   | 'alert'
   | 'alert-primary'
+  | 'alert-secondary'
   | 'alert-success'
   | 'alert-warning'
   | 'alert-danger'
   | 'alert-info'
+  | 'alert-light'
+  | 'alert-dark'
   | 'alert-dismissible'
   | 'alert-close'
   | 'alert-heading'

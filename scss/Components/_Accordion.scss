@@ -107,18 +107,27 @@
 
 // Accordion Panel
 .accordion-panel {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+  transition: grid-template-rows 0.3s ease-in-out;
+
+  // Inner wrapper for proper grid animation
+  > * {
+    min-height: 0;
+  }
 
   &.active,
   &[aria-hidden="false"] {
-    max-height: 1000px;
-    padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
-    border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+    grid-template-rows: 1fr;
 
-    [data-theme="dark"] & {
-      border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+    > * {
+      padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
+      border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+
+      [data-theme="dark"] & {
+        border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+      }
     }
   }
 
@@ -157,8 +166,8 @@
     font-size: 0.9375rem;
   }
 
-  .accordion-panel.active,
-  .accordion-panel[aria-hidden="false"] {
+  .accordion-panel.active > *,
+  .accordion-panel[aria-hidden="false"] > * {
     padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
   }
 }

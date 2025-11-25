@@ -67,16 +67,25 @@
     .theme-toggle {
       width: 32px;
       height: 32px;
-      font-size: 0.875rem;
       padding: 0;
       background: var(--color-bg);
       border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
       border-radius: 6px;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
+      vertical-align: middle;
+    }
+
+    .theme-toggle span,
+    .theme-toggle #theme-icon {
+      font-size: 14px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .theme-toggle:hover {

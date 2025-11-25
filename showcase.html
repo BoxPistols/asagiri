@@ -40,18 +40,112 @@
       margin: 0;
     }
 
-    .theme-toggle-btn {
+    /* Global Navigation */
+    .global-nav {
       position: fixed;
-      top: 2rem;
-      right: 2rem;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
       z-index: 1000;
-      font-size: 1.5rem;
-      padding: 0.75rem;
-      background: var(--color-box, #fff);
-      border: 1px solid var(--color-border);
+    }
+
+    [data-theme="dark"] .global-nav {
+      background: rgba(24, 24, 27, 0.95);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--color-primary);
+    }
+
+    /* Theme Toggle - Small */
+    .theme-toggle {
+      width: 32px;
+      height: 32px;
+      font-size: 0.875rem;
+      padding: 0;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-box);
+      transform: scale(1.05);
+    }
+
+    [data-theme="dark"] .theme-toggle {
+      background: var(--color-box);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Scroll to Top Button */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      background: var(--color-primary);
+      color: white;
+      border: none;
       border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      background: var(--color-accent);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
     }
 
     .section {
@@ -117,11 +211,27 @@
   </style>
 </head>
 <body>
-  <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-    <span id="theme-icon">🌙</span>
+  <!-- Global Navigation -->
+  <nav class="global-nav">
+    <a href="index.html" class="nav-logo">Asagiri</a>
+    <div class="nav-links">
+      <a href="docs/index.html">Docs</a>
+      <a href="showcase.html" class="active">Components</a>
+      <a href="docs/guides/practical-examples.html">Examples</a>
+      <a href="docs/guides/developer-guide.html">Guides</a>
+      <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top">
+    ↑
   </button>
 
-  <div class="container">
+  <div class="container" style="padding-top: 80px;">
     <!-- Header -->
     <header class="page-header">
       <h1>Asagiri CSS Framework v2.1</h1>
@@ -622,6 +732,24 @@
         });
       }
     });
+
+    // Scroll to top functionality
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation - Asagiri CSS Framework</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    /* Global Navigation */
+    .global-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 1000;
+    }
+
+    [data-theme="dark"] .global-nav {
+      background: rgba(24, 24, 27, 0.95);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--color-primary);
+    }
+
+    /* Theme Toggle - Small */
+    .theme-toggle {
+      width: 32px;
+      height: 32px;
+      font-size: 0.875rem;
+      padding: 0;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-box);
+      transform: scale(1.05);
+    }
+
+    [data-theme="dark"] .theme-toggle {
+      background: var(--color-box);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Scroll to Top Button */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      background: var(--color-accent);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Main Content */
+    main {
+      padding-top: 100px;
+      padding-bottom: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1.25rem;
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Documentation Sections */
+    .doc-section {
+      margin-bottom: 4rem;
+    }
+
+    .doc-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--color-primary);
+      display: inline-block;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .doc-card {
+      background: var(--color-box);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+    }
+
+    .doc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] .doc-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .doc-card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-card h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .doc-card p {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    .doc-card .badge {
+      margin-top: 0.75rem;
+      display: inline-block;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-bg);
+      padding: 2rem;
+      text-align: center;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+    }
+
+    footer a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 0.75rem;
+      }
+
+      .nav-links a:not(:last-of-type) {
+        display: none;
+      }
+
+      main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Navigation -->
+  <nav class="global-nav">
+    <a href="../index.html" class="nav-logo">Asagiri</a>
+    <div class="nav-links">
+      <a href="getting-started.html">Getting Started</a>
+      <a href="../showcase.html">Components</a>
+      <a href="api-reference.html">API</a>
+      <a href="guides/developer-guide.html">Guides</a>
+      <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span id="theme-icon">&#127769;</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top">
+    &#8593;
+  </button>
+
+  <main>
+    <header class="page-header">
+      <h1>Documentation</h1>
+      <p>Asagiri CSS Frameworkの包括的なドキュメント。基本から応用まで学べます。</p>
+    </header>
+
+    <!-- Getting Started -->
+    <section class="doc-section">
+      <h2>Getting Started</h2>
+      <div class="doc-grid">
+        <a href="getting-started.html" class="doc-card">
+          <div class="doc-card-icon">&#128640;</div>
+          <h3>Introduction</h3>
+          <p>Asagiriの概要、インストール方法、基本的な使い方を学びます。</p>
+        </a>
+        <a href="api-reference.html" class="doc-card">
+          <div class="doc-card-icon">&#128214;</div>
+          <h3>API Reference</h3>
+          <p>すべてのクラス、変数、ユーティリティの詳細なリファレンス。</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Guides - Advanced Usage -->
+    <section class="doc-section">
+      <h2>Advanced Guides</h2>
+      <div class="doc-grid">
+        <a href="guides/dark-mode.html" class="doc-card">
+          <div class="doc-card-icon">&#127769;</div>
+          <h3>Dark Mode</h3>
+          <p>ダークモードの実装方法、カスタマイズ、ベストプラクティス。</p>
+          <span class="badge badge-primary">人気</span>
+        </a>
+        <a href="guides/theming.html" class="doc-card">
+          <div class="doc-card-icon">&#127912;</div>
+          <h3>Theming</h3>
+          <p>CSS変数を使ったテーマのカスタマイズと独自テーマの作成。</p>
+        </a>
+        <a href="guides/developer-guide.html" class="doc-card">
+          <div class="doc-card-icon">&#128187;</div>
+          <h3>Developer Guide</h3>
+          <p>開発者向けの詳細なガイド。SCSS構造、ビルドプロセス、貢献方法。</p>
+        </a>
+        <a href="guides/practical-examples.html" class="doc-card">
+          <div class="doc-card-icon">&#128221;</div>
+          <h3>Practical Examples</h3>
+          <p>実践的なコード例。フォーム、カード、ナビゲーションなど。</p>
+          <span class="badge badge-success">おすすめ</span>
+        </a>
+        <a href="guides/testing-architecture.html" class="doc-card">
+          <div class="doc-card-icon">&#128295;</div>
+          <h3>Testing Architecture</h3>
+          <p>テスト戦略、Storybook統合、品質保証のアプローチ。</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Components -->
+    <section class="doc-section">
+      <h2>Components</h2>
+      <div class="doc-grid">
+        <a href="components/alert.html" class="doc-card">
+          <div class="doc-card-icon">&#128276;</div>
+          <h3>Alert</h3>
+          <p>通知、警告、成功メッセージなどのアラートコンポーネント。</p>
+        </a>
+        <a href="components/badge.html" class="doc-card">
+          <div class="doc-card-icon">&#127991;</div>
+          <h3>Badge</h3>
+          <p>ステータス表示、カウンター、ラベルのバッジコンポーネント。</p>
+        </a>
+        <a href="components/doc-navigation.html" class="doc-card">
+          <div class="doc-card-icon">&#128203;</div>
+          <h3>Doc Navigation</h3>
+          <p>ドキュメントサイト用のサイドバーナビゲーション。</p>
+        </a>
+        <a href="../showcase.html" class="doc-card">
+          <div class="doc-card-icon">&#128301;</div>
+          <h3>All Components</h3>
+          <p>24以上のコンポーネントを一覧できるShowcaseページ。</p>
+          <span class="badge badge-info">24+</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Design Tokens -->
+    <section class="doc-section">
+      <h2>Design System</h2>
+      <div class="doc-grid">
+        <a href="../DARK_MODE.md" class="doc-card" target="_blank">
+          <div class="doc-card-icon">&#127751;</div>
+          <h3>Dark Mode Specification</h3>
+          <p>ダークモードの技術仕様とWCAG AA準拠の詳細。</p>
+        </a>
+        <a href="../MIGRATION_V2.1.md" class="doc-card" target="_blank">
+          <div class="doc-card-icon">&#128259;</div>
+          <h3>Migration Guide v2.1</h3>
+          <p>v2.0からv2.1へのマイグレーションガイド。</p>
+        </a>
+        <a href="../README.md" class="doc-card" target="_blank">
+          <div class="doc-card-icon">&#128196;</div>
+          <h3>README</h3>
+          <p>プロジェクトの全体像とクイックスタートガイド。</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Examples -->
+    <section class="doc-section">
+      <h2>Examples</h2>
+      <div class="doc-grid">
+        <a href="../examples/admin-dashboard.html" class="doc-card">
+          <div class="doc-card-icon">&#128202;</div>
+          <h3>Admin Dashboard</h3>
+          <p>管理画面のテンプレート例。</p>
+        </a>
+        <a href="../examples/blog.html" class="doc-card">
+          <div class="doc-card-icon">&#128218;</div>
+          <h3>Blog</h3>
+          <p>ブログサイトのレイアウト例。</p>
+        </a>
+        <a href="../examples/login-page.html" class="doc-card">
+          <div class="doc-card-icon">&#128100;</div>
+          <h3>Login Page</h3>
+          <p>ログインフォームのデザイン例。</p>
+        </a>
+        <a href="../examples/portfolio.html" class="doc-card">
+          <div class="doc-card-icon">&#128188;</div>
+          <h3>Portfolio</h3>
+          <p>ポートフォリオサイトのテンプレート。</p>
+        </a>
+        <a href="../examples/theme-switcher-demo.html" class="doc-card">
+          <div class="doc-card-icon">&#127912;</div>
+          <h3>Theme Switcher Demo</h3>
+          <p>テーマ切り替えのデモンストレーション。</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      <a href="../index.html">Home</a> |
+      <a href="getting-started.html">Documentation</a> |
+      <a href="../showcase.html">Showcase</a> |
+      <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+    </p>
+    <p style="margin-top: 0.5rem; font-size: 0.875rem;">Asagiri CSS Framework v2.1 - MIT License</p>
+  </footer>
+
+  <script>
+    // Theme toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    }
+
+    // Initialize theme
+    (function() {
+      const saved = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('theme-icon').textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    })();
+
+    // Scroll to top functionality
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+</body>
+</html>

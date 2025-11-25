@@ -1,4 +1,4 @@
-import '../dist/asagiri.min.css';
+import '../css/main.css';
 
 /** @type { import('@storybook/html').Preview } */
 const preview = {

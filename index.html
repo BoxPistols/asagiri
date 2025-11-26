@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asagiri CSS Framework v2.1 - Modern, Accessible, Beautiful</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="css/main.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -227,8 +228,15 @@
     }
 
     .feature-icon {
-      font-size: 3rem;
+      width: 48px;
+      height: 48px;
       margin-bottom: 1rem;
+      color: var(--color-primary);
+    }
+
+    .feature-icon svg {
+      width: 100%;
+      height: 100%;
     }
 
     .feature-title {
@@ -396,37 +404,66 @@
     <h2 class="section-title">Why Asagiri?</h2>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">🎨</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle>
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"></path>
+          </svg>
+        </div>
         <h3 class="feature-title">Beautiful Design</h3>
         <p class="feature-description">Modern, clean interface with carefully crafted components. Every detail matters.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">♿</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path>
+            <circle cx="12" cy="12" r="4"></circle>
+          </svg>
+        </div>
         <h3 class="feature-title">Accessible</h3>
         <p class="feature-description">WCAG AA compliant, ARIA support, keyboard navigation. Accessible to everyone.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🌙</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </div>
         <h3 class="feature-title">Dark Mode</h3>
         <p class="feature-description">Full dark mode support built-in. Automatic theme detection included.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">📱</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+        </div>
         <h3 class="feature-title">Responsive</h3>
         <p class="feature-description">Mobile-first design. Looks perfect on all screen sizes.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">📘</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
         <h3 class="feature-title">TypeScript</h3>
         <p class="feature-description">Complete type definitions. Full IDE autocomplete support.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
         <h3 class="feature-title">Lightweight</h3>
         <p class="feature-description">Only 63KB minified. Fast loading, high performance.</p>
       </div>
@@ -455,13 +492,13 @@
     <h2 class="section-title">New in v2.1</h2>
     <div class="features-grid">
       <div class="feature-card">
-        <h3 class="feature-title">🔔 Alert</h3>
+        <h3 class="feature-title">Alert</h3>
         <p class="feature-description">Notification system with dismissible support</p>
         <div class="alert alert-success" style="margin-top: 1rem; font-size: 0.875rem;">Example alert message</div>
       </div>
 
       <div class="feature-card">
-        <h3 class="feature-title">🏷️ Badge</h3>
+        <h3 class="feature-title">Badge</h3>
         <p class="feature-description">Status indicators with 8 colors</p>
         <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
           <span class="badge badge-primary">Primary</span>
@@ -471,7 +508,7 @@
       </div>
 
       <div class="feature-card">
-        <h3 class="feature-title">📑 Tabs</h3>
+        <h3 class="feature-title">Tabs</h3>
         <p class="feature-description">ARIA-compliant tabbed navigation</p>
         <div class="tabs tabs-pills" style="margin-top: 1rem;">
           <div class="tabs-nav" role="tablist">
@@ -482,7 +519,7 @@
       </div>
 
       <div class="feature-card">
-        <h3 class="feature-title">📊 Progress</h3>
+        <h3 class="feature-title">Progress</h3>
         <p class="feature-description">Multi-variant progress bars</p>
         <div class="progress" style="margin-top: 1rem;">
           <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
@@ -490,7 +527,7 @@
       </div>
 
       <div class="feature-card">
-        <h3 class="feature-title">💳 Card</h3>
+        <h3 class="feature-title">Card</h3>
         <p class="feature-description">Flexible content containers</p>
         <div class="card card-sm" style="margin-top: 1rem;">
           <div class="card-body">
@@ -500,7 +537,7 @@
       </div>
 
       <div class="feature-card">
-        <h3 class="feature-title">👤 Avatar</h3>
+        <h3 class="feature-title">Avatar</h3>
         <p class="feature-description">User profile images</p>
         <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
           <div class="avatar avatar-primary avatar-sm">A</div>

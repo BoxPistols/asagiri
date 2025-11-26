@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ダークモード実装ガイド - Asagiri</title>
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
     <link rel="stylesheet" href="../../css/main.css">
     <style>
         body {
@@ -133,8 +134,21 @@
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
-        🌓 テーマ切替
+    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()" aria-label="テーマ切替">
+        <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
     </button>
 
     <!-- Scroll to top button -->
@@ -144,7 +158,7 @@
 
     <div class="doc-header">
         <div class="doc-container">
-            <h1>🌙 ダークモード実装ガイド</h1>
+            <h1>ダークモード実装ガイド</h1>
             <p>Asagiriで簡単にダークモードを実装する完全ガイド</p>
             <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
         </div>
@@ -153,12 +167,12 @@
     <div class="doc-container">
         <!-- クイックスタート -->
         <section class="doc-section">
-            <h2>⚡ クイックスタート（3ステップ）</h2>
+            <h2>クイックスタート（3ステップ）</h2>
             <p>以下のコードをコピーするだけで、すぐにダークモードが使えます！</p>
 
             <h3><span class="step-number">1</span>HTMLにdata-theme属性を追加</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="ja" data-theme="light"&gt;
 &lt;head&gt;
@@ -173,15 +187,15 @@
 
             <h3><span class="step-number">2</span>テーマ切り替えボタンを追加</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;button class="btn btn-primary" onclick="toggleTheme()"&gt;
-    🌓 テーマ切替
+    テーマ切替
 &lt;/button&gt;</code></pre>
             </div>
 
             <h3><span class="step-number">3</span>JavaScriptを追加</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;script&gt;
 function toggleTheme() {
     const html = document.documentElement;
@@ -198,17 +212,17 @@ document.documentElement.setAttribute('data-theme', savedTheme);
             </div>
 
             <div class="success-box">
-                <strong>✅ 完了！</strong> これだけでダークモードが動作します。右上のボタンで試してみてください。
+                <strong>完了！</strong> これだけでダークモードが動作します。右上のボタンで試してみてください。
             </div>
         </section>
 
         <!-- 完全なHTMLサンプル -->
         <section class="doc-section">
-            <h2>📄 完全なHTMLサンプル</h2>
+            <h2>完全なHTMLサンプル</h2>
             <p>このコードをコピーして、新しいHTMLファイルに貼り付けるだけで動作します。</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="ja" data-theme="light"&gt;
 &lt;head&gt;
@@ -230,7 +244,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);
         &lt;header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;"&gt;
             &lt;h1&gt;マイアプリ&lt;/h1&gt;
             &lt;button class="btn btn-primary" onclick="toggleTheme()"&gt;
-                🌓 テーマ切替
+                テーマ切替
             &lt;/button&gt;
         &lt;/header&gt;
 
@@ -266,11 +280,11 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 
         <!-- システム設定に従う -->
         <section class="doc-section">
-            <h2>🖥️ システムのダークモード設定に従う</h2>
+            <h2>システムのダークモード設定に従う</h2>
             <p>ユーザーのOSのダークモード設定を自動的に検出して適用できます。</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;script&gt;
 // システムのダークモード設定を検出
 function getPreferredTheme() {
@@ -313,26 +327,26 @@ function toggleTheme() {
             </div>
 
             <div class="info-box">
-                <strong>💡 ポイント：</strong>このコードは、ユーザーが手動で切り替えた場合はその設定を優先し、そうでない場合はシステム設定に従います。
+                <strong>ポイント：</strong>このコードは、ユーザーが手動で切り替えた場合はその設定を優先し、そうでない場合はシステム設定に従います。
             </div>
         </section>
 
         <!-- アニメーション付きトグル -->
         <section class="doc-section">
-            <h2>✨ アニメーション付きトグルボタン</h2>
+            <h2>アニメーション付きトグルボタン</h2>
             <p>よりリッチなテーマ切り替えボタンの実装例です。</p>
 
             <div class="demo-box">
                 <button class="btn btn-primary" id="fancyToggle" onclick="toggleThemeWithAnimation()">
-                    <span id="themeIcon">🌙</span>
+                    <svg id="themeIconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;vertical-align:middle;margin-right:4px;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <span id="themeText">ダークモード</span>
                 </button>
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;button class="btn btn-primary" onclick="toggleThemeWithAnimation()"&gt;
-    &lt;span id="themeIcon"&gt;🌙&lt;/span&gt;
     &lt;span id="themeText"&gt;ダークモード&lt;/span&gt;
 &lt;/button&gt;
 
@@ -346,15 +360,12 @@ function toggleThemeWithAnimation() {
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
 
-    // ボタンのテキストとアイコンを更新
-    const icon = document.getElementById('themeIcon');
+    // ボタンのテキストを更新
     const text = document.getElementById('themeText');
 
     if (newTheme === 'dark') {
-        icon.textContent = '☀️';
         text.textContent = 'ライトモード';
     } else {
-        icon.textContent = '🌙';
         text.textContent = 'ダークモード';
     }
 }
@@ -362,11 +373,9 @@ function toggleThemeWithAnimation() {
 // 初期化
 window.addEventListener('DOMContentLoaded', () => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
-    const icon = document.getElementById('themeIcon');
     const text = document.getElementById('themeText');
 
     if (currentTheme === 'dark') {
-        icon.textContent = '☀️';
         text.textContent = 'ライトモード';
     }
 });
@@ -376,11 +385,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         <!-- カスタムカラー -->
         <section class="doc-section">
-            <h2>🎨 ダークモードのカラーをカスタマイズ</h2>
+            <h2>ダークモードのカラーをカスタマイズ</h2>
             <p>独自のダークモードカラーを設定したい場合は、以下のようにCSS変数をオーバーライドします。</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;style&gt;
 /* ダークモード時のカスタムカラー */
 [data-theme="dark"] {
@@ -410,7 +419,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         <!-- トラブルシューティング -->
         <section class="doc-section">
-            <h2>🔧 トラブルシューティング</h2>
+            <h2>トラブルシューティング</h2>
 
             <h3>Q1: テーマが切り替わらない</h3>
             <div class="warning-box">
@@ -461,10 +470,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
         <!-- ベストプラクティス -->
         <section class="doc-section">
-            <h2>⭐ ベストプラクティス</h2>
+            <h2>ベストプラクティス</h2>
 
             <div class="info-box">
-                <h4>✅ 推奨事項</h4>
+                <h4>推奨事項</h4>
                 <ul>
                     <li>常にCSS変数（<code>var(--color-*)</code>）を使用する</li>
                     <li>ユーザーの選択をlocalStorageに保存する</li>
@@ -475,7 +484,7 @@ window.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div class="warning-box">
-                <h4>❌ 避けるべきこと</h4>
+                <h4>避けるべきこと</h4>
                 <ul>
                     <li>ハードコーディングされた色の使用</li>
                     <li>!importantの過度な使用</li>
@@ -487,11 +496,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         <!-- 実践例 -->
         <section class="doc-section">
-            <h2>💼 実践例：完全なダークモード対応ページ</h2>
+            <h2>実践例：完全なダークモード対応ページ</h2>
             <p>実際のプロジェクトで使える完全な実装例：</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="ja"&gt;
 &lt;head&gt;
@@ -532,7 +541,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             <p><strong>theme.js:</strong></p>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
                 <pre><code>// theme.js - このファイルをコピーして使用できます
 
 class ThemeManager {
@@ -589,12 +598,22 @@ window.addEventListener('themechange', (e) => {
     </div>
 
     <script>
+        function updateThemeIcon(theme) {
+            const moon = document.getElementById('theme-icon-moon');
+            const sun = document.getElementById('theme-icon-sun');
+            if (moon && sun) {
+                moon.style.display = theme === 'dark' ? 'none' : 'block';
+                sun.style.display = theme === 'dark' ? 'block' : 'none';
+            }
+        }
+
         function toggleTheme() {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
         }
 
         function toggleThemeWithAnimation() {
@@ -604,16 +623,18 @@ window.addEventListener('themechange', (e) => {
 
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
 
-            const icon = document.getElementById('themeIcon');
+            const moonIcon = document.getElementById('themeIconMoon');
+            const sunIcon = document.getElementById('themeIconSun');
             const text = document.getElementById('themeText');
 
-            if (newTheme === 'dark') {
-                icon.textContent = '☀️';
-                text.textContent = 'ライトモード';
-            } else {
-                icon.textContent = '🌙';
-                text.textContent = 'ダークモード';
+            if (moonIcon && sunIcon) {
+                moonIcon.style.display = newTheme === 'dark' ? 'none' : 'inline';
+                sunIcon.style.display = newTheme === 'dark' ? 'inline' : 'none';
+            }
+            if (text) {
+                text.textContent = newTheme === 'dark' ? 'ライトモード' : 'ダークモード';
             }
         }
 
@@ -622,7 +643,7 @@ window.addEventListener('themechange', (e) => {
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = '✅ コピーしました！';
+                button.textContent = 'コピーしました！';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
@@ -631,18 +652,23 @@ window.addEventListener('themechange', (e) => {
 
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
 
         // 初期化
         window.addEventListener('DOMContentLoaded', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
-            const icon = document.getElementById('themeIcon');
+            updateThemeIcon(currentTheme);
+
+            const moonIcon = document.getElementById('themeIconMoon');
+            const sunIcon = document.getElementById('themeIconSun');
             const text = document.getElementById('themeText');
 
-            if (icon && text) {
-                if (currentTheme === 'dark') {
-                    icon.textContent = '☀️';
-                    text.textContent = 'ライトモード';
-                }
+            if (moonIcon && sunIcon) {
+                moonIcon.style.display = currentTheme === 'dark' ? 'none' : 'inline';
+                sunIcon.style.display = currentTheme === 'dark' ? 'inline' : 'none';
+            }
+            if (text && currentTheme === 'dark') {
+                text.textContent = 'ライトモード';
             }
         });
 

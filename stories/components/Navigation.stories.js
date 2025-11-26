@@ -4,7 +4,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Global navigation component with theme toggle and responsive design.',
+        component: 'Global navigation component with theme toggle and responsive design. Styles are inherited from the framework SCSS.',
       },
     },
   },
@@ -22,85 +22,22 @@ export default {
   },
 };
 
-const navStyles = `
+// Storybook-specific position override (nav is normally fixed)
+const storyStyles = `
   <style>
-    .global-nav {
-      position: relative;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      z-index: 1000;
-    }
-
-    [data-theme="dark"] .global-nav {
-      background: rgba(24, 24, 27, 0.95);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      color: var(--color-text);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--color-primary);
-    }
-
-    .theme-toggle {
-      width: 32px;
-      height: 32px;
-      font-size: 0.875rem;
-      padding: 0;
-      background: var(--color-bg);
-      border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .theme-toggle:hover {
-      background: var(--color-box);
-      transform: scale(1.05);
-    }
-
-    [data-theme="dark"] .theme-toggle {
-      background: var(--color-box);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
+    .global-nav { position: relative; }
   </style>
 `;
 
+const moonIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+const sunIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+
 const createNavigation = ({ theme = 'light', activePage = 'none' }) => {
   const getActiveClass = (page) => activePage === page ? 'active' : '';
-  const themeIcon = theme === 'dark' ? '☀️' : '🌙';
+  const themeIcon = theme === 'dark' ? sunIcon : moonIcon;
 
   return `
-    ${navStyles}
+    ${storyStyles}
     <div data-theme="${theme}">
       <nav class="global-nav">
         <a href="#" class="nav-logo">Asagiri</a>
@@ -111,7 +48,7 @@ const createNavigation = ({ theme = 'light', activePage = 'none' }) => {
           <a href="#" class="${getActiveClass('guides')}">Guides</a>
           <a href="#" target="_blank">GitHub</a>
           <button class="theme-toggle" aria-label="Toggle theme">
-            <span>${themeIcon}</span>
+            ${themeIcon}
           </button>
         </div>
       </nav>
@@ -153,7 +90,7 @@ export const DarkModeWithActiveItem = {
 
 export const AllStates = {
   render: () => `
-    ${navStyles}
+    ${storyStyles}
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <div>
         <h4 style="margin-bottom: 0.5rem; color: var(--color-text-muted);">Light Mode</h4>
@@ -167,7 +104,7 @@ export const AllStates = {
               <a href="#">Guides</a>
               <a href="#" target="_blank">GitHub</a>
               <button class="theme-toggle" aria-label="Toggle theme">
-                <span>🌙</span>
+                ${moonIcon}
               </button>
             </div>
           </nav>
@@ -185,7 +122,7 @@ export const AllStates = {
               <a href="#">Guides</a>
               <a href="#" target="_blank">GitHub</a>
               <button class="theme-toggle" aria-label="Toggle theme">
-                <span>☀️</span>
+                ${sunIcon}
               </button>
             </div>
           </nav>

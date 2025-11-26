@@ -1,0 +1,75 @@
+// ============================================================
+// Theme Toggle Button Component
+// ============================================================
+// Small toggle button for switching between light/dark themes
+
+$theme-toggle-size: 32px;
+
+.theme-toggle {
+  width: $theme-toggle-size;
+  height: $theme-toggle-size;
+  padding: 0;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  vertical-align: middle;
+  color: var(--color-text);
+
+  &:hover {
+    background: var(--color-box);
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  // SVG icon styles
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  // Legacy span/text support
+  span,
+  #theme-icon {
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Dark mode adjustments
+[data-theme="dark"] .theme-toggle {
+  background: var(--color-box);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+// Size variants
+.theme-toggle-sm {
+  width: 28px;
+  height: 28px;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.theme-toggle-lg {
+  width: 40px;
+  height: 40px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

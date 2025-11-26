@@ -4,7 +4,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Scroll to top button that appears when page is scrolled down.',
+        component: 'Scroll to top button that appears when page is scrolled down. Styles are inherited from the framework SCSS.',
       },
     },
   },
@@ -21,48 +21,28 @@ export default {
   },
 };
 
-const scrollTopStyles = `
+// Storybook-specific overrides (button is normally fixed positioned)
+const storyStyles = `
   <style>
     .scroll-top-demo {
-      position: relative;
-      width: 44px;
-      height: 44px;
-      background: var(--color-primary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative !important;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
-
-    .scroll-top-demo:hover {
-      background: var(--color-accent);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
-
     .scroll-top-demo.hidden {
-      opacity: 0.3;
+      opacity: 0.3 !important;
     }
-
     .scroll-demo-container {
       display: flex;
       flex-direction: column;
       gap: 1rem;
       padding: 1rem;
     }
-
     .scroll-demo-row {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-
     .scroll-demo-label {
       font-size: 0.875rem;
       color: var(--color-text-muted);
@@ -75,13 +55,16 @@ const createScrollToTop = ({ visible = true, theme = 'light' }) => {
   const visibilityClass = visible ? '' : 'hidden';
 
   return `
-    ${scrollTopStyles}
+    ${storyStyles}
     <div data-theme="${theme}" style="padding: 2rem; ${theme === 'dark' ? 'background: #18181b; border-radius: 8px;' : ''}">
       <div class="scroll-demo-container">
         <div class="scroll-demo-row">
           <span class="scroll-demo-label">${visible ? 'Visible State' : 'Hidden State'}</span>
-          <button class="scroll-top-demo ${visibilityClass}" aria-label="Scroll to top">
-            ↑
+          <button class="scroll-top scroll-top-demo ${visibilityClass}" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5"></line>
+              <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
           </button>
         </div>
       </div>
@@ -115,29 +98,30 @@ export const DarkMode = {
 
 export const AllStates = {
   render: () => `
-    ${scrollTopStyles}
+    ${storyStyles}
     <div class="scroll-demo-container">
       <h4 style="margin-bottom: 1rem; color: var(--color-text);">Scroll to Top Button States</h4>
 
       <div class="scroll-demo-row">
         <span class="scroll-demo-label">Default</span>
-        <button class="scroll-top-demo" aria-label="Scroll to top">↑</button>
-      </div>
-
-      <div class="scroll-demo-row">
-        <span class="scroll-demo-label">Hover (simulated)</span>
-        <button class="scroll-top-demo" style="background: var(--color-accent); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);" aria-label="Scroll to top">↑</button>
+        <button class="scroll-top scroll-top-demo" aria-label="Scroll to top">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </button>
       </div>
 
       <div class="scroll-demo-row">
         <span class="scroll-demo-label">Hidden</span>
-        <button class="scroll-top-demo hidden" aria-label="Scroll to top">↑</button>
+        <button class="scroll-top scroll-top-demo hidden" aria-label="Scroll to top">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </button>
       </div>
 
       <div data-theme="dark" style="background: #18181b; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
         <div class="scroll-demo-row">
           <span class="scroll-demo-label" style="color: #a1a1aa;">Dark Mode</span>
-          <button class="scroll-top-demo" aria-label="Scroll to top">↑</button>
+          <button class="scroll-top scroll-top-demo" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -146,7 +130,6 @@ export const AllStates = {
 
 export const InteractiveDemo = {
   render: () => `
-    ${scrollTopStyles}
     <style>
       .scroll-container {
         height: 400px;
@@ -161,9 +144,11 @@ export const InteractiveDemo = {
         background: linear-gradient(to bottom, var(--color-bg), var(--color-box));
       }
       .fixed-scroll-btn {
-        position: absolute;
+        position: absolute !important;
         bottom: 1rem;
         right: 1rem;
+        opacity: 1 !important;
+        visibility: visible !important;
       }
     </style>
     <div>
@@ -171,12 +156,14 @@ export const InteractiveDemo = {
       <div class="scroll-container" id="scrollContainer">
         <div class="scroll-content">
           <h3>Scroll Down</h3>
-          <p>The scroll-to-top button appears after scrolling 300px.</p>
+          <p>The scroll-to-top button appears after scrolling 100px.</p>
           <p style="margin-top: 400px;">Keep scrolling...</p>
           <p style="margin-top: 200px;">Almost there...</p>
           <p style="margin-top: 200px;">You've reached the bottom!</p>
         </div>
-        <button class="scroll-top-demo fixed-scroll-btn" id="scrollBtn" style="display: none;" aria-label="Scroll to top">↑</button>
+        <button class="scroll-top fixed-scroll-btn" id="scrollBtn" style="display: none;" aria-label="Scroll to top">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </button>
       </div>
     </div>
     <script>

@@ -10,7 +10,7 @@ Generated: 2025-11-20T05:46:23.952Z
 
 ---
 
-## 🎨 Color Tokens
+## Color Tokens
 
 | Token Name | Value | File | Line |
 |------------|-------|------|------|
@@ -154,7 +154,7 @@ Generated: 2025-11-20T05:46:23.952Z
 | `--spacing-16` | 4rem | _SpacingSystem.scss | 37 |
 | `--spacing-20` | 5rem | _SpacingSystem.scss | 38 |
 
-## 📝 Typography Tokens
+## Typography Tokens
 
 | Token Name | Value | File | Line |
 |------------|-------|------|------|
@@ -177,7 +177,7 @@ Generated: 2025-11-20T05:46:23.952Z
 | `--box-shadow` | 0.1rem 0.2rem 1rem rgba(0, 0, 0, 0.5) | _Color.scss | 301 |
 | `--text-shadow` | 0px 0px 2px rgba(0, 0, 0, 0.8) | _Color.scss | 302 |
 
-## 🔧 Other Tokens
+## Other Tokens
 
 | Token Name | Value | File | Line |
 |------------|-------|------|------|
@@ -201,7 +201,7 @@ Generated: 2025-11-20T05:46:23.952Z
 | `--global-component-height` | 2.45rem | _Item.scss | 3 |
 | `--global-component-line-height` | 2.4rem | _Item.scss | 4 |
 
-## ⚠️ Inline Styles Detected
+## Inline Styles Detected
 
 **These should be converted to CSS classes or design tokens:**
 
@@ -385,7 +385,7 @@ Generated: 2025-11-20T05:46:23.952Z
 | examples/theme-switcher-demo.html | 256 | `background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;` |
 | examples/theme-switcher-demo.html | 300 | `background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;` |
 
-## 📋 Recommendations
+## Recommendations
 
 ### Best Practices
 

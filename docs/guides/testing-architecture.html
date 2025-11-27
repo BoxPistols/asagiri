@@ -9,6 +9,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
     <title>Testing Architecture - Asagiri Design System</title>
     <link rel="stylesheet" href="../../css/main.css">
     <style>
@@ -58,12 +59,6 @@
         .copy-btn {
             float: right;
             margin-bottom: 0.5rem;
-        }
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
         }
         .info-box {
             padding: 1rem;
@@ -166,37 +161,6 @@
             background: var(--color-primary);
             color: white;
             border-color: var(--color-primary);
-        }
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .scroll-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .scroll-top:hover {
-            background: var(--color-primary-dark, #2563eb);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
         }
 
         /* Breadcrumb Navigation */
@@ -318,18 +282,34 @@
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
-        🌓 テーマ切替
+    <!-- Floating theme toggle button -->
+    <button class="floating-theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="theme-icon sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="theme-icon moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
     </button>
 
     <!-- Scroll to top button -->
-    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
-        ↑
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
     </button>
 
     <div class="doc-header">
         <div class="doc-container">
-            <h1>🧪 Testing Architecture</h1>
+            <h1>Testing Architecture</h1>
             <p>Asagiri Design System - テスト設計アーキテクチャ完全ガイド</p>
             <div style="margin-top: 1rem;">
                 <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
@@ -372,7 +352,7 @@
 
         <!-- 概要 -->
         <section id="overview" class="doc-section">
-            <h2>📋 テスト戦略の概要</h2>
+            <h2>テスト戦略の概要</h2>
             <p>Asagiriは、高品質なCSSフレームワークを保証するため、複数の層でテストを実施します。</p>
 
             <h3>テストピラミッド</h3>
@@ -443,7 +423,7 @@
             </div>
 
             <div class="info-box">
-                <strong>💡 テスト自動化の目標:</strong>
+                <strong>テスト自動化の目標:</strong>
                 <ul style="margin-bottom: 0;">
                     <li>コミット前: ローカルリントとフォーマットチェック</li>
                     <li>PR作成時: ビジュアルリグレッションとアクセシビリティテスト</li>
@@ -455,12 +435,12 @@
 
         <!-- ビジュアルリグレッションテスト -->
         <section id="visual-regression" class="doc-section">
-            <h2>👁️ ビジュアルリグレッションテスト</h2>
+            <h2>ビジュアルリグレッションテスト</h2>
             <p>UIの予期しない変更を自動的に検出するための重要なテスト層です。</p>
 
-            <h3>🎨 Chromatic（推奨）</h3>
+            <h3>Chromatic（推奨）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code># インストール
 npm install --save-dev chromatic
 
@@ -475,9 +455,9 @@ npm install --save-dev chromatic
 npm run chromatic</code></pre>
             </div>
 
-            <h3>📸 Percy（GitHub Actions統合）</h3>
+            <h3>Percy（GitHub Actions統合）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code># .github/workflows/visual-tests.yml
 name: Visual Tests
 on: [pull_request]
@@ -496,9 +476,9 @@ jobs:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}</code></pre>
             </div>
 
-            <h3>🔍 BackstopJS（セルフホスト）</h3>
+            <h3>BackstopJS（セルフホスト）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// backstop.config.js
 module.exports = {
   id: "asagiri",
@@ -542,7 +522,7 @@ module.exports = {
             </div>
 
             <div class="success-box">
-                <strong>✅ ベストプラクティス:</strong>
+                <strong>ベストプラクティス:</strong>
                 <ul style="margin-bottom: 0;">
                     <li>コンポーネント単位でスナップショットを取得</li>
                     <li>ライトモードとダークモードの両方をテスト</li>
@@ -554,12 +534,12 @@ module.exports = {
 
         <!-- アクセシビリティテスト -->
         <section id="accessibility" class="doc-section">
-            <h2>♿ アクセシビリティテスト</h2>
+            <h2>アクセシビリティテスト</h2>
             <p>WCAG 2.1 AA準拠を保証し、すべてのユーザーが利用可能なUIを提供します。</p>
 
-            <h3>🔍 axe-core（自動テスト）</h3>
+            <h3>axe-core（自動テスト）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// accessibility.test.js
 const { AxePuppeteer } = require('@axe-core/puppeteer');
 const puppeteer = require('puppeteer');
@@ -596,9 +576,9 @@ describe('Accessibility Tests', () => {
 });</code></pre>
             </div>
 
-            <h3>🎯 pa11y（CI統合）</h3>
+            <h3>pa11y（CI統合）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// pa11y.config.js
 module.exports = {
   standard: 'WCAG2AA',
@@ -621,9 +601,9 @@ module.exports = {
 }</code></pre>
             </div>
 
-            <h3>📊 コントラスト比チェック</h3>
+            <h3>コントラスト比チェック</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// contrast-check.js
 const Color = require('colorjs.io');
 
@@ -639,13 +619,13 @@ colorPairs.forEach(pair => {
   const wcagAAA = ratio >= 7;
 
   console.log(`${pair.name}: ${ratio.toFixed(2)}:1`);
-  console.log(`  WCAG AA: ${wcagAA ? '✅' : '❌'}`);
-  console.log(`  WCAG AAA: ${wcagAAA ? '✅' : '❌'}`);
+  console.log(`  WCAG AA: ${wcagAA ? 'PASS' : 'FAIL'}`);
+  console.log(`  WCAG AAA: ${wcagAAA ? 'PASS' : 'FAIL'}`);
 });</code></pre>
             </div>
 
             <div class="warning-box">
-                <strong>⚠️ チェック項目:</strong>
+                <strong>チェック項目:</strong>
                 <ul style="margin-bottom: 0;">
                     <li>テキストコントラスト比: 4.5:1 以上（WCAG AA）</li>
                     <li>大きいテキスト: 3:1 以上</li>
@@ -659,12 +639,12 @@ colorPairs.forEach(pair => {
 
         <!-- クロスブラウザテスト -->
         <section id="cross-browser" class="doc-section">
-            <h2>🌐 クロスブラウザテスト</h2>
+            <h2>クロスブラウザテスト</h2>
             <p>主要ブラウザ（Chrome、Firefox、Safari、Edge）での互換性を保証します。</p>
 
-            <h3>🎭 Playwright（推奨）</h3>
+            <h3>Playwright（推奨）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// playwright.config.js
 module.exports = {
   projects: [
@@ -703,9 +683,9 @@ test.describe('Cross Browser Tests', () => {
 });</code></pre>
             </div>
 
-            <h3>🔧 BrowserStack（実機テスト）</h3>
+            <h3>BrowserStack（実機テスト）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// browserstack.config.js
 exports.config = {
   user: process.env.BROWSERSTACK_USERNAME,
@@ -735,7 +715,7 @@ exports.config = {
             </div>
 
             <div class="info-box">
-                <strong>💡 テスト対象ブラウザ:</strong>
+                <strong>テスト対象ブラウザ:</strong>
                 <ul style="margin-bottom: 0;">
                     <li>Chrome (最新版 + 2つ前のバージョン)</li>
                     <li>Firefox (最新版 + ESR)</li>
@@ -748,12 +728,12 @@ exports.config = {
 
         <!-- パフォーマンステスト -->
         <section id="performance" class="doc-section">
-            <h2>⚡ パフォーマンステスト</h2>
+            <h2>パフォーマンステスト</h2>
             <p>高速なロード時間とスムーズなレンダリングを保証します。</p>
 
-            <h3>📊 Lighthouse CI</h3>
+            <h3>Lighthouse CI</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// lighthouserc.js
 module.exports = {
   ci: {
@@ -781,9 +761,9 @@ module.exports = {
 };</code></pre>
             </div>
 
-            <h3>📦 Bundle Size Check</h3>
+            <h3>Bundle Size Check</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// package.json
 {
   "scripts": {
@@ -809,7 +789,7 @@ module.exports = [
 ];</code></pre>
             </div>
 
-            <h3>🎯 パフォーマンス目標</h3>
+            <h3>パフォーマンス目標</h3>
             <table class="api-table" style="width: 100%; margin: 1rem 0;">
                 <thead>
                     <tr>
@@ -850,12 +830,12 @@ module.exports = [
 
         <!-- ユニットテスト -->
         <section id="unit-tests" class="doc-section">
-            <h2>🧩 SCSSユニットテスト</h2>
+            <h2>SCSSユニットテスト</h2>
             <p>Sassの関数、ミックスイン、ロジックをテストします。</p>
 
             <h3>True（Sassテストフレームワーク）</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// tests/scss/_colors.scss
 @use 'true' as *;
 @use '../../scss/Tokens/Color' as *;
@@ -880,7 +860,7 @@ module.exports = [
 
             <h3>Jest + Sass</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// tests/design-tokens.test.js
 const sass = require('sass');
 const path = require('path');
@@ -919,12 +899,12 @@ describe('Design Tokens', () => {
 
         <!-- CI/CD -->
         <section id="ci-cd" class="doc-section">
-            <h2>🚀 CI/CD パイプライン</h2>
+            <h2>CI/CD パイプライン</h2>
             <p>GitHub Actionsを使用した自動テストとデプロイメント。</p>
 
             <h3>完全なテストパイプライン</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code># .github/workflows/test.yml
 name: Test Suite
 
@@ -1007,9 +987,9 @@ jobs:
 
         <!-- ベストプラクティス -->
         <section id="best-practices" class="doc-section">
-            <h2>⭐ ベストプラクティス</h2>
+            <h2>ベストプラクティス</h2>
 
-            <h3>✅ テストを成功させるための推奨事項</h3>
+            <h3>テストを成功させるための推奨事項</h3>
             <div class="success-box">
                 <ul style="margin-bottom: 0;">
                     <li><strong>小さく始める:</strong> 最も重要なコンポーネントから優先的にテスト</li>
@@ -1020,7 +1000,7 @@ jobs:
                 </ul>
             </div>
 
-            <h3>❌ よくある落とし穴</h3>
+            <h3>よくある落とし穴</h3>
             <div class="warning-box">
                 <ul style="margin-bottom: 0;">
                     <li><strong>過剰なテスト:</strong> すべてをテストしようとしてメンテナンスコストが増大</li>
@@ -1030,7 +1010,7 @@ jobs:
                 </ul>
             </div>
 
-            <h3>📚 推奨ツールスタック</h3>
+            <h3>推奨ツールスタック</h3>
             <table class="api-table" style="width: 100%; margin: 1rem 0;">
                 <thead>
                     <tr>
@@ -1068,7 +1048,7 @@ jobs:
                 </tbody>
             </table>
 
-            <h3>🔗 次のステップ</h3>
+            <h3>次のステップ</h3>
             <div class="nav-pills">
                 <a href="./developer-guide.html">Developer Guide</a>
                 <a href="../api-reference.html">API Reference</a>
@@ -1095,48 +1075,21 @@ jobs:
     </div>
 
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
         function copyCode(button) {
             const codeBlock = button.parentElement.querySelector('code');
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = '✅ コピーしました！';
+                button.textContent = 'Copied!';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
             });
         }
-
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-
-        // Scroll to top functionality
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-        if (scrollTopBtn) {
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollTopBtn.classList.add('show');
-                } else {
-                    scrollTopBtn.classList.remove('show');
-                }
-            });
-        }
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
     </script>
+
+    <!-- Shared JavaScript modules -->
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/scroll-top.js"></script>
 </body>
 </html>

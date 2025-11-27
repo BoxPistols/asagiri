@@ -350,7 +350,7 @@
 
 <!-- Mobile Navigation Toggle -->
 <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="メニューを開く">
-    <span>☰</span>
+    <span>=</span>
 </button>
 
 <!-- Navigation Overlay -->
@@ -361,46 +361,46 @@
     <div class="nav-section">
         <div class="nav-section-title">Getting Started</div>
         <a href="../getting-started.html" class="nav-link">
-            <span class="nav-link-icon">📚</span> Introduction
+            <span class="nav-link-icon"></span> Introduction
         </a>
         <a href="../guides/dark-mode.html" class="nav-link">
-            <span class="nav-link-icon">🌙</span> Dark Mode
+            <span class="nav-link-icon"></span> Dark Mode
         </a>
         <a href="../guides/theming.html" class="nav-link">
-            <span class="nav-link-icon">🎨</span> Theming
+            <span class="nav-link-icon"></span> Theming
         </a>
     </div>
 
     <div class="nav-section">
         <div class="nav-section-title">Guides</div>
         <a href="../guides/practical-examples.html" class="nav-link">
-            <span class="nav-link-icon">💼</span> Practical Examples
+            <span class="nav-link-icon"></span> Practical Examples
         </a>
         <a href="../guides/developer-guide.html" class="nav-link">
-            <span class="nav-link-icon">👨‍💻</span> Developer Guide
+            <span class="nav-link-icon"></span> Developer Guide
         </a>
         <a href="../guides/testing-architecture.html" class="nav-link">
-            <span class="nav-link-icon">🧪</span> Testing Architecture
+            <span class="nav-link-icon"></span> Testing Architecture
         </a>
     </div>
 
     <div class="nav-section">
         <div class="nav-section-title">Reference</div>
         <a href="../api-reference.html" class="nav-link">
-            <span class="nav-link-icon">📖</span> API Reference
+            <span class="nav-link-icon"></span> API Reference
         </a>
         <a href="../../showcase.html" class="nav-link">
-            <span class="nav-link-icon">🎭</span> Components Showcase
+            <span class="nav-link-icon"></span> Components Showcase
         </a>
     </div>
 
     <div class="nav-section">
         <div class="nav-section-title">Resources</div>
         <a href="https://github.com/BoxPistols/asagiri" class="nav-link" target="_blank">
-            <span class="nav-link-icon">🔗</span> GitHub
+            <span class="nav-link-icon"></span> GitHub
         </a>
         <a href="https://github.com/BoxPistols/asagiri/issues" class="nav-link" target="_blank">
-            <span class="nav-link-icon">🐛</span> Issues
+            <span class="nav-link-icon"></span> Issues
         </a>
     </div>
 </nav>
@@ -472,14 +472,14 @@
         function openNav() {
             overlay.classList.add('active');
             sidebar.classList.add('active');
-            toggle.querySelector('span').textContent = '✕';
+            toggle.querySelector('span').textContent = 'X';
             document.body.style.overflow = 'hidden';
         }
 
         function closeNav() {
             overlay.classList.remove('active');
             sidebar.classList.remove('active');
-            toggle.querySelector('span').textContent = '☰';
+            toggle.querySelector('span').textContent = '=';
             document.body.style.overflow = '';
         }
 

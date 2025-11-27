@@ -1098,6 +1098,29 @@ input[type=submit].btn-outline-elegant:hover {
   border-color: var(--color-elegant-dark);
   background-color: var(--color-elegant-dark);
 }
+.button.btn-outline-light,
+button.btn-outline-light,
+input[type=button].btn-outline-light,
+input[type=reset].btn-outline-light,
+input[type=submit].btn-outline-light {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+.button.btn-outline-light:hover,
+button.btn-outline-light:hover,
+input[type=button].btn-outline-light:hover,
+input[type=reset].btn-outline-light:hover,
+input[type=submit].btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.button.btn-outline-light:focus,
+button.btn-outline-light:focus,
+input[type=button].btn-outline-light:focus,
+input[type=reset].btn-outline-light:focus,
+input[type=submit].btn-outline-light:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
 .button[disabled],
 button[disabled],
 input[type=button][disabled],
@@ -6014,6 +6037,8 @@ textarea.is-warning,
   right: 2rem;
   width: 44px;
   height: 44px;
+  padding: 0;
+  margin: 0;
   background: var(--color-primary);
   color: white;
   border: none;
@@ -6045,6 +6070,7 @@ textarea.is-warning,
 .scroll-top svg {
   width: 20px;
   height: 20px;
+  stroke: currentColor;
 }
 
 [data-theme=dark] .scroll-top {
@@ -6122,6 +6148,39 @@ textarea.is-warning,
   height: 20px;
 }
 
+.floating-theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.floating-theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+.floating-theme-toggle:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme=dark] .floating-theme-toggle {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+[data-theme=dark] .floating-theme-toggle:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .floating-theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+}
 /**
  * Code Block Component
  * Syntax highlighting and code display

@@ -9,6 +9,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
     <title>実用的なコード例集 - Asagiri Design System</title>
     <link rel="stylesheet" href="../../css/main.css">
     <style>
@@ -69,48 +70,6 @@
             margin: 1rem 0;
         }
 
-        /* テーマ切り替え - 右上固定（スクロール追従なし） */
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
-        }
-
-        /* スクロールトップボタン - 右下固定 */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .scroll-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-top:hover {
-            background: var(--color-primary-dark, #2563eb);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
-
         .example-preview {
             border: 2px dashed var(--color-border);
             padding: 2rem;
@@ -132,18 +91,32 @@
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
-        🌓 テーマ切替
+    <!-- Theme Toggle -->
+    <button class="theme-toggle floating-theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
     </button>
 
-    <!-- スクロールトップボタン -->
-    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
-        ↑
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </button>
 
     <div class="doc-header">
         <div class="doc-container">
-            <h1>💼 実用的なコード例集</h1>
+            <h1>実用的なコード例集</h1>
             <p>コピー&ペーストですぐに使える実装例</p>
             <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
         </div>
@@ -152,11 +125,11 @@
     <div class="doc-container">
         <!-- フォーム関連 -->
         <section class="doc-section">
-            <h2>📝 フォーム実装例</h2>
+            <h2>フォーム実装例</h2>
 
             <h3>ログインフォーム</h3>
-            <div class="tag">実用度: ★★★★★</div>
-            <div class="tag">難易度: ⭐</div>
+            <div class="tag">実用度: 5/5</div>
+            <div class="tag">難易度: 1/5</div>
 
             <div class="example-preview">
                 <div style="max-width: 400px; margin: 0 auto;">
@@ -182,7 +155,7 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;form&gt;
   &lt;div style="margin-bottom: 1rem;"&gt;
     &lt;label style="display: block; margin-bottom: 0.5rem;"&gt;メールアドレス&lt;/label&gt;
@@ -206,7 +179,7 @@
             </div>
 
             <h3>検索フォーム</h3>
-            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">実用度: 5/5</div>
 
             <div class="example-preview">
                 <div style="display: flex; gap: 0.5rem;">
@@ -216,7 +189,7 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
   &lt;input type="search" placeholder="検索..." style="flex: 1;"&gt;
   &lt;button class="btn btn-primary"&gt;🔍 検索&lt;/button&gt;
@@ -224,7 +197,7 @@
             </div>
 
             <h3>ファイルアップロードエリア</h3>
-            <div class="tag">実用度: ★★★★☆</div>
+            <div class="tag">実用度: 4/5</div>
 
             <div class="example-preview">
                 <div style="border: 2px dashed var(--color-border); padding: 3rem; text-align: center; border-radius: var(--border-radius); cursor: pointer;" onclick="document.getElementById('fileInput').click()">
@@ -236,7 +209,7 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div style="border: 2px dashed var(--color-border); padding: 3rem; text-align: center; cursor: pointer;"
      onclick="document.getElementById('fileInput').click()"&gt;
   &lt;div style="font-size: 3rem; margin-bottom: 1rem;"&gt;📁&lt;/div&gt;
@@ -252,7 +225,7 @@
             <h2>📇 カード・リスト実装例</h2>
 
             <h3>商品カードグリッド</h3>
-            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">実用度: 5/5</div>
 
             <div class="example-preview">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
@@ -282,7 +255,7 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;"&gt;
   &lt;div class="card"&gt;
     &lt;img src="product.jpg" alt="Product" style="width: 100%; border-radius: var(--border-radius) var(--border-radius) 0 0;"&gt;
@@ -299,7 +272,7 @@
             </div>
 
             <h3>ユーザーリスト</h3>
-            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">実用度: 5/5</div>
 
             <div class="example-preview">
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
@@ -335,7 +308,7 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div class="card"&gt;
   &lt;div class="card-body" style="display: flex; align-items: center; gap: 1rem;"&gt;
     &lt;div class="avatar avatar-md"&gt;
@@ -358,14 +331,14 @@
             <h2>💬 モーダル・ダイアログ</h2>
 
             <h3>確認ダイアログ</h3>
-            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">実用度: 5/5</div>
 
             <div class="example-preview">
                 <button class="btn btn-danger" onclick="showDialog()">削除</button>
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!-- ボタン --&gt;
 &lt;button class="btn btn-danger" onclick="showDialog()"&gt;削除&lt;/button&gt;
 
@@ -403,7 +376,7 @@ function confirmDelete() {
             <h2>🔔 通知・フィードバック</h2>
 
             <h3>トースト通知</h3>
-            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">実用度: 5/5</div>
 
             <div class="example-preview">
                 <button class="btn btn-success" onclick="showToast('success', '保存しました！')">成功通知</button>
@@ -412,7 +385,7 @@ function confirmDelete() {
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!-- トースト表示エリア --&gt;
 &lt;div id="toastContainer" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;"&gt;&lt;/div&gt;
 
@@ -453,7 +426,7 @@ document.head.appendChild(style);
             </div>
 
             <h3>ローディング表示</h3>
-            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">実用度: 5/5</div>
 
             <div class="example-preview">
                 <button class="btn btn-primary" onclick="simulateLoading(this)">
@@ -462,7 +435,7 @@ document.head.appendChild(style);
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;button class="btn btn-primary" onclick="simulateLoading(this)"&gt;
   データを読み込む
 &lt;/button&gt;
@@ -488,7 +461,7 @@ function simulateLoading(btn) {
             <h2>📊 データ表示</h2>
 
             <h3>統計ダッシュボード</h3>
-            <div class="tag">実用度: ★★★★★</div>
+            <div class="tag">実用度: 5/5</div>
 
             <div class="example-preview">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
@@ -516,7 +489,7 @@ function simulateLoading(btn) {
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;"&gt;
   &lt;div class="card"&gt;
     &lt;div class="card-body"&gt;
@@ -539,7 +512,7 @@ function simulateLoading(btn) {
             <h2>🧭 ナビゲーション</h2>
 
             <h3>ステップ表示</h3>
-            <div class="tag">実用度: ★★★★☆</div>
+            <div class="tag">実用度: 4/5</div>
 
             <div class="example-preview">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -561,7 +534,7 @@ function simulateLoading(btn) {
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div style="display: flex; justify-content: space-between; align-items: center;"&gt;
   &lt;!-- ステップ1: 完了 --&gt;
   &lt;div style="text-align: center; flex: 1;"&gt;
@@ -605,41 +578,15 @@ function simulateLoading(btn) {
     </div>
 
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
         function copyCode(button) {
             const codeBlock = button.parentElement.querySelector('code');
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = '✅ コピーしました！';
+                button.textContent = 'Copied!';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
-            });
-        }
-
-        // スクロールトップボタン
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
-        });
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
             });
         }
 
@@ -702,8 +649,10 @@ function simulateLoading(btn) {
             }, 3000);
         }
 
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
+
+    <!-- Shared JavaScript modules -->
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/scroll-top.js"></script>
 </body>
 </html>

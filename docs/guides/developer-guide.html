@@ -9,6 +9,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
     <title>Developer Guide - Asagiri Design System</title>
     <link rel="stylesheet" href="../../css/main.css">
     <style>
@@ -58,12 +59,6 @@
         .copy-btn {
             float: right;
             margin-bottom: 0.5rem;
-        }
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
         }
         .api-table {
             width: 100%;
@@ -118,52 +113,35 @@
             border-radius: var(--border-radius);
             margin: 1rem 0;
         }
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .scroll-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .scroll-top:hover {
-            background: var(--color-primary-dark, #2563eb);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
-        🌓 テーマ切替
+    <!-- Theme Toggle -->
+    <button class="theme-toggle floating-theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
     </button>
 
-    <!-- Scroll to top button -->
-    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
-        ↑
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </button>
 
     <div class="doc-header">
         <div class="doc-container">
-            <h1>👨‍💻 Developer Guide</h1>
+            <h1>Developer Guide</h1>
             <p>Asagiri Design System - API仕様・アーキテクチャ・拡張ガイド</p>
             <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
         </div>
@@ -183,7 +161,7 @@
 
         <!-- API Reference -->
         <section id="api-reference" class="doc-section">
-            <h2>📚 API Reference</h2>
+            <h2>API Reference</h2>
 
             <h3>CSS Class Naming Convention</h3>
             <p>Asagiriは一貫した命名規則を使用しています：</p>
@@ -234,7 +212,7 @@
             <p>各コンポーネントは以下のAPIパターンに従います：</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// 基本構造
 .component {
   // 基本スタイル
@@ -262,7 +240,7 @@
 
         <!-- Architecture -->
         <section id="architecture" class="doc-section">
-            <h2>🏗️ Architecture</h2>
+            <h2>Architecture</h2>
 
             <h3>File Structure</h3>
             <div class="code-block">
@@ -329,13 +307,13 @@
             </div>
 
             <div class="info-box">
-                <strong>💡 利点：</strong> この階層構造により、基本値を変更するだけで全体のテーマを一括変更できます。
+                <strong>利点：</strong> この階層構造により、基本値を変更するだけで全体のテーマを一括変更できます。
             </div>
         </section>
 
         <!-- CSS Variables -->
         <section id="css-variables" class="doc-section">
-            <h2>🎨 CSS Variables API</h2>
+            <h2>CSS Variables API</h2>
 
             <h3>Color System</h3>
             <table class="api-table">
@@ -435,7 +413,7 @@
 
             <h3>Programmatic Access</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// JavaScriptでCSS変数を取得
 const root = document.documentElement;
 const primaryColor = getComputedStyle(root).getPropertyValue('--color-primary');
@@ -454,13 +432,13 @@ const asagiriVars = Array.from(document.styleSheets)
 
         <!-- TypeScript -->
         <section id="typescript" class="doc-section">
-            <h2>📘 TypeScript Integration</h2>
+            <h2>TypeScript Integration</h2>
 
             <h3>Type Definitions</h3>
             <p>Asagiriは600+の型定義を提供しています：</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>import { AsagiriClass, ButtonClass, AlertClass, BadgeClass } from 'asagiri';
 
 // すべてのAsagiriクラスの型
@@ -471,8 +449,8 @@ type ButtonClasses = ButtonClass;
 // 'btn' | 'btn-primary' | 'btn-secondary' | 'btn-lg' | ...
 
 // TypeSafeなクラス名使用
-const className: ButtonClass = 'btn-primary'; // ✅ OK
-const invalid: ButtonClass = 'invalid-class'; // ❌ Type Error
+const className: ButtonClass = 'btn-primary'; // OK
+const invalid: ButtonClass = 'invalid-class'; // Type Error
 
 // React での使用
 interface ButtonProps {
@@ -490,7 +468,7 @@ function Button({ variant = 'btn', children }: ButtonProps) {
 
             <h3>Helper Functions</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>import { cn, asagiri } from 'asagiri';
 
 // クラス名を結合
@@ -515,11 +493,11 @@ const classes: AsagiriClass = cn('m-4', 'p-2', 'd-flex');</code></pre>
 
         <!-- Build System -->
         <section id="build" class="doc-section">
-            <h2>⚙️ Build System</h2>
+            <h2>Build System</h2>
 
             <h3>Development Setup</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code># リポジトリをクローン
 git clone https://github.com/BoxPistols/asagiri.git
 cd asagiri
@@ -566,7 +544,7 @@ npx sass scss/main.scss css/main.css --watch</code></pre>
             <p>必要なコンポーネントだけをインポートしてカスタムビルドを作成：</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// custom.scss
 @import 'asagiri/scss/Tokens/Token';
 @import 'asagiri/scss/Normalize';
@@ -585,7 +563,7 @@ npx sass scss/main.scss css/main.css --watch</code></pre>
 
         <!-- Contributing -->
         <section id="contributing" class="doc-section">
-            <h2>🤝 Contributing</h2>
+            <h2>Contributing</h2>
 
             <h3>開発フロー</h3>
             <ol>
@@ -686,11 +664,11 @@ git commit -m "feat: add new component"</code></pre>
 
         <!-- Extending -->
         <section id="extending" class="doc-section">
-            <h2>🔌 Extending Asagiri</h2>
+            <h2>Extending Asagiri</h2>
 
             <h3>カスタムコンポーネントの追加</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// 1. 新しいSCSSファイルを作成
 // scss/Components/_Tooltip.scss
 
@@ -744,7 +722,7 @@ export type AsagiriClass =
 
             <h3>カスタムテーマの作成</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// themes/corporate.scss
 @import '../scss/Tokens/Token';
 
@@ -784,7 +762,7 @@ export type AsagiriClass =
 
         <!-- API Versioning -->
         <section class="doc-section">
-            <h2>📦 API Versioning & Stability</h2>
+            <h2>API Versioning & Stability</h2>
 
             <h3>Semantic Versioning</h3>
             <p>Asagiriは<a href="https://semver.org/">Semantic Versioning</a>に従います：</p>
@@ -801,17 +779,17 @@ export type AsagiriClass =
                     <tr>
                         <td><strong>MAJOR</strong> (3.0.0)</td>
                         <td>破壊的変更</td>
-                        <td>✅ あり</td>
+                        <td>あり</td>
                     </tr>
                     <tr>
                         <td><strong>MINOR</strong> (2.1.0)</td>
                         <td>機能追加、下位互換性あり</td>
-                        <td>❌ なし</td>
+                        <td>なし</td>
                     </tr>
                     <tr>
                         <td><strong>PATCH</strong> (2.0.1)</td>
                         <td>バグ修正</td>
-                        <td>❌ なし</td>
+                        <td>なし</td>
                     </tr>
                 </tbody>
             </table>
@@ -845,18 +823,18 @@ export type AsagiriClass =
             </table>
 
             <div class="warning-box">
-                <strong>⚠️ Breaking Changes:</strong> メジャーバージョンアップ時は、<a href="https://github.com/BoxPistols/asagiri/releases">リリースノート</a>で移行ガイドを提供します。
+                <strong>Breaking Changes:</strong> メジャーバージョンアップ時は、<a href="https://github.com/BoxPistols/asagiri/releases">リリースノート</a>で移行ガイドを提供します。
             </div>
         </section>
 
         <!-- Resources -->
         <section class="doc-section">
-            <h2>🔗 Resources</h2>
+            <h2>Resources</h2>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
                 <div class="card">
                     <div class="card-body">
-                        <h4>📚 Documentation</h4>
+                        <h4>Documentation</h4>
                         <ul>
                             <li><a href="../getting-started.html">Getting Started</a></li>
                             <li><a href="../../showcase.html">Component Showcase</a></li>
@@ -868,7 +846,7 @@ export type AsagiriClass =
 
                 <div class="card">
                     <div class="card-body">
-                        <h4>💻 Code</h4>
+                        <h4>Code</h4>
                         <ul>
                             <li><a href="https://github.com/BoxPistols/asagiri">GitHub Repository</a></li>
                             <li><a href="https://www.npmjs.com/package/asagiri">npm Package</a></li>
@@ -879,7 +857,7 @@ export type AsagiriClass =
 
                 <div class="card">
                     <div class="card-body">
-                        <h4>🛠️ Tools</h4>
+                        <h4>Tools</h4>
                         <ul>
                             <li><a href="https://sass-lang.com/">Sass Documentation</a></li>
                             <li><a href="https://www.typescriptlang.org/">TypeScript</a></li>
@@ -890,7 +868,7 @@ export type AsagiriClass =
 
                 <div class="card">
                     <div class="card-body">
-                        <h4>📖 Standards</h4>
+                        <h4>Standards</h4>
                         <ul>
                             <li><a href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG 2.1</a></li>
                             <li><a href="https://www.w3.org/TR/wai-aria/">WAI-ARIA</a></li>
@@ -903,48 +881,21 @@ export type AsagiriClass =
     </div>
 
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
         function copyCode(button) {
             const codeBlock = button.parentElement.querySelector('code');
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = '✅ コピーしました！';
+                button.textContent = 'Copied!';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
             });
         }
-
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-
-        // Scroll to top functionality
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-        if (scrollTopBtn) {
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollTopBtn.classList.add('show');
-                } else {
-                    scrollTopBtn.classList.remove('show');
-                }
-            });
-        }
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
     </script>
+
+    <!-- Shared JavaScript modules -->
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/scroll-top.js"></script>
 </body>
 </html>

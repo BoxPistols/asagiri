@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,14 +13,43 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#5b21b6">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../components.css">
   <title>Asagiri CSS Framework Components</title>
 </head>
 <body>
-  <!-- Dark Mode Toggle -->
-  <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
-    <svg id="darkModeIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <!-- Global Navigation -->
+  <nav class="global-nav">
+    <a href="../index.html" class="nav-logo">Asagiri</a>
+    <div class="nav-links">
+      <a href="../docs/index.html">Docs</a>
+      <a href="../showcase.html">Showcase</a>
+      <a href="../docs/guides/practical-examples.html">Examples</a>
+      <a href="../docs/guides/developer-guide.html">Guides</a>
+      <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
   </button>
 
   <!-- Modal Examples -->
@@ -79,14 +108,12 @@
     </div>
   </div>
 
-  <div class="doc-layout">
-    <!-- Navigation -->
+  <div class="doc-layout" style="padding-top: 60px;">
+    <!-- Sidebar Navigation -->
     <nav class="sidebar-nav" id="componentsNav">
       <h2 style="display: flex; align-items: center; gap: 0.5rem;">
         <svg class="nav-icon" id="navToggle" style="cursor: pointer; width: 20px; height: 20px;" title="Toggle navigation" aria-label="Toggle navigation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-        <a href="/" class="nav-logo-link" style="text-decoration: none; color: inherit; transition: opacity 0.2s ease;">
-          <span class="nav-text">Asagiri</span>
-        </a>
+        <span class="nav-text">Components</span>
       </h2>
       <ul>
         <li><a href="#introduction"><svg class="nav-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg> Introduction</a></li>
@@ -1458,47 +1485,6 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
       }
     });
 
-    // Dark Mode Toggle
-    (function() {
-      const toggle = document.getElementById('darkModeToggle');
-      const icon = document.getElementById('darkModeIcon');
-      const htmlElement = document.documentElement;
-
-      // Sun and moon icons
-      const sunIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
-      const moonIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-
-      // Check for saved theme preference or default to system preference
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-
-      // Apply initial theme
-      if (currentTheme === 'dark') {
-        htmlElement.setAttribute('data-theme', 'dark');
-        icon.innerHTML = sunIcon;
-      } else {
-        icon.innerHTML = moonIcon;
-      }
-
-      // Toggle theme
-      toggle.addEventListener('click', function() {
-        const theme = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        htmlElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        icon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
-      });
-
-      // Listen to system theme changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-        if (!localStorage.getItem('theme')) {
-          const theme = e.matches ? 'dark' : 'light';
-          htmlElement.setAttribute('data-theme', theme);
-          icon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
-        }
-      });
-    })();
-
     // Add copy buttons to all code blocks
     document.addEventListener('DOMContentLoaded', function() {
       const codeBlocks = document.querySelectorAll('.code-block');
@@ -1538,5 +1524,9 @@ $spacing-grid: 1.5rem 2rem 1rem;</code></pre>
       });
     });
   </script>
+
+  <!-- Shared JavaScript modules -->
+  <script src="../js/theme.js"></script>
+  <script src="../js/scroll-top.js"></script>
 </body>
 </html>

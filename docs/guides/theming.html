@@ -9,6 +9,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
     <title>テーマカスタマイズガイド - Asagiri</title>
     <link rel="stylesheet" href="../../css/main.css">
     <style>
@@ -66,12 +67,6 @@
             border-radius: var(--border-radius);
             margin: 1rem 0;
         }
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
-        }
         .color-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -103,52 +98,35 @@
             border-radius: var(--border-radius);
             margin: 1rem 0;
         }
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .scroll-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .scroll-top:hover {
-            background: var(--color-primary-dark, #2563eb);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
-        🌓 テーマ切替
+    <!-- Theme Toggle -->
+    <button class="theme-toggle floating-theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
     </button>
 
-    <!-- Scroll to top button -->
-    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
-        ↑
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </button>
 
     <div class="doc-header">
         <div class="doc-container">
-            <h1>🎨 テーマカスタマイズガイド</h1>
+            <h1>テーマカスタマイズガイド</h1>
             <p>Asagiriのテーマをカスタマイズして、オリジナルのデザインシステムを作成</p>
             <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
         </div>
@@ -157,11 +135,11 @@
     <div class="doc-container">
         <!-- 基本的なカスタマイズ -->
         <section class="doc-section">
-            <h2>⚡ クイックスタート</h2>
+            <h2>クイックスタート</h2>
             <p>CSS変数をオーバーライドするだけで、簡単にテーマをカスタマイズできます。</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="ja" data-theme="light"&gt;
 &lt;head&gt;
@@ -190,13 +168,13 @@
             </div>
 
             <div class="success-box">
-                <strong>✅ これだけ！</strong> CSS変数を変更するだけで、すべてのコンポーネントに反映されます。
+                <strong>これだけ！</strong> CSS変数を変更するだけで、すべてのコンポーネントに反映されます。
             </div>
         </section>
 
         <!-- 利用可能なCSS変数 -->
         <section class="doc-section">
-            <h2>📚 利用可能なCSS変数一覧</h2>
+            <h2>利用可能なCSS変数一覧</h2>
 
             <h3>カラー変数</h3>
             <div class="color-grid">
@@ -273,17 +251,17 @@
 
         <!-- プリセットテーマ -->
         <section class="doc-section">
-            <h2>🎯 プリセットテーマ</h2>
+            <h2>プリセットテーマ</h2>
             <p>以下のテーマをコピーして、すぐに使えます。</p>
 
-            <h3>🌸 ピンクテーマ</h3>
+            <h3>ピンクテーマ</h3>
             <div class="demo-box">
                 <button class="btn btn-primary" style="--color-primary: #ec4899;">プライマリボタン</button>
                 <button class="btn btn-success" style="--color-success: #f472b6;">成功ボタン</button>
                 <span class="badge" style="background: #ec4899; color: white;">バッジ</span>
             </div>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>:root {
     --color-primary: #ec4899;
     --color-secondary: #f472b6;
@@ -299,7 +277,7 @@
                 <span class="badge" style="background: #10b981; color: white;">バッジ</span>
             </div>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>:root {
     --color-primary: #10b981;
     --color-secondary: #34d399;
@@ -315,7 +293,7 @@
                 <span class="badge" style="background: #f97316; color: white;">バッジ</span>
             </div>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>:root {
     --color-primary: #f97316;
     --color-secondary: #fb923c;
@@ -331,7 +309,7 @@
                 <span class="badge" style="background: #8b5cf6; color: white;">バッジ</span>
             </div>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>:root {
     --color-primary: #8b5cf6;
     --color-secondary: #a78bfa;
@@ -353,7 +331,7 @@
             <p>既存のブランドカラーをAsagiriに適用する方法</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;style&gt;
 /* 例: 自社のブランドカラーを使用 */
 :root {
@@ -375,12 +353,12 @@
 
         <!-- 完全カスタムテーマ -->
         <section class="doc-section">
-            <h2>🎨 完全カスタムテーマの作成</h2>
+            <h2>完全カスタムテーマの作成</h2>
             <p>独自のテーマファイルを作成する方法</p>
 
             <p><strong>custom-theme.css を作成：</strong></p>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>/* custom-theme.css */
 
 /* ============================================
@@ -443,7 +421,7 @@
 
             <p><strong>HTMLで読み込む：</strong></p>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;link rel="stylesheet" href="dist/asagiri.min.css"&gt;
 &lt;link rel="stylesheet" href="custom-theme.css"&gt;</code></pre>
             </div>
@@ -465,7 +443,7 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;style&gt;
 /* テーマ定義 */
 [data-color-theme="default"] {
@@ -504,10 +482,10 @@ document.documentElement.setAttribute('data-color-theme', savedColorTheme);
 
         <!-- ベストプラクティス -->
         <section class="doc-section">
-            <h2>⭐ ベストプラクティス</h2>
+            <h2>ベストプラクティス</h2>
 
             <div class="info-box">
-                <h4>✅ 推奨事項</h4>
+                <h4>推奨事項</h4>
                 <ul>
                     <li><strong>コントラスト比を確保：</strong> WCAG AA基準（4.5:1以上）を満たす</li>
                     <li><strong>一貫性を保つ：</strong> カラーパレットは5-8色に絞る</li>
@@ -527,7 +505,7 @@ document.documentElement.setAttribute('data-color-theme', savedColorTheme);
 
         <!-- テーマジェネレーター -->
         <section class="doc-section">
-            <h2>🛠️ テーマジェネレーターツール</h2>
+            <h2>テーマジェネレーターツール</h2>
             <p>カラーパレットを自動生成するツール：</p>
             <ul>
                 <li><a href="https://coolors.co/" target="_blank">Coolors</a> - カラーパレット生成</li>
@@ -539,14 +517,6 @@ document.documentElement.setAttribute('data-color-theme', savedColorTheme);
     </div>
 
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
         function applyTheme(themeName) {
             document.documentElement.setAttribute('data-color-theme', themeName);
             localStorage.setItem('color-theme', themeName);
@@ -557,35 +527,16 @@ document.documentElement.setAttribute('data-color-theme', savedColorTheme);
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = '✅ コピーしました！';
+                button.textContent = 'Copied!';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
             });
         }
-
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-
-        // Scroll to top functionality
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-        if (scrollTopBtn) {
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollTopBtn.classList.add('show');
-                } else {
-                    scrollTopBtn.classList.remove('show');
-                }
-            });
-        }
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
     </script>
+
+    <!-- Shared JavaScript modules -->
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/scroll-top.js"></script>
 </body>
 </html>

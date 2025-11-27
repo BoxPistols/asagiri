@@ -61,12 +61,6 @@
             border-radius: var(--border-radius);
             margin: 1rem 0;
         }
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
-        }
         .step-number {
             display: inline-flex;
             align-items: center;
@@ -100,45 +94,15 @@
             border-radius: var(--border-radius);
             margin: 1rem 0;
         }
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .scroll-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .scroll-top:hover {
-            background: var(--color-primary-dark, #2563eb);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()" aria-label="テーマ切替">
-        <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Theme Toggle -->
+    <button class="theme-toggle floating-theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
-        <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+        <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -151,9 +115,9 @@
         </svg>
     </button>
 
-    <!-- Scroll to top button -->
-    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" title="トップへ戻る">
-        ↑
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </button>
 
     <div class="doc-header">
@@ -172,7 +136,7 @@
 
             <h3><span class="step-number">1</span>HTMLにdata-theme属性を追加</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="ja" data-theme="light"&gt;
 &lt;head&gt;
@@ -187,7 +151,7 @@
 
             <h3><span class="step-number">2</span>テーマ切り替えボタンを追加</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;button class="btn btn-primary" onclick="toggleTheme()"&gt;
     テーマ切替
 &lt;/button&gt;</code></pre>
@@ -195,7 +159,7 @@
 
             <h3><span class="step-number">3</span>JavaScriptを追加</h3>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;script&gt;
 function toggleTheme() {
     const html = document.documentElement;
@@ -222,7 +186,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);
             <p>このコードをコピーして、新しいHTMLファイルに貼り付けるだけで動作します。</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="ja" data-theme="light"&gt;
 &lt;head&gt;
@@ -284,7 +248,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);
             <p>ユーザーのOSのダークモード設定を自動的に検出して適用できます。</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;script&gt;
 // システムのダークモード設定を検出
 function getPreferredTheme() {
@@ -345,7 +309,7 @@ function toggleTheme() {
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;button class="btn btn-primary" onclick="toggleThemeWithAnimation()"&gt;
     &lt;span id="themeText"&gt;ダークモード&lt;/span&gt;
 &lt;/button&gt;
@@ -389,7 +353,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <p>独自のダークモードカラーを設定したい場合は、以下のようにCSS変数をオーバーライドします。</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;style&gt;
 /* ダークモード時のカスタムカラー */
 [data-theme="dark"] {
@@ -436,13 +400,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 <strong>解決方法：</strong>
                 <p>CSS変数を使用していることを確認してください。</p>
                 <div class="code-block">
-                    <pre><code>/* ❌ ハードコーディングされた色 */
+                    <pre><code>/* BAD: ハードコーディングされた色 */
 .my-element {
     background: #ffffff;
     color: #000000;
 }
 
-/* ✅ CSS変数を使用 */
+/* GOOD: CSS変数を使用 */
 .my-element {
     background: var(--color-bg);
     color: var(--color-text);
@@ -500,7 +464,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <p>実際のプロジェクトで使える完全な実装例：</p>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="ja"&gt;
 &lt;head&gt;
@@ -541,7 +505,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             <p><strong>theme.js:</strong></p>
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>// theme.js - このファイルをコピーして使用できます
 
 class ThemeManager {
@@ -607,15 +571,6 @@ window.addEventListener('themechange', (e) => {
             }
         }
 
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        }
-
         function toggleThemeWithAnimation() {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
@@ -643,7 +598,7 @@ window.addEventListener('themechange', (e) => {
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = 'コピーしました！';
+                button.textContent = 'Copied!';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
@@ -671,26 +626,10 @@ window.addEventListener('themechange', (e) => {
                 text.textContent = 'ライトモード';
             }
         });
-
-        // Scroll to top functionality
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-        if (scrollTopBtn) {
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollTopBtn.classList.add('show');
-                } else {
-                    scrollTopBtn.classList.remove('show');
-                }
-            });
-        }
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
     </script>
+
+    <!-- Shared JavaScript modules -->
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/scroll-top.js"></script>
 </body>
 </html>

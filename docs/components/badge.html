@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Badge - Asagiri Design System</title>
-    <link rel="stylesheet" href="../../dist/asagiri.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            background-color: var(--color-background);
+            background-color: var(--color-bg);
             color: var(--color-text);
         }
         .doc-header {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             color: white;
             padding: 3rem 0;
+            margin-top: 60px;
             margin-bottom: 2rem;
         }
         .doc-container {
@@ -26,7 +27,7 @@
         .doc-section {
             margin-bottom: 3rem;
             padding: 2rem;
-            background: var(--color-surface);
+            background: var(--color-box);
             border-radius: var(--border-radius);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -37,7 +38,7 @@
             border-bottom: 2px solid var(--color-border);
         }
         .code-block {
-            background: var(--color-background);
+            background: var(--color-bg);
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius);
             padding: 1rem;
@@ -55,16 +56,10 @@
         }
         .demo-box {
             padding: 1.5rem;
-            background: var(--color-background);
+            background: var(--color-bg);
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius);
             margin: 1rem 0;
-        }
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
         }
         .property-table {
             width: 100%;
@@ -78,29 +73,57 @@
             text-align: left;
         }
         .property-table th {
-            background: var(--color-surface);
+            background: var(--color-box);
             font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
-        🌓 テーマ切替
+    <!-- Global Navigation -->
+    <nav class="global-nav">
+        <a href="../../index.html" class="nav-logo">Asagiri</a>
+        <div class="nav-links">
+            <a href="../index.html">Docs</a>
+            <a href="../../showcase.html">Components</a>
+            <a href="../guides/practical-examples.html">Examples</a>
+            <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </button>
 
     <div class="doc-header">
         <div class="doc-container">
-            <h1>Badge コンポーネント</h1>
-            <p>ステータス、カウント、ラベルを表示する小さなタグコンポーネント</p>
-            <a href="../getting-started.html" class="btn btn-outline-light">← ドキュメントに戻る</a>
+            <h1>Badge Component</h1>
+            <p>Status, count, and label display tag components</p>
+            <a href="../getting-started.html" class="btn btn-outline-light">Back to Documentation</a>
         </div>
     </div>
 
     <div class="doc-container">
-        <!-- 基本的な使い方 -->
+        <!-- Basic Usage -->
         <section class="doc-section">
-            <h2>📋 基本的な使い方</h2>
-            <p>以下のコードをコピーして、そのまま使用できます。</p>
+            <h2>Basic Usage</h2>
+            <p>Copy the code below to use as-is.</p>
 
             <div class="demo-box">
                 <span class="badge badge-primary">Primary</span>
@@ -108,16 +131,16 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;span class="badge badge-primary"&gt;Primary&lt;/span&gt;
 &lt;span class="badge badge-secondary"&gt;Secondary&lt;/span&gt;</code></pre>
             </div>
         </section>
 
-        <!-- カラーバリエーション -->
+        <!-- Color Variations -->
         <section class="doc-section">
-            <h2>🎨 カラーバリエーション</h2>
-            <p>8つのカラーバリエーションが用意されています。</p>
+            <h2>Color Variations</h2>
+            <p>8 color variations available.</p>
 
             <div class="demo-box">
                 <span class="badge badge-primary">Primary</span>
@@ -131,7 +154,7 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;span class="badge badge-primary"&gt;Primary&lt;/span&gt;
 &lt;span class="badge badge-secondary"&gt;Secondary&lt;/span&gt;
 &lt;span class="badge badge-success"&gt;Success&lt;/span&gt;
@@ -143,82 +166,82 @@
             </div>
         </section>
 
-        <!-- ピル型バッジ -->
+        <!-- Pill Badges -->
         <section class="doc-section">
-            <h2>💊 ピル型バッジ</h2>
-            <p><code>badge-pill</code>クラスで丸みを帯びたデザインになります。</p>
+            <h2>Pill Badges</h2>
+            <p>Add <code>badge-pill</code> class for rounded design.</p>
 
             <div class="demo-box">
                 <span class="badge badge-primary badge-pill">Pill Badge</span>
-                <span class="badge badge-success badge-pill">完了</span>
-                <span class="badge badge-danger badge-pill">エラー</span>
-                <span class="badge badge-warning badge-pill">警告</span>
+                <span class="badge badge-success badge-pill">Complete</span>
+                <span class="badge badge-danger badge-pill">Error</span>
+                <span class="badge badge-warning badge-pill">Warning</span>
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;span class="badge badge-primary badge-pill"&gt;Pill Badge&lt;/span&gt;
-&lt;span class="badge badge-success badge-pill"&gt;完了&lt;/span&gt;
-&lt;span class="badge badge-danger badge-pill"&gt;エラー&lt;/span&gt;</code></pre>
+&lt;span class="badge badge-success badge-pill"&gt;Complete&lt;/span&gt;
+&lt;span class="badge badge-danger badge-pill"&gt;Error&lt;/span&gt;</code></pre>
             </div>
         </section>
 
-        <!-- カウント表示 -->
+        <!-- Count Display -->
         <section class="doc-section">
-            <h2>🔢 カウント表示</h2>
-            <p>通知数やアイテム数の表示に最適です。</p>
+            <h2>Count Display</h2>
+            <p>Perfect for notification counts or item counts.</p>
 
             <div class="demo-box">
-                <h4>メッセージ <span class="badge badge-primary badge-pill">4</span></h4>
-                <h4>通知 <span class="badge badge-danger badge-pill">99+</span></h4>
+                <h4>Messages <span class="badge badge-primary badge-pill">4</span></h4>
+                <h4>Notifications <span class="badge badge-danger badge-pill">99+</span></h4>
                 <button class="btn btn-primary">
-                    受信トレイ <span class="badge badge-light">12</span>
+                    Inbox <span class="badge badge-light">12</span>
                 </button>
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
-                <pre><code>&lt;h4&gt;メッセージ &lt;span class="badge badge-primary badge-pill"&gt;4&lt;/span&gt;&lt;/h4&gt;
-&lt;h4&gt;通知 &lt;span class="badge badge-danger badge-pill"&gt;99+&lt;/span&gt;&lt;/h4&gt;
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;h4&gt;Messages &lt;span class="badge badge-primary badge-pill"&gt;4&lt;/span&gt;&lt;/h4&gt;
+&lt;h4&gt;Notifications &lt;span class="badge badge-danger badge-pill"&gt;99+&lt;/span&gt;&lt;/h4&gt;
 &lt;button class="btn btn-primary"&gt;
-    受信トレイ &lt;span class="badge badge-light"&gt;12&lt;/span&gt;
+    Inbox &lt;span class="badge badge-light"&gt;12&lt;/span&gt;
 &lt;/button&gt;</code></pre>
             </div>
         </section>
 
-        <!-- ドットバッジ（ステータスインジケーター） -->
+        <!-- Dot Badges -->
         <section class="doc-section">
-            <h2>⚫ ドットバッジ（ステータス）</h2>
-            <p><code>badge-dot</code>クラスで小さなステータスドットを表示できます。</p>
+            <h2>Dot Badges (Status)</h2>
+            <p>Use <code>badge-dot</code> class for small status dots.</p>
 
             <div class="demo-box">
                 <p>
-                    <span class="badge badge-dot badge-success"></span> オンライン
+                    <span class="badge badge-dot badge-success"></span> Online
                 </p>
                 <p>
-                    <span class="badge badge-dot badge-warning"></span> 離席中
+                    <span class="badge badge-dot badge-warning"></span> Away
                 </p>
                 <p>
-                    <span class="badge badge-dot badge-danger"></span> オフライン
+                    <span class="badge badge-dot badge-danger"></span> Offline
                 </p>
                 <p>
-                    <span class="badge badge-dot badge-primary badge-pulse"></span> 受信中（パルスアニメーション）
+                    <span class="badge badge-dot badge-primary badge-pulse"></span> Receiving (pulse animation)
                 </p>
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
-                <pre><code>&lt;span class="badge badge-dot badge-success"&gt;&lt;/span&gt; オンライン
-&lt;span class="badge badge-dot badge-warning"&gt;&lt;/span&gt; 離席中
-&lt;span class="badge badge-dot badge-danger"&gt;&lt;/span&gt; オフライン
-&lt;span class="badge badge-dot badge-primary badge-pulse"&gt;&lt;/span&gt; 受信中</code></pre>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;span class="badge badge-dot badge-success"&gt;&lt;/span&gt; Online
+&lt;span class="badge badge-dot badge-warning"&gt;&lt;/span&gt; Away
+&lt;span class="badge badge-dot badge-danger"&gt;&lt;/span&gt; Offline
+&lt;span class="badge badge-dot badge-primary badge-pulse"&gt;&lt;/span&gt; Receiving</code></pre>
             </div>
         </section>
 
-        <!-- アウトラインバッジ -->
+        <!-- Outline Badges -->
         <section class="doc-section">
-            <h2>⭕ アウトラインバッジ</h2>
-            <p><code>badge-outline-*</code>クラスで枠線のみのデザインになります。</p>
+            <h2>Outline Badges</h2>
+            <p>Use <code>badge-outline-*</code> class for border-only design.</p>
 
             <div class="demo-box">
                 <span class="badge badge-outline-primary">Primary</span>
@@ -229,16 +252,16 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;span class="badge badge-outline-primary"&gt;Primary&lt;/span&gt;
 &lt;span class="badge badge-outline-success"&gt;Success&lt;/span&gt;
 &lt;span class="badge badge-outline-danger"&gt;Danger&lt;/span&gt;</code></pre>
             </div>
         </section>
 
-        <!-- サイズバリエーション -->
+        <!-- Size Variations -->
         <section class="doc-section">
-            <h2>📏 サイズバリエーション</h2>
+            <h2>Size Variations</h2>
 
             <div class="demo-box">
                 <span class="badge badge-primary badge-sm">Small</span>
@@ -247,39 +270,39 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;span class="badge badge-primary badge-sm"&gt;Small&lt;/span&gt;
 &lt;span class="badge badge-primary"&gt;Default&lt;/span&gt;
 &lt;span class="badge badge-primary badge-lg"&gt;Large&lt;/span&gt;</code></pre>
             </div>
         </section>
 
-        <!-- 実践例：ユーザーリスト -->
+        <!-- Practical Example -->
         <section class="doc-section">
-            <h2>💡 実践例：ユーザーステータスリスト</h2>
+            <h2>Practical Example: User Status List</h2>
 
             <div class="demo-box">
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-surface); border-radius: var(--border-radius);">
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-box); border-radius: var(--border-radius);">
                         <div class="avatar avatar-md">
                             <img src="https://i.pravatar.cc/150?img=1" alt="User">
                             <span class="avatar-status avatar-status-online"></span>
                         </div>
                         <div style="flex: 1;">
-                            <strong>田中太郎</strong>
-                            <div><span class="badge badge-dot badge-success"></span> オンライン</div>
+                            <strong>John Doe</strong>
+                            <div><span class="badge badge-dot badge-success"></span> Online</div>
                         </div>
                         <span class="badge badge-primary badge-pill">Pro</span>
                     </div>
 
-                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-surface); border-radius: var(--border-radius);">
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-box); border-radius: var(--border-radius);">
                         <div class="avatar avatar-md">
                             <img src="https://i.pravatar.cc/150?img=2" alt="User">
                             <span class="avatar-status avatar-status-away"></span>
                         </div>
                         <div style="flex: 1;">
-                            <strong>佐藤花子</strong>
-                            <div><span class="badge badge-dot badge-warning"></span> 離席中</div>
+                            <strong>Jane Smith</strong>
+                            <div><span class="badge badge-dot badge-warning"></span> Away</div>
                         </div>
                         <span class="badge badge-outline-secondary">Free</span>
                     </div>
@@ -287,67 +310,67 @@
             </div>
 
             <div class="code-block">
-                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">📋 コピー</button>
+                <button class="btn btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div style="display: flex; align-items: center; gap: 1rem;"&gt;
     &lt;div class="avatar avatar-md"&gt;
         &lt;img src="user-avatar.jpg" alt="User"&gt;
         &lt;span class="avatar-status avatar-status-online"&gt;&lt;/span&gt;
     &lt;/div&gt;
     &lt;div style="flex: 1;"&gt;
-        &lt;strong&gt;田中太郎&lt;/strong&gt;
-        &lt;div&gt;&lt;span class="badge badge-dot badge-success"&gt;&lt;/span&gt; オンライン&lt;/div&gt;
+        &lt;strong&gt;John Doe&lt;/strong&gt;
+        &lt;div&gt;&lt;span class="badge badge-dot badge-success"&gt;&lt;/span&gt; Online&lt;/div&gt;
     &lt;/div&gt;
     &lt;span class="badge badge-primary badge-pill"&gt;Pro&lt;/span&gt;
 &lt;/div&gt;</code></pre>
             </div>
         </section>
 
-        <!-- 利用可能なクラス -->
+        <!-- Available Classes -->
         <section class="doc-section">
-            <h2>📚 利用可能なクラス一覧</h2>
+            <h2>Available Classes</h2>
             <table class="property-table">
                 <thead>
                     <tr>
-                        <th>クラス名</th>
-                        <th>説明</th>
+                        <th>Class Name</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code>.badge</code></td>
-                        <td>基本クラス（必須）</td>
+                        <td>Base class (required)</td>
                     </tr>
                     <tr>
                         <td><code>.badge-primary</code></td>
-                        <td>プライマリカラー</td>
+                        <td>Primary color</td>
                     </tr>
                     <tr>
                         <td><code>.badge-success</code></td>
-                        <td>成功カラー</td>
+                        <td>Success color</td>
                     </tr>
                     <tr>
                         <td><code>.badge-danger</code></td>
-                        <td>危険カラー</td>
+                        <td>Danger color</td>
                     </tr>
                     <tr>
                         <td><code>.badge-pill</code></td>
-                        <td>ピル型（丸み）</td>
+                        <td>Pill shape (rounded)</td>
                     </tr>
                     <tr>
                         <td><code>.badge-dot</code></td>
-                        <td>ドット型ステータス</td>
+                        <td>Dot status indicator</td>
                     </tr>
                     <tr>
                         <td><code>.badge-pulse</code></td>
-                        <td>パルスアニメーション</td>
+                        <td>Pulse animation</td>
                     </tr>
                     <tr>
                         <td><code>.badge-outline-*</code></td>
-                        <td>アウトラインバージョン</td>
+                        <td>Outline version</td>
                     </tr>
                     <tr>
                         <td><code>.badge-sm / .badge-lg</code></td>
-                        <td>サイズ調整</td>
+                        <td>Size adjustment</td>
                     </tr>
                 </tbody>
             </table>
@@ -355,28 +378,20 @@
     </div>
 
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
         function copyCode(button) {
             const codeBlock = button.parentElement.querySelector('code');
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = '✅ コピーしました！';
+                button.textContent = 'Copied!';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
             });
         }
-
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
+    <!-- Shared JavaScript modules -->
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/scroll-top.js"></script>
 </body>
 </html>

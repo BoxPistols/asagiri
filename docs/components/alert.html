@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alert - Asagiri Design System</title>
-    <link rel="stylesheet" href="../../dist/asagiri.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            background-color: var(--color-background);
+            background-color: var(--color-bg);
             color: var(--color-text);
         }
         .doc-header {
@@ -26,7 +26,7 @@
         .doc-section {
             margin-bottom: 3rem;
             padding: 2rem;
-            background: var(--color-surface);
+            background: var(--color-box);
             border-radius: var(--border-radius);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -37,7 +37,7 @@
             border-bottom: 2px solid var(--color-border);
         }
         .code-block {
-            background: var(--color-background);
+            background: var(--color-bg);
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius);
             padding: 1rem;
@@ -55,16 +55,13 @@
         }
         .demo-box {
             padding: 1.5rem;
-            background: var(--color-background);
+            background: var(--color-bg);
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius);
             margin: 1rem 0;
         }
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
+        .doc-header {
+            margin-top: 60px;
         }
         .property-table {
             width: 100%;
@@ -78,14 +75,42 @@
             text-align: left;
         }
         .property-table th {
-            background: var(--color-surface);
+            background: var(--color-box);
             font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <button class="btn btn-sm theme-toggle" onclick="toggleTheme()">
-        🌓 テーマ切替
+    <!-- Global Navigation -->
+    <nav class="global-nav">
+        <a href="../../index.html" class="nav-logo">Asagiri</a>
+        <div class="nav-links">
+            <a href="../index.html">Docs</a>
+            <a href="../../showcase.html">Components</a>
+            <a href="../guides/practical-examples.html">Examples</a>
+            <a href="https://github.com/BoxPistols/asagiri" target="_blank">GitHub</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </button>
 
     <div class="doc-header">
@@ -304,29 +329,20 @@ function toggleTheme() {
     </div>
 
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
         function copyCode(button) {
             const codeBlock = button.parentElement.querySelector('code');
             const text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
-                button.textContent = '✅ コピーしました！';
+                button.textContent = 'Copied!';
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);
             });
         }
-
-        // テーマを復元
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
+    <!-- Shared JavaScript modules -->
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/scroll-top.js"></script>
 </body>
 </html>

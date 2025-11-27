@@ -15,7 +15,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            background-color: var(--color-background);
+            background-color: var(--color-bg);
             color: var(--color-text);
         }
         .doc-header {
@@ -32,7 +32,7 @@
         .doc-section {
             margin-bottom: 3rem;
             padding: 2rem;
-            background: var(--color-surface);
+            background: var(--color-box);
             border-radius: var(--border-radius);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -43,7 +43,7 @@
             border-bottom: 2px solid var(--color-border);
         }
         .code-block {
-            background: var(--color-background);
+            background: var(--color-bg);
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius);
             padding: 1rem;
@@ -61,7 +61,7 @@
         }
         .demo-box {
             padding: 1.5rem;
-            background: var(--color-background);
+            background: var(--color-bg);
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius);
             margin: 1rem 0;
@@ -178,8 +178,8 @@
         [data-theme="dark"] {
             --color-primary: #a78bfa;
             --color-secondary: #f472b6;
-            --color-background: #1a1a2e;
-            --color-surface: #16213e;
+            --color-bg: #1a1a2e;
+            --color-box: #16213e;
         }
     &lt;/style&gt;
 &lt;/head&gt;
@@ -231,17 +231,17 @@
                     <p style="font-size: 0.875rem; margin-top: 0.5rem;">情報</p>
                 </div>
                 <div class="color-item">
-                    <div class="color-swatch" style="background: var(--color-background);"></div>
-                    <code>--color-background</code>
+                    <div class="color-swatch" style="background: var(--color-bg);"></div>
+                    <code>--color-bg</code>
                     <p style="font-size: 0.875rem; margin-top: 0.5rem;">背景色</p>
                 </div>
                 <div class="color-item">
-                    <div class="color-swatch" style="background: var(--color-surface);"></div>
-                    <code>--color-surface</code>
+                    <div class="color-swatch" style="background: var(--color-box);"></div>
+                    <code>--color-box</code>
                     <p style="font-size: 0.875rem; margin-top: 0.5rem;">サーフェス</p>
                 </div>
                 <div class="color-item">
-                    <div class="color-swatch" style="background: var(--color-text); color: var(--color-background);">Text</div>
+                    <div class="color-swatch" style="background: var(--color-text); color: var(--color-bg);">Text</div>
                     <code>--color-text</code>
                     <p style="font-size: 0.875rem; margin-top: 0.5rem;">テキスト色</p>
                 </div>
@@ -340,8 +340,8 @@
 }
 
 [data-theme="dark"] {
-    --color-background: #1a1a2e;
-    --color-surface: #16213e;
+    --color-bg: #1a1a2e;
+    --color-box: #16213e;
     --color-text: #f1f5f9;
 }</code></pre>
             </div>
@@ -404,8 +404,8 @@
     --color-info: #3b82f6;
 
     /* レイアウト */
-    --color-background: #ffffff;
-    --color-surface: #f9fafb;
+    --color-bg: #ffffff;
+    --color-box: #f9fafb;
     --color-text: #1f2937;
     --color-text-secondary: #6b7280;
     --color-border: #e5e7eb;
@@ -423,8 +423,8 @@
     --color-primary: #your-primary-color-dark;
     --color-secondary: #your-secondary-color-dark;
 
-    --color-background: #0f172a;
-    --color-surface: #1e293b;
+    --color-bg: #0f172a;
+    --color-box: #1e293b;
     --color-text: #f1f5f9;
     --color-text-secondary: #94a3b8;
     --color-border: #334155;

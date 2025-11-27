@@ -162,13 +162,13 @@ Generated: 2025-11-20T05:46:23.952Z
 | `--font-design` | "Comfortaa", sans-serif | _Color.scss | 179 |
 | `--font-mincho` | serif | _Color.scss | 180 |
 
-## 🔲 Border & Radius Tokens
+## Border & Radius Tokens
 
 | Token Name | Value | File | Line |
 |------------|-------|------|------|
 | `--border-radius-all` | 3rem | _Item.scss | 7 |
 
-## 🌑 Shadow Tokens
+## Shadow Tokens
 
 | Token Name | Value | File | Line |
 |------------|-------|------|------|

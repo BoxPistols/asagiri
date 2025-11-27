@@ -198,7 +198,7 @@ export const InContext = {
       <!-- Notification -->
       <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-surface); border-radius: var(--border-radius);">
         <div class="avatar avatar-sm avatar-success">
-          <span>✓</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
         <div style="flex: 1;">
           <div style="font-weight: 600;">Your profile was updated successfully</div>

@@ -147,7 +147,7 @@ class DesignTokenAnalyzer {
 
     // Color Tokens
     if (this.tokens.colors.length > 0) {
-      md += '## 🎨 Color Tokens\n\n';
+      md += '## Color Tokens\n\n';
       md += '| Token Name | Value | File | Line |\n';
       md += '|------------|-------|------|------|\n';
       this.tokens.colors.forEach((token) => {
@@ -158,7 +158,7 @@ class DesignTokenAnalyzer {
 
     // Spacing Tokens
     if (this.tokens.spacing.length > 0) {
-      md += '## 📏 Spacing Tokens\n\n';
+      md += '## Spacing Tokens\n\n';
       md += '| Token Name | Value | File | Line |\n';
       md += '|------------|-------|------|------|\n';
       this.tokens.spacing.forEach((token) => {
@@ -169,7 +169,7 @@ class DesignTokenAnalyzer {
 
     // Typography Tokens
     if (this.tokens.typography.length > 0) {
-      md += '## 📝 Typography Tokens\n\n';
+      md += '## Typography Tokens\n\n';
       md += '| Token Name | Value | File | Line |\n';
       md += '|------------|-------|------|------|\n';
       this.tokens.typography.forEach((token) => {
@@ -180,7 +180,7 @@ class DesignTokenAnalyzer {
 
     // Border Tokens
     if (this.tokens.borders.length > 0) {
-      md += '## 🔲 Border & Radius Tokens\n\n';
+      md += '## Border & Radius Tokens\n\n';
       md += '| Token Name | Value | File | Line |\n';
       md += '|------------|-------|------|------|\n';
       this.tokens.borders.forEach((token) => {
@@ -191,7 +191,7 @@ class DesignTokenAnalyzer {
 
     // Shadow Tokens
     if (this.tokens.shadows.length > 0) {
-      md += '## 🌑 Shadow Tokens\n\n';
+      md += '## Shadow Tokens\n\n';
       md += '| Token Name | Value | File | Line |\n';
       md += '|------------|-------|------|------|\n';
       this.tokens.shadows.forEach((token) => {
@@ -202,7 +202,7 @@ class DesignTokenAnalyzer {
 
     // Other Tokens
     if (this.tokens.other.length > 0) {
-      md += '## 🔧 Other Tokens\n\n';
+      md += '## Other Tokens\n\n';
       md += '| Token Name | Value | File | Line |\n';
       md += '|------------|-------|------|------|\n';
       this.tokens.other.forEach((token) => {
@@ -213,7 +213,7 @@ class DesignTokenAnalyzer {
 
     // Inline Styles Report
     if (this.inlineStyles.length > 0) {
-      md += '## ⚠️ Inline Styles Detected\n\n';
+      md += '## Warning: Inline Styles Detected\n\n';
       md += '**These should be converted to CSS classes or design tokens:**\n\n';
       md += '| File | Line | Inline Style |\n';
       md += '|------|------|-------------|\n';
@@ -222,12 +222,12 @@ class DesignTokenAnalyzer {
       });
       md += '\n';
     } else {
-      md += '## ✅ No Problematic Inline Styles\n\n';
+      md += '## No Problematic Inline Styles\n\n';
       md += 'All styles are properly abstracted!\n\n';
     }
 
     // Recommendations
-    md += '## 📋 Recommendations\n\n';
+    md += '## Recommendations\n\n';
     md += '### Best Practices\n\n';
     md += '1. **Use Design Tokens**: Always use CSS custom properties instead of hardcoded values\n';
     md += '2. **Avoid Inline Styles**: Move inline styles to CSS classes\n';
@@ -253,7 +253,7 @@ class DesignTokenAnalyzer {
    * Run the analysis
    */
   run() {
-    console.log(`${colors.bright}${colors.blue}🔍 Asagiri Design Token Analyzer${colors.reset}\n`);
+    console.log(`${colors.bright}${colors.blue}Asagiri Design Token Analyzer${colors.reset}\n`);
 
     // Analyze SCSS files
     console.log(`${colors.cyan}Scanning SCSS files...${colors.reset}`);
@@ -277,14 +277,14 @@ class DesignTokenAnalyzer {
     });
 
     // Generate report
-    console.log(`\n${colors.bright}📊 Analysis Results:${colors.reset}`);
-    console.log(`${colors.green}✓ Total Design Tokens: ${this.stats.totalTokens}${colors.reset}`);
-    console.log(`${colors.green}✓ Files Scanned: ${this.stats.totalFiles}${colors.reset}`);
+    console.log(`\n${colors.bright}Analysis Results:${colors.reset}`);
+    console.log(`${colors.green}Total Design Tokens: ${this.stats.totalTokens}${colors.reset}`);
+    console.log(`${colors.green}Files Scanned: ${this.stats.totalFiles}${colors.reset}`);
 
     if (this.stats.inlineStylesFound > 0) {
-      console.log(`${colors.yellow}⚠ Inline Styles Found: ${this.stats.inlineStylesFound}${colors.reset}`);
+      console.log(`${colors.yellow}Warning - Inline Styles Found: ${this.stats.inlineStylesFound}${colors.reset}`);
     } else {
-      console.log(`${colors.green}✓ No problematic inline styles found!${colors.reset}`);
+      console.log(`${colors.green}No problematic inline styles found!${colors.reset}`);
     }
 
     // Write documentation
@@ -292,7 +292,7 @@ class DesignTokenAnalyzer {
     const outputPath = path.join(process.cwd(), 'docs/design-tokens.md');
     fs.writeFileSync(outputPath, markdown);
 
-    console.log(`\n${colors.bright}${colors.green}✓ Documentation generated: ${outputPath}${colors.reset}\n`);
+    console.log(`\n${colors.bright}${colors.green}Documentation generated: ${outputPath}${colors.reset}\n`);
 
     // Return exit code based on issues found
     return this.stats.inlineStylesFound > 0 ? 1 : 0;

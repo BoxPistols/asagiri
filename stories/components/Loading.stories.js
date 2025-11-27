@@ -180,7 +180,7 @@ export const LoadingStates = {
       <!-- Empty State -->
       <div class="card">
         <div class="card-body" style="text-align: center; padding: 3rem 1rem;">
-          <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
+          <div style="font-size: 3rem; margin-bottom: 1rem;">[Empty]</div>
           <h4>No items found</h4>
           <p style="color: var(--color-text-muted);">Try adjusting your filters</p>
         </div>
@@ -189,7 +189,7 @@ export const LoadingStates = {
       <!-- Error State -->
       <div class="card">
         <div class="card-body" style="text-align: center; padding: 3rem 1rem;">
-          <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+          <div style="font-size: 3rem; margin-bottom: 1rem;">[Error]</div>
           <h4>Failed to load</h4>
           <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Something went wrong</p>
           <button class="btn btn-primary">Retry</button>

@@ -156,11 +156,15 @@
         }
 
         .topbar-search::before {
-            content: '🔍';
+            content: '';
             position: absolute;
             left: 0.75rem;
             top: 50%;
             transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>');
+            opacity: 0.5;
         }
 
         .topbar-icon-btn {
@@ -357,17 +361,17 @@
         <!-- サイドバー -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h2>📊 Admin Panel</h2>
+                <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 0.5rem;"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>Admin Panel</h2>
             </div>
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-section-title">メイン</div>
                     <a href="#" class="nav-item active">
-                        <span class="nav-item-icon">📈</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
                         <span>ダッシュボード</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">📊</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></span>
                         <span>分析</span>
                     </a>
                 </div>
@@ -375,19 +379,19 @@
                 <div class="nav-section">
                     <div class="nav-section-title">管理</div>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">👥</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
                         <span>ユーザー管理</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">📦</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
                         <span>商品管理</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">🛒</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
                         <span>注文管理</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">💳</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
                         <span>決済管理</span>
                     </a>
                 </div>
@@ -395,15 +399,15 @@
                 <div class="nav-section">
                     <div class="nav-section-title">コンテンツ</div>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">📝</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span>
                         <span>記事</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">💬</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
                         <span>コメント</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">🖼️</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
                         <span>メディア</span>
                     </a>
                 </div>
@@ -411,11 +415,11 @@
                 <div class="nav-section">
                     <div class="nav-section-title">設定</div>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">⚙️</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m5.2-14.8l-4.2 4.2m-2 2l-4.2 4.2M23 12h-6m-6 0H1m14.8 5.2l-4.2-4.2m-2-2l-4.2-4.2"/></svg></span>
                         <span>システム設定</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">🔐</span>
+                        <span class="nav-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
                         <span>セキュリティ</span>
                     </a>
                 </div>
@@ -430,17 +434,17 @@
             <!-- トップバー -->
             <header class="topbar">
                 <div class="topbar-left">
-                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <button class="menu-toggle" onclick="toggleSidebar()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
                     <div class="topbar-search">
                         <input type="search" placeholder="検索...">
                     </div>
                 </div>
                 <div class="topbar-right">
-                    <button class="topbar-icon-btn" onclick="toggleTheme()" title="テーマ切替">
-                        🌓
+                    <button class="topbar-icon-btn theme-toggle" onclick="toggleTheme()" title="テーマ切替">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     </button>
                     <button class="topbar-icon-btn" title="通知">
-                        🔔
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                         <span class="notification-badge"></span>
                     </button>
                     <div class="user-menu">
@@ -468,37 +472,37 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div class="stat-title">総売上</div>
-                            <div class="stat-icon">💰</div>
+                            <div class="stat-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
                         </div>
                         <div class="stat-value">¥1,234,567</div>
-                        <div class="stat-change positive">↑ 12.5% 先月比</div>
+                        <div class="stat-change positive">+12.5% 先月比</div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
                             <div class="stat-title">新規ユーザー</div>
-                            <div class="stat-icon">👥</div>
+                            <div class="stat-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                         </div>
                         <div class="stat-value">2,543</div>
-                        <div class="stat-change positive">↑ 8.2% 先月比</div>
+                        <div class="stat-change positive">+8.2% 先月比</div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
                             <div class="stat-title">注文数</div>
-                            <div class="stat-icon">🛍️</div>
+                            <div class="stat-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
                         </div>
                         <div class="stat-value">892</div>
-                        <div class="stat-change negative">↓ 3.1% 先月比</div>
+                        <div class="stat-change negative">-3.1% 先月比</div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
                             <div class="stat-title">コンバージョン率</div>
-                            <div class="stat-icon">📈</div>
+                            <div class="stat-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
                         </div>
                         <div class="stat-value">3.24%</div>
-                        <div class="stat-change positive">↑ 0.5% 先月比</div>
+                        <div class="stat-change positive">+0.5% 先月比</div>
                     </div>
                 </div>
 

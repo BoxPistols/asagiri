@@ -57,7 +57,7 @@ export const Primary = {
 export const Success = {
   args: {
     variant: 'success',
-    message: '✓ Operation completed successfully!',
+    message: 'Operation completed successfully!',
   },
   render: createAlert,
 };
@@ -65,7 +65,7 @@ export const Success = {
 export const Danger = {
   args: {
     variant: 'danger',
-    message: '✗ An error occurred. Please try again.',
+    message: 'An error occurred. Please try again.',
   },
   render: createAlert,
 };
@@ -73,7 +73,7 @@ export const Danger = {
 export const Warning = {
   args: {
     variant: 'warning',
-    message: '⚠ Warning: Please review your input.',
+    message: 'Warning: Please review your input.',
   },
   render: createAlert,
 };
@@ -81,7 +81,7 @@ export const Warning = {
 export const Info = {
   args: {
     variant: 'info',
-    message: 'ℹ For your information: New features available.',
+    message: 'For your information: New features available.',
   },
   render: createAlert,
 };
@@ -118,10 +118,10 @@ export const AllVariants = {
     <div style="display: flex; flex-direction: column; gap: 1rem;">
       <div class="alert alert-primary">Primary alert message</div>
       <div class="alert alert-secondary">Secondary alert message</div>
-      <div class="alert alert-success">✓ Success alert message</div>
-      <div class="alert alert-danger">✗ Danger alert message</div>
-      <div class="alert alert-warning">⚠ Warning alert message</div>
-      <div class="alert alert-info">ℹ Info alert message</div>
+      <div class="alert alert-success">Success alert message</div>
+      <div class="alert alert-danger">Danger alert message</div>
+      <div class="alert alert-warning">Warning alert message</div>
+      <div class="alert alert-info">Info alert message</div>
       <div class="alert alert-success alert-dismissible">
         Dismissible alert
         <button class="alert-close" onclick="this.parentElement.remove()">×</button>

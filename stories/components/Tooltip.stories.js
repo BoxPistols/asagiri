@@ -140,19 +140,19 @@ export const OnIcons = {
   render: () => `
     <div style="display: flex; gap: 2rem; padding: 3rem;">
       <span data-tooltip="Edit" data-tooltip-placement="top" style="cursor: pointer; font-size: 1.5rem;">
-        ✏️
+        [Edit]
       </span>
       <span data-tooltip="Delete" data-tooltip-placement="top" data-tooltip-variant="danger" style="cursor: pointer; font-size: 1.5rem;">
-        🗑️
+        [Delete]
       </span>
       <span data-tooltip="Share" data-tooltip-placement="top" style="cursor: pointer; font-size: 1.5rem;">
-        📤
+        [Share]
       </span>
       <span data-tooltip="Download" data-tooltip-placement="top" style="cursor: pointer; font-size: 1.5rem;">
-        💾
+        [Download]
       </span>
       <span data-tooltip="Settings" data-tooltip-placement="top" style="cursor: pointer; font-size: 1.5rem;">
-        ⚙️
+        [Settings]
       </span>
     </div>
     ${tooltipScript}
@@ -166,7 +166,7 @@ export const InContext = {
         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
           <h4>User Settings</h4>
           <span data-tooltip="Click for help" data-tooltip-placement="left" style="cursor: pointer;">
-            ❓
+            [?]
           </span>
         </div>
         <div class="card-body">
@@ -174,7 +174,7 @@ export const InContext = {
             <label class="form-label">
               Username
               <span data-tooltip="Username must be unique" data-tooltip-placement="top" style="margin-left: 0.25rem; cursor: help; color: var(--color-text-muted);">
-                ℹ️
+                [i]
               </span>
             </label>
             <input type="text" class="form-control" placeholder="Enter username">
@@ -184,7 +184,7 @@ export const InContext = {
             <label class="form-label">
               Password
               <span data-tooltip="Minimum 8 characters, must include letters and numbers" data-tooltip-placement="top" style="margin-left: 0.25rem; cursor: help; color: var(--color-text-muted);">
-                ℹ️
+                [i]
               </span>
             </label>
             <input type="password" class="form-control" placeholder="Enter password">

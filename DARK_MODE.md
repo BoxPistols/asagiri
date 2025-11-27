@@ -95,7 +95,7 @@ function toggleTheme() {
 function updateThemeIcon(theme) {
   const icon = document.querySelector('#theme-toggle .icon');
   if (icon) {
-    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    // SVG icons are toggled via display property instead of text content
   }
 }
 
@@ -341,8 +341,9 @@ Asagiriのダークモードは、WCAG 2.1 AA基準を満たしています：
 <body>
   <header>
     <h1>Asagiri Framework</h1>
-    <button id="theme-toggle" aria-label="テーマ切り替え">
-      <span id="theme-icon">🌙</span>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+      <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"></circle></svg>
     </button>
   </header>
 

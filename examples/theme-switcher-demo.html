@@ -2,7 +2,7 @@
 <html lang="ja" data-theme="light">
 <head>
     <script>
-        // ⚡ IMPORTANT: ページ読み込み前に実行してフラッシュを防ぐ
+        // IMPORTANT: ページ読み込み前に実行してフラッシュを防ぐ
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -57,29 +57,33 @@
 </head>
 <body>
     <div class="demo-container">
-        <h1>🌙 テーマ切り替えデモ</h1>
+        <h1><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 0.5rem;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>テーマ切り替えデモ</h1>
         <p>右上のボタンでテーマを切り替えてみてください。設定はブラウザに保存されます。</p>
 
         <!-- テーマ切り替えコントロール -->
         <div class="theme-controls">
             <!-- 方法1: シンプルなトグルボタン -->
-            <button class="btn btn-primary" onclick="toggleTheme()">
-                🌓 テーマ切り替え
+            <button class="btn btn-primary theme-toggle" onclick="toggleTheme()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 0.5rem;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                テーマ切り替え
             </button>
 
             <!-- 方法2: ライト/ダークボタン -->
             <div style="display: flex; gap: 0.5rem;">
                 <button class="btn btn-sm btn-outline-primary" onclick="setTheme('light')">
-                    ☀️ ライト
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 0.25rem;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    ライト
                 </button>
                 <button class="btn btn-sm btn-outline-primary" onclick="setTheme('dark')">
-                    🌙 ダーク
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 0.25rem;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    ダーク
                 </button>
             </div>
 
             <!-- 方法3: システム設定に従う -->
             <button class="btn btn-sm btn-outline-secondary" onclick="setTheme('auto')">
-                💻 システム設定
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 0.25rem;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                システム設定
             </button>
         </div>
 
@@ -182,7 +186,7 @@
 
         <!-- 実装コード -->
         <section class="demo-section">
-            <h2>📋 実装コード（コピーして使えます）</h2>
+            <h2>実装コード（コピーして使えます）</h2>
 
             <div class="card">
                 <div class="card-header">
@@ -223,7 +227,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 &lt;/script&gt;</code></pre>
 
                     <h4>3. ボタンを追加</h4>
-                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;button onclick="toggleTheme()"&gt;🌓 テーマ切り替え&lt;/button&gt;</code></pre>
+                    <pre style="background: var(--color-bg-code); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;button class="theme-toggle" onclick="toggleTheme()"&gt;テーマ切り替え&lt;/button&gt;</code></pre>
                 </div>
             </div>
 
@@ -282,7 +286,7 @@ document.documentElement.setAttribute('data-theme', theme);
 
         <!-- よくある質問 -->
         <section class="demo-section">
-            <h2>💡 よくある質問</h2>
+            <h2>よくある質問</h2>
 
             <div class="card">
                 <div class="card-body">

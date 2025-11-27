@@ -11,14 +11,14 @@ This guide covers breaking changes and migration steps from Asagiri v2.0 to v2.1
 In the initial v2.1 release, `alert-secondary`, `alert-light`, and `alert-dark` were inadvertently removed. These have been **restored** in this update to maintain backward compatibility.
 
 **All Alert Variants Now Available:**
-- ✅ `alert-primary`
-- ✅ `alert-secondary` (restored)
-- ✅ `alert-success`
-- ✅ `alert-warning`
-- ✅ `alert-danger`
-- ✅ `alert-info`
-- ✅ `alert-light` (restored)
-- ✅ `alert-dark` (restored)
+- `alert-primary`
+- `alert-secondary` (restored)
+- `alert-success`
+- `alert-warning`
+- `alert-danger`
+- `alert-info`
+- `alert-light` (restored)
+- `alert-dark` (restored)
 
 **No migration needed** - your existing code using these classes will continue to work.
 
@@ -37,13 +37,13 @@ The `AlertClass` type definition has been updated to include all variants:
 export type AlertClass =
   | 'alert'
   | 'alert-primary'
-  | 'alert-secondary'  // ✅ restored
+  | 'alert-secondary'  // restored
   | 'alert-success'
   | 'alert-warning'
   | 'alert-danger'
   | 'alert-info'
-  | 'alert-light'      // ✅ restored
-  | 'alert-dark'       // ✅ restored
+  | 'alert-light'      // restored
+  | 'alert-dark'       // restored
   | 'alert-dismissible'
   | 'alert-close'
   | 'alert-heading'
@@ -107,10 +107,10 @@ Your accordion panel content now needs to be wrapped in a child element:
 3. Remove any custom `max-height` overrides you may have added
 
 **Benefits:**
-- ✅ More accurate animation timing
-- ✅ Works with any content height
-- ✅ Better performance
-- ✅ No content clipping issues
+- More accurate animation timing
+- Works with any content height
+- Better performance
+- No content clipping issues
 
 ### Form Validation
 
@@ -157,9 +157,9 @@ Add more specific selectors or increase specificity:
 ```
 
 **Benefits:**
-- ✅ Easier to customize without specificity battles
-- ✅ Better CSS architecture
-- ✅ More maintainable code
+- Easier to customize without specificity battles
+- Better CSS architecture
+- More maintainable code
 
 ## New Features in v2.1
 
@@ -223,10 +223,10 @@ For older browsers, consider including appropriate polyfills or using v2.0.
 
 ## Getting Help
 
-- 📖 [Documentation](./docs/)
-- 🎨 [Storybook](http://localhost:6006) (run `npm run storybook`)
-- 📊 [Design Tokens](./docs/design-tokens.md)
-- 🐛 [Report Issues](https://github.com/BoxPistols/asagiri/issues)
+- [Documentation](./docs/)
+- [Storybook](http://localhost:6006) (run `npm run storybook`)
+- [Design Tokens](./docs/design-tokens.md)
+- [Report Issues](https://github.com/BoxPistols/asagiri/issues)
 
 ## Rollback
 

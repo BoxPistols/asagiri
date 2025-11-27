@@ -2,17 +2,17 @@
 
 <div align="center">
 
-🌅 **朝霧** - A modern, lightweight CSS framework
+**朝霧** - A modern, lightweight CSS framework
 
 [![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/BoxPistols/asagiri)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![CSS Size](https://img.shields.io/badge/size-63KB-orange.svg)]()
 
-[**📚 Documentation**](docs/getting-started.html) | [**🎨 Showcase**](showcase.html) | [**🚀 Get Started**](#インストール)
+[**Documentation**](docs/getting-started.html) | [**Showcase**](showcase.html) | [**Get Started**](#インストール)
 
 </div>
 
-## 📖 目次
+## 目次
 
 - [概要](#概要)
 - [新機能 v2.1](#新機能-v21)
@@ -31,48 +31,48 @@
 
 Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。シンプルさを保ちながら、最新のCSS機能を活用した汎用性の高いフレームワークを目指しています。
 
-## 🎉 新機能 v2.1
+## 新機能 v2.1
 
 **13個の新規UIコンポーネント**を追加し、世界トップクラスのデザインシステムに進化しました！
 
 ### 新コンポーネント
 
-- ✅ **Alert** - 通知システム（dismissible、サイズバリエーション）
-- ✅ **Badge** - ステータス表示（8色、形状、アニメーション）
-- ✅ **Tabs** - ARIA完全対応タブナビゲーション
-- ✅ **Accordion** - アコーディオンパネル
-- ✅ **Pagination** - ページネーション
-- ✅ **Breadcrumb** - パンくずナビゲーション
-- ✅ **Progress** - プログレスバー（striped、animated）
-- ✅ **Loading** - スピナー（4種類のスタイル）
-- ✅ **Skeleton** - コンテンツプレースホルダー
-- ✅ **Card** - カードコンポーネント（hover、clickable）
-- ✅ **Avatar** - プロフィール画像（グループ、ステータス）
-- ✅ **Form Validation** - バリデーション状態
-- ✅ **Dropdown** - ドロップダウンメニュー
+- **Alert** - 通知システム（dismissible、サイズバリエーション）
+- **Badge** - ステータス表示（8色、形状、アニメーション）
+- **Tabs** - ARIA完全対応タブナビゲーション
+- **Accordion** - アコーディオンパネル
+- **Pagination** - ページネーション
+- **Breadcrumb** - パンくずナビゲーション
+- **Progress** - プログレスバー（striped、animated）
+- **Loading** - スピナー（4種類のスタイル）
+- **Skeleton** - コンテンツプレースホルダー
+- **Card** - カードコンポーネント（hover、clickable）
+- **Avatar** - プロフィール画像（グループ、ステータス）
+- **Form Validation** - バリデーション状態
+- **Dropdown** - ドロップダウンメニュー
 
 ### 強化機能
 
-- 📘 **TypeScript型定義**: 600+ 型定義（400個追加）
-- ♿ **アクセシビリティ**: 完全なARIA対応
-- 🌙 **ダークモード**: 全コンポーネント対応
-- 📱 **レスポンシブ**: モバイルファースト設計
-- ⚡ **パフォーマンス**: Reduced motion サポート
+- **TypeScript型定義**: 600+ 型定義（400個追加）
+- **アクセシビリティ**: 完全なARIA対応
+- **ダークモード**: 全コンポーネント対応
+- **レスポンシブ**: モバイルファースト設計
+- **パフォーマンス**: Reduced motion サポート
 
 ### v2.0の主な変更点
 
-- ✨ Modern Normalize v3.0.1に更新
-- 🌙 **包括的なダークモードサポート**（WCAG AA準拠）
-- 🎯 CSS Grid完全サポート
-- 📏 体系的なスペーシングシステム（m-*, p-*）
-- 🎨 流動的タイポグラフィ（clamp関数）
-- ♿ アクセシビリティ大幅強化（focus-visible, reduced-motion）
-- 📱 モバイルファーストのブレークポイントシステム
-- 🗂️ 包括的なユーティリティクラス
+- Modern Normalize v3.0.1に更新
+- **包括的なダークモードサポート**（WCAG AA準拠）
+- CSS Grid完全サポート
+- 体系的なスペーシングシステム（m-*, p-*）
+- 流動的タイポグラフィ（clamp関数）
+- アクセシビリティ大幅強化（focus-visible, reduced-motion）
+- モバイルファーストのブレークポイントシステム
+- 包括的なユーティリティクラス
 
 ## 特徴
 
-### 🚀 モダンなCSS技術
+### モダンなCSS技術
 
 - **Modern Normalize v3.0.1** - 最新のリセットCSS
 - **CSS Custom Properties** - テーマのカスタマイズが容易
@@ -80,7 +80,7 @@ Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。�
 - **Fluid Typography** - clamp()による流動的なフォントサイズ
 - **Accessibility First** - WCAGガイドライン準拠
 
-### 🎨 包括的なコンポーネント
+### 包括的なコンポーネント
 
 - Typography（見出し、段落、リンク）
 - Buttons（多様なバリエーション）
@@ -89,7 +89,7 @@ Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。�
 - Lists（UL、OL、DL）
 - Grid Systems（Flexbox & CSS Grid）
 
-### 🛠️ 豊富なユーティリティ
+### 豊富なユーティリティ
 
 - **Spacing** - マージン・パディング（m-*, p-*, mx-*, my-*, etc.）
 - **Display** - 表示制御（d-*, position-*, opacity-*, etc.）
@@ -176,10 +176,10 @@ function toggleTheme() {
 
 ### 主な特徴
 
-- **WCAG AA準拠** - コントラスト比4.5:1以上
-- **自動対応** - すべてのコンポーネントが自動的にテーマ切り替え
-- **システム連携** - `prefers-color-scheme`に対応
-- **カスタマイズ可能** - CSS変数で簡単にカスタマイズ
+- WCAG AA準拠 - コントラスト比4.5:1以上
+- 自動対応 - すべてのコンポーネントが自動的にテーマ切り替え
+- システム連携 - `prefers-color-scheme`に対応
+- カスタマイズ可能 - CSS変数で簡単にカスタマイズ
 
 ### ドキュメント
 
@@ -540,7 +540,7 @@ const buttonClass = computed(() =>
 
 ## ドキュメント
 
-### 📚 オンラインドキュメント
+### オンラインドキュメント
 
 - **[Getting Started](./docs/getting-started.html)** - 導入ガイドとクイックスタート
 - **[コンポーネント一覧](./showcase.html)** - 24+のコンポーネントデモ
@@ -551,13 +551,13 @@ const buttonClass = computed(() =>
 - **[Testing Architecture](./docs/guides/testing-architecture.html)** - テスト設計アーキテクチャ完全ガイド
 - **[API Reference](./docs/api-reference.html)** - 完全なCSS変数・クラス名リファレンス
 
-### 🧩 コンポーネント別ドキュメント
+### コンポーネント別ドキュメント
 
 - **[Alert](./docs/components/alert.html)** - 通知・アラートメッセージ
 - **[Badge](./docs/components/badge.html)** - ステータス・カウント表示
 - その他24+のコンポーネント（[一覧を見る](./showcase.html)）
 
-### 💼 実践的なテンプレート
+### 実践的なテンプレート
 
 - **[管理画面ダッシュボード](./examples/admin-dashboard.html)** - サイドバー、統計、テーブル付き
 - **[ログインページ](./examples/login-page.html)** - バリデーション、ソーシャルログイン付き
@@ -572,7 +572,7 @@ python3 -m http.server 8000
 # http://localhost:8000/examples/admin-dashboard.html
 ```
 
-### 🧪 Storybook - インタラクティブなコンポーネントカタログ
+### Storybook - インタラクティブなコンポーネントカタログ
 
 Asagiriのすべてのコンポーネントを、Storybookで実際に操作しながら確認できます。
 
@@ -585,12 +585,12 @@ npm run storybook
 ```
 
 **Storybookの機能：**
-- ✅ **全24+コンポーネント**をインタラクティブに検証
-- ✅ **デザイントークン**の完全なドキュメント
-- ✅ **アクセシビリティテスト**（axe-core統合）
-- ✅ **ビジュアルリグレッションテスト**（Chromatic対応）
-- ✅ **レスポンシブテスト**（複数のビューポート）
-- ✅ **ダークモード切り替え**（ツールバーから）
+- **全24+コンポーネント**をインタラクティブに検証
+- **デザイントークン**の完全なドキュメント
+- **アクセシビリティテスト**（axe-core統合）
+- **ビジュアルリグレッションテスト**（Chromatic対応）
+- **レスポンシブテスト**（複数のビューポート）
+- **ダークモード切り替え**（ツールバーから）
 
 **Storybookをビルド：**
 
@@ -774,11 +774,11 @@ npm install
 
 ### ベストプラクティス
 
-1. ✅ **常にSCSSを編集** - CSSファイルを直接編集しない
-2. ✅ **モバイルファースト** - 小さい画面から設計
-3. ✅ **コメントを残す** - 意図を明確に記載
-4. ✅ **components.htmlを更新** - 新機能のデモを追加
-5. ✅ **セマンティックバージョニング** - MAJOR.MINOR.PATCH
+1. **常にSCSSを編集** - CSSファイルを直接編集しない
+2. **モバイルファースト** - 小さい画面から設計
+3. **コメントを残す** - 意図を明確に記載
+4. **components.htmlを更新** - 新機能のデモを追加
+5. **セマンティックバージョニング** - MAJOR.MINOR.PATCH
 
 ### NPM Package運用マニュアル
 
@@ -1094,7 +1094,7 @@ GitHub Secretsに `NPM_TOKEN` を追加：
 
 #### ベストプラクティス
 
-1. ✅ **必ず prepublishOnly スクリプトを使用**
+1. **必ず prepublishOnly スクリプトを使用**
    ```json
    {
      "scripts": {
@@ -1103,33 +1103,33 @@ GitHub Secretsに `NPM_TOKEN` を追加：
    }
    ```
 
-2. ✅ **セマンティックバージョニングを厳守**
+2. **セマンティックバージョニングを厳守**
    - 破壊的変更はメジャーバージョンアップ
    - 機能追加はマイナーバージョンアップ
    - バグ修正はパッチバージョンアップ
 
-3. ✅ **CHANGELOG.md を維持**
+3. **CHANGELOG.md を維持**
    - 各バージョンの変更内容を記録
 
-4. ✅ **タグとリリースノートを作成**
+4. **タグとリリースノートを作成**
    ```bash
    git tag -a v2.1.0 -m "Release version 2.1.0"
    git push origin v2.1.0
    ```
 
-5. ✅ **公開前にローカルテスト**
+5. **公開前にローカルテスト**
    ```bash
    npm link
    cd ../test-project
    npm link asagiri
    ```
 
-6. ✅ **2要素認証を有効化** - セキュリティ向上
+6. **2要素認証を有効化** - セキュリティ向上
 
-7. ✅ **不要なファイルを除外**
+7. **不要なファイルを除外**
    - `.npmignore` または `package.json` の `files` で制御
 
-8. ❌ **公開後72時間以上経過したパッケージは削除しない**
+8. **公開後72時間以上経過したパッケージは削除しない**
    - 代わりに `npm deprecate` を使用
 
 ## 開発
@@ -1153,11 +1153,11 @@ GitHub Secretsに `NPM_TOKEN` を追加：
 
 ## ブラウザサポート
 
-- ✅ Chrome/Edge (最新2バージョン)
-- ✅ Firefox (最新2バージョン)
-- ✅ Safari (最新2バージョン)
-- ✅ iOS Safari (最新2バージョン)
-- ❌ Internet Explorer (非サポート)
+- Chrome/Edge (最新2バージョン)
+- Firefox (最新2バージョン)
+- Safari (最新2バージョン)
+- iOS Safari (最新2バージョン)
+- Internet Explorer (非サポート)
 
 ## ライセンス
 
@@ -1177,5 +1177,5 @@ MIT License - See [LICENSE](LICENSE) for details
 ---
 
 <div align="center">
-Made with ❤️ by <a href="https://github.com/BoxPistols">BoxPistols</a>
+Made with love by <a href="https://github.com/BoxPistols">BoxPistols</a>
 </div>

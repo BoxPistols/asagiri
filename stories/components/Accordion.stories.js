@@ -183,7 +183,7 @@ export const WithIcons = {
     <div class="accordion">
       <div class="accordion-item">
         <div class="accordion-header">
-          <h3>📦 Shipping Information</h3>
+          <h3>Shipping Information</h3>
           <span class="accordion-icon">▼</span>
         </div>
         <div class="accordion-content" style="display: none;">
@@ -192,7 +192,7 @@ export const WithIcons = {
       </div>
       <div class="accordion-item">
         <div class="accordion-header">
-          <h3>💳 Payment Options</h3>
+          <h3>Payment Options</h3>
           <span class="accordion-icon">▼</span>
         </div>
         <div class="accordion-content" style="display: none;">
@@ -201,7 +201,7 @@ export const WithIcons = {
       </div>
       <div class="accordion-item">
         <div class="accordion-header">
-          <h3>🔄 Return Policy</h3>
+          <h3>Return Policy</h3>
           <span class="accordion-icon">▼</span>
         </div>
         <div class="accordion-content" style="display: none;">
@@ -210,7 +210,7 @@ export const WithIcons = {
       </div>
       <div class="accordion-item">
         <div class="accordion-header">
-          <h3>📞 Contact Support</h3>
+          <h3>Contact Support</h3>
           <span class="accordion-icon">▼</span>
         </div>
         <div class="accordion-content" style="display: none;">

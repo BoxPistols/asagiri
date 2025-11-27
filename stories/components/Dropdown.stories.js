@@ -108,11 +108,11 @@ export const WithIcons = {
         Actions
       </button>
       <div class="dropdown-menu" style="display: none;">
-        <a class="dropdown-item" href="#">✏️ Edit</a>
-        <a class="dropdown-item" href="#">📋 Copy</a>
-        <a class="dropdown-item" href="#">📤 Share</a>
+        <a class="dropdown-item" href="#">Edit</a>
+        <a class="dropdown-item" href="#">Copy</a>
+        <a class="dropdown-item" href="#">Share</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item text-danger" href="#">🗑️ Delete</a>
+        <a class="dropdown-item text-danger" href="#">Delete</a>
       </div>
     </div>
     ${dropdownScript}
@@ -278,11 +278,11 @@ export const UserMenu = {
           <div style="font-size: 0.875rem; color: var(--color-text-muted);">john@example.com</div>
         </div>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">👤 Profile</a>
-        <a class="dropdown-item" href="#">⚙️ Settings</a>
-        <a class="dropdown-item" href="#">💳 Billing</a>
+        <a class="dropdown-item" href="#">Profile</a>
+        <a class="dropdown-item" href="#">Settings</a>
+        <a class="dropdown-item" href="#">Billing</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">🚪 Sign Out</a>
+        <a class="dropdown-item" href="#">Sign Out</a>
       </div>
     </div>
     ${dropdownScript}

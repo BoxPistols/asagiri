@@ -173,26 +173,26 @@ export const IconTabs = {
   render: () => `
     <div>
       <ul class="tabs tabs-pills">
-        <li><a href="#" class="tab active">📊 Dashboard</a></li>
-        <li><a href="#" class="tab">👤 Users</a></li>
-        <li><a href="#" class="tab">⚙️ Settings</a></li>
-        <li><a href="#" class="tab">📝 Logs</a></li>
+        <li><a href="#" class="tab active">Dashboard</a></li>
+        <li><a href="#" class="tab">Users</a></li>
+        <li><a href="#" class="tab">Settings</a></li>
+        <li><a href="#" class="tab">Logs</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-panel active" style="display: block;">
-          <h3>📊 Dashboard</h3>
+          <h3>Dashboard</h3>
           <p>Main dashboard with key performance indicators.</p>
         </div>
         <div class="tab-panel" style="display: none;">
-          <h3>👤 User Management</h3>
+          <h3>User Management</h3>
           <p>Manage users, roles, and permissions.</p>
         </div>
         <div class="tab-panel" style="display: none;">
-          <h3>⚙️ System Settings</h3>
+          <h3>System Settings</h3>
           <p>Configure system-wide settings and preferences.</p>
         </div>
         <div class="tab-panel" style="display: none;">
-          <h3>📝 Activity Logs</h3>
+          <h3>Activity Logs</h3>
           <p>View system logs and user activity.</p>
         </div>
       </div>

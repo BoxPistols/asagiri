@@ -11,7 +11,10 @@
       "Bash(git push:*)",
       "Bash(git restore:*)",
       "Bash(lsof:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []

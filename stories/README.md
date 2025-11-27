@@ -2,7 +2,7 @@
 
 このディレクトリには、Asagiri CSS Frameworkの全コンポーネントのStorybookストーリーが含まれています。
 
-## 📂 ディレクトリ構造
+## ディレクトリ構造
 
 ```
 stories/
@@ -21,7 +21,7 @@ stories/
     └── ...                      # その他のテンプレート
 ```
 
-## 🚀 使い方
+## 使い方
 
 ### Storybookの起動
 
@@ -50,7 +50,7 @@ export const Default = {
 };
 ```
 
-## 🧪 テスト
+## テスト
 
 ### アクセシビリティテスト
 
@@ -69,7 +69,7 @@ Chromaticを使用してビジュアルリグレッションテストを実行�
 npm run test:visual
 ```
 
-## 📋 ストーリー作成のベストプラクティス
+## ストーリー作成のベストプラクティス
 
 ### 1. 包括的なバリエーション
 
@@ -134,7 +134,7 @@ parameters: {
 
 テーマ切り替えをサポート（toolbar経由で自動的に可能）
 
-## 🔧 デザイントークンの検証
+## デザイントークンの検証
 
 デザイントークンを分析してインラインスタイルを検出：
 
@@ -144,14 +144,14 @@ npm run analyze:tokens
 
 結果は `docs/design-tokens.md` に出力されます。
 
-## 📚 参考リソース
+## 参考リソース
 
 - [Storybook公式ドキュメント](https://storybook.js.org/docs)
 - [axe-core (アクセシビリティテスト)](https://github.com/dequelabs/axe-core)
 - [Chromatic (ビジュアルリグレッション)](https://www.chromatic.com/)
 - [Asagiri Documentation](../docs/getting-started.html)
 
-## 🤝 コントリビューション
+## コントリビューション
 
 新しいコンポーネントを追加する場合は、必ずStorybookストーリーも作成してください：
 
@@ -162,4 +162,4 @@ npm run analyze:tokens
 
 ---
 
-**Happy Coding! 🎨**
+**Happy Coding!**

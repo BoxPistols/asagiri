@@ -26,10 +26,10 @@ export const WithIcons = {
   render: () => `
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">🏠 Home</a></li>
-        <li class="breadcrumb-item"><a href="#">📁 Documents</a></li>
-        <li class="breadcrumb-item"><a href="#">📂 Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">📄 Report.pdf</li>
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Documents</a></li>
+        <li class="breadcrumb-item"><a href="#">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Report.pdf</li>
       </ol>
     </nav>
   `,

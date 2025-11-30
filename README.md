@@ -4,7 +4,7 @@
 
 **朝霧** - A modern, lightweight CSS framework
 
-[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/BoxPistols/asagiri)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/BoxPistols/asagiri)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![CSS Size](https://img.shields.io/badge/size-63KB-orange.svg)]()
 
@@ -98,10 +98,17 @@ Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。�
 
 ## インストール
 
-### コンパイル済みCSSを使用
+### コンパイル済みCSSを使用（CDN）
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/BoxPistols/asagiri@2.0/css/main.css">
+<!-- jsdelivr (npm) - 推奨 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri@latest/css/main.min.css">
+
+<!-- unpkg -->
+<link rel="stylesheet" href="https://unpkg.com/asagiri@latest/css/main.min.css">
+
+<!-- 特定バージョン -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri@2.0.0/css/main.min.css">
 ```
 
 ### NPM経由

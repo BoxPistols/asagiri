@@ -61,7 +61,10 @@
     "test:visual": "npm run build-storybook && npx chromatic",
     "test:a11y": "npm run build-storybook && npx storybook-test-runner --coverage",
     "lint:styles": "stylelint 'scss/**/*.scss'",
-    "analyze:tokens": "node scripts/analyze-design-tokens.js"
+    "analyze:tokens": "node scripts/analyze-design-tokens.js",
+    "version:patch": "node scripts/update-version.js patch",
+    "version:minor": "node scripts/update-version.js minor",
+    "version:major": "node scripts/update-version.js major"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.6.20",

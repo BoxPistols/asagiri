@@ -1,0 +1,133 @@
+# Asagiri CSS Framework - Release Automation
+#
+# This workflow automates:
+# 1. Version bump (manual trigger)
+# 2. Build CSS files
+# 3. Create Git tag
+# 4. Publish to npm
+# 5. Create GitHub Release
+#
+# Usage:
+#   - Go to Actions tab
+#   - Select "Release" workflow
+#   - Click "Run workflow"
+#   - Choose version bump type (patch/minor/major)
+
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: "Version bump type"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Get current version
+        id: current_version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Bump version
+        id: bump
+        run: |
+          node scripts/update-version.js ${{ inputs.version_bump }}
+          echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Build CSS
+        run: |
+          npm run build
+          npm run build:compressed
+
+      - name: Commit version bump
+        run: |
+          git add .
+          git commit -m "chore(release): bump version to ${{ steps.bump.outputs.new_version }}"
+
+      - name: Create and push tag
+        run: |
+          git tag v${{ steps.bump.outputs.new_version }}
+          git push origin main --tags
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.bump.outputs.new_version }}
+          name: Asagiri v${{ steps.bump.outputs.new_version }}
+          body: |
+            ## Asagiri CSS Framework v${{ steps.bump.outputs.new_version }}
+
+            ### Installation
+
+            **npm:**
+            ```bash
+            npm install asagiri@${{ steps.bump.outputs.new_version }}
+            ```
+
+            **CDN (jsdelivr):**
+            ```html
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri@${{ steps.bump.outputs.new_version }}/css/main.min.css">
+            ```
+
+            **CDN (unpkg):**
+            ```html
+            <link rel="stylesheet" href="https://unpkg.com/asagiri@${{ steps.bump.outputs.new_version }}/css/main.min.css">
+            ```
+
+            ### Changes
+            See [CHANGELOG.md](https://github.com/BoxPistols/asagiri/blob/main/CHANGELOG.md) for details.
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Previous version:** ${{ steps.current_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **New version:** ${{ steps.bump.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **npm:** https://www.npmjs.com/package/asagiri" >> $GITHUB_STEP_SUMMARY
+          echo "- **CDN:** https://cdn.jsdelivr.net/npm/asagiri@${{ steps.bump.outputs.new_version }}/css/main.min.css" >> $GITHUB_STEP_SUMMARY

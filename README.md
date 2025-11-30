@@ -738,23 +738,68 @@ npx sass scss/main.scss css/main.css --watch --no-source-map
 npx sass scss/main.scss css/main.min.css --style=compressed --no-source-map
 ```
 
-### バージョン管理
+### バージョン管理（自動化）
+
+バージョン更新は自動化スクリプトで一括管理されています。
+
+#### ワンコマンドでバージョン更新
 
 ```bash
-# 1. 変更をテスト
-npx sass scss/main.scss css/main.css
+# パッチ更新 (2.0.0 → 2.0.1) - バグ修正
+npm run version:patch
 
-# 2. package.json のバージョンを更新
-# "version": "2.1.0"
+# マイナー更新 (2.0.0 → 2.1.0) - 機能追加
+npm run version:minor
 
-# 3. コミット
+# メジャー更新 (2.0.0 → 3.0.0) - 破壊的変更
+npm run version:major
+```
+
+このコマンドで以下が自動更新されます：
+- `package.json` - バージョン番号
+- `README.md` - バッジ、CDN例
+- `index.html` - タイトル
+- `index.d.ts` - ヘッダーコメント
+- `docs/getting-started.html` - バージョン表記
+- `CHANGELOG.md` - 自動でエントリー追加
+
+#### 完全なリリースフロー
+
+```bash
+# 1. バージョン更新（全ファイル自動更新）
+npm run version:minor
+
+# 2. ビルド
+npm run build && npm run build:compressed
+
+# 3. コミット＆タグ
 git add .
-git commit -m "feat: add new feature"
-git push
-
-# 4. タグを作成
+git commit -m "chore(release): bump version to 2.1.0"
 git tag v2.1.0
-git push origin v2.1.0
+
+# 4. プッシュ
+git push origin main --tags
+
+# 5. npm公開
+npm publish
+```
+
+#### GitHub Actions自動リリース（推奨）
+
+GitHub Actions → "Release" workflow → Run workflow を実行するだけで、上記すべてが自動化されます。
+
+**必要な設定：**
+1. GitHub Secrets に `NPM_TOKEN` を追加
+2. npm で Access Token を生成: https://www.npmjs.com/settings/YOUR_USERNAME/tokens
+
+#### CDN配信
+
+```html
+<!-- 常に最新版（推奨） -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri@latest/css/main.min.css">
+
+<!-- 特定バージョン -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri@2.0.0/css/main.min.css">
 ```
 
 ### トラブルシューティング

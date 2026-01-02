@@ -1,0 +1,464 @@
+// ============================================================
+// Chip Component
+// ============================================================
+// Material Design 3 inspired chips for tags, filters, and selections
+//
+// Usage:
+//   <span class="chip">Tag</span>
+//   <button class="chip chip-selectable"><span class="chip-icon">✓</span>Selected</button>
+//   <span class="chip chip-dismissible">Removable<button class="chip-close">&times;</button></span>
+
+// Base Chip styles
+.chip {
+  // Layout
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 32px;
+  padding: 0 0.75rem;
+
+  // Appearance
+  background-color: var(--color-item-bg, #e8e8f1);
+  color: var(--color-text, #4c5059);
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  // Typography
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+
+  // Animation
+  transition: background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  // Ripple
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+
+  [data-theme="dark"] & {
+    background-color: var(--color-item-bg, #1f1f23);
+    color: var(--color-text, #e4e4e7);
+  }
+}
+
+// Chip Icon (leading)
+.chip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: -0.25rem;
+  font-size: 1rem;
+  line-height: 1;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  img {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+// Chip Avatar (leading)
+.chip-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: -0.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--color-gray, #9ca8b3);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Chip Close Button
+.chip-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: -0.25rem;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  color: inherit;
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    [data-theme="dark"] & {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #31a9c7);
+    outline-offset: 1px;
+    opacity: 1;
+  }
+}
+
+// Interactive Chip (clickable)
+button.chip,
+a.chip,
+.chip-clickable {
+  cursor: pointer;
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 15%, var(--color-item-bg, #e8e8f1));
+
+    [data-theme="dark"] & {
+      background-color: color-mix(in srgb, var(--color-primary) 20%, var(--color-item-bg, #1f1f23));
+    }
+  }
+
+  &:active {
+    background-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-item-bg, #e8e8f1));
+
+    [data-theme="dark"] & {
+      background-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-item-bg, #1f1f23));
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #31a9c7);
+    outline-offset: 2px;
+  }
+}
+
+// Selectable Chip
+.chip-selectable {
+  cursor: pointer;
+  border-color: var(--color-border, rgba(0, 0, 0, 0.2));
+
+  [data-theme="dark"] & {
+    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+  }
+
+  &:hover {
+    border-color: var(--color-primary, #31a9c7);
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  }
+
+  &.selected,
+  &[aria-selected="true"],
+  &:checked {
+    background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+    color: var(--color-primary-dark, #1a6b7e);
+    border-color: var(--color-primary, #31a9c7);
+
+    [data-theme="dark"] & {
+      background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+      color: var(--color-primary-light, #4ec4df);
+    }
+
+    .chip-icon {
+      opacity: 1;
+    }
+  }
+
+  // Checkmark icon hidden by default
+  .chip-icon-check {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: width 0.15s ease, opacity 0.15s ease;
+  }
+
+  &.selected .chip-icon-check,
+  &[aria-selected="true"] .chip-icon-check {
+    width: 18px;
+    opacity: 1;
+  }
+}
+
+// Chip Sizes
+.chip-sm {
+  height: 24px;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+
+  .chip-icon,
+  .chip-close {
+    width: 14px;
+    height: 14px;
+    font-size: 0.875rem;
+  }
+
+  .chip-avatar {
+    width: 18px;
+    height: 18px;
+    font-size: 0.625rem;
+  }
+}
+
+.chip-lg {
+  height: 40px;
+  padding: 0 1rem;
+  font-size: 0.9375rem;
+  border-radius: 10px;
+
+  .chip-icon,
+  .chip-close {
+    width: 22px;
+    height: 22px;
+    font-size: 1.25rem;
+  }
+
+  .chip-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.875rem;
+  }
+}
+
+// Chip Color Variants
+
+// Outlined
+.chip-outlined {
+  background-color: transparent;
+  border-color: var(--color-border, rgba(0, 0, 0, 0.2));
+
+  [data-theme="dark"] & {
+    border-color: var(--color-border, rgba(255, 255, 255, 0.15));
+  }
+
+  &:hover {
+    background-color: var(--color-item-bg, #e8e8f1);
+
+    [data-theme="dark"] & {
+      background-color: var(--color-item-bg, #1f1f23);
+    }
+  }
+}
+
+// Primary
+.chip-primary {
+  background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  color: var(--color-primary-dark, #1a6b7e);
+  border-color: transparent;
+
+  [data-theme="dark"] & {
+    background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    color: var(--color-primary-light, #4ec4df);
+  }
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  }
+}
+
+.chip-primary-solid {
+  background-color: var(--color-primary, #31a9c7);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-primary-dark, #1a6b7e);
+  }
+}
+
+// Success
+.chip-success {
+  background-color: color-mix(in srgb, var(--color-success) 20%, transparent);
+  color: var(--color-success-dark, #008c4e);
+
+  [data-theme="dark"] & {
+    background-color: color-mix(in srgb, var(--color-success) 25%, transparent);
+    color: var(--color-success-light, #00d9a6);
+  }
+}
+
+.chip-success-solid {
+  background-color: var(--color-success, #00a859);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-success-dark, #008c4e);
+  }
+}
+
+// Warning
+.chip-warning {
+  background-color: color-mix(in srgb, var(--color-warning) 25%, transparent);
+  color: #664d03;
+
+  [data-theme="dark"] & {
+    background-color: color-mix(in srgb, var(--color-warning) 30%, transparent);
+    color: var(--color-warning-light, #f5e854);
+  }
+}
+
+.chip-warning-solid {
+  background-color: var(--color-warning, #ebbb0c);
+  color: #000;
+
+  &:hover {
+    background-color: var(--color-warning-dark, #d99e00);
+  }
+}
+
+// Danger
+.chip-danger {
+  background-color: color-mix(in srgb, var(--color-danger) 20%, transparent);
+  color: var(--color-danger-dark, #c82727);
+
+  [data-theme="dark"] & {
+    background-color: color-mix(in srgb, var(--color-danger) 25%, transparent);
+    color: var(--color-danger-light, #f8a7a7);
+  }
+}
+
+.chip-danger-solid {
+  background-color: var(--color-danger, #e1323c);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-danger-dark, #c82727);
+  }
+}
+
+// Info
+.chip-info {
+  background-color: color-mix(in srgb, var(--color-info) 20%, transparent);
+  color: var(--color-info-dark, #1a9fa2);
+
+  [data-theme="dark"] & {
+    background-color: color-mix(in srgb, var(--color-info) 25%, transparent);
+    color: var(--color-info-light, #4de5e5);
+  }
+}
+
+.chip-info-solid {
+  background-color: var(--color-info, #1ec2c2);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-info-dark, #1a9fa2);
+  }
+}
+
+// Chip Group
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+
+  // Compact variant
+  &.chip-group-compact {
+    gap: 0.25rem;
+  }
+}
+
+// Input chip (with input field)
+.chip-input {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--color-box, #fff);
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+
+  [data-theme="dark"] & {
+    background-color: var(--color-box, #18181b);
+    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+  }
+
+  &:focus-within {
+    border-color: var(--color-primary, #31a9c7);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+
+  .chip {
+    height: 26px;
+    font-size: 0.8125rem;
+  }
+
+  input {
+    flex: 1;
+    min-width: 100px;
+    height: 24px;
+    padding: 0 0.25rem;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 0.875rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--color-text-secondary, #666);
+    }
+  }
+}
+
+// Chip dismiss animation
+.chip.dismissing {
+  animation: chip-dismiss 0.15s ease-out forwards;
+}
+
+@keyframes chip-dismiss {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .chip {
+    transition: none;
+  }
+
+  .chip-close {
+    transition: none;
+  }
+
+  .chip.dismissing {
+    animation: none;
+    display: none;
+  }
+
+  .chip-selectable .chip-icon-check {
+    transition: none;
+  }
+}

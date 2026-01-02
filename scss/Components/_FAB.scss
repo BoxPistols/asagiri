@@ -1,0 +1,463 @@
+// ============================================================
+// FAB (Floating Action Button) Component
+// ============================================================
+// Material Design 3 inspired floating action buttons
+//
+// Usage:
+//   <button class="fab">+</button>
+//   <button class="fab fab-extended"><span class="fab-icon">+</span>Add Item</button>
+//   <button class="fab fab-primary fab-lg">+</button>
+
+// Base FAB styles
+.fab {
+  // Layout
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  // Size (default: regular)
+  width: 56px;
+  height: 56px;
+  padding: 0;
+
+  // Appearance
+  background-color: var(--color-primary, #31a9c7);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  box-shadow: var(--elevation-3);
+  cursor: pointer;
+
+  // Typography
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+
+  // Animation
+  transition: box-shadow 0.2s ease-in-out,
+    transform 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+
+  // Ripple overflow
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+
+  // Icon inside FAB
+  .fab-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 1.5rem;
+    line-height: 1;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  // Hover state
+  &:hover {
+    background-color: var(--color-primary-dark, #1a6b7e);
+    box-shadow: var(--elevation-4);
+    transform: translateY(-2px);
+  }
+
+  // Active/Pressed state
+  &:active {
+    box-shadow: var(--elevation-2);
+    transform: translateY(0);
+  }
+
+  // Focus state
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-light, #4ec4df);
+    outline-offset: 2px;
+  }
+
+  // Disabled state
+  &:disabled,
+  &[disabled] {
+    background-color: var(--color-gray, #9ca8b3);
+    color: rgba(255, 255, 255, 0.7);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// FAB Sizes
+.fab-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+
+  .fab-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 1.25rem;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.fab-lg {
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+  font-size: 2.5rem;
+
+  .fab-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 2.5rem;
+
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+// Extended FAB (with text)
+.fab-extended {
+  width: auto;
+  min-width: 80px;
+  height: 56px;
+  padding: 0 1.25rem;
+  border-radius: 16px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+
+  .fab-icon {
+    margin-right: 0.25rem;
+  }
+
+  // Collapsed state (icon only, can animate to extended)
+  &.fab-collapsed {
+    width: 56px;
+    padding: 0;
+
+    .fab-text {
+      display: none;
+    }
+
+    .fab-icon {
+      margin-right: 0;
+    }
+  }
+}
+
+.fab-extended.fab-sm {
+  height: 40px;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+}
+
+.fab-extended.fab-lg {
+  height: 96px;
+  padding: 0 2rem;
+  font-size: 1.25rem;
+}
+
+// FAB Color Variants
+.fab-primary {
+  background-color: var(--color-primary, #31a9c7);
+
+  &:hover {
+    background-color: var(--color-primary-dark, #1a6b7e);
+  }
+}
+
+.fab-secondary {
+  background-color: var(--color-secondary, #5c6b82);
+
+  &:hover {
+    background-color: var(--color-secondary-dark, #3d4757);
+  }
+}
+
+.fab-success {
+  background-color: var(--color-success, #00a859);
+
+  &:hover {
+    background-color: var(--color-success-dark, #008c4e);
+  }
+}
+
+.fab-danger {
+  background-color: var(--color-danger, #e1323c);
+
+  &:hover {
+    background-color: var(--color-danger-dark, #c82727);
+  }
+}
+
+.fab-warning {
+  background-color: var(--color-warning, #ebbb0c);
+  color: #000;
+
+  &:hover {
+    background-color: var(--color-warning-dark, #d99e00);
+  }
+}
+
+.fab-info {
+  background-color: var(--color-info, #1ec2c2);
+
+  &:hover {
+    background-color: var(--color-info-dark, #1a9fa2);
+  }
+}
+
+// Surface FAB (light background)
+.fab-surface {
+  background-color: var(--color-box, #fff);
+  color: var(--color-primary, #31a9c7);
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-box, #fff));
+  }
+
+  [data-theme="dark"] & {
+    background-color: var(--color-item-bg, #1f1f23);
+    color: var(--color-primary-light, #4ec4df);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-primary) 15%, var(--color-item-bg, #1f1f23));
+    }
+  }
+}
+
+// Tertiary FAB (tonal)
+.fab-tertiary {
+  background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  color: var(--color-primary-dark, #1a6b7e);
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  }
+
+  [data-theme="dark"] & {
+    background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    color: var(--color-primary-light, #4ec4df);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    }
+  }
+}
+
+// FAB Positioning
+.fab-fixed {
+  position: fixed;
+  z-index: 100;
+}
+
+.fab-bottom-right {
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
+
+.fab-bottom-left {
+  bottom: 1.5rem;
+  left: 1.5rem;
+}
+
+.fab-bottom-center {
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:hover {
+    transform: translateX(-50%) translateY(-2px);
+  }
+}
+
+.fab-top-right {
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.fab-top-left {
+  top: 1.5rem;
+  left: 1.5rem;
+}
+
+// FAB Animation variants
+.fab-scale-in {
+  animation: fab-scale-in 0.2s ease-out;
+}
+
+@keyframes fab-scale-in {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Show/hide on scroll
+.fab-hide-on-scroll {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+  &.hidden {
+    transform: translateY(100px);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+// FAB Group (multiple FABs)
+.fab-group {
+  position: fixed;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+
+  &.fab-bottom-right {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  &.fab-bottom-left {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+
+  // Mini FABs above main FAB
+  .fab-mini {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: var(--elevation-2);
+
+    &:hover {
+      box-shadow: var(--elevation-3);
+    }
+  }
+}
+
+// Speed dial animation
+.fab-speed-dial {
+  .fab-actions {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0.2s;
+
+    .fab-mini {
+      transform: scale(0.5);
+      opacity: 0;
+      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    }
+  }
+
+  &.open {
+    .fab-actions {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+
+      .fab-mini {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      // Staggered animation
+      .fab-mini:nth-child(1) { transition-delay: 0.05s; }
+      .fab-mini:nth-child(2) { transition-delay: 0.1s; }
+      .fab-mini:nth-child(3) { transition-delay: 0.15s; }
+      .fab-mini:nth-child(4) { transition-delay: 0.2s; }
+    }
+
+    // Rotate main FAB icon
+    > .fab .fab-icon {
+      transform: rotate(45deg);
+    }
+  }
+
+  > .fab .fab-icon {
+    transition: transform 0.2s ease-out;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .fab {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .fab-lg {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+  }
+
+  .fab-extended {
+    height: 48px;
+    padding: 0 1rem;
+  }
+
+  .fab-fixed {
+    &.fab-bottom-right,
+    &.fab-bottom-left {
+      bottom: 1rem;
+    }
+
+    &.fab-bottom-right {
+      right: 1rem;
+    }
+
+    &.fab-bottom-left {
+      left: 1rem;
+    }
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .fab {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .fab-scale-in {
+    animation: none;
+  }
+
+  .fab-hide-on-scroll {
+    transition: none;
+  }
+
+  .fab-speed-dial .fab-actions,
+  .fab-speed-dial .fab-actions .fab-mini,
+  .fab-speed-dial > .fab .fab-icon {
+    transition: none;
+  }
+}

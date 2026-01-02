@@ -3,6 +3,7 @@
 
 // Design Tokens
 @use "Tokens/Token" as *;
+@use "Tokens/Elevation"; // Material Design 3 elevation system
 
 // Base Styles
 @use "baseAll";
@@ -20,9 +21,14 @@
 @use "Components/CodeBlock";
 @use "Components/DemoBox";
 @use "Components/ColorSwatch";
+@use "Components/Ripple"; // Material Design 3 ripple effect
+@use "Components/FAB"; // Floating Action Button
+@use "Components/Chip"; // Chip / Tag component
+@use "Components/Snackbar"; // Toast / Notification
 
 // Utilities
 @use "Utility/UtilityAll";
+@use "Utility/Animation"; // Animation & Transition utilities
 
 .wrap {
   padding: 4vh 2vw;

@@ -248,3 +248,336 @@ input[type="submit"] {
     }
   }
 }
+
+// ============================================================
+// Material Design 3 Inspired Button Enhancements
+// ============================================================
+
+// Enhanced Button Base
+.button,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  // Enhanced transitions
+  transition: background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+
+  // Ripple effect support
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+
+  // Focus-visible for keyboard navigation
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-light, #4ec4df);
+    outline-offset: 2px;
+  }
+
+  // Subtle hover lift
+  &:hover:not([disabled]) {
+    transform: translateY(-1px);
+  }
+
+  &:active:not([disabled]) {
+    transform: translateY(0);
+  }
+}
+
+// Button Sizes
+.btn-sm {
+  height: calc(var(--global-component-height) - 0.5rem);
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  border-radius: calc(var(--border-radius-all) - 2px);
+}
+
+.btn-lg {
+  height: calc(var(--global-component-height) + 0.5rem);
+  padding: 0 2.5rem;
+  font-size: 1.125rem;
+  border-radius: calc(var(--border-radius-all) + 2px);
+}
+
+.btn-xl {
+  height: calc(var(--global-component-height) + 1rem);
+  padding: 0 3rem;
+  font-size: 1.25rem;
+  border-radius: calc(var(--border-radius-all) + 4px);
+}
+
+// Full width button
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+// Tonal Button (MD3 style - filled tonal)
+.btn-tonal {
+  background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  color: var(--color-primary-dark, #1a6b7e);
+  border-color: transparent;
+
+  [data-theme="dark"] & {
+    background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    color: var(--color-primary-light, #4ec4df);
+  }
+
+  &:hover:not([disabled]) {
+    background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+
+    [data-theme="dark"] & {
+      background-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    }
+  }
+
+  &:active:not([disabled]) {
+    background-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
+}
+
+// Tonal color variants
+@each $color in (secondary, success, warning, danger, info, accent) {
+  .btn-tonal-#{$color} {
+    background-color: color-mix(in srgb, var(--color-#{$color}) 20%, transparent);
+    color: var(--color-#{$color}-dark);
+    border-color: transparent;
+
+    [data-theme="dark"] & {
+      background-color: color-mix(in srgb, var(--color-#{$color}) 25%, transparent);
+      color: var(--color-#{$color}-light);
+    }
+
+    &:hover:not([disabled]) {
+      background-color: color-mix(in srgb, var(--color-#{$color}) 30%, transparent);
+
+      [data-theme="dark"] & {
+        background-color: color-mix(in srgb, var(--color-#{$color}) 35%, transparent);
+      }
+    }
+  }
+}
+
+// Text Button (no background)
+.btn-text {
+  background-color: transparent;
+  color: var(--color-primary, #31a9c7);
+  border: none;
+  padding: 0 1rem;
+  box-shadow: none;
+
+  &:hover:not([disabled]),
+  &:focus:not([disabled]) {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    color: var(--color-primary, #31a9c7);
+    border: none;
+    transform: none;
+  }
+
+  &:active:not([disabled]) {
+    background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+
+  [data-theme="dark"] & {
+    color: var(--color-primary-light, #4ec4df);
+
+    &:hover:not([disabled]) {
+      color: var(--color-primary-light, #4ec4df);
+    }
+  }
+}
+
+// Text button color variants
+@each $color in (secondary, success, warning, danger, info) {
+  .btn-text-#{$color} {
+    background-color: transparent;
+    color: var(--color-#{$color});
+    border: none;
+
+    &:hover:not([disabled]),
+    &:focus:not([disabled]) {
+      background-color: color-mix(in srgb, var(--color-#{$color}) 10%, transparent);
+      color: var(--color-#{$color});
+      border: none;
+    }
+
+    [data-theme="dark"] & {
+      color: var(--color-#{$color}-light);
+
+      &:hover:not([disabled]) {
+        color: var(--color-#{$color}-light);
+      }
+    }
+  }
+}
+
+// Elevated Button (with shadow)
+.btn-elevated {
+  box-shadow: var(--elevation-1);
+
+  &:hover:not([disabled]) {
+    box-shadow: var(--elevation-2);
+  }
+
+  &:active:not([disabled]) {
+    box-shadow: var(--elevation-1);
+  }
+}
+
+// Icon Button
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--global-component-height);
+  height: var(--global-component-height);
+  padding: 0;
+  border-radius: 50%;
+
+  svg,
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &.btn-sm {
+    width: calc(var(--global-component-height) - 0.5rem);
+    height: calc(var(--global-component-height) - 0.5rem);
+
+    svg,
+    .icon {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  &.btn-lg {
+    width: calc(var(--global-component-height) + 0.5rem);
+    height: calc(var(--global-component-height) + 0.5rem);
+
+    svg,
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+// Icon with text
+.btn-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg,
+  .icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+  }
+
+  &.btn-icon-right {
+    flex-direction: row-reverse;
+  }
+}
+
+// Pill Button (rounded)
+.btn-pill {
+  border-radius: 9999px;
+}
+
+// Button Group
+.btn-group {
+  display: inline-flex;
+
+  .button,
+  button {
+    margin: 0;
+    border-radius: 0;
+
+    &:first-child {
+      border-radius: var(--border-radius-all) 0 0 var(--border-radius-all);
+    }
+
+    &:last-child {
+      border-radius: 0 var(--border-radius-all) var(--border-radius-all) 0;
+    }
+
+    &:not(:first-child) {
+      margin-left: -1px;
+    }
+
+    &:hover,
+    &:focus {
+      z-index: 1;
+    }
+  }
+
+  &.btn-group-vertical {
+    flex-direction: column;
+
+    .button,
+    button {
+      &:first-child {
+        border-radius: var(--border-radius-all) var(--border-radius-all) 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 var(--border-radius-all) var(--border-radius-all);
+      }
+
+      &:not(:first-child) {
+        margin-left: 0;
+        margin-top: -1px;
+      }
+    }
+  }
+}
+
+// Loading Button State
+.btn-loading {
+  pointer-events: none;
+  position: relative;
+  color: transparent !important;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: btn-spin 0.75s linear infinite;
+    color: #fff;
+  }
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  button,
+  input[type="button"],
+  input[type="reset"],
+  input[type="submit"] {
+    transition: none;
+
+    &:hover:not([disabled]) {
+      transform: none;
+    }
+  }
+
+  .btn-loading::after {
+    animation: none;
+  }
+}

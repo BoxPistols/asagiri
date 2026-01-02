@@ -1,0 +1,442 @@
+// ============================================================
+// Animation & Transition Utilities
+// ============================================================
+// Material Design 3 inspired motion system
+//
+// Usage:
+//   <div class="animate-fade-in">Content</div>
+//   <div class="transition-all">Hover me</div>
+
+// ============================================================
+// Transition Utilities
+// ============================================================
+
+// Duration variables
+:root {
+  --duration-instant: 0ms;
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --duration-moderate: 300ms;
+  --duration-slow: 400ms;
+  --duration-slower: 500ms;
+
+  // Easing curves (Material Design 3)
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+}
+
+// Transition presets
+.transition-none {
+  transition: none !important;
+}
+
+.transition-all {
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.transition-colors {
+  transition: color var(--duration-normal) var(--ease-standard),
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard);
+}
+
+.transition-opacity {
+  transition: opacity var(--duration-normal) var(--ease-standard);
+}
+
+.transition-shadow {
+  transition: box-shadow var(--duration-normal) var(--ease-standard);
+}
+
+.transition-transform {
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+// Duration modifiers
+.duration-fast {
+  transition-duration: var(--duration-fast) !important;
+}
+
+.duration-normal {
+  transition-duration: var(--duration-normal) !important;
+}
+
+.duration-moderate {
+  transition-duration: var(--duration-moderate) !important;
+}
+
+.duration-slow {
+  transition-duration: var(--duration-slow) !important;
+}
+
+// Easing modifiers
+.ease-standard {
+  transition-timing-function: var(--ease-standard) !important;
+}
+
+.ease-decelerate {
+  transition-timing-function: var(--ease-standard-decelerate) !important;
+}
+
+.ease-accelerate {
+  transition-timing-function: var(--ease-standard-accelerate) !important;
+}
+
+.ease-emphasized {
+  transition-timing-function: var(--ease-emphasized) !important;
+}
+
+// ============================================================
+// Animation Keyframes
+// ============================================================
+
+// Fade animations
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// Slide animations
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-up {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+}
+
+@keyframes slide-out-down {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+// Scale animations
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes scale-in-center {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Bounce animation
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5rem);
+  }
+}
+
+// Pulse animation
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// Spin animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Shake animation
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-0.25rem);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(0.25rem);
+  }
+}
+
+// Ping animation (for notifications)
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+// ============================================================
+// Animation Utilities
+// ============================================================
+
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--ease-standard-decelerate);
+}
+
+.animate-fade-out {
+  animation: fade-out var(--duration-normal) var(--ease-standard-accelerate);
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up var(--duration-moderate) var(--ease-emphasized-decelerate);
+}
+
+.animate-slide-in-down {
+  animation: slide-in-down var(--duration-moderate) var(--ease-emphasized-decelerate);
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left var(--duration-moderate) var(--ease-emphasized-decelerate);
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right var(--duration-moderate) var(--ease-emphasized-decelerate);
+}
+
+.animate-slide-out-up {
+  animation: slide-out-up var(--duration-normal) var(--ease-emphasized-accelerate);
+}
+
+.animate-slide-out-down {
+  animation: slide-out-down var(--duration-normal) var(--ease-emphasized-accelerate);
+}
+
+.animate-scale-in {
+  animation: scale-in var(--duration-moderate) var(--ease-emphasized-decelerate);
+}
+
+.animate-scale-out {
+  animation: scale-out var(--duration-normal) var(--ease-emphasized-accelerate);
+}
+
+.animate-scale-in-center {
+  animation: scale-in-center var(--duration-moderate) var(--ease-emphasized-decelerate);
+}
+
+.animate-bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+// Animation delay utilities
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.delay-700 {
+  animation-delay: 700ms;
+}
+
+.delay-1000 {
+  animation-delay: 1000ms;
+}
+
+// Animation fill mode
+.fill-forwards {
+  animation-fill-mode: forwards;
+}
+
+.fill-backwards {
+  animation-fill-mode: backwards;
+}
+
+.fill-both {
+  animation-fill-mode: both;
+}
+
+// Staggered animations (for lists)
+.stagger-children {
+  > * {
+    opacity: 0;
+    animation: slide-in-up var(--duration-moderate) var(--ease-emphasized-decelerate) forwards;
+  }
+
+  @for $i from 1 through 10 {
+    > *:nth-child(#{$i}) {
+      animation-delay: #{($i - 1) * 50}ms;
+    }
+  }
+}
+
+// Hover animations
+.hover-scale {
+  transition: transform var(--duration-normal) var(--ease-standard);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.hover-lift {
+  transition: transform var(--duration-normal) var(--ease-standard),
+    box-shadow var(--duration-normal) var(--ease-standard);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--elevation-2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.hover-glow {
+  transition: box-shadow var(--duration-normal) var(--ease-standard);
+
+  &:hover {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hover-scale:hover,
+  .hover-scale:active,
+  .hover-lift:hover,
+  .hover-lift:active {
+    transform: none;
+  }
+}

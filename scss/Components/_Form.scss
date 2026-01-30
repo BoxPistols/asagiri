@@ -240,6 +240,9 @@ select {
 }
 
 // Floating Label Text Field
+// IMPORTANT: This CSS-only floating label relies on :not(:placeholder-shown).
+// The <input> element MUST have a placeholder attribute defined (even if empty,
+// e.g., placeholder=" ") for the floating label to work correctly.
 .text-field-floating {
   position: relative;
   margin-bottom: 1.25rem;
@@ -330,7 +333,7 @@ select {
         top: 1px;
         width: 6px;
         height: 11px;
-        border: solid #fff;
+        border: solid var(--color-white, #fff);
         border-width: 0 2px 2px 0;
         transform: rotate(45deg);
       }
@@ -347,7 +350,7 @@ select {
         top: 7px;
         width: 10px;
         height: 2px;
-        background-color: #fff;
+        background-color: var(--color-white, #fff);
       }
     }
 
@@ -480,7 +483,7 @@ select {
       top: 4px;
       width: 24px;
       height: 24px;
-      background-color: #fff;
+      background-color: var(--color-white, #fff);
       border-radius: 50%;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       transition: transform 0.2s ease, background-color 0.2s ease;

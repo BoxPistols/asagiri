@@ -269,6 +269,8 @@ summary {
   --color-text: #4c5059;
   --color-text-p: #393d43;
   --color-text-secondary: #666;
+  --color-text-muted: #6c757d;
+  --color-text-code: #1f2937;
   --color-text-a: #1867b5;
   --color-text-a-hover: #1976d2;
   --color-text-a-visited: #35206a;
@@ -405,6 +407,8 @@ summary {
   --color-text: #e4e4e7;
   --color-text-p: #d4d4d8;
   --color-text-secondary: #a1a1aa;
+  --color-text-muted: #9ca3af;
+  --color-text-code: #e4e4e7;
   --color-text-a: #60a5fa;
   --color-text-a-hover: #93c5fd;
   --color-text-a-visited: #a78bfa;
@@ -473,7 +477,7 @@ section.section,
 .paper {
   margin: 1.5rem 2rem 1rem;
   padding: 1.5rem 2rem 1rem;
-  background-color: white;
+  background-color: var(--color-box, #fff);
   box-shadow: var(--box-shadow);
 }
 

@@ -10,48 +10,41 @@
 (function() {
   'use strict';
 
+  // Animation duration constant (matches CSS animation duration)
+  const RIPPLE_DURATION = 600;
+
   /**
    * Create ripple effect on element
    * @param {MouseEvent} event - Click event
    * @param {HTMLElement} element - Target element
    */
   function createRipple(event, element) {
-    // Remove any existing ripple waves
-    var existingRipples = element.querySelectorAll('.ripple-wave');
-    existingRipples.forEach(function(ripple) {
-      if (ripple.dataset.removing !== 'true') {
-        ripple.dataset.removing = 'true';
-        setTimeout(function() {
-          if (ripple.parentNode) {
-            ripple.parentNode.removeChild(ripple);
-          }
-        }, 600);
-      }
-    });
-
     // Get element dimensions and position
-    var rect = element.getBoundingClientRect();
-    var size = Math.max(rect.width, rect.height);
-    var x = event.clientX - rect.left - size / 2;
-    var y = event.clientY - rect.top - size / 2;
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
 
     // Create ripple wave element
-    var ripple = document.createElement('span');
+    const ripple = document.createElement('span');
     ripple.className = 'ripple-wave';
-    ripple.style.cssText =
-      'width: ' + size + 'px;' +
-      'height: ' + size + 'px;' +
-      'left: ' + x + 'px;' +
-      'top: ' + y + 'px;';
+    ripple.style.cssText = `width: ${size}px;height: ${size}px;left: ${x}px;top: ${y}px;`;
 
     element.appendChild(ripple);
 
-    // Remove ripple after animation completes
+    // Remove ripple after animation completes using animationend event for reliability
+    ripple.addEventListener('animationend', function() {
+      if (ripple.parentNode) {
+        ripple.parentNode.removeChild(ripple);
+      }
+    });
+
+    // Fallback removal in case animationend doesn't fire
     setTimeout(function() {
       if (ripple.parentNode) {
         ripple.parentNode.removeChild(ripple);
       }
-    }, 600);
+    }, RIPPLE_DURATION + 100);
   }
 
   /**
@@ -60,33 +53,28 @@
    * @param {HTMLElement} element - Target element
    */
   function createCenteredRipple(event, element) {
-    var existingRipples = element.querySelectorAll('.ripple-wave');
-    existingRipples.forEach(function(ripple) {
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 2;
+
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple-wave';
+    ripple.style.cssText = `width: ${size}px;height: ${size}px;left: 50%;top: 50%;margin-left: ${-size / 2}px;margin-top: ${-size / 2}px;`;
+
+    element.appendChild(ripple);
+
+    // Remove ripple after animation completes using animationend event for reliability
+    ripple.addEventListener('animationend', function() {
       if (ripple.parentNode) {
         ripple.parentNode.removeChild(ripple);
       }
     });
 
-    var rect = element.getBoundingClientRect();
-    var size = Math.max(rect.width, rect.height) * 2;
-
-    var ripple = document.createElement('span');
-    ripple.className = 'ripple-wave';
-    ripple.style.cssText =
-      'width: ' + size + 'px;' +
-      'height: ' + size + 'px;' +
-      'left: 50%;' +
-      'top: 50%;' +
-      'margin-left: ' + (-size / 2) + 'px;' +
-      'margin-top: ' + (-size / 2) + 'px;';
-
-    element.appendChild(ripple);
-
+    // Fallback removal in case animationend doesn't fire
     setTimeout(function() {
       if (ripple.parentNode) {
         ripple.parentNode.removeChild(ripple);
       }
-    }, 600);
+    }, RIPPLE_DURATION + 100);
   }
 
   /**
@@ -94,7 +82,7 @@
    * @param {MouseEvent} event - Click event
    */
   function handleRippleClick(event) {
-    var element = event.currentTarget;
+    const element = event.currentTarget;
 
     // Check if it's a centered ripple
     if (element.classList.contains('ripple-centered')) {
@@ -104,12 +92,15 @@
     }
   }
 
+  // Ripple variant classes for checking
+  const RIPPLE_CLASSES = ['ripple', 'ripple-light', 'ripple-dark', 'ripple-primary', 'ripple-success', 'ripple-danger'];
+
   /**
    * Initialize ripple effects on elements
    * @param {string|HTMLElement|NodeList} selector - Elements to initialize
    */
   function init(selector) {
-    var elements;
+    let elements;
 
     if (typeof selector === 'string') {
       elements = document.querySelectorAll(selector);
@@ -128,11 +119,11 @@
         return;
       }
 
-      // Add ripple class if not present
-      if (!element.classList.contains('ripple') &&
-          !element.classList.contains('ripple-light') &&
-          !element.classList.contains('ripple-dark') &&
-          !element.classList.contains('ripple-primary')) {
+      // Add ripple class if not present (check all variant classes)
+      const hasRippleClass = RIPPLE_CLASSES.some(function(cls) {
+        return element.classList.contains(cls);
+      });
+      if (!hasRippleClass) {
         element.classList.add('ripple');
       }
 
@@ -146,7 +137,7 @@
    * @param {string|HTMLElement|NodeList} selector - Elements to destroy
    */
   function destroy(selector) {
-    var elements;
+    let elements;
 
     if (typeof selector === 'string') {
       elements = document.querySelectorAll(selector);
@@ -163,7 +154,7 @@
       delete element.dataset.rippleInit;
 
       // Remove any existing ripples
-      var ripples = element.querySelectorAll('.ripple-wave');
+      const ripples = element.querySelectorAll('.ripple-wave');
       ripples.forEach(function(ripple) {
         if (ripple.parentNode) {
           ripple.parentNode.removeChild(ripple);

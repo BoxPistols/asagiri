@@ -26,7 +26,10 @@
 }
 
 // Elevation level definitions
-// Each level has ambient, key, and penumbra shadows
+// NOTE: This Sass map is provided for reference and potential programmatic use.
+// The actual elevation styles are defined via CSS custom properties below.
+// The rgba(var(--shadow-color), ...) syntax is for documentation purposes only
+// and is not valid Sass - use the CSS custom properties (--elevation-1, etc.) instead.
 $elevation-levels: (
   0: (
     ambient: 0 0 0 0 rgba(var(--shadow-color), 0),

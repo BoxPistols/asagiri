@@ -2900,7 +2900,7 @@ select::placeholder {
   top: 1px;
   width: 6px;
   height: 11px;
-  border: solid #fff;
+  border: solid var(--color-white, #fff);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -2915,7 +2915,7 @@ select::placeholder {
   top: 7px;
   width: 10px;
   height: 2px;
-  background-color: #fff;
+  background-color: var(--color-white, #fff);
 }
 .checkbox input[type=checkbox]:disabled {
   opacity: 0.5;
@@ -3027,7 +3027,7 @@ select::placeholder {
   top: 4px;
   width: 24px;
   height: 24px;
-  background-color: #fff;
+  background-color: var(--color-white, #fff);
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, background-color 0.2s ease;
@@ -7791,8 +7791,13 @@ textarea.is-warning,
   -webkit-tap-highlight-color: transparent;
 }
 .ripple-success .ripple-wave {
+  position: absolute;
+  border-radius: 50%;
   background-color: var(--color-success, #00a859);
   opacity: 0.3;
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple-animation 0.6s ease-out forwards;
 }
 
 .ripple-danger {
@@ -7801,8 +7806,13 @@ textarea.is-warning,
   -webkit-tap-highlight-color: transparent;
 }
 .ripple-danger .ripple-wave {
+  position: absolute;
+  border-radius: 50%;
   background-color: var(--color-danger, #e1323c);
   opacity: 0.3;
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple-animation 0.6s ease-out forwards;
 }
 
 @keyframes ripple-animation {
@@ -7835,15 +7845,6 @@ textarea.is-warning,
     opacity: 0;
   }
 }
-.ripple-centered .ripple-wave {
-  top: 50% !important;
-  left: 50% !important;
-  margin-top: -50%;
-  margin-left: -50%;
-  width: 100%;
-  height: 100%;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ripple .ripple-wave,
   .ripple-light .ripple-wave,
@@ -7865,7 +7866,7 @@ textarea.is-warning,
   height: 56px;
   padding: 0;
   background-color: var(--color-primary, #31a9c7);
-  color: #fff;
+  color: var(--color-white, #fff);
   border: none;
   border-radius: 16px;
   box-shadow: var(--elevation-3);
@@ -8010,7 +8011,7 @@ textarea.is-warning,
 
 .fab-warning {
   background-color: var(--color-warning, #ebbb0c);
-  color: #000;
+  color: var(--color-black, #000);
 }
 .fab-warning:hover {
   background-color: var(--color-warning-dark, #d99e00);
@@ -8074,7 +8075,7 @@ textarea.is-warning,
   transform: translateX(-50%);
 }
 .fab-bottom-center:hover {
-  transform: translateX(-50%) translateY(-2px);
+  transform: translate(-50%, -2px);
 }
 
 .fab-top-right {
@@ -8105,9 +8106,14 @@ textarea.is-warning,
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .fab-hide-on-scroll.hidden {
-  transform: translateY(100px);
+  transform: translateY(120%);
   opacity: 0;
   pointer-events: none;
+}
+
+.fab-top-left.fab-hide-on-scroll.hidden,
+.fab-top-right.fab-hide-on-scroll.hidden {
+  transform: translateY(-120%);
 }
 
 .fab-group {
@@ -8663,7 +8669,7 @@ a.chip:focus-visible,
   max-width: 560px;
   padding: 0.875rem 1rem;
   background-color: var(--color-dark, #1d1d1d);
-  color: #fff;
+  color: var(--color-white, #fff);
   border-radius: 8px;
   box-shadow: var(--elevation-3);
   font-size: 0.875rem;
@@ -8736,7 +8742,7 @@ a.chip:focus-visible,
 }
 .snackbar-close:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: var(--color-white, #fff);
 }
 .snackbar-close:focus-visible {
   outline: 2px solid var(--color-primary-light, #4ec4df);
@@ -8777,7 +8783,7 @@ a.chip:focus-visible,
   background-color: var(--color-success, #00a859);
 }
 .snackbar-success .snackbar-btn {
-  color: #fff;
+  color: var(--color-white, #fff);
 }
 .snackbar-success .snackbar-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
@@ -8785,10 +8791,10 @@ a.chip:focus-visible,
 
 .snackbar-warning {
   background-color: var(--color-warning, #ebbb0c);
-  color: #000;
+  color: var(--color-black, #000);
 }
 .snackbar-warning .snackbar-btn {
-  color: #000;
+  color: var(--color-black, #000);
 }
 .snackbar-warning .snackbar-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
@@ -8797,14 +8803,14 @@ a.chip:focus-visible,
   color: rgba(0, 0, 0, 0.6);
 }
 .snackbar-warning .snackbar-close:hover {
-  color: #000;
+  color: var(--color-black, #000);
 }
 
 .snackbar-danger {
   background-color: var(--color-danger, #e1323c);
 }
 .snackbar-danger .snackbar-btn {
-  color: #fff;
+  color: var(--color-white, #fff);
 }
 .snackbar-danger .snackbar-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
@@ -8814,7 +8820,7 @@ a.chip:focus-visible,
   background-color: var(--color-info, #1ec2c2);
 }
 .snackbar-info .snackbar-btn {
-  color: #fff;
+  color: var(--color-white, #fff);
 }
 .snackbar-info .snackbar-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);

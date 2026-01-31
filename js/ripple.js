@@ -14,6 +14,26 @@
   const RIPPLE_DURATION = 600;
 
   /**
+   * Setup ripple cleanup handlers
+   * @param {HTMLElement} ripple - Ripple element to clean up
+   */
+  function setupRippleCleanup(ripple) {
+    // Remove ripple after animation completes using animationend event for reliability
+    ripple.addEventListener('animationend', function() {
+      if (ripple.parentNode) {
+        ripple.parentNode.removeChild(ripple);
+      }
+    });
+
+    // Fallback removal in case animationend doesn't fire
+    setTimeout(function() {
+      if (ripple.parentNode) {
+        ripple.parentNode.removeChild(ripple);
+      }
+    }, RIPPLE_DURATION + 100);
+  }
+
+  /**
    * Create ripple effect on element
    * @param {MouseEvent} event - Click event
    * @param {HTMLElement} element - Target element
@@ -31,20 +51,7 @@
     ripple.style.cssText = `width: ${size}px;height: ${size}px;left: ${x}px;top: ${y}px;`;
 
     element.appendChild(ripple);
-
-    // Remove ripple after animation completes using animationend event for reliability
-    ripple.addEventListener('animationend', function() {
-      if (ripple.parentNode) {
-        ripple.parentNode.removeChild(ripple);
-      }
-    });
-
-    // Fallback removal in case animationend doesn't fire
-    setTimeout(function() {
-      if (ripple.parentNode) {
-        ripple.parentNode.removeChild(ripple);
-      }
-    }, RIPPLE_DURATION + 100);
+    setupRippleCleanup(ripple);
   }
 
   /**
@@ -61,20 +68,7 @@
     ripple.style.cssText = `width: ${size}px;height: ${size}px;left: 50%;top: 50%;margin-left: ${-size / 2}px;margin-top: ${-size / 2}px;`;
 
     element.appendChild(ripple);
-
-    // Remove ripple after animation completes using animationend event for reliability
-    ripple.addEventListener('animationend', function() {
-      if (ripple.parentNode) {
-        ripple.parentNode.removeChild(ripple);
-      }
-    });
-
-    // Fallback removal in case animationend doesn't fire
-    setTimeout(function() {
-      if (ripple.parentNode) {
-        ripple.parentNode.removeChild(ripple);
-      }
-    }, RIPPLE_DURATION + 100);
+    setupRippleCleanup(ripple);
   }
 
   /**

@@ -146,13 +146,10 @@
 }
 
 // Centered ripple (for icon buttons, FABs)
-// Note: The JavaScript (createCenteredRipple) handles positioning via inline styles.
-// This class provides a CSS-only fallback for static centered ripples.
+// JavaScript (createCenteredRipple) handles positioning via inline styles
 .ripple-centered {
   .ripple-wave {
-    // Use transform for centering to avoid !important conflicts with JS inline styles
-    transform: scale(0) translate(-50%, -50%);
-    transform-origin: center center;
+    // No additional positioning needed - JS handles it via inline styles
   }
 }
 

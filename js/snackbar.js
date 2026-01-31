@@ -67,12 +67,24 @@
       snackbar.classList.add('snackbar-' + options.variant);
     }
 
-    // Icon (assuming icons are trusted SVG strings from internal code)
+    // Icon (sanitized via DOMParser to prevent XSS)
     if (options.icon) {
       snackbar.classList.add('snackbar-with-icon');
       const iconSpan = document.createElement('span');
       iconSpan.className = 'snackbar-icon';
-      iconSpan.innerHTML = options.icon; // SVG icons are from internal trusted sources
+
+      // Use DOMParser to safely parse SVG and prevent script injection
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(options.icon, 'image/svg+xml');
+      const svgElement = svgDoc.querySelector('svg');
+
+      // Verify SVG is valid and doesn't contain script elements
+      if (svgElement && !svgElement.querySelector('script')) {
+        iconSpan.appendChild(svgElement);
+      } else {
+        console.error('Invalid or unsafe SVG provided for snackbar icon.');
+      }
+
       snackbar.appendChild(iconSpan);
     }
 
@@ -97,7 +109,7 @@
       closeBtn.className = 'snackbar-close';
       closeBtn.type = 'button';
       closeBtn.setAttribute('aria-label', 'Close');
-      closeBtn.innerHTML = '&times;';
+      closeBtn.textContent = '×';
       snackbar.appendChild(closeBtn);
     }
 

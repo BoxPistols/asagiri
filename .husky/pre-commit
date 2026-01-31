@@ -1,0 +1,18 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run validation tests before commit
+echo "🔍 Running pre-commit validation..."
+
+npm run test:styles
+STYLES_EXIT=$?
+
+npm run test:links
+LINKS_EXIT=$?
+
+if [ $STYLES_EXIT -ne 0 ] || [ $LINKS_EXIT -ne 0 ]; then
+  echo "❌ Pre-commit validation failed. Please fix the errors above."
+  exit 1
+fi
+
+echo "✅ Pre-commit validation passed"

@@ -65,7 +65,11 @@
     "analyze:tokens": "node scripts/analyze-design-tokens.js",
     "version:patch": "node scripts/update-version.js patch",
     "version:minor": "node scripts/update-version.js minor",
-    "version:major": "node scripts/update-version.js major"
+    "version:major": "node scripts/update-version.js major",
+    "test": "node scripts/test-all.js",
+    "test:styles": "node scripts/validate-styles.js",
+    "test:links": "node scripts/check-links.js",
+    "validate": "npm run test && npm run lint:styles"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.6.20",

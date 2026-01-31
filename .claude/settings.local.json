@@ -14,7 +14,11 @@
       "Bash(mv:*)",
       "Bash(git checkout:*)",
       "Bash(git merge:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(git branch:*)",
+      "Bash(chmod:*)",
+      "Bash(npm run test:styles:*)",
+      "Bash(npm run test)"
     ],
     "deny": [],
     "ask": []

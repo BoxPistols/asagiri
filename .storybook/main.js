@@ -14,7 +14,7 @@ const config = {
   docs: {
     autodocs: 'tag',
   },
-  staticDirs: ['../css', '../examples'],
+  staticDirs: ['../css', '../examples', '../docs'],
   core: {
     disableTelemetry: true,
   },

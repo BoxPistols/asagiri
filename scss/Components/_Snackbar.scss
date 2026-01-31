@@ -82,7 +82,7 @@
 
   // Appearance
   background-color: var(--color-dark, #1d1d1d);
-  color: #fff;
+  color: var(--color-white, #fff);
   border-radius: 8px;
   box-shadow: var(--elevation-3);
 
@@ -174,7 +174,7 @@
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: var(--color-white, #fff);
   }
 
   &:focus-visible {
@@ -227,7 +227,7 @@
   background-color: var(--color-success, #00a859);
 
   .snackbar-btn {
-    color: #fff;
+    color: var(--color-white, #fff);
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
@@ -237,10 +237,10 @@
 
 .snackbar-warning {
   background-color: var(--color-warning, #ebbb0c);
-  color: #000;
+  color: var(--color-black, #000);
 
   .snackbar-btn {
-    color: #000;
+    color: var(--color-black, #000);
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
@@ -251,7 +251,7 @@
     color: rgba(0, 0, 0, 0.6);
 
     &:hover {
-      color: #000;
+      color: var(--color-black, #000);
     }
   }
 }
@@ -260,7 +260,7 @@
   background-color: var(--color-danger, #e1323c);
 
   .snackbar-btn {
-    color: #fff;
+    color: var(--color-white, #fff);
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
@@ -272,7 +272,7 @@
   background-color: var(--color-info, #1ec2c2);
 
   .snackbar-btn {
-    color: #fff;
+    color: var(--color-white, #fff);
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);

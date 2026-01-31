@@ -51,6 +51,7 @@
   "author": "asagiri-design",
   "license": "MIT",
   "scripts": {
+    "dev": "npx concurrently \"sass scss/main.scss css/main.css --watch\" \"npx serve . -p 8888\"",
     "build": "sass scss/main.scss css/main.css --style=expanded --no-source-map",
     "build:compressed": "sass scss/main.scss css/main.min.css --style=compressed --no-source-map",
     "build:dist": "sass scss/main.scss dist/asagiri.min.css --style=compressed --no-source-map",

@@ -13,7 +13,7 @@
   'use strict';
 
   // Default configuration
-  var defaults = {
+  const defaults = {
     duration: 5000, // Auto-dismiss after 5 seconds (0 = no auto-dismiss)
     position: 'bottom-center', // bottom-center, bottom-left, bottom-right, top-center, top-left, top-right
     showProgress: false, // Show progress bar for auto-dismiss
@@ -22,8 +22,8 @@
   };
 
   // Container element reference
-  var container = null;
-  var snackbars = [];
+  let container = null;
+  let snackbars = [];
 
   /**
    * Get or create container element
@@ -31,7 +31,7 @@
    * @returns {HTMLElement} Container element
    */
   function getContainer(position) {
-    var positionClass = 'snackbar-' + position;
+    const positionClass = 'snackbar-' + position;
 
     if (container && container.classList.contains(positionClass)) {
       return container;
@@ -51,6 +51,7 @@
 
   /**
    * Create snackbar element
+   * Uses DOM APIs instead of innerHTML to prevent XSS vulnerabilities
    * @param {string} message - Message to display
    * @param {Object} options - Snackbar options
    * @returns {HTMLElement} Snackbar element
@@ -58,7 +59,7 @@
   function createSnackbar(message, options) {
     options = Object.assign({}, defaults, options);
 
-    var snackbar = document.createElement('div');
+    const snackbar = document.createElement('div');
     snackbar.className = 'snackbar';
 
     // Add variant class
@@ -66,40 +67,58 @@
       snackbar.classList.add('snackbar-' + options.variant);
     }
 
-    // Icon
-    var iconHtml = '';
+    // Icon (sanitized via DOMParser to prevent XSS)
     if (options.icon) {
       snackbar.classList.add('snackbar-with-icon');
-      iconHtml = '<span class="snackbar-icon">' + options.icon + '</span>';
+      const iconSpan = document.createElement('span');
+      iconSpan.className = 'snackbar-icon';
+
+      // Use DOMParser to safely parse SVG and prevent script injection
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(options.icon, 'image/svg+xml');
+      const svgElement = svgDoc.querySelector('svg');
+
+      // Verify SVG is valid and doesn't contain script elements
+      if (svgElement && !svgElement.querySelector('script')) {
+        iconSpan.appendChild(svgElement);
+      } else {
+        console.error('Invalid or unsafe SVG provided for snackbar icon.');
+      }
+
+      snackbar.appendChild(iconSpan);
     }
 
+    // Text content (sanitized via textContent)
+    const textSpan = document.createElement('span');
+    textSpan.className = 'snackbar-text';
+    textSpan.textContent = message;
+    snackbar.appendChild(textSpan);
+
     // Action button
-    var actionHtml = '';
     if (options.action) {
-      actionHtml = '<button class="snackbar-btn" type="button">' + options.action.text + '</button>';
+      const actionBtn = document.createElement('button');
+      actionBtn.className = 'snackbar-btn';
+      actionBtn.type = 'button';
+      actionBtn.textContent = options.action.text;
+      snackbar.appendChild(actionBtn);
     }
 
     // Close button
-    var closeHtml = '';
     if (options.closeable) {
-      closeHtml = '<button class="snackbar-close" type="button" aria-label="Close">&times;</button>';
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'snackbar-close';
+      closeBtn.type = 'button';
+      closeBtn.setAttribute('aria-label', 'Close');
+      closeBtn.textContent = '×';
+      snackbar.appendChild(closeBtn);
     }
 
     // Progress bar
-    var progressHtml = '';
     if (options.showProgress && options.duration > 0) {
-      progressHtml = '<div class="snackbar-progress" style="--snackbar-duration: ' + options.duration + 'ms;"></div>';
-    }
-
-    // Build HTML
-    snackbar.innerHTML = iconHtml +
-      '<span class="snackbar-text">' + message + '</span>' +
-      actionHtml +
-      closeHtml +
-      progressHtml;
-
-    // Make position relative for progress bar
-    if (options.showProgress) {
+      const progressDiv = document.createElement('div');
+      progressDiv.className = 'snackbar-progress';
+      progressDiv.style.setProperty('--snackbar-duration', `${options.duration}ms`);
+      snackbar.appendChild(progressDiv);
       snackbar.style.position = 'relative';
     }
 
@@ -115,10 +134,9 @@
   function show(message, options) {
     options = Object.assign({}, defaults, options);
 
-    var containerEl = getContainer(options.position);
-    var snackbar = createSnackbar(message, options);
-    var dismissTimeout = null;
-    var isDismissed = false;
+    const containerEl = getContainer(options.position);
+    const snackbar = createSnackbar(message, options);
+    let dismissTimeout = null;
 
     // Add to container
     containerEl.insertBefore(snackbar, containerEl.firstChild);
@@ -126,7 +144,7 @@
 
     // Remove excess snackbars
     while (snackbars.length > options.maxStack) {
-      var oldSnackbar = snackbars.pop();
+      const oldSnackbar = snackbars.pop();
       dismiss(oldSnackbar);
     }
 
@@ -144,6 +162,12 @@
       if (target._isDismissed) return;
       target._isDismissed = true;
 
+      // Clear any pending timeout
+      if (dismissTimeout) {
+        clearTimeout(dismissTimeout);
+        dismissTimeout = null;
+      }
+
       target.classList.remove('show');
       target.classList.add('hiding');
 
@@ -151,7 +175,7 @@
         if (target.parentNode) {
           target.parentNode.removeChild(target);
         }
-        var index = snackbars.indexOf(target);
+        const index = snackbars.indexOf(target);
         if (index > -1) {
           snackbars.splice(index, 1);
         }
@@ -160,7 +184,7 @@
 
     // Bind action button
     if (options.action && options.action.callback) {
-      var actionBtn = snackbar.querySelector('.snackbar-btn');
+      const actionBtn = snackbar.querySelector('.snackbar-btn');
       if (actionBtn) {
         actionBtn.addEventListener('click', function() {
           options.action.callback();
@@ -170,7 +194,7 @@
     }
 
     // Bind close button
-    var closeBtn = snackbar.querySelector('.snackbar-close');
+    const closeBtn = snackbar.querySelector('.snackbar-close');
     if (closeBtn) {
       closeBtn.addEventListener('click', function() {
         dismiss();
@@ -184,12 +208,13 @@
       }, options.duration);
     }
 
-    // Pause on hover
+    // Pause on hover - clear existing timeout to prevent multiple queued dismisses
     snackbar.addEventListener('mouseenter', function() {
       if (dismissTimeout) {
         clearTimeout(dismissTimeout);
+        dismissTimeout = null;
       }
-      var progress = snackbar.querySelector('.snackbar-progress');
+      const progress = snackbar.querySelector('.snackbar-progress');
       if (progress) {
         progress.style.animationPlayState = 'paused';
       }
@@ -197,11 +222,15 @@
 
     snackbar.addEventListener('mouseleave', function() {
       if (options.duration > 0 && !snackbar._isDismissed) {
+        // Clear any existing timeout before setting a new one
+        if (dismissTimeout) {
+          clearTimeout(dismissTimeout);
+        }
         dismissTimeout = setTimeout(function() {
           dismiss();
         }, Math.max(options.duration / 3, 1500));
       }
-      var progress = snackbar.querySelector('.snackbar-progress');
+      const progress = snackbar.querySelector('.snackbar-progress');
       if (progress) {
         progress.style.animationPlayState = 'running';
       }
@@ -283,10 +312,14 @@
           if (snackbar.parentNode) {
             snackbar.parentNode.removeChild(snackbar);
           }
+          // Remove from tracking array once it is actually removed
+          const index = snackbars.indexOf(snackbar);
+          if (index !== -1) {
+            snackbars.splice(index, 1);
+          }
         }, 300);
       }
     });
-    snackbars = [];
   }
 
   /**

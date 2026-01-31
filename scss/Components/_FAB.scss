@@ -24,7 +24,7 @@
 
   // Appearance
   background-color: var(--color-primary, #31a9c7);
-  color: #fff;
+  color: var(--color-white, #fff);
   border: none;
   border-radius: 16px;
   box-shadow: var(--elevation-3);
@@ -205,7 +205,7 @@
 
 .fab-warning {
   background-color: var(--color-warning, #ebbb0c);
-  color: #000;
+  color: var(--color-black, #000);
 
   &:hover {
     background-color: var(--color-warning-dark, #d99e00);
@@ -280,7 +280,7 @@
   transform: translateX(-50%);
 
   &:hover {
-    transform: translateX(-50%) translateY(-2px);
+    transform: translate(-50%, -2px);
   }
 }
 
@@ -315,10 +315,17 @@
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
   &.hidden {
-    transform: translateY(100px);
+    // Use percentage so movement scales with FAB size and viewport
+    transform: translateY(120%);
     opacity: 0;
     pointer-events: none;
   }
+}
+
+// Top-positioned FABs should hide upward instead of downward
+.fab-top-left.fab-hide-on-scroll.hidden,
+.fab-top-right.fab-hide-on-scroll.hidden {
+  transform: translateY(-120%);
 }
 
 // FAB Group (multiple FABs)

@@ -8,7 +8,9 @@
 //   <div class="avatar avatar-lg">JD</div>
 //   <div class="avatar-group">...</div>
 
-// Avatar Base
+// Avatar Base — neutral placeholder; colored variants override both bg + color.
+// Default uses dark text so the surface-variant background (light grey) stays
+// readable without a semantic color class.
 .avatar {
   display: inline-flex;
   align-items: center;
@@ -17,7 +19,7 @@
   height: 3rem;
   border-radius: var(--radius-full);
   background-color: var(--color-surface-variant);
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);
   font-size: 1.125rem;
   font-weight: 600;
   text-align: center;

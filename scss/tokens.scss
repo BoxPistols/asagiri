@@ -1,0 +1,16 @@
+// ============================================================================
+// Token-only entry point
+// ============================================================================
+// Compiled to css/tokens.css for consumers who want just the design tokens
+// (custom property declarations) without the full component framework.
+//
+// Build:
+//   npm run build:tokens
+//
+// Usage:
+//   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri/css/tokens.css">
+// ============================================================================
+
+@use "Tokens/Color";
+@use "Tokens/Elevation-tokens";
+@use "Utility/Item";

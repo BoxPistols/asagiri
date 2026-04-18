@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asagiri — Design System Reference</title>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Yu Gothic Medium", Meiryo, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  header { margin-bottom: 3rem; }
+  header h1 { font-family: "Poppins", sans-serif; font-size: 44px; margin: 0 0 .25rem; letter-spacing: -0.04em; font-weight: 600; color: var(--color-text-primary); }
+  header .jp { color: var(--color-text-tertiary); font-size: 14px; letter-spacing: 0.2em; }
+  header p { color: var(--color-text-secondary); max-width: 720px; line-height: 1.55; margin: 1rem 0 0; font-size: 15px; }
+
+  .group { margin-bottom: 3rem; }
+  .group h2 { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; margin: 0 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--color-border-subtle); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1rem; }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--motion-duration-short) var(--motion-ease-standard), box-shadow var(--motion-duration-short) var(--motion-ease-standard);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--elevation-2); }
+  .card iframe { border: 0; width: 100%; height: 200px; background: var(--color-surface); pointer-events: none; }
+  .card .meta { padding: .75rem 1rem; border-top: 1px solid var(--color-border-subtle); display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
+  .card .title { font-weight: 600; font-size: .9rem; color: var(--color-text-primary); }
+  .card .tag { font-family: "SF Mono", Monaco, monospace; font-size: 10px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 13px; line-height: 1.6; }
+  footer code { background: var(--color-surface-variant); padding: 2px 6px; border-radius: var(--radius-xs); font-family: "SF Mono", Monaco, monospace; font-size: 12px; color: var(--color-text-code); }
+
+  a.readme-link { color: var(--color-text-link); text-decoration: none; font-weight: 500; }
+  a.readme-link:hover { text-decoration: underline; color: var(--color-text-link-hover); }
+
+  .theme-toggle { position: fixed; top: 1rem; right: 1rem; background: var(--color-surface); border: 1px solid var(--color-border); padding: 0.5rem 0.9rem; font-size: 0.85rem; border-radius: var(--radius-full); cursor: pointer; color: var(--color-text-primary); box-shadow: var(--elevation-1); }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="const h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark'">Toggle theme</button>
+
+<div class="wrap">
+
+<header>
+  <div class="jp">朝 霧</div>
+  <h1>Asagiri Design System</h1>
+  <p>
+    A visual reference to every token, component primitive and voice rule in the
+    Asagiri CSS framework. Each card below is a live HTML snippet — if you need
+    the copy-pasteable source, open the card file directly.
+    Written-form documentation lives in
+    <a class="readme-link" href="README.md">README.md</a>.
+  </p>
+</header>
+
+<section class="group">
+  <h2>Brand</h2>
+  <div class="grid">
+    <a class="card" href="preview/01-logo.html"><iframe src="preview/01-logo.html" scrolling="no"></iframe><div class="meta"><span class="title">Logo</span><span class="tag">brand</span></div></a>
+    <a class="card" href="preview/25-icons.html"><iframe src="preview/25-icons.html" scrolling="no"></iframe><div class="meta"><span class="title">Iconography</span><span class="tag">brand</span></div></a>
+    <a class="card" href="preview/26-voice.html"><iframe src="preview/26-voice.html" scrolling="no"></iframe><div class="meta"><span class="title">Voice &amp; content</span><span class="tag">brand</span></div></a>
+  </div>
+</section>
+
+<section class="group">
+  <h2>Colors</h2>
+  <div class="grid">
+    <a class="card" href="preview/02-primary-palette.html"><iframe src="preview/02-primary-palette.html" scrolling="no"></iframe><div class="meta"><span class="title">Primary palette</span><span class="tag">colors</span></div></a>
+    <a class="card" href="preview/03-semantic-colors.html"><iframe src="preview/03-semantic-colors.html" scrolling="no"></iframe><div class="meta"><span class="title">Semantic colors</span><span class="tag">colors</span></div></a>
+    <a class="card" href="preview/04-semantic-variants.html"><iframe src="preview/04-semantic-variants.html" scrolling="no"></iframe><div class="meta"><span class="title">Semantic ramps</span><span class="tag">colors</span></div></a>
+    <a class="card" href="preview/05-neutrals.html"><iframe src="preview/05-neutrals.html" scrolling="no"></iframe><div class="meta"><span class="title">Neutrals</span><span class="tag">colors</span></div></a>
+    <a class="card" href="preview/06-dark-theme.html"><iframe src="preview/06-dark-theme.html" scrolling="no"></iframe><div class="meta"><span class="title">Dark theme</span><span class="tag">colors</span></div></a>
+  </div>
+</section>
+
+<section class="group">
+  <h2>Type</h2>
+  <div class="grid">
+    <a class="card" href="preview/07-type-scale.html"><iframe src="preview/07-type-scale.html" scrolling="no"></iframe><div class="meta"><span class="title">Type scale</span><span class="tag">type</span></div></a>
+    <a class="card" href="preview/08-body-type.html"><iframe src="preview/08-body-type.html" scrolling="no"></iframe><div class="meta"><span class="title">Body type</span><span class="tag">type</span></div></a>
+    <a class="card" href="preview/09-design-font-en.html"><iframe src="preview/09-design-font-en.html" scrolling="no"></iframe><div class="meta"><span class="title">Design-font-en</span><span class="tag">type</span></div></a>
+    <a class="card" href="preview/10-mono-type.html"><iframe src="preview/10-mono-type.html" scrolling="no"></iframe><div class="meta"><span class="title">Mono</span><span class="tag">type</span></div></a>
+  </div>
+</section>
+
+<section class="group">
+  <h2>Spacing</h2>
+  <div class="grid">
+    <a class="card" href="preview/11-spacing.html"><iframe src="preview/11-spacing.html" scrolling="no"></iframe><div class="meta"><span class="title">Spacing scale</span><span class="tag">spacing</span></div></a>
+    <a class="card" href="preview/12-radii.html"><iframe src="preview/12-radii.html" scrolling="no"></iframe><div class="meta"><span class="title">Radii</span><span class="tag">spacing</span></div></a>
+    <a class="card" href="preview/13-elevation.html"><iframe src="preview/13-elevation.html" scrolling="no"></iframe><div class="meta"><span class="title">Elevation</span><span class="tag">spacing</span></div></a>
+  </div>
+</section>
+
+<section class="group">
+  <h2>Components</h2>
+  <div class="grid">
+    <a class="card" href="preview/14-buttons-filled.html"><iframe src="preview/14-buttons-filled.html" scrolling="no"></iframe><div class="meta"><span class="title">Buttons — filled</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/15-buttons-variants.html"><iframe src="preview/15-buttons-variants.html" scrolling="no"></iframe><div class="meta"><span class="title">Buttons — variants</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/16-button-sizes.html"><iframe src="preview/16-button-sizes.html" scrolling="no"></iframe><div class="meta"><span class="title">Buttons — sizes</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/17-alerts.html"><iframe src="preview/17-alerts.html" scrolling="no"></iframe><div class="meta"><span class="title">Alerts</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/18-badges.html"><iframe src="preview/18-badges.html" scrolling="no"></iframe><div class="meta"><span class="title">Badges</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/19-form-inputs.html"><iframe src="preview/19-form-inputs.html" scrolling="no"></iframe><div class="meta"><span class="title">Form inputs</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/20-cards.html"><iframe src="preview/20-cards.html" scrolling="no"></iframe><div class="meta"><span class="title">Cards</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/21-avatars.html"><iframe src="preview/21-avatars.html" scrolling="no"></iframe><div class="meta"><span class="title">Avatars</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/22-progress.html"><iframe src="preview/22-progress.html" scrolling="no"></iframe><div class="meta"><span class="title">Progress</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/23-nav.html"><iframe src="preview/23-nav.html" scrolling="no"></iframe><div class="meta"><span class="title">Breadcrumb &amp; pagination</span><span class="tag">components</span></div></a>
+    <a class="card" href="preview/24-tabs.html"><iframe src="preview/24-tabs.html" scrolling="no"></iframe><div class="meta"><span class="title">Tabs</span><span class="tag">components</span></div></a>
+  </div>
+</section>
+
+<footer>
+  <p>Source of truth: <code>scss/Tokens/</code>, <code>scss/_Button.scss</code>, <code>scss/Components/</code>. Pure-CSS token build is available at <code>css/tokens.css</code> (run <code>npm run build:tokens</code> to regenerate).</p>
+  <p>See also: the interactive <a class="readme-link" href="../../showcase.html">showcase</a>.</p>
+</footer>
+
+</div>
+</body>
+</html>

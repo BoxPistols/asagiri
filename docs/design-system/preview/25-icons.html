@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Iconography</title>
+<style>
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .row { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .icon { width: 28px; height: 28px; color: var(--color-text-secondary); }
+  .icon.stroke { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .big { width: 40px; height: 40px; color: var(--color-primary); }
+  .note { font-size: 12px; color: var(--color-text-tertiary); line-height: 1.5; }
+  .note code { background: var(--color-surface-variant); padding: 1px 5px; border-radius: var(--radius-xs); font-size: 11px; font-family: "SF Mono", Monaco, monospace; color: var(--color-text-code); }
+</style>
+</head><body>
+<div class="card">
+  <h4>Iconography — Feather / Lucide, 2px stroke</h4>
+  <div class="row">
+    <svg class="icon stroke" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    <svg class="icon stroke" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon stroke" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+    <svg class="icon stroke" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+    <svg class="icon stroke" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    <svg class="icon stroke big" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </div>
+  <div class="note">All icons are inline SVG · <code>stroke="currentColor"</code> · <code>stroke-width: 2</code>. No icon font. <strong>Use Lucide</strong> (<code>unpkg.com/lucide@latest</code>) as the drop-in set. No emoji.</div>
+</div>
+</body></html>

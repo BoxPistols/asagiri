@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Breadcrumb + Pagination</title>
+<style>
+  h4 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  nav.bc { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 18px; }
+  nav.bc a { color: var(--color-text-link); text-decoration: none; }
+  nav.bc .sep { color: var(--color-text-tertiary); margin: 0 4px; }
+  nav.bc .active { color: var(--color-text-primary); font-weight: 600; }
+  nav.pg { display: flex; gap: 2px; align-items: center; }
+  nav.pg a { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 10px; border: 1px solid var(--color-border-subtle); background: var(--color-surface); color: var(--color-text-secondary); text-decoration: none; font-size: 14px; }
+  nav.pg a:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+  nav.pg a:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+  nav.pg a.active { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); font-weight: 600; }
+  nav.pg .el { border-left: 0; border-right: 0; pointer-events: none; color: var(--color-text-tertiary); }
+</style>
+</head><body>
+<div class="card">
+  <h4>Breadcrumb</h4>
+  <nav class="bc"><a href="#">Home</a><span class="sep">/</span><a href="#">Library</a><span class="sep">/</span><a href="#">Data</a><span class="sep">/</span><span class="active">Components</span></nav>
+  <h4>Pagination</h4>
+  <nav class="pg"><a href="#">Previous</a><a href="#">1</a><a class="active" href="#">2</a><a href="#">3</a><a class="el">…</a><a href="#">10</a><a href="#">Next</a></nav>
+</div>
+</body></html>

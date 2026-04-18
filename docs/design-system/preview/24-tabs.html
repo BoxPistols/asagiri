@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Tabs</title>
+<style>
+  h4 { margin: 0 0 12px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .tabs { border-bottom: 2px solid var(--color-border-subtle); display: flex; gap: 4px; margin-bottom: 12px; }
+  .tabs a { padding: 10px 16px; font-size: 14px; color: var(--color-text-tertiary); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -2px; font-weight: 500; }
+  .tabs a.active { color: var(--color-text-link); border-color: var(--color-text-link); }
+  .panel { font-size: 14px; color: var(--color-text-secondary); padding: 4px 0 14px; }
+  .pills { display: flex; gap: 6px; background: var(--color-surface-variant); padding: 4px; border-radius: var(--radius-md); width: fit-content; }
+  .pills a { padding: 6px 14px; font-size: 13px; color: var(--color-text-secondary); text-decoration: none; border-radius: var(--radius-sm); font-weight: 500; }
+  .pills a.active { background: var(--color-surface); color: var(--color-text-link); box-shadow: var(--elevation-1); }
+</style>
+</head><body>
+<div class="card">
+  <h4>Tabs</h4>
+  <div class="tabs"><a class="active" href="#">Tab 1</a><a href="#">Tab 2</a><a href="#">Tab 3</a></div>
+  <div class="panel">This is the content of Tab 1. Tabs help organize content into separate views.</div>
+  <h4 style="margin-top: 6px">Pills</h4>
+  <div class="pills"><a class="active" href="#">Home</a><a href="#">Profile</a><a href="#">Settings</a></div>
+</div>
+</body></html>

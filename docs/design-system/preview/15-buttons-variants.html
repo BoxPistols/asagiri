@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Buttons outline tonal text</title>
+<style>
+  h4 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 2.1rem; padding: 0 1.2rem; font-size: 0.92rem; font-weight: 500; letter-spacing: 0.08em; border-radius: var(--border-radius-all); border: 1px solid transparent; cursor: pointer; margin: 0 5px 6px 0; background: transparent; font-family: inherit; line-height: 1.2; }
+  .outline { border-width: 1px; border-style: solid; }
+  .o-primary { color: var(--color-text-link); border-color: var(--color-text-link); }
+  .o-success { color: var(--color-success); border-color: var(--color-success); }
+  .o-danger { color: var(--color-danger); border-color: var(--color-danger); }
+  .tonal-primary { background: color-mix(in srgb, var(--color-primary) 20%, transparent); color: var(--color-primary-dark); }
+  .tonal-success { background: color-mix(in srgb, var(--color-success) 20%, transparent); color: var(--color-success-dark); }
+  .tonal-danger { background: color-mix(in srgb, var(--color-danger) 20%, transparent); color: var(--color-danger-dark); }
+  .text-primary { color: var(--color-text-link); }
+  .text-danger { color: var(--color-danger); }
+  .pill { border-radius: var(--radius-full); }
+  .section { margin-bottom: 8px; }
+</style>
+</head><body>
+<div class="card">
+  <div class="section"><h4>Outline</h4>
+    <button class="btn outline o-primary">Primary</button>
+    <button class="btn outline o-success">Success</button>
+    <button class="btn outline o-danger">Danger</button>
+    <button class="btn outline o-primary pill">Pill</button>
+  </div>
+  <div class="section"><h4>Tonal (color-mix 20%)</h4>
+    <button class="btn tonal-primary">Primary</button>
+    <button class="btn tonal-success">Success</button>
+    <button class="btn tonal-danger">Danger</button>
+  </div>
+  <div class="section"><h4>Text</h4>
+    <button class="btn text-primary">Primary text</button>
+    <button class="btn text-danger">Danger text</button>
+  </div>
+</div>
+</body></html>

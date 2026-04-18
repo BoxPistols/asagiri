@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Avatars</title>
+<style>
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--color-surface); font-weight: 600; background: var(--color-text-tertiary); font-size: 14px; }
+  .xs { width: 24px; height: 24px; font-size: 10px; }
+  .sm { width: 32px; height: 32px; font-size: 12px; }
+  .md { width: 40px; height: 40px; font-size: 14px; }
+  .lg { width: 52px; height: 52px; font-size: 18px; }
+  .xl { width: 68px; height: 68px; font-size: 22px; }
+  .p { background: var(--color-primary); color: var(--color-on-primary); }
+  .s { background: var(--color-success); color: var(--color-on-success); }
+  .w { background: var(--color-warning); color: var(--color-on-warning); }
+  .d { background: var(--color-danger); color: var(--color-on-danger); }
+  .wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--color-surface); position: absolute; bottom: 0; right: 0; }
+  .rel { position: relative; }
+  .group { display: flex; }
+  .group > * { margin-left: -10px; border: 2px solid var(--color-surface); }
+  .lbl { font-size: 11px; color: var(--color-text-tertiary); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; width: 70px; }
+</style>
+</head><body>
+<div class="card">
+  <h4>Avatars</h4>
+  <div class="wrap"><span class="lbl">Sizes</span>
+    <span class="avatar xs">XS</span><span class="avatar sm">SM</span><span class="avatar md">MD</span><span class="avatar lg">LG</span><span class="avatar xl">XL</span>
+  </div>
+  <div class="wrap"><span class="lbl">Colors</span>
+    <span class="avatar md p">A</span><span class="avatar md s">B</span><span class="avatar md w">C</span><span class="avatar md d">D</span>
+  </div>
+  <div class="wrap"><span class="lbl">Status</span>
+    <span class="rel"><span class="avatar md p">A</span><span class="dot" style="background: var(--color-success)"></span></span>
+    <span class="rel"><span class="avatar md s">B</span><span class="dot" style="background: var(--color-warning)"></span></span>
+    <span class="rel"><span class="avatar md w">C</span><span class="dot" style="background: var(--color-danger)"></span></span>
+  </div>
+  <div class="wrap"><span class="lbl">Group</span>
+    <div class="group"><span class="avatar md p">A</span><span class="avatar md s">B</span><span class="avatar md w">C</span><span class="avatar md" style="background: var(--color-surface-variant); color: var(--color-text-secondary)">+5</span></div>
+  </div>
+</div>
+</body></html>

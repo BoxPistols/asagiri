@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Primary palette</title>
+<style>
+  .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .sw { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border-subtle); }
+  .sw .chip { height: 72px; }
+  .sw .meta { padding: 8px 10px; background: var(--color-surface); font-size: 11px; line-height: 1.35; }
+  .sw .name { font-weight: 600; color: var(--color-text-primary); }
+  .sw .token { color: var(--color-text-tertiary); font-family: "SF Mono", Monaco, monospace; font-size: 10.5px; }
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+</style>
+</head><body>
+<div class="card">
+  <h4>Primary — Moonstone cyan / Secondary — slate</h4>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background: var(--color-primary-dark)"></div><div class="meta"><div class="name">primary-dark</div><div class="token">--color-primary-dark</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-primary)"></div><div class="meta"><div class="name">primary</div><div class="token">--color-primary</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-primary-light)"></div><div class="meta"><div class="name">primary-light</div><div class="token">--color-primary-light</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-secondary-dark)"></div><div class="meta"><div class="name">secondary-dark</div><div class="token">--color-secondary-dark</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-secondary)"></div><div class="meta"><div class="name">secondary</div><div class="token">--color-secondary</div></div></div>
+  </div>
+</div>
+</body></html>

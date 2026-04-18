@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Badges</title>
+<style>
+  h4 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .badge { display: inline-block; padding: 3px 9px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; margin: 0 4px 6px 0; letter-spacing: 0.02em; }
+  .pill { border-radius: var(--radius-full); }
+  .bg-primary { background: var(--color-primary); color: var(--color-on-primary); }
+  .bg-success { background: var(--color-success); color: var(--color-on-success); }
+  .bg-warning { background: var(--color-warning); color: var(--color-on-warning); }
+  .bg-danger { background: var(--color-danger); color: var(--color-on-danger); }
+  .bg-info { background: var(--color-info); color: var(--color-on-info); }
+  .bg-elegant { background: var(--color-elegant); color: var(--color-on-elegant); }
+  .outline { background: transparent; border: 1px solid; }
+  .o-primary { color: var(--color-text-link); border-color: var(--color-text-link); }
+  .o-success { color: var(--color-success); border-color: var(--color-success); }
+  .o-danger  { color: var(--color-danger);  border-color: var(--color-danger); }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .status { display: inline-flex; align-items: center; margin-right: 18px; font-size: 13px; color: var(--color-text-secondary); }
+  .section { margin-bottom: 6px; }
+  .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: 4px; font-weight: 600; }
+</style>
+</head><body>
+<div class="card">
+  <h4>Badges</h4>
+  <div class="section"><div class="lbl">Solid</div>
+    <span class="badge bg-primary">Primary</span><span class="badge bg-success">Success</span><span class="badge bg-warning">Warning</span><span class="badge bg-danger">Danger</span><span class="badge bg-info">Info</span><span class="badge bg-elegant">Elegant</span>
+  </div>
+  <div class="section"><div class="lbl">Outline · Pill</div>
+    <span class="badge outline o-primary">Primary</span><span class="badge outline o-success">Success</span><span class="badge outline o-danger">Danger</span>
+    <span class="badge pill bg-primary">Pill</span><span class="badge pill bg-success">Active</span>
+  </div>
+  <div class="section"><div class="lbl">Status dots</div>
+    <span class="status"><span class="dot" style="background: var(--color-success)"></span>Online</span>
+    <span class="status"><span class="dot" style="background: var(--color-warning)"></span>Away</span>
+    <span class="status"><span class="dot" style="background: var(--color-danger)"></span>Busy</span>
+  </div>
+</div>
+</body></html>

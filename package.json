@@ -54,9 +54,10 @@
     "dev": "npx concurrently \"sass scss/main.scss css/main.css --watch\" \"npx serve . -p 8888\"",
     "build": "sass scss/main.scss css/main.css --style=expanded --no-source-map",
     "build:compressed": "sass scss/main.scss css/main.min.css --style=compressed --no-source-map",
+    "build:tokens": "sass scss/tokens.scss css/tokens.css --style=expanded --no-source-map",
     "build:dist": "sass scss/main.scss dist/asagiri.min.css --style=compressed --no-source-map",
     "watch": "sass scss/main.scss css/main.css --watch --style=expanded",
-    "prepublishOnly": "npm run build && npm run build:compressed",
+    "prepublishOnly": "npm run build && npm run build:compressed && npm run build:tokens",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test:visual": "npm run build-storybook && npx chromatic",
@@ -72,6 +73,7 @@
     "validate": "npm run test && npm run lint:styles"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@storybook/addon-a11y": "^7.6.20",
     "@storybook/addon-essentials": "^7.6.20",
     "@storybook/addon-interactions": "^7.6.20",

@@ -1,0 +1,29 @@
+// ============================================================================
+// Elevation Tokens (token-only partial)
+// ============================================================================
+// Custom property declarations for the elevation system. Utility classes live
+// in _Elevation.scss so that dist/tokens.css can import only the tokens.
+// ============================================================================
+
+:root {
+  --elevation-0: none;
+  --elevation-1:
+    0 1px 2px 0     rgba(var(--color-shadow), var(--shadow-key)),
+    0 1px 3px 0     rgba(var(--color-shadow), var(--shadow-ambient));
+  --elevation-2:
+    0 2px 4px -1px  rgba(var(--color-shadow), var(--shadow-key)),
+    0 3px 6px 0     rgba(var(--color-shadow), var(--shadow-ambient)),
+    0 1px 8px 0     rgba(var(--color-shadow), var(--shadow-penumbra));
+  --elevation-3:
+    0 3px 6px -1px  rgba(var(--color-shadow), var(--shadow-key)),
+    0 6px 12px 0    rgba(var(--color-shadow), var(--shadow-ambient)),
+    0 1px 16px 0    rgba(var(--color-shadow), var(--shadow-penumbra));
+  --elevation-4:
+    0 5px 10px -3px rgba(var(--color-shadow), var(--shadow-key)),
+    0 8px 18px 1px  rgba(var(--color-shadow), var(--shadow-ambient)),
+    0 3px 24px 2px  rgba(var(--color-shadow), var(--shadow-penumbra));
+  --elevation-5:
+    0 8px 14px -6px rgba(var(--color-shadow), var(--shadow-key)),
+    0 16px 28px 2px rgba(var(--color-shadow), var(--shadow-ambient)),
+    0 6px 36px 5px  rgba(var(--color-shadow), var(--shadow-penumbra));
+}

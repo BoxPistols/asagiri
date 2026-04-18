@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Neutrals</title>
+<style>
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .stack { display: flex; flex-direction: column; gap: 6px; }
+  .stack h5 { margin: 0 0 4px; font-size: 11px; font-weight: 600; color: var(--color-text-tertiary); }
+  .line { display: grid; grid-template-columns: 60px 1fr 130px; align-items: center; gap: 10px; font-size: 11px; color: var(--color-text-primary); }
+  .chip { height: 28px; border-radius: var(--radius-sm); border: 1px solid var(--color-border-subtle); }
+  .token { font-family: "SF Mono", Monaco, monospace; color: var(--color-text-tertiary); font-size: 10.5px; }
+</style>
+</head><body>
+<div class="card">
+  <h4>Neutrals — text / surface hierarchy</h4>
+  <div class="grid">
+    <div class="stack">
+      <h5>Text tokens</h5>
+      <div class="line"><span class="chip" style="background: var(--color-text-primary)"></span><span>text-primary</span><span class="token">--color-text-primary</span></div>
+      <div class="line"><span class="chip" style="background: var(--color-text-secondary)"></span><span>text-secondary</span><span class="token">--color-text-secondary</span></div>
+      <div class="line"><span class="chip" style="background: var(--color-text-tertiary)"></span><span>text-tertiary</span><span class="token">--color-text-tertiary</span></div>
+      <div class="line"><span class="chip" style="background: var(--color-text-disabled)"></span><span>text-disabled</span><span class="token">--color-text-disabled</span></div>
+    </div>
+    <div class="stack">
+      <h5>Surface tokens</h5>
+      <div class="line"><span class="chip" style="background: var(--color-bg)"></span><span>bg — page</span><span class="token">--color-bg</span></div>
+      <div class="line"><span class="chip" style="background: var(--color-surface)"></span><span>surface</span><span class="token">--color-surface</span></div>
+      <div class="line"><span class="chip" style="background: var(--color-surface-2)"></span><span>surface-2</span><span class="token">--color-surface-2</span></div>
+      <div class="line"><span class="chip" style="background: var(--color-surface-variant)"></span><span>surface-variant</span><span class="token">--color-surface-variant</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

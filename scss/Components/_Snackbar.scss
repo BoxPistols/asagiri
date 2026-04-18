@@ -81,9 +81,9 @@
   padding: 0.875rem 1rem;
 
   // Appearance
-  background-color: var(--color-dark, #1d1d1d);
-  color: var(--color-white, #fff);
-  border-radius: 8px;
+  background-color: var(--color-surface-inverse);
+  color: var(--color-on-surface-inverse);
+  border-radius: var(--radius-md);
   box-shadow: var(--elevation-3);
 
   // Typography
@@ -93,20 +93,9 @@
   // Animation
   opacity: 0;
   transform: translateY(100%);
-  transition: opacity 0.2s ease-out, transform 0.3s ease-out;
+  transition: opacity var(--motion-duration-short) var(--motion-ease-standard),
+              transform var(--motion-duration-medium) var(--motion-ease-standard);
   pointer-events: auto;
-
-  // Light mode specific
-  [data-theme="light"] &,
-  :root:not([data-theme="dark"]) & {
-    background-color: #323232;
-  }
-
-  // Dark mode specific
-  [data-theme="dark"] & {
-    background-color: var(--color-item-bg-dark, #2a2a2e);
-    border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
-  }
 
   // Visible state
   &.show,
@@ -133,22 +122,22 @@
   flex-shrink: 0;
   padding: 0.375rem 0.75rem;
   background-color: transparent;
-  color: var(--color-primary-light, #4ec4df);
+  color: var(--color-primary-light);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: color-mix(in srgb, var(--color-on-surface-inverse) var(--state-hover), transparent);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-light, #4ec4df);
+    outline: 2px solid var(--color-primary-light);
     outline-offset: 2px;
   }
 }
@@ -164,21 +153,22 @@
   margin-right: -0.25rem;
   padding: 0;
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.7);
+  color: color-mix(in srgb, var(--color-on-surface-inverse) 70%, transparent);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color var(--motion-duration-short) var(--motion-ease-standard),
+              color var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--color-white, #fff);
+    background-color: color-mix(in srgb, var(--color-on-surface-inverse) var(--state-hover), transparent);
+    color: var(--color-on-surface-inverse);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-light, #4ec4df);
+    outline: 2px solid var(--color-primary-light);
     outline-offset: 2px;
   }
 }
@@ -224,93 +214,85 @@
 // Snackbar Color Variants
 
 .snackbar-success {
-  background-color: var(--color-success, #00a859);
+  background-color: var(--color-success);
+  color: var(--color-on-success);
 
   .snackbar-btn {
-    color: var(--color-white, #fff);
+    color: var(--color-on-success);
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: color-mix(in srgb, var(--color-on-success) var(--state-hover), transparent);
     }
   }
 }
 
 .snackbar-warning {
-  background-color: var(--color-warning, #ebbb0c);
-  color: var(--color-black, #000);
+  background-color: var(--color-warning);
+  color: var(--color-on-warning);
 
   .snackbar-btn {
-    color: var(--color-black, #000);
+    color: var(--color-on-warning);
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: color-mix(in srgb, var(--color-on-warning) var(--state-hover), transparent);
     }
   }
 
   .snackbar-close {
-    color: rgba(0, 0, 0, 0.6);
+    color: color-mix(in srgb, var(--color-on-warning) 60%, transparent);
 
     &:hover {
-      color: var(--color-black, #000);
+      color: var(--color-on-warning);
     }
   }
 }
 
 .snackbar-danger {
-  background-color: var(--color-danger, #e1323c);
+  background-color: var(--color-danger);
+  color: var(--color-on-danger);
 
   .snackbar-btn {
-    color: var(--color-white, #fff);
+    color: var(--color-on-danger);
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: color-mix(in srgb, var(--color-on-danger) var(--state-hover), transparent);
     }
   }
 }
 
 .snackbar-info {
-  background-color: var(--color-info, #1ec2c2);
+  background-color: var(--color-info);
+  color: var(--color-on-info);
 
   .snackbar-btn {
-    color: var(--color-white, #fff);
+    color: var(--color-on-info);
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: color-mix(in srgb, var(--color-on-info) var(--state-hover), transparent);
     }
   }
 }
 
 // Filled Surface variant
 .snackbar-surface {
-  background-color: var(--color-box, #fff);
-  color: var(--color-text, #4c5059);
-  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-
-  [data-theme="dark"] & {
-    background-color: var(--color-box, #18181b);
-    color: var(--color-text, #e4e4e7);
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
 
   .snackbar-btn {
-    color: var(--color-primary, #31a9c7);
+    color: var(--color-primary);
 
     &:hover {
-      background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
     }
   }
 
   .snackbar-close {
-    color: var(--color-text-secondary, #666);
+    color: var(--color-text-secondary);
 
     &:hover {
-      color: var(--color-text, #4c5059);
-      background-color: var(--color-item-bg, #e8e8f1);
-
-      [data-theme="dark"] & {
-        color: var(--color-text, #e4e4e7);
-        background-color: var(--color-item-bg, #1f1f23);
-      }
+      color: var(--color-text-primary);
+      background-color: var(--color-surface-variant);
     }
   }
 }
@@ -321,8 +303,8 @@
   bottom: 0;
   left: 0;
   height: 3px;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 0 0 8px 8px;
+  background-color: color-mix(in srgb, var(--color-on-surface-inverse) 30%, transparent);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
   animation: snackbar-progress-shrink var(--snackbar-duration, 5s) linear forwards;
 }
 

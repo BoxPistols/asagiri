@@ -25,72 +25,52 @@
 .breadcrumb-item {
   display: inline-flex;
   align-items: center;
-  color: var(--color-text-muted, #6c757d);
+  color: var(--color-text-tertiary);
   text-decoration: none;
-  transition: color 0.15s ease-in-out;
-
-  [data-theme="dark"] & {
-    color: var(--color-text-muted, #9ca3af);
-  }
+  transition: color var(--motion-duration-short) var(--motion-ease-standard);
 
   // Not last child - add separator
   &:not(:last-child)::after {
     content: "/";
     display: inline-block;
     margin-left: var(--spacing-2, 0.5rem);
-    color: var(--color-text-muted, #6c757d);
+    color: var(--color-text-tertiary);
     opacity: 0.5;
-
-    [data-theme="dark"] & {
-      color: var(--color-text-muted, #9ca3af);
-    }
   }
 
   // Link state
   &:hover {
-    color: var(--color-primary, #31a9c7);
+    color: var(--color-primary);
     text-decoration: underline;
-
-    [data-theme="dark"] & {
-      color: var(--color-primary-light, #4ec4df);
-    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary, #31a9c7);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
-    border-radius: 0.25rem;
+    border-radius: var(--radius-sm);
   }
 
   // Active/Current page
   &.active {
-    color: var(--color-text, #4c5059);
+    color: var(--color-text-primary);
     font-weight: 500;
-
-    [data-theme="dark"] & {
-      color: var(--color-text, #e4e4e7);
-    }
   }
 }
 
 // Breadcrumb Variants
 
-// Arrow separator
+// Arrow separator — uses currentColor so it follows text color in any theme
 .breadcrumb-arrow {
   .breadcrumb-item:not(:last-child)::after {
     content: "";
     width: 1rem;
     height: 1rem;
     margin-left: var(--spacing-2, 0.5rem);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     opacity: 1;
-
-    [data-theme="dark"] & {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
-    }
   }
 }
 
@@ -122,12 +102,8 @@
 // Breadcrumb with background
 .breadcrumb-bg {
   padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
-  background-color: var(--color-bg, #f9f9f9);
-  border-radius: 0.375rem;
-
-  [data-theme="dark"] & {
-    background-color: color-mix(in srgb, var(--color-box) 50%, transparent);
-  }
+  background-color: var(--color-surface-variant);
+  border-radius: var(--radius-sm);
 }
 
 // Icon support

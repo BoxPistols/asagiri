@@ -10,23 +10,23 @@ $theme-toggle-size: 32px;
   height: $theme-toggle-size;
   padding: 0;
   background: var(--color-bg);
-  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all var(--motion-duration-short) var(--motion-ease-standard);
   vertical-align: middle;
-  color: var(--color-text);
+  color: var(--color-text-primary);
 
   &:hover {
-    background: var(--color-box);
+    background: var(--color-surface);
     transform: scale(1.05);
   }
 
   &:focus {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
   }
 
@@ -45,12 +45,6 @@ $theme-toggle-size: 32px;
     align-items: center;
     justify-content: center;
   }
-}
-
-// Dark mode adjustments
-[data-theme="dark"] .theme-toggle {
-  background: var(--color-box);
-  border-color: rgba(255, 255, 255, 0.1);
 }
 
 // Size variants
@@ -82,8 +76,8 @@ $theme-toggle-size: 32px;
   z-index: 1000;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-full);
+  box-shadow: var(--elevation-2);
 
   svg {
     width: 20px;
@@ -91,15 +85,7 @@ $theme-toggle-size: 32px;
   }
 
   &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  }
-}
-
-[data-theme="dark"] .floating-theme-toggle {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-
-  &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--elevation-3);
   }
 }
 

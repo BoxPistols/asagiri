@@ -158,15 +158,15 @@ input[type="submit"] {
 
     &-light {
       background: transparent;
-      color: white;
-      border: 2px solid white;
+      color: var(--color-text-on-brand);
+      border: 2px solid var(--color-text-on-brand);
 
       &:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: color-mix(in srgb, var(--color-text-on-brand) var(--state-hover), transparent);
       }
 
       &:focus {
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-text-on-brand) 30%, transparent);
       }
     }
   }
@@ -272,7 +272,7 @@ input[type="submit"] {
 
   // Focus-visible for keyboard navigation
   &:focus-visible {
-    outline: 2px solid var(--color-primary-light, #4ec4df);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
   }
 
@@ -318,21 +318,12 @@ input[type="submit"] {
 
 // Tonal Button (MD3 style - filled tonal)
 .btn-tonal {
-  background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
-  color: var(--color-primary-dark, #1a6b7e);
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
   border-color: transparent;
-
-  [data-theme="dark"] & {
-    background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
-    color: var(--color-primary-light, #4ec4df);
-  }
 
   &:hover:not([disabled]) {
     background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
-
-    [data-theme="dark"] & {
-      background-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
-    }
   }
 
   &:active:not([disabled]) {
@@ -347,17 +338,8 @@ input[type="submit"] {
     color: var(--color-#{$color}-dark);
     border-color: transparent;
 
-    [data-theme="dark"] & {
-      background-color: color-mix(in srgb, var(--color-#{$color}) 25%, transparent);
-      color: var(--color-#{$color}-light);
-    }
-
     &:hover:not([disabled]) {
       background-color: color-mix(in srgb, var(--color-#{$color}) 30%, transparent);
-
-      [data-theme="dark"] & {
-        background-color: color-mix(in srgb, var(--color-#{$color}) 35%, transparent);
-      }
     }
   }
 }
@@ -365,29 +347,21 @@ input[type="submit"] {
 // Text Button (no background)
 .btn-text {
   background-color: transparent;
-  color: var(--color-primary, #31a9c7);
+  color: var(--color-primary);
   border: none;
   padding: 0 1rem;
   box-shadow: none;
 
   &:hover:not([disabled]),
   &:focus:not([disabled]) {
-    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
-    color: var(--color-primary, #31a9c7);
+    background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
+    color: var(--color-primary);
     border: none;
     transform: none;
   }
 
   &:active:not([disabled]) {
-    background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
-  }
-
-  [data-theme="dark"] & {
-    color: var(--color-primary-light, #4ec4df);
-
-    &:hover:not([disabled]) {
-      color: var(--color-primary-light, #4ec4df);
-    }
+    background-color: color-mix(in srgb, var(--color-primary) var(--state-pressed), transparent);
   }
 }
 
@@ -400,17 +374,9 @@ input[type="submit"] {
 
     &:hover:not([disabled]),
     &:focus:not([disabled]) {
-      background-color: color-mix(in srgb, var(--color-#{$color}) 10%, transparent);
+      background-color: color-mix(in srgb, var(--color-#{$color}) var(--state-hover), transparent);
       color: var(--color-#{$color});
       border: none;
-    }
-
-    [data-theme="dark"] & {
-      color: var(--color-#{$color}-light);
-
-      &:hover:not([disabled]) {
-        color: var(--color-#{$color}-light);
-      }
     }
   }
 }
@@ -487,7 +453,7 @@ input[type="submit"] {
 
 // Pill Button (rounded)
 .btn-pill {
-  border-radius: 9999px;
+  border-radius: var(--radius-full);
 }
 
 // Button Group
@@ -551,9 +517,9 @@ input[type="submit"] {
     height: 1.25rem;
     border: 2px solid currentColor;
     border-right-color: transparent;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     animation: btn-spin 0.75s linear infinite;
-    color: #fff;
+    color: var(--color-text-on-brand);
   }
 }
 

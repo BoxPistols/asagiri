@@ -1,307 +1,478 @@
 /**
- * INFO: This file is used to define the color tokens.
- * Custom https://shrtm.nu/pCac
- * Sass HSLA https://sass-lang.com/documentation/modules**/
+ * ============================================================================
+ * Asagiri Color System v3
+ * ============================================================================
+ *
+ * A modern, semantic, token-driven color system.
+ *
+ * Architecture (four layers):
+ *
+ *   1. Reference (ref)   — raw tonal palettes (primary-0..100, neutral-0..100).
+ *                          Never consumed directly by components.
+ *   2. System  (sys)      — semantic tokens. Light & dark modes remap these to
+ *                          reference values. Components consume ONLY these.
+ *   3. Component (comp)   — optional per-component aliases layered on system
+ *                          tokens (defined in component files, not here).
+ *   4. Legacy aliases     — preserved for backward compatibility.
+ *
+ * Dark mode strategy:
+ *   - Single source of truth: [data-theme="dark"] remaps system tokens.
+ *   - No component should reference literal colors (#fff, rgba(0,0,0,*)).
+ *   - Instead, components use --color-surface-*, --color-on-*,
+ *     --color-border-*, --color-shadow, etc.
+ *   - Modern CSS: color-mix() is used for interactive state layers.
+ *
+ * System preference detection is handled in js/theme.js and via
+ * @media (prefers-color-scheme: dark) fallback below.
+ * ============================================================================
+ */
 
+/* ============================================================================
+   LAYER 1: REFERENCE TONAL PALETTES
+   Raw color scales (0 = darkest, 100 = lightest). These are theme-invariant.
+   ============================================================================ */
 :root {
-  /* ----- Common Core Color ----- */
-  // デフォルトの有彩色
-  --color-default: #0d5d8f;
+  /* Primary tonal palette (hue 191, cyan-teal brand) */
+  --ref-primary-0:   #000000;
+  --ref-primary-5:   #001419;
+  --ref-primary-10:  #002831;
+  --ref-primary-20:  #003c4b;
+  --ref-primary-30:  #005466;
+  --ref-primary-40:  #006e82;
+  --ref-primary-50:  #0089a0;
+  --ref-primary-60:  #31a9c7;
+  --ref-primary-70:  #5bc1d7;
+  --ref-primary-80:  #89d4e5;
+  --ref-primary-90:  #b9e7f0;
+  --ref-primary-95:  #d8f2f7;
+  --ref-primary-99:  #f2fbfd;
+  --ref-primary-100: #ffffff;
 
-  // Brand Color
-  --color-moonstone: #31a9c7;
-  --color-hotpink: #ff69b4;
+  /* Secondary tonal palette (hue 224, indigo) */
+  --ref-secondary-0:   #000000;
+  --ref-secondary-10:  #0e1528;
+  --ref-secondary-20:  #1c2a4c;
+  --ref-secondary-30:  #2d3f6b;
+  --ref-secondary-40:  #3e5489;
+  --ref-secondary-50:  #556ba3;
+  --ref-secondary-60:  #7a8cbd;
+  --ref-secondary-70:  #9aa9ce;
+  --ref-secondary-80:  #bcc6df;
+  --ref-secondary-90:  #dde3ef;
+  --ref-secondary-95:  #eef1f7;
+  --ref-secondary-99:  #fafbfd;
+  --ref-secondary-100: #ffffff;
 
-  /* ----- Primary Variation ----- */
-  // Primary color using HSLA for better manipulation
+  /* Neutral tonal palette (surfaces, text, borders) */
+  --ref-neutral-0:   #000000;
+  --ref-neutral-5:   #0a0a0b;
+  --ref-neutral-10:  #17171a;
+  --ref-neutral-15:  #1d1d21;
+  --ref-neutral-20:  #26262b;
+  --ref-neutral-25:  #2e2e33;
+  --ref-neutral-30:  #3a3a40;
+  --ref-neutral-40:  #53535a;
+  --ref-neutral-50:  #70707a;
+  --ref-neutral-60:  #8e8e98;
+  --ref-neutral-70:  #acacb5;
+  --ref-neutral-80:  #cacad2;
+  --ref-neutral-85:  #d9d9e0;
+  --ref-neutral-90:  #e4e4ea;
+  --ref-neutral-95:  #efeff3;
+  --ref-neutral-97:  #f5f5f8;
+  --ref-neutral-99:  #fbfbfc;
+  --ref-neutral-100: #ffffff;
+
+  /* Error / success / warning / info tonal anchors (abbreviated) */
+  --ref-error-40:   #b3261e;
+  --ref-error-60:   #e55353;
+  --ref-error-80:   #f5b4b4;
+  --ref-success-40: #007a44;
+  --ref-success-60: #22c55e;
+  --ref-success-80: #86efac;
+  --ref-warning-40: #8a6100;
+  --ref-warning-60: #eab308;
+  --ref-warning-80: #fde68a;
+  --ref-info-40:    #0e7490;
+  --ref-info-60:    #22d3ee;
+  --ref-info-80:    #a5f3fc;
+}
+
+/* ============================================================================
+   LAYER 2: SYSTEM TOKENS — LIGHT MODE (default)
+   These are what components consume. Mode switch rewrites just these.
+   ============================================================================ */
+:root {
+  /* ---- Brand (primary / secondary) ---- */
   --primary-h: 191;
   --primary-s: 47%;
   --primary-l: 53%;
   --primary-alpha: 100%;
-  --color-primary: hsla(
-    var(--primary-h),
-    var(--primary-s),
-    var(--primary-l),
-    var(--primary-alpha)
-  );
-  // Primary Light
-  --color-primary-light: hsla(
-    var(--primary-h),
-    var(--primary-s),
-    calc(var(--primary-l) + 15%),
-    var(--primary-alpha)
-  );
-  // Primary Dark
-  --color-primary-dark: hsla(
-    var(--primary-h),
-    var(--primary-s),
-    calc(var(--primary-l) - 15%),
-    var(--primary-alpha)
-  );
+  --color-primary: hsla(var(--primary-h), var(--primary-s), var(--primary-l), var(--primary-alpha));
+  --color-primary-light: hsla(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 15%), var(--primary-alpha));
+  --color-primary-dark:  hsla(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 15%), var(--primary-alpha));
+  --color-on-primary: var(--ref-neutral-100);
+  --color-primary-container: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+  --color-on-primary-container: var(--color-primary-dark);
 
-  /* ----- Primary Variation ----- */
-  // --color-secondary: hsl(224, 23%, 44%);
-
-  /* ----- Secondary HSLA ---- */
   --secondary-h: 224;
   --secondary-s: 23%;
   --secondary-l: 44%;
   --secondary-alpha: 100%;
-  --color-secondary: hsla(
-    var(--secondary-h),
-    var(--secondary-s),
-    var(--secondary-l),
-    var(--secondary-alpha)
-  );
+  --color-secondary: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), var(--secondary-alpha));
+  --color-secondary-light: hsla(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) + 15%), var(--secondary-alpha));
+  --color-secondary-dark:  hsla(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) - 15%), var(--secondary-alpha));
+  --color-on-secondary: var(--ref-neutral-100);
 
-  // SECONDARY Dark
-  --color-secondary-light: hsla(
-    var(--secondary-h),
-    var(--secondary-s),
-    calc(var(--secondary-l) + 15%),
-    var(--secondary-alpha)
-  );
-  // SECONDARY Light
-  --color-secondary-dark: hsla(
-    var(--secondary-h),
-    var(--secondary-s),
-    calc(var(--secondary-l) - 15%),
-    var(--secondary-alpha)
-  );
+  /* ---- Surface hierarchy (MD3-style containers) ----
+     bg        — page background
+     surface   — default card / sheet
+     surface-1..5 — elevated layers (higher = more prominent) */
+  --color-bg:            var(--ref-neutral-97);
+  --color-surface:       var(--ref-neutral-100);
+  --color-surface-1:     color-mix(in srgb, var(--color-primary) 4%,  var(--color-surface));
+  --color-surface-2:     color-mix(in srgb, var(--color-primary) 7%,  var(--color-surface));
+  --color-surface-3:     color-mix(in srgb, var(--color-primary) 11%, var(--color-surface));
+  --color-surface-4:     color-mix(in srgb, var(--color-primary) 13%, var(--color-surface));
+  --color-surface-5:     color-mix(in srgb, var(--color-primary) 16%, var(--color-surface));
+  --color-surface-variant: var(--ref-neutral-95);
+  --color-surface-inverse: var(--ref-neutral-15);
+  --color-on-surface-inverse: var(--ref-neutral-95);
 
-  /* -----  Color Text ----- */
-  --color-text: #4c5059;
-  --color-text-p: #393d43;
-  --color-text-secondary: #666;
-  --color-text-muted: #6c757d;
-  --color-text-code: #1f2937;
-  --color-text-a: #1867b5;
-  --color-text-a-hover: #1976d2;
-  --color-text-a-visited: #35206a;
+  /* Scrim / modal backdrop */
+  --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 48%, transparent);
 
-  /* ----- Color BackGround ----- */
-  --color-bg: #f9f9f9;
-  --color-item-bg: #e8e8f1;
-  --color-item-bg-light: #e8e8f1cc;
-  --color-item-bg-dark: #5c5c63;
-  --color-box: #fff;
-  --color-bg-code: #f0f0f0;
-  --color-bg-footer: #f9f9f9;
-  --color-bg-strong: #fff996;
-  --color-bg-btn: #1976d2;
-  --color-bg-cancel: #92989f;
+  /* ---- Text (on-surface hierarchy) ---- */
+  --color-text-primary:   var(--ref-neutral-20);
+  --color-text-secondary: var(--ref-neutral-40);
+  --color-text-tertiary:  var(--ref-neutral-50);
+  --color-text-disabled:  color-mix(in srgb, var(--color-text-primary) 38%, transparent);
+  --color-text-on-brand:  var(--ref-neutral-100);
+  --color-text-link:       var(--ref-primary-40);
+  --color-text-link-hover: var(--ref-primary-30);
+  --color-text-link-visited: #5b3fa0;
+  --color-text-code: var(--ref-neutral-15);
 
-  /* ----- Color Function ----- */
-  // TODO: To HSLA Like Primary Color Scheme
-  --color-accent: #d429e0;
-  --color-accent-dark: #b923b9;
-  --color-accent-light: #e858f0;
-  --color-success: #00a859;
-  --color-success-dark: #008c4e;
-  --color-success-light: #00d9a6;
-  --color-warning: #ebbb0c;
-  --color-warning-dark: #d99e00;
-  --color-warning-light: #f5e854;
-  --color-danger: #e1323c;
-  --color-danger-dark: #c82727;
-  --color-danger-light: #f8a7a7;
-  --color-info: #1ec2c2;
-  --color-info-dark: #1a9fa2;
-  --color-info-light: #4de5e5;
+  /* ---- Borders ---- */
+  --color-border-subtle:  color-mix(in srgb, var(--ref-neutral-0) 8%,  transparent);
+  --color-border:         color-mix(in srgb, var(--ref-neutral-0) 14%, transparent);
+  --color-border-strong:  color-mix(in srgb, var(--ref-neutral-0) 24%, transparent);
+  --color-border-focus:   var(--color-primary);
 
-  /* ----- Origin Color ----- */
-  --color-elegant: #48626f;
-  --color-elegant-dark: #3c4a57;
+  /* ---- Shadow base ---- */
+  --color-shadow: 0, 0, 0;
+  --shadow-ambient:  0.06;
+  --shadow-key:      0.10;
+  --shadow-penumbra: 0.05;
+
+  /* ---- Interactive state layers (color-mix overlays) ----
+     Usage: background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent); */
+  --state-hover:    8%;
+  --state-focus:    12%;
+  --state-pressed:  12%;
+  --state-selected: 16%;
+  --state-dragged:  16%;
+  --state-disabled-opacity: 0.38;
+
+  /* ---- Functional palette ---- */
+  --color-accent:       #c026d3;
+  --color-accent-dark:  #a21caf;
+  --color-accent-light: #e879f9;
+  --color-on-accent:    var(--ref-neutral-100);
+
+  --color-success:       var(--ref-success-40);
+  --color-success-dark:  #005c33;
+  --color-success-light: var(--ref-success-60);
+  --color-on-success:    var(--ref-neutral-100);
+
+  --color-warning:       var(--ref-warning-40);
+  --color-warning-dark:  #6a4a00;
+  --color-warning-light: var(--ref-warning-60);
+  --color-on-warning:    var(--ref-neutral-10);
+
+  --color-danger:       var(--ref-error-40);
+  --color-danger-dark:  #8b1c17;
+  --color-danger-light: var(--ref-error-60);
+  --color-on-danger:    var(--ref-neutral-100);
+
+  --color-info:       var(--ref-info-40);
+  --color-info-dark:  #075569;
+  --color-info-light: var(--ref-info-60);
+  --color-on-info:    var(--ref-neutral-100);
+
+  /* ---- Elegant (custom brand neutral) ---- */
+  --color-elegant:       #48626f;
+  --color-elegant-dark:  #3c4a57;
   --color-elegant-light: #6c818c;
-  --color-elegant-transparent: rgba(72, 98, 111, 0.5);
-  --color-elegant-transparent-dark: rgba(60, 60, 63, 0.5);
+  --color-on-elegant:    var(--ref-neutral-100);
 
-  --color-elegant-transparent-light: rgba(108, 129, 140, 0.5);
-
-  /* ----- Color Transparent ----- */
+  /* ---- Fixed/absolute colors (rarely used — prefer semantic tokens) ---- */
+  --color-white: #ffffff;
+  --color-black: #000000;
   --color-transparent: transparent;
-  --color-initial: #fff;
 
-  /* ----- Color Dark ----- */
-  --color-black: #1d1d1d;
+  /* ---- Legacy aliases (DO NOT use in new code; kept for migration) ---- */
+  --color-default: var(--ref-primary-30);
+  --color-moonstone: var(--ref-primary-60);
+  --color-hotpink: #ff69b4;
+  --color-text:      var(--color-text-primary);
+  --color-text-p:    var(--color-text-primary);
+  --color-text-muted: var(--color-text-tertiary);
+  --color-text-a:         var(--color-text-link);
+  --color-text-a-hover:   var(--color-text-link-hover);
+  --color-text-a-visited: var(--color-text-link-visited);
+  --color-item-bg:       var(--color-surface-2);
+  --color-item-bg-light: color-mix(in srgb, var(--color-surface-2) 80%, transparent);
+  --color-item-bg-dark:  var(--color-surface-4);
+  --color-box:           var(--color-surface);
+  --color-bg-code:       var(--color-surface-variant);
+  --color-bg-footer:     var(--color-bg);
+  --color-bg-strong:     #fff996;
+  --color-bg-btn:        var(--color-primary);
+  --color-bg-cancel:     var(--ref-neutral-60);
+  --color-border-light:  var(--color-border-subtle);
+  --color-border-dark:   var(--color-border-strong);
+  --color-initial:       var(--color-white);
+  --color-ghost:         ghostwhite;
+  --color-light:         var(--ref-neutral-95);
+  --color-light-light:   var(--ref-neutral-90);
+  --color-light-dark:    var(--ref-neutral-85);
+  --color-light-transparent: color-mix(in srgb, var(--ref-neutral-95) 50%, transparent);
+  --color-light-transparent-light:   color-mix(in srgb, var(--ref-neutral-85) 70%, transparent);
+  --color-light-transparent-lighter: color-mix(in srgb, var(--ref-neutral-90) 85%, transparent);
+  --color-dark:          var(--ref-neutral-15);
+  --color-dark-dark:     var(--ref-neutral-5);
+  --color-dark-light:    var(--ref-neutral-25);
+  --color-dark-transparent:         color-mix(in srgb, var(--ref-neutral-15) 50%, transparent);
+  --color-dark-transparent-light:   color-mix(in srgb, var(--ref-neutral-25) 30%, transparent);
+  --color-dark-transparent-lighter: color-mix(in srgb, var(--ref-neutral-25) 10%, transparent);
+  --color-dark-transparent-dark:    color-mix(in srgb, var(--ref-neutral-5)  50%, transparent);
+  --color-dark-transparent-darker:  color-mix(in srgb, var(--ref-neutral-0)  70%, transparent);
+  --color-gray:           var(--ref-neutral-60);
+  --color-gray-dark:      var(--ref-neutral-40);
+  --color-gray-light:     var(--ref-neutral-95);
+  --color-gray-transparent:          color-mix(in srgb, var(--ref-neutral-60) 50%, transparent);
+  --color-gray-transparent-light:    color-mix(in srgb, var(--ref-neutral-60) 30%, transparent);
+  --color-gray-transparent-lighter:  color-mix(in srgb, var(--ref-neutral-60) 10%, transparent);
+  --color-gray-transparent-dark:     color-mix(in srgb, var(--ref-neutral-60) 70%, transparent);
+  --color-gray-transparent-darker:   color-mix(in srgb, var(--ref-neutral-60) 85%, transparent);
+  --color-elegant-transparent:       color-mix(in srgb, var(--color-elegant) 50%, transparent);
+  --color-elegant-transparent-dark:  color-mix(in srgb, var(--color-elegant-dark) 50%, transparent);
+  --color-elegant-transparent-light: color-mix(in srgb, var(--color-elegant-light) 50%, transparent);
+  --color-text-secondary: var(--color-text-secondary); /* already defined above */
 
-  // dark variation
-  --color-dark: #1d1d1d;
-  --color-dark-dark: #0f0f0f;
-  --color-dark-light: #2f2f2f;
-  // transparent
-  --color-dark-transparent: rgba(29, 29, 29, 0.5);
-  --color-dark-transparent-light: rgba(47, 47, 47, 0.3);
-  --color-dark-transparent-lighter: rgba(47, 47, 47, 0.1);
-  --color-dark-transparent-dark: rgba(15, 15, 15, 0.5);
-  --color-dark-transparent-darker: rgba(7, 7, 7, 0.7);
+  /* ---- Shadow / text-shadow legacy aliases ---- */
+  --box-shadow: 0 1px 2px rgba(var(--color-shadow), var(--shadow-key)),
+                0 2px 8px rgba(var(--color-shadow), var(--shadow-ambient));
+  --text-shadow: 0 0 2px rgba(var(--color-shadow), 0.5);
 
-  /* ----- Color Light ----- */
-  --color-white: white;
-  --color-ghost: ghostwhite;
-
-  // light variation
-  --color-light: #f4f5f6;
-  --color-light-dark: #d1d1d1;
-  --color-light-light: #e1e1e1;
-  // transparent
-  --color-light-transparent: rgba(244, 245, 246, 0.5);
-  --color-light-transparent-light: rgba(209, 209, 209, 0.7);
-  --color-light-transparent-lighter: rgba(225, 225, 225, 0.85);
-
-  /* ----- Gray ----- */
-  // gray variation
-  --color-gray: #9ca8b3;
-  --color-gray-dark: #606c76;
-  --color-gray-light: #f4f5f6;
-  // transparent
-  --color-gray-transparent: rgba(148, 168, 179, 0.5);
-  --color-gray-transparent-light: rgba(148, 168, 179, 0.3);
-  --color-gray-transparent-lighter: rgba(148, 168, 179, 0.1);
-  --color-gray-transparent-dark: rgba(148, 168, 179, 0.7);
-  --color-gray-transparent-darker: rgba(148, 168, 179, 0.85);
-
-  /* ----- Color Border ----- */
-  --color-border: rgba(0, 0, 0, 0.2);
-  --color-border-light: rgba(0, 0, 0, 0.1);
-  --color-border-dark: rgba(0, 0, 0, 0.3);
-
-  /* ----- Color Shadow Elevation ----- */
-  --box-shadow: 0.1rem 0.2rem 1rem rgba(0, 0, 0, 0.08);
-  --text-shadow: 0px 0px 2px var(--color-black);
-
-  /* ----- Width Query ----- */
+  /* ---- Width / layout ---- */
   --max-width: 1440px;
   --inner-width: 960px;
 
-  /* ----- Font Family ---- */
-  /* --font-sans: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif; */
-  /*
-  --font-sans: Helvetica Neue, Arial, Hiragino Sans, Hiragino Kaku Gothic ProN, BIZ UDPGothic, Meiryo, sans-serif;
-  --font-design: "Comfortaa", sans-serif;
-  --font-mincho: serif;
-  */
+  /* ---- Motion tokens ---- */
+  --motion-duration-instant: 50ms;
+  --motion-duration-short:   150ms;
+  --motion-duration-medium:  250ms;
+  --motion-duration-long:    400ms;
+  --motion-ease-standard:    cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-emphasized:  cubic-bezier(0.3, 0, 0, 1);
+  --motion-ease-decelerate:  cubic-bezier(0, 0, 0, 1);
+  --motion-ease-accelerate:  cubic-bezier(0.3, 0, 1, 1);
+
+  /* ---- Shape tokens (border-radius) ---- */
+  --radius-none: 0;
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
 }
 
-/* ================================================
-   DARK MODE THEME
-   ================================================ */
+/* ============================================================================
+   DARK MODE — remap system tokens only.
+   Components never need [data-theme="dark"] selectors for color.
+   ============================================================================ */
 [data-theme="dark"] {
-  /* ----- Primary Variation (Dark Mode) ----- */
-  /* Increase lightness for better visibility on dark backgrounds */
-  --primary-l: 65%;
-  --color-primary: hsla(
-    var(--primary-h),
-    var(--primary-s),
-    var(--primary-l),
-    var(--primary-alpha)
-  );
-  --color-primary-light: hsla(
-    var(--primary-h),
-    var(--primary-s),
-    calc(var(--primary-l) + 15%),
-    var(--primary-alpha)
-  );
-  --color-primary-dark: hsla(
-    var(--primary-h),
-    var(--primary-s),
-    calc(var(--primary-l) - 15%),
-    var(--primary-alpha)
-  );
+  /* ---- Brand adjustments (lifted for dark backgrounds) ---- */
+  --primary-l: 62%;
+  --secondary-l: 65%;
+  --color-on-primary: var(--ref-primary-10);
+  --color-on-secondary: var(--ref-secondary-10);
+  --color-primary-container: color-mix(in srgb, var(--color-primary) 22%, var(--color-surface));
+  --color-on-primary-container: var(--color-primary-light);
 
-  /* ----- Secondary Variation (Dark Mode) ----- */
-  --secondary-l: 60%;
-  --color-secondary: hsla(
-    var(--secondary-h),
-    var(--secondary-s),
-    var(--secondary-l),
-    var(--secondary-alpha)
-  );
-  --color-secondary-light: hsla(
-    var(--secondary-h),
-    var(--secondary-s),
-    calc(var(--secondary-l) + 15%),
-    var(--secondary-alpha)
-  );
-  --color-secondary-dark: hsla(
-    var(--secondary-h),
-    var(--secondary-s),
-    calc(var(--secondary-l) - 15%),
-    var(--secondary-alpha)
-  );
+  /* ---- Surfaces (elevation = tinted neutral) ---- */
+  --color-bg:            var(--ref-neutral-5);
+  --color-surface:       var(--ref-neutral-10);
+  --color-surface-1:     color-mix(in srgb, var(--color-primary) 5%,  var(--ref-neutral-15));
+  --color-surface-2:     color-mix(in srgb, var(--color-primary) 8%,  var(--ref-neutral-15));
+  --color-surface-3:     color-mix(in srgb, var(--color-primary) 11%, var(--ref-neutral-20));
+  --color-surface-4:     color-mix(in srgb, var(--color-primary) 13%, var(--ref-neutral-20));
+  --color-surface-5:     color-mix(in srgb, var(--color-primary) 16%, var(--ref-neutral-25));
+  --color-surface-variant: var(--ref-neutral-20);
+  --color-surface-inverse: var(--ref-neutral-90);
+  --color-on-surface-inverse: var(--ref-neutral-15);
+  --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
 
-  /* ----- Text Colors (Dark Mode) ----- */
-  --color-text: #e4e4e7;
-  --color-text-p: #d4d4d8;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #9ca3af;
-  --color-text-code: #e4e4e7;
-  --color-text-a: #60a5fa;
-  --color-text-a-hover: #93c5fd;
-  --color-text-a-visited: #a78bfa;
+  /* ---- Text ---- */
+  --color-text-primary:   var(--ref-neutral-95);
+  --color-text-secondary: var(--ref-neutral-80);
+  --color-text-tertiary:  var(--ref-neutral-70);
+  --color-text-disabled:  color-mix(in srgb, var(--color-text-primary) 38%, transparent);
+  --color-text-on-brand:  var(--ref-neutral-100);
+  --color-text-link:       var(--ref-primary-80);
+  --color-text-link-hover: var(--ref-primary-90);
+  --color-text-link-visited: #c4b5fd;
+  --color-text-code: var(--ref-neutral-95);
 
-  /* ----- Background Colors (Dark Mode) ----- */
-  --color-bg: #0f0f0f;
-  --color-item-bg: #1f1f23;
-  --color-item-bg-light: #1f1f23cc;
-  --color-item-bg-dark: #2a2a2e;
-  --color-box: #18181b;
-  --color-bg-code: #1e1e1e;
-  --color-bg-footer: #0a0a0a;
-  --color-bg-strong: #4a4a00;
-  --color-bg-btn: #2563eb;
-  --color-bg-cancel: #52525b;
+  /* ---- Borders (white-based in dark mode) ---- */
+  --color-border-subtle:  color-mix(in srgb, var(--ref-neutral-100) 6%,  transparent);
+  --color-border:         color-mix(in srgb, var(--ref-neutral-100) 12%, transparent);
+  --color-border-strong:  color-mix(in srgb, var(--ref-neutral-100) 22%, transparent);
 
-  /* ----- Functional Colors (Dark Mode) ----- */
-  /* Slightly desaturated and lighter for dark backgrounds */
-  --color-accent: #e879f9;
-  --color-accent-dark: #c026d3;
+  /* ---- Shadow (deeper / darker in dark mode) ---- */
+  --color-shadow: 0, 0, 0;
+  --shadow-ambient:  0.24;
+  --shadow-key:      0.36;
+  --shadow-penumbra: 0.18;
+
+  /* ---- State layer intensities (slightly higher in dark mode) ---- */
+  --state-hover:    10%;
+  --state-focus:    14%;
+  --state-pressed:  14%;
+  --state-selected: 20%;
+
+  /* ---- Functional palette (desaturated & lifted) ---- */
+  --color-accent:       var(--ref-error-80); /* recolored for visibility */
+  --color-accent:       #e879f9;
+  --color-accent-dark:  #c026d3;
   --color-accent-light: #f0abfc;
+  --color-on-accent:    var(--ref-neutral-10);
 
-  --color-success: #22c55e;
-  --color-success-dark: #16a34a;
-  --color-success-light: #4ade80;
+  --color-success:       var(--ref-success-60);
+  --color-success-dark:  var(--ref-success-40);
+  --color-success-light: var(--ref-success-80);
+  --color-on-success:    var(--ref-neutral-10);
 
-  --color-warning: #fbbf24;
-  --color-warning-dark: #f59e0b;
-  --color-warning-light: #fde047;
+  --color-warning:       var(--ref-warning-60);
+  --color-warning-dark:  var(--ref-warning-40);
+  --color-warning-light: var(--ref-warning-80);
+  --color-on-warning:    var(--ref-neutral-10);
 
-  --color-danger: #ef4444;
-  --color-danger-dark: #dc2626;
-  --color-danger-light: #f87171;
+  --color-danger:       var(--ref-error-60);
+  --color-danger-dark:  var(--ref-error-40);
+  --color-danger-light: var(--ref-error-80);
+  --color-on-danger:    var(--ref-neutral-10);
 
-  --color-info: #22d3ee;
-  --color-info-dark: #06b6d4;
-  --color-info-light: #67e8f9;
+  --color-info:       var(--ref-info-60);
+  --color-info-dark:  var(--ref-info-40);
+  --color-info-light: var(--ref-info-80);
+  --color-on-info:    var(--ref-neutral-10);
 
-  /* ----- Elegant Color (Dark Mode) ----- */
-  --color-elegant: #94a3b8;
-  --color-elegant-dark: #64748b;
-  --color-elegant-light: #cbd5e1;
-  --color-elegant-transparent: rgba(148, 163, 184, 0.5);
-  --color-elegant-transparent-dark: rgba(100, 116, 139, 0.5);
-  --color-elegant-transparent-light: rgba(203, 213, 225, 0.5);
+  /* ---- Elegant ---- */
+  --color-elegant:       var(--ref-neutral-70);
+  --color-elegant-dark:  var(--ref-neutral-50);
+  --color-elegant-light: var(--ref-neutral-85);
+  --color-on-elegant:    var(--ref-neutral-10);
 
-  /* ----- Dark & Light Colors (Dark Mode) ----- */
-  /* Note: Keep semantic meaning - dark = dark colors, light = light colors */
-  /* Do not invert these values in dark mode */
+  /* ---- Legacy aliases for dark mode ---- */
+  --color-bg-strong: #4a4a00;
+  --color-bg-btn:    var(--color-primary);
+  --color-bg-cancel: var(--ref-neutral-40);
+  --color-gray:       var(--ref-neutral-60);
+  --color-gray-dark:  var(--ref-neutral-40);
+  --color-gray-light: var(--ref-neutral-30);
+  --color-light:      var(--ref-neutral-95);
+  --color-dark:       var(--ref-neutral-15);
+}
 
-  /* ----- Gray (Dark Mode) ----- */
-  --color-gray: #71717a;
-  --color-gray-dark: #52525b;
-  --color-gray-light: #3f3f46;
-  --color-gray-transparent: rgba(113, 113, 122, 0.5);
-  --color-gray-transparent-light: rgba(113, 113, 122, 0.3);
-  --color-gray-transparent-lighter: rgba(113, 113, 122, 0.1);
-  --color-gray-transparent-dark: rgba(113, 113, 122, 0.7);
-  --color-gray-transparent-darker: rgba(113, 113, 122, 0.85);
+/* ============================================================================
+   SYSTEM PREFERENCE FALLBACK
+   When no [data-theme] attribute is set, honor OS preference.
+   (js/theme.js sets the attribute explicitly once user picks a mode.)
+   ============================================================================ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+    /* Mirror the overrides in [data-theme="dark"] */
+    --primary-l: 62%;
+    --secondary-l: 65%;
+    --color-on-primary: var(--ref-primary-10);
+    --color-on-secondary: var(--ref-secondary-10);
 
-  /* ----- Border Colors (Dark Mode) ----- */
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-light: rgba(255, 255, 255, 0.05);
-  --color-border-dark: rgba(255, 255, 255, 0.2);
+    --color-bg:            var(--ref-neutral-5);
+    --color-surface:       var(--ref-neutral-10);
+    --color-surface-1:     color-mix(in srgb, var(--color-primary) 5%,  var(--ref-neutral-15));
+    --color-surface-2:     color-mix(in srgb, var(--color-primary) 8%,  var(--ref-neutral-15));
+    --color-surface-3:     color-mix(in srgb, var(--color-primary) 11%, var(--ref-neutral-20));
+    --color-surface-4:     color-mix(in srgb, var(--color-primary) 13%, var(--ref-neutral-20));
+    --color-surface-5:     color-mix(in srgb, var(--color-primary) 16%, var(--ref-neutral-25));
+    --color-surface-variant: var(--ref-neutral-20);
+    --color-surface-inverse: var(--ref-neutral-90);
+    --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
 
-  /* ----- Shadow Elevation (Dark Mode) ----- */
-  --box-shadow: 0.1rem 0.2rem 1rem rgba(0, 0, 0, 0.5);
-  --text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
+    --color-text-primary:   var(--ref-neutral-95);
+    --color-text-secondary: var(--ref-neutral-80);
+    --color-text-tertiary:  var(--ref-neutral-70);
+    --color-text-link:       var(--ref-primary-80);
+    --color-text-link-hover: var(--ref-primary-90);
+
+    --color-border-subtle: color-mix(in srgb, var(--ref-neutral-100) 6%,  transparent);
+    --color-border:        color-mix(in srgb, var(--ref-neutral-100) 12%, transparent);
+    --color-border-strong: color-mix(in srgb, var(--ref-neutral-100) 22%, transparent);
+
+    --shadow-ambient:  0.24;
+    --shadow-key:      0.36;
+    --shadow-penumbra: 0.18;
+
+    --color-success: var(--ref-success-60);
+    --color-warning: var(--ref-warning-60);
+    --color-danger:  var(--ref-error-60);
+    --color-info:    var(--ref-info-60);
+  }
+}
+
+/* Set color-scheme at root for native form controls, scrollbars, etc. */
+:root                { color-scheme: light; }
+[data-theme="light"] { color-scheme: light; }
+[data-theme="dark"]  { color-scheme: dark;  }
+
+/* ============================================================================
+   STATE LAYER UTILITY
+   Use on any interactive element that needs an overlay on hover/press/focus.
+   Example:
+     .my-button { @extend %state-layer; --state-layer-color: var(--color-primary); }
+   ============================================================================ */
+%state-layer {
+  position: relative;
+  isolation: isolate;
+}
+%state-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-color: var(--state-layer-color, currentColor);
+  opacity: 0;
+  transition: opacity var(--motion-duration-short) var(--motion-ease-standard);
+  z-index: 0;
+}
+%state-layer:hover::after   { opacity: calc(var(--state-hover)   / 100); }
+%state-layer:focus-visible::after { opacity: calc(var(--state-focus)   / 100); }
+%state-layer:active::after  { opacity: calc(var(--state-pressed) / 100); }
+
+/* ============================================================================
+   REDUCED MOTION
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-instant: 0ms;
+    --motion-duration-short:   0ms;
+    --motion-duration-medium:  0ms;
+    --motion-duration-long:    0ms;
+  }
 }

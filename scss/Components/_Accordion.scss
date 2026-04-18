@@ -22,23 +22,14 @@
 
 // Accordion Item
 .accordion-item {
-  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-  border-radius: 0.375rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  background-color: var(--color-box, #fff);
-  transition: box-shadow 0.2s ease-in-out;
-
-  [data-theme="dark"] & {
-    background-color: var(--color-box, #18181b);
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  background-color: var(--color-surface);
+  transition: box-shadow var(--motion-duration-medium) var(--motion-ease-standard);
 
   &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
-    [data-theme="dark"] & {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
+    box-shadow: var(--elevation-2);
   }
 }
 
@@ -51,47 +42,37 @@
   padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
   background-color: transparent;
   border: none;
-  color: var(--color-text, #4c5059);
+  color: var(--color-text-primary);
   font-size: 1rem;
   font-weight: 600;
   text-align: left;
   cursor: pointer;
-  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
-
-  [data-theme="dark"] & {
-    color: var(--color-text, #e4e4e7);
-  }
+  transition:
+    background-color var(--motion-duration-short) var(--motion-ease-standard),
+    color var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.03);
-
-    [data-theme="dark"] & {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
+    background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary, #31a9c7);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: -2px;
     z-index: 1;
   }
 
-  // Icon (chevron)
+  // Icon (chevron) — uses currentColor so it follows text color automatically
   &::after {
     content: "";
     width: 1.25rem;
     height: 1.25rem;
     flex-shrink: 0;
     margin-left: auto;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234c5059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    transition: transform 0.2s ease-in-out;
-
-    [data-theme="dark"] & {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23e4e4e7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    }
+    transition: transform var(--motion-duration-medium) var(--motion-ease-standard);
   }
 
   &[aria-expanded="true"]::after {
@@ -123,11 +104,7 @@
 
     > * {
       padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
-      border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-
-      [data-theme="dark"] & {
-        border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-      }
+      border-top: 1px solid var(--color-border);
     }
   }
 
@@ -143,11 +120,7 @@
   .accordion-item {
     border: none;
     border-radius: 0;
-    border-bottom: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-
-    [data-theme="dark"] & {
-      border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-    }
+    border-bottom: 1px solid var(--color-border);
 
     &:last-child {
       border-bottom: none;

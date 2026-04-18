@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-scrim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,8 +24,8 @@
 
 /* Modal Container */
 .modal {
-  background: var(--color-box);
-  border-radius: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
   box-shadow: var(--box-shadow);
   max-width: 500px;
   width: 90%;
@@ -62,7 +62,7 @@
   color: var(--color-text-secondary);
   padding: 0.5rem;
   line-height: 1;
-  transition: color 0.2s ease;
+  transition: color var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover {
     color: var(--color-danger);
@@ -132,21 +132,12 @@
 .modal-overlay {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-
-  [data-theme="dark"] & {
-    background: rgba(0, 0, 0, 0.7);
-  }
 }
 
 /* Enhanced Modal with elevation */
 .modal {
   box-shadow: var(--elevation-4);
-  border-radius: 16px;
-
-  [data-theme="dark"] & {
-    background: var(--color-box, #18181b);
-    border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  border-radius: var(--radius-xl);
 }
 
 /* Native dialog element support */
@@ -156,19 +147,13 @@ dialog.modal {
   max-width: 500px;
   width: 90%;
   max-height: 85vh;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   box-shadow: var(--elevation-4);
-  background: var(--color-box, #fff);
-  color: var(--color-text, #4c5059);
-
-  [data-theme="dark"] & {
-    background: var(--color-box, #18181b);
-    color: var(--color-text, #e4e4e7);
-    border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  background: var(--color-surface);
+  color: var(--color-text-primary);
 
   &::backdrop {
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--color-scrim);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
@@ -176,7 +161,7 @@ dialog.modal {
   &[open] {
     display: flex;
     flex-direction: column;
-    animation: modal-appear 0.25s ease-out;
+    animation: modal-appear var(--motion-duration-medium) var(--motion-ease-standard);
   }
 }
 
@@ -193,19 +178,11 @@ dialog.modal {
 
 /* Modal Header Enhanced */
 .modal-header {
-  border-radius: 16px 16px 0 0;
-
-  [data-theme="dark"] & {
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 
   h2, h3, h4 {
     font-weight: 600;
-    color: var(--color-text, #4c5059);
-
-    [data-theme="dark"] & {
-      color: var(--color-text, #e4e4e7);
-    }
+    color: var(--color-text-primary);
   }
 }
 
@@ -218,41 +195,29 @@ dialog.modal {
   height: 36px;
   padding: 0;
   border-radius: 50%;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color var(--motion-duration-short) var(--motion-ease-standard),
+    color var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover {
-    background-color: var(--color-item-bg, #e8e8f1);
-    color: var(--color-danger, #e1323c);
-
-    [data-theme="dark"] & {
-      background-color: var(--color-item-bg, #1f1f23);
-    }
+    background-color: var(--color-surface-variant);
+    color: var(--color-danger);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary, #31a9c7);
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
 }
 
 /* Modal Body Enhanced */
 .modal-body {
-  color: var(--color-text, #4c5059);
+  color: var(--color-text-primary);
   line-height: 1.6;
-
-  [data-theme="dark"] & {
-    color: var(--color-text, #e4e4e7);
-  }
 }
 
 /* Modal Footer Enhanced */
 .modal-footer {
-  border-radius: 0 0 16px 16px;
-
-  [data-theme="dark"] & {
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-    background-color: rgba(255, 255, 255, 0.02);
-  }
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 
   // Stacked buttons variant
   &.modal-footer-stacked {
@@ -285,7 +250,7 @@ dialog.modal {
     max-width: 100%;
     width: 100%;
     margin: 0;
-    border-radius: 24px 24px 0 0;
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
     max-height: 90vh;
     transform: translateY(100%);
     transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
@@ -298,7 +263,7 @@ dialog.modal {
   .modal-header {
     position: relative;
     padding-top: 1.25rem;
-    border-radius: 24px 24px 0 0;
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
 
     &::before {
       content: "";
@@ -308,12 +273,8 @@ dialog.modal {
       transform: translateX(-50%);
       width: 32px;
       height: 4px;
-      background-color: var(--color-border-dark, rgba(0, 0, 0, 0.3));
-      border-radius: 2px;
-
-      [data-theme="dark"] & {
-        background-color: var(--color-border, rgba(255, 255, 255, 0.2));
-      }
+      background-color: var(--color-border-strong);
+      border-radius: var(--radius-xs);
     }
   }
 }
@@ -344,22 +305,22 @@ dialog.modal {
 
     &.modal-icon-success {
       background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
-      color: var(--color-success, #00a859);
+      color: var(--color-success);
     }
 
     &.modal-icon-warning {
       background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
-      color: var(--color-warning-dark, #d99e00);
+      color: var(--color-warning-dark);
     }
 
     &.modal-icon-danger {
       background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
-      color: var(--color-danger, #e1323c);
+      color: var(--color-danger);
     }
 
     &.modal-icon-info {
       background-color: color-mix(in srgb, var(--color-info) 15%, transparent);
-      color: var(--color-info, #1ec2c2);
+      color: var(--color-info);
     }
   }
 
@@ -389,11 +350,7 @@ dialog.modal {
 
     .modal-section {
       padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-
-      [data-theme="dark"] & {
-        border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-      }
+      border-bottom: 1px solid var(--color-border);
 
       &:last-child {
         border-bottom: none;
@@ -410,7 +367,7 @@ dialog.modal {
 /* Modal without header */
 .modal-no-header {
   .modal-body {
-    border-radius: 16px 16px 0 0;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     padding-top: 2rem;
   }
 

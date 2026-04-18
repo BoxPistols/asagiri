@@ -30,10 +30,6 @@
     transform: scale(0);
     pointer-events: none;
     animation: ripple-animation 0.6s ease-out forwards;
-
-    [data-theme="dark"] & {
-      opacity: 0.25;
-    }
   }
 }
 
@@ -44,7 +40,7 @@
   .ripple-wave {
     position: absolute;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: color-mix(in srgb, var(--color-text-on-brand) 40%, transparent);
     transform: scale(0);
     pointer-events: none;
     animation: ripple-animation 0.6s ease-out forwards;
@@ -58,7 +54,7 @@
   .ripple-wave {
     position: absolute;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: var(--color-border-subtle);
     transform: scale(0);
     pointer-events: none;
     animation: ripple-animation 0.6s ease-out forwards;
@@ -72,7 +68,7 @@
   .ripple-wave {
     position: absolute;
     border-radius: 50%;
-    background-color: var(--color-primary, #31a9c7);
+    background-color: var(--color-primary);
     opacity: 0.3;
     transform: scale(0);
     pointer-events: none;
@@ -87,7 +83,7 @@
   .ripple-wave {
     position: absolute;
     border-radius: 50%;
-    background-color: var(--color-success, #00a859);
+    background-color: var(--color-success);
     opacity: 0.3;
     transform: scale(0);
     pointer-events: none;
@@ -102,7 +98,7 @@
   .ripple-wave {
     position: absolute;
     border-radius: 50%;
-    background-color: var(--color-danger, #e1323c);
+    background-color: var(--color-danger);
     opacity: 0.3;
     transform: scale(0);
     pointer-events: none;

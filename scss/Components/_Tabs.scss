@@ -68,8 +68,8 @@
 
   &.active,
   &[aria-selected="true"] {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
+    color: var(--color-text-link);
+    border-color: var(--color-text-link);
     font-weight: 600;
   }
 

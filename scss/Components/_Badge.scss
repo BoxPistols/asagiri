@@ -103,11 +103,11 @@
   border: 1px solid currentColor;
 
   &.badge-primary {
-    color: var(--color-primary);
+    color: var(--color-text-link);
   }
 
   &.badge-secondary {
-    color: var(--color-secondary);
+    color: var(--color-secondary-dark);
   }
 
   &.badge-accent {

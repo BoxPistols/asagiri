@@ -111,7 +111,10 @@
   --color-primary: hsla(var(--primary-h), var(--primary-s), var(--primary-l), var(--primary-alpha));
   --color-primary-light: hsla(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 15%), var(--primary-alpha));
   --color-primary-dark:  hsla(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 15%), var(--primary-alpha));
-  --color-on-primary: var(--ref-neutral-100);
+  /* on-primary: dark cyan, readable on primary in BOTH modes (MD3 pattern
+     for medium-lightness brand colors — a white foreground on the default
+     cyan primary would drop below WCAG AA 4.5:1). */
+  --color-on-primary: var(--ref-primary-10);
   --color-primary-container: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
   --color-on-primary-container: var(--color-primary-dark);
 
@@ -122,6 +125,8 @@
   --color-secondary: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), var(--secondary-alpha));
   --color-secondary-light: hsla(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) + 15%), var(--secondary-alpha));
   --color-secondary-dark:  hsla(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) - 15%), var(--secondary-alpha));
+  /* on-secondary: white in light (secondary is medium-dark slate → white reads),
+     dark in dark mode (secondary lifts to light slate → dark text reads). */
   --color-on-secondary: var(--ref-neutral-100);
 
   /* ---- Surface hierarchy (MD3-style containers) ----
@@ -188,7 +193,9 @@
   --color-warning:       var(--ref-warning-40);
   --color-warning-dark:  #6a4a00;
   --color-warning-light: var(--ref-warning-60);
-  --color-on-warning:    var(--ref-neutral-10);
+  /* on-warning: white in light (warning is dark amber #8a6100 → 5.5:1 with white),
+     near-black in dark (warning lifts to bright #eab308 → dark text reads). */
+  --color-on-warning:    var(--ref-neutral-100);
 
   --color-danger:       var(--ref-error-40);
   --color-danger-dark:  #8b1c17;
@@ -199,6 +206,20 @@
   --color-info-dark:  #075569;
   --color-info-light: var(--ref-info-60);
   --color-on-info:    var(--ref-neutral-100);
+
+  /* ---- Tonal container backgrounds (semi-transparent tints) ----
+     Used for callout boxes / inline highlights. Auto-remap in dark mode
+     because they reference the semantic color which itself remaps. */
+  --color-info-bg:    color-mix(in srgb, var(--color-info)    15%, transparent);
+  --color-success-bg: color-mix(in srgb, var(--color-success) 15%, transparent);
+  --color-warning-bg: color-mix(in srgb, var(--color-warning) 18%, transparent);
+  --color-danger-bg:  color-mix(in srgb, var(--color-danger)  15%, transparent);
+  /* -bg-dark variants: stronger tints for when an explicit dark callout
+     is wanted even in light mode (e.g. hero / critical alerts). */
+  --color-info-bg-dark:    color-mix(in srgb, var(--color-info)    30%, transparent);
+  --color-success-bg-dark: color-mix(in srgb, var(--color-success) 30%, transparent);
+  --color-warning-bg-dark: color-mix(in srgb, var(--color-warning) 30%, transparent);
+  --color-danger-bg-dark:  color-mix(in srgb, var(--color-danger)  30%, transparent);
 
   /* ---- Elegant (custom brand neutral) ---- */
   --color-elegant:       #48626f;
@@ -259,7 +280,6 @@
   --color-elegant-transparent:       color-mix(in srgb, var(--color-elegant) 50%, transparent);
   --color-elegant-transparent-dark:  color-mix(in srgb, var(--color-elegant-dark) 50%, transparent);
   --color-elegant-transparent-light: color-mix(in srgb, var(--color-elegant-light) 50%, transparent);
-  --color-text-secondary: var(--color-text-secondary); /* already defined above */
 
   /* ---- Shadow / text-shadow legacy aliases ---- */
   --box-shadow: 0 1px 2px rgba(var(--color-shadow), var(--shadow-key)),
@@ -294,13 +314,14 @@
 /* ============================================================================
    DARK MODE — remap system tokens only.
    Components never need [data-theme="dark"] selectors for color.
+   Defined as a SCSS mixin so the explicit [data-theme="dark"] selector
+   and the prefers-color-scheme OS fallback stay in lockstep.
    ============================================================================ */
-[data-theme="dark"] {
-  /* ---- Brand adjustments (lifted for dark backgrounds) ---- */
+@mixin dark-theme-tokens {
+  /* ---- Brand adjustments (lifted for dark backgrounds) ----
+     on-primary / on-secondary already dark in :root — no override needed. */
   --primary-l: 62%;
   --secondary-l: 65%;
-  --color-on-primary: var(--ref-primary-10);
-  --color-on-secondary: var(--ref-secondary-10);
   --color-primary-container: color-mix(in srgb, var(--color-primary) 22%, var(--color-surface));
   --color-on-primary-container: var(--color-primary-light);
 
@@ -346,8 +367,7 @@
   --state-selected: 20%;
 
   /* ---- Functional palette (desaturated & lifted) ---- */
-  --color-accent:       var(--ref-error-80); /* recolored for visibility */
-  --color-accent:       #e879f9;
+  --color-accent:       #e879f9; /* magenta lifted for dark-bg visibility */
   --color-accent-dark:  #c026d3;
   --color-accent-light: #f0abfc;
   --color-on-accent:    var(--ref-neutral-10);
@@ -361,6 +381,7 @@
   --color-warning-dark:  var(--ref-warning-40);
   --color-warning-light: var(--ref-warning-80);
   --color-on-warning:    var(--ref-neutral-10);
+  --color-on-secondary:  var(--ref-secondary-10);
 
   --color-danger:       var(--ref-error-60);
   --color-danger-dark:  var(--ref-error-40);
@@ -389,49 +410,20 @@
   --color-dark:       var(--ref-neutral-15);
 }
 
+[data-theme="dark"] {
+  @include dark-theme-tokens;
+}
+
 /* ============================================================================
    SYSTEM PREFERENCE FALLBACK
    When no [data-theme] attribute is set, honor OS preference.
    (js/theme.js sets the attribute explicitly once user picks a mode.)
+   Uses the same mixin as [data-theme="dark"] to guarantee parity.
    ============================================================================ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]):not([data-theme="dark"]) {
     color-scheme: dark;
-    /* Mirror the overrides in [data-theme="dark"] */
-    --primary-l: 62%;
-    --secondary-l: 65%;
-    --color-on-primary: var(--ref-primary-10);
-    --color-on-secondary: var(--ref-secondary-10);
-
-    --color-bg:            var(--ref-neutral-5);
-    --color-surface:       var(--ref-neutral-10);
-    --color-surface-1:     color-mix(in srgb, var(--color-primary) 5%,  var(--ref-neutral-15));
-    --color-surface-2:     color-mix(in srgb, var(--color-primary) 8%,  var(--ref-neutral-15));
-    --color-surface-3:     color-mix(in srgb, var(--color-primary) 11%, var(--ref-neutral-20));
-    --color-surface-4:     color-mix(in srgb, var(--color-primary) 13%, var(--ref-neutral-20));
-    --color-surface-5:     color-mix(in srgb, var(--color-primary) 16%, var(--ref-neutral-25));
-    --color-surface-variant: var(--ref-neutral-20);
-    --color-surface-inverse: var(--ref-neutral-90);
-    --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
-
-    --color-text-primary:   var(--ref-neutral-95);
-    --color-text-secondary: var(--ref-neutral-80);
-    --color-text-tertiary:  var(--ref-neutral-70);
-    --color-text-link:       var(--ref-primary-80);
-    --color-text-link-hover: var(--ref-primary-90);
-
-    --color-border-subtle: color-mix(in srgb, var(--ref-neutral-100) 6%,  transparent);
-    --color-border:        color-mix(in srgb, var(--ref-neutral-100) 12%, transparent);
-    --color-border-strong: color-mix(in srgb, var(--ref-neutral-100) 22%, transparent);
-
-    --shadow-ambient:  0.24;
-    --shadow-key:      0.36;
-    --shadow-penumbra: 0.18;
-
-    --color-success: var(--ref-success-60);
-    --color-warning: var(--ref-warning-60);
-    --color-danger:  var(--ref-error-60);
-    --color-info:    var(--ref-info-60);
+    @include dark-theme-tokens;
   }
 }
 

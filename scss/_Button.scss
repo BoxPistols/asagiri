@@ -1,12 +1,11 @@
 @mixin btn-common {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: var(--global-component-height);
   margin: 0.2rem 0.25rem;
   padding: 0 2rem;
-  // TODO: サイズ設計
-  // min-width: 120px;
-  // max-width: 480px;
 
   cursor: pointer;
   transition: background-color 0.25s, border-color 0.25s, color 0.25s;
@@ -19,11 +18,11 @@
 
   font-size: 1.05rem;
   font-weight: 500;
-  line-height: var(--global-component-line-height);
+  line-height: 1.2;
 }
 
 @mixin btn-action {
-  color: var(--color-white);
+  color: var(--color-on-primary);
   border-color: var(--color-primary-dark);
   outline: 0;
   background-color: var(--color-primary-dark);
@@ -43,7 +42,7 @@
 
 // Background Button Color
 @mixin btn-func-color($x) {
-  color: var(--color-white);
+  color: var(--color-on-#{$x});
   border: 1px solid var(--color-#{$x});
   background-color: var(--color-#{$x});
 
@@ -62,7 +61,7 @@
 
   &:focus,
   &:hover {
-    color: var(--color-white);
+    color: var(--color-on-#{$x});
     border-color: var(--color-#{$x}-dark);
     background-color: var(--color-#{$x}-dark);
   }
@@ -80,7 +79,7 @@ input[type="submit"] {
   @include btn-common;
   @include btn-color(
     var(--color-primary),
-    var(--color-white),
+    var(--color-on-primary),
     var(--color-primary)
   );
 
@@ -90,7 +89,7 @@ input[type="submit"] {
 
     @include btn-color(
       var(--color-secondary),
-      var(--color-white),
+      var(--color-on-secondary),
       var(--color-secondary)
     );
   }
@@ -206,13 +205,13 @@ input[type="submit"] {
 
   // キャンセルボタン
   &.button-cancel {
-    color: var(--color-white);
+    color: var(--color-text-on-brand);
     border-color: transparent;
     background-color: var(--color-bg-cancel);
-    // box-shadow: none;
 
     &:focus,
     &:hover {
+      color: var(--color-on-secondary);
       border-color: transparent;
       background-color: var(--color-secondary);
     }
@@ -220,7 +219,7 @@ input[type="submit"] {
     &[disabled] {
       &:focus,
       &:hover {
-        color: var(--color-white);
+        color: var(--color-text-on-brand);
         background-color: var(--color-bg-cancel);
       }
     }
@@ -310,7 +309,7 @@ input[type="submit"] {
 
 // Full width button
 .btn-block {
-  display: block;
+  display: flex;
   width: 100%;
   margin-left: 0;
   margin-right: 0;

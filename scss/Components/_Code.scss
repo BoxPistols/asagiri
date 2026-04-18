@@ -4,8 +4,9 @@ code {
 
   white-space: nowrap;
 
-  border-radius: 0.4rem;
-  background: var(--color-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-variant);
+  color: var(--color-text-code);
 
   font-size: 0.9rem;
 }
@@ -13,13 +14,14 @@ code {
 pre {
   overflow-y: hidden;
   border-left: 0.3rem solid var(--color-primary);
-  background: var(--color-light);
+  background: var(--color-surface-variant);
+  color: var(--color-text-code);
 
   > code {
     display: block;
     padding: 0.8rem 1.2rem;
     white-space: pre;
-    color: var(--color-secondary);
+    color: var(--color-text-code);
     border-radius: 0;
   }
 }

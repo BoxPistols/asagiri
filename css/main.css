@@ -318,7 +318,10 @@ summary {
   --color-primary: hsla(var(--primary-h), var(--primary-s), var(--primary-l), var(--primary-alpha));
   --color-primary-light: hsla(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 15%), var(--primary-alpha));
   --color-primary-dark: hsla(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 15%), var(--primary-alpha));
-  --color-on-primary: var(--ref-neutral-100);
+  /* on-primary: dark cyan, readable on primary in BOTH modes (MD3 pattern
+     for medium-lightness brand colors — a white foreground on the default
+     cyan primary would drop below WCAG AA 4.5:1). */
+  --color-on-primary: var(--ref-primary-10);
   --color-primary-container: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
   --color-on-primary-container: var(--color-primary-dark);
   --secondary-h: 224;
@@ -328,6 +331,8 @@ summary {
   --color-secondary: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), var(--secondary-alpha));
   --color-secondary-light: hsla(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) + 15%), var(--secondary-alpha));
   --color-secondary-dark: hsla(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) - 15%), var(--secondary-alpha));
+  /* on-secondary: white in light (secondary is medium-dark slate → white reads),
+     dark in dark mode (secondary lifts to light slate → dark text reads). */
   --color-on-secondary: var(--ref-neutral-100);
   /* ---- Surface hierarchy (MD3-style containers) ----
      bg        — page background
@@ -385,7 +390,9 @@ summary {
   --color-warning: var(--ref-warning-40);
   --color-warning-dark: #6a4a00;
   --color-warning-light: var(--ref-warning-60);
-  --color-on-warning: var(--ref-neutral-10);
+  /* on-warning: white in light (warning is dark amber #8a6100 → 5.5:1 with white),
+     near-black in dark (warning lifts to bright #eab308 → dark text reads). */
+  --color-on-warning: var(--ref-neutral-100);
   --color-danger: var(--ref-error-40);
   --color-danger-dark: #8b1c17;
   --color-danger-light: var(--ref-error-60);
@@ -394,6 +401,19 @@ summary {
   --color-info-dark: #075569;
   --color-info-light: var(--ref-info-60);
   --color-on-info: var(--ref-neutral-100);
+  /* ---- Tonal container backgrounds (semi-transparent tints) ----
+     Used for callout boxes / inline highlights. Auto-remap in dark mode
+     because they reference the semantic color which itself remaps. */
+  --color-info-bg: color-mix(in srgb, var(--color-info) 15%, transparent);
+  --color-success-bg: color-mix(in srgb, var(--color-success) 15%, transparent);
+  --color-warning-bg: color-mix(in srgb, var(--color-warning) 18%, transparent);
+  --color-danger-bg: color-mix(in srgb, var(--color-danger) 15%, transparent);
+  /* -bg-dark variants: stronger tints for when an explicit dark callout
+     is wanted even in light mode (e.g. hero / critical alerts). */
+  --color-info-bg-dark: color-mix(in srgb, var(--color-info) 30%, transparent);
+  --color-success-bg-dark: color-mix(in srgb, var(--color-success) 30%, transparent);
+  --color-warning-bg-dark: color-mix(in srgb, var(--color-warning) 30%, transparent);
+  --color-danger-bg-dark: color-mix(in srgb, var(--color-danger) 30%, transparent);
   /* ---- Elegant (custom brand neutral) ---- */
   --color-elegant: #48626f;
   --color-elegant-dark: #3c4a57;
@@ -451,7 +471,6 @@ summary {
   --color-elegant-transparent: color-mix(in srgb, var(--color-elegant) 50%, transparent);
   --color-elegant-transparent-dark: color-mix(in srgb, var(--color-elegant-dark) 50%, transparent);
   --color-elegant-transparent-light: color-mix(in srgb, var(--color-elegant-light) 50%, transparent);
-  --color-text-secondary: var(--color-text-secondary); /* already defined above */
   /* ---- Shadow / text-shadow legacy aliases ---- */
   --box-shadow: 0 1px 2px rgba(var(--color-shadow), var(--shadow-key)),
                 0 2px 8px rgba(var(--color-shadow), var(--shadow-ambient));
@@ -482,13 +501,14 @@ summary {
 /* ============================================================================
    DARK MODE — remap system tokens only.
    Components never need [data-theme="dark"] selectors for color.
+   Defined as a SCSS mixin so the explicit [data-theme="dark"] selector
+   and the prefers-color-scheme OS fallback stay in lockstep.
    ============================================================================ */
 [data-theme=dark] {
-  /* ---- Brand adjustments (lifted for dark backgrounds) ---- */
+  /* ---- Brand adjustments (lifted for dark backgrounds) ----
+     on-primary / on-secondary already dark in :root — no override needed. */
   --primary-l: 62%;
   --secondary-l: 65%;
-  --color-on-primary: var(--ref-primary-10);
-  --color-on-secondary: var(--ref-secondary-10);
   --color-primary-container: color-mix(in srgb, var(--color-primary) 22%, var(--color-surface));
   --color-on-primary-container: var(--color-primary-light);
   /* ---- Surfaces (elevation = tinted neutral) ---- */
@@ -528,8 +548,7 @@ summary {
   --state-pressed: 14%;
   --state-selected: 20%;
   /* ---- Functional palette (desaturated & lifted) ---- */
-  --color-accent: var(--ref-error-80); /* recolored for visibility */
-  --color-accent: #e879f9;
+  --color-accent: #e879f9; /* magenta lifted for dark-bg visibility */
   --color-accent-dark: #c026d3;
   --color-accent-light: #f0abfc;
   --color-on-accent: var(--ref-neutral-10);
@@ -541,6 +560,7 @@ summary {
   --color-warning-dark: var(--ref-warning-40);
   --color-warning-light: var(--ref-warning-80);
   --color-on-warning: var(--ref-neutral-10);
+  --color-on-secondary: var(--ref-secondary-10);
   --color-danger: var(--ref-error-60);
   --color-danger-dark: var(--ref-error-40);
   --color-danger-light: var(--ref-error-80);
@@ -569,15 +589,18 @@ summary {
    SYSTEM PREFERENCE FALLBACK
    When no [data-theme] attribute is set, honor OS preference.
    (js/theme.js sets the attribute explicitly once user picks a mode.)
+   Uses the same mixin as [data-theme="dark"] to guarantee parity.
    ============================================================================ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme=light]):not([data-theme=dark]) {
     color-scheme: dark;
-    /* Mirror the overrides in [data-theme="dark"] */
+    /* ---- Brand adjustments (lifted for dark backgrounds) ----
+       on-primary / on-secondary already dark in :root — no override needed. */
     --primary-l: 62%;
     --secondary-l: 65%;
-    --color-on-primary: var(--ref-primary-10);
-    --color-on-secondary: var(--ref-secondary-10);
+    --color-primary-container: color-mix(in srgb, var(--color-primary) 22%, var(--color-surface));
+    --color-on-primary-container: var(--color-primary-light);
+    /* ---- Surfaces (elevation = tinted neutral) ---- */
     --color-bg: var(--ref-neutral-5);
     --color-surface: var(--ref-neutral-10);
     --color-surface-1: color-mix(in srgb, var(--color-primary) 5%, var(--ref-neutral-15));
@@ -587,22 +610,68 @@ summary {
     --color-surface-5: color-mix(in srgb, var(--color-primary) 16%, var(--ref-neutral-25));
     --color-surface-variant: var(--ref-neutral-20);
     --color-surface-inverse: var(--ref-neutral-90);
+    --color-on-surface-inverse: var(--ref-neutral-15);
     --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
+    /* ---- Text ---- */
     --color-text-primary: var(--ref-neutral-95);
     --color-text-secondary: var(--ref-neutral-80);
     --color-text-tertiary: var(--ref-neutral-70);
+    --color-text-disabled: color-mix(in srgb, var(--color-text-primary) 38%, transparent);
+    --color-text-on-brand: var(--ref-neutral-100);
     --color-text-link: var(--ref-primary-80);
     --color-text-link-hover: var(--ref-primary-90);
+    --color-text-link-visited: #c4b5fd;
+    --color-text-code: var(--ref-neutral-95);
+    /* ---- Borders (white-based in dark mode) ---- */
     --color-border-subtle: color-mix(in srgb, var(--ref-neutral-100) 6%, transparent);
     --color-border: color-mix(in srgb, var(--ref-neutral-100) 12%, transparent);
     --color-border-strong: color-mix(in srgb, var(--ref-neutral-100) 22%, transparent);
+    /* ---- Shadow (deeper / darker in dark mode) ---- */
+    --color-shadow: 0, 0, 0;
     --shadow-ambient: 0.24;
     --shadow-key: 0.36;
     --shadow-penumbra: 0.18;
+    /* ---- State layer intensities (slightly higher in dark mode) ---- */
+    --state-hover: 10%;
+    --state-focus: 14%;
+    --state-pressed: 14%;
+    --state-selected: 20%;
+    /* ---- Functional palette (desaturated & lifted) ---- */
+    --color-accent: #e879f9; /* magenta lifted for dark-bg visibility */
+    --color-accent-dark: #c026d3;
+    --color-accent-light: #f0abfc;
+    --color-on-accent: var(--ref-neutral-10);
     --color-success: var(--ref-success-60);
+    --color-success-dark: var(--ref-success-40);
+    --color-success-light: var(--ref-success-80);
+    --color-on-success: var(--ref-neutral-10);
     --color-warning: var(--ref-warning-60);
+    --color-warning-dark: var(--ref-warning-40);
+    --color-warning-light: var(--ref-warning-80);
+    --color-on-warning: var(--ref-neutral-10);
+    --color-on-secondary: var(--ref-secondary-10);
     --color-danger: var(--ref-error-60);
+    --color-danger-dark: var(--ref-error-40);
+    --color-danger-light: var(--ref-error-80);
+    --color-on-danger: var(--ref-neutral-10);
     --color-info: var(--ref-info-60);
+    --color-info-dark: var(--ref-info-40);
+    --color-info-light: var(--ref-info-80);
+    --color-on-info: var(--ref-neutral-10);
+    /* ---- Elegant ---- */
+    --color-elegant: var(--ref-neutral-70);
+    --color-elegant-dark: var(--ref-neutral-50);
+    --color-elegant-light: var(--ref-neutral-85);
+    --color-on-elegant: var(--ref-neutral-10);
+    /* ---- Legacy aliases for dark mode ---- */
+    --color-bg-strong: #4a4a00;
+    --color-bg-btn: var(--color-primary);
+    --color-bg-cancel: var(--ref-neutral-40);
+    --color-gray: var(--ref-neutral-60);
+    --color-gray-dark: var(--ref-neutral-40);
+    --color-gray-light: var(--ref-neutral-30);
+    --color-light: var(--ref-neutral-95);
+    --color-dark: var(--ref-neutral-15);
   }
 }
 /* Set color-scheme at root for native form controls, scrollbars, etc. */
@@ -920,10 +989,13 @@ img {
 
 a {
   text-decoration: none;
-  color: var(--color-primary);
+  color: var(--color-text-link);
 }
 a:focus, a:hover {
-  color: var(--color-secondary);
+  color: var(--color-text-link-hover);
+}
+a:visited {
+  color: var(--color-text-link-visited);
 }
 
 b,
@@ -1066,7 +1138,9 @@ input[type=button],
 input[type=reset],
 input[type=submit] {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: var(--global-component-height);
   margin: 0.2rem 0.25rem;
   padding: 0 2rem;
@@ -1079,8 +1153,8 @@ input[type=submit] {
   border-radius: var(--border-radius-all);
   font-size: 1.05rem;
   font-weight: 500;
-  line-height: var(--global-component-line-height);
-  color: var(--color-white);
+  line-height: 1.2;
+  color: var(--color-on-primary);
   background-color: var(--color-primary);
   border: 1px solid var(--color-primary);
 }
@@ -1094,7 +1168,7 @@ input[type=reset]:hover,
 input[type=submit]:focus,
 input[type=submit]:hover {
   outline: 0;
-  color: var(--color-white);
+  color: var(--color-on-secondary);
   background-color: var(--color-secondary);
   border: 1px solid var(--color-secondary);
 }
@@ -1103,7 +1177,7 @@ button.btn-secondary,
 input[type=button].btn-secondary,
 input[type=reset].btn-secondary,
 input[type=submit].btn-secondary {
-  color: var(--color-white);
+  color: var(--color-on-secondary);
   border: 1px solid var(--color-secondary);
   background-color: var(--color-secondary);
 }
@@ -1124,7 +1198,7 @@ button.btn-accent,
 input[type=button].btn-accent,
 input[type=reset].btn-accent,
 input[type=submit].btn-accent {
-  color: var(--color-white);
+  color: var(--color-on-accent);
   border: 1px solid var(--color-accent);
   background-color: var(--color-accent);
 }
@@ -1145,7 +1219,7 @@ button.btn-success,
 input[type=button].btn-success,
 input[type=reset].btn-success,
 input[type=submit].btn-success {
-  color: var(--color-white);
+  color: var(--color-on-success);
   border: 1px solid var(--color-success);
   background-color: var(--color-success);
 }
@@ -1166,7 +1240,7 @@ button.btn-warning,
 input[type=button].btn-warning,
 input[type=reset].btn-warning,
 input[type=submit].btn-warning {
-  color: var(--color-white);
+  color: var(--color-on-warning);
   border: 1px solid var(--color-warning);
   background-color: var(--color-warning);
 }
@@ -1187,7 +1261,7 @@ button.btn-danger,
 input[type=button].btn-danger,
 input[type=reset].btn-danger,
 input[type=submit].btn-danger {
-  color: var(--color-white);
+  color: var(--color-on-danger);
   border: 1px solid var(--color-danger);
   background-color: var(--color-danger);
 }
@@ -1208,7 +1282,7 @@ button.btn-info,
 input[type=button].btn-info,
 input[type=reset].btn-info,
 input[type=submit].btn-info {
-  color: var(--color-white);
+  color: var(--color-on-info);
   border: 1px solid var(--color-info);
   background-color: var(--color-info);
 }
@@ -1229,7 +1303,7 @@ button.btn-elegant,
 input[type=button].btn-elegant,
 input[type=reset].btn-elegant,
 input[type=submit].btn-elegant {
-  color: var(--color-white);
+  color: var(--color-on-elegant);
   border: 1px solid var(--color-elegant);
   background-color: var(--color-elegant);
 }
@@ -1263,7 +1337,7 @@ input[type=reset].btn-outline-secondary:focus,
 input[type=reset].btn-outline-secondary:hover,
 input[type=submit].btn-outline-secondary:focus,
 input[type=submit].btn-outline-secondary:hover {
-  color: var(--color-white);
+  color: var(--color-on-secondary);
   border-color: var(--color-secondary-dark);
   background-color: var(--color-secondary-dark);
 }
@@ -1285,7 +1359,7 @@ input[type=reset].btn-outline-accent:focus,
 input[type=reset].btn-outline-accent:hover,
 input[type=submit].btn-outline-accent:focus,
 input[type=submit].btn-outline-accent:hover {
-  color: var(--color-white);
+  color: var(--color-on-accent);
   border-color: var(--color-accent-dark);
   background-color: var(--color-accent-dark);
 }
@@ -1307,7 +1381,7 @@ input[type=reset].btn-outline-success:focus,
 input[type=reset].btn-outline-success:hover,
 input[type=submit].btn-outline-success:focus,
 input[type=submit].btn-outline-success:hover {
-  color: var(--color-white);
+  color: var(--color-on-success);
   border-color: var(--color-success-dark);
   background-color: var(--color-success-dark);
 }
@@ -1329,7 +1403,7 @@ input[type=reset].btn-outline-warning:focus,
 input[type=reset].btn-outline-warning:hover,
 input[type=submit].btn-outline-warning:focus,
 input[type=submit].btn-outline-warning:hover {
-  color: var(--color-white);
+  color: var(--color-on-warning);
   border-color: var(--color-warning-dark);
   background-color: var(--color-warning-dark);
 }
@@ -1351,7 +1425,7 @@ input[type=reset].btn-outline-danger:focus,
 input[type=reset].btn-outline-danger:hover,
 input[type=submit].btn-outline-danger:focus,
 input[type=submit].btn-outline-danger:hover {
-  color: var(--color-white);
+  color: var(--color-on-danger);
   border-color: var(--color-danger-dark);
   background-color: var(--color-danger-dark);
 }
@@ -1373,7 +1447,7 @@ input[type=reset].btn-outline-info:focus,
 input[type=reset].btn-outline-info:hover,
 input[type=submit].btn-outline-info:focus,
 input[type=submit].btn-outline-info:hover {
-  color: var(--color-white);
+  color: var(--color-on-info);
   border-color: var(--color-info-dark);
   background-color: var(--color-info-dark);
 }
@@ -1395,7 +1469,7 @@ input[type=reset].btn-outline-elegant:focus,
 input[type=reset].btn-outline-elegant:hover,
 input[type=submit].btn-outline-elegant:focus,
 input[type=submit].btn-outline-elegant:hover {
-  color: var(--color-white);
+  color: var(--color-on-elegant);
   border-color: var(--color-elegant-dark);
   background-color: var(--color-elegant-dark);
 }
@@ -1480,7 +1554,7 @@ button.button-cancel,
 input[type=button].button-cancel,
 input[type=reset].button-cancel,
 input[type=submit].button-cancel {
-  color: var(--color-white);
+  color: var(--color-text-on-brand);
   border-color: transparent;
   background-color: var(--color-bg-cancel);
 }
@@ -1493,6 +1567,7 @@ input[type=reset].button-cancel:focus,
 input[type=reset].button-cancel:hover,
 input[type=submit].button-cancel:focus,
 input[type=submit].button-cancel:hover {
+  color: var(--color-on-secondary);
   border-color: transparent;
   background-color: var(--color-secondary);
 }
@@ -1505,7 +1580,7 @@ input[type=reset].button-cancel[disabled]:focus,
 input[type=reset].button-cancel[disabled]:hover,
 input[type=submit].button-cancel[disabled]:focus,
 input[type=submit].button-cancel[disabled]:hover {
-  color: var(--color-white);
+  color: var(--color-text-on-brand);
   background-color: var(--color-bg-cancel);
 }
 .button.button-clear,
@@ -1596,7 +1671,7 @@ input[type=submit]:active:not([disabled]) {
 }
 
 .btn-block {
-  display: block;
+  display: flex;
   width: 100%;
   margin-left: 0;
   margin-right: 0;
@@ -3375,21 +3450,23 @@ code {
   margin: 0 0.2rem;
   padding: 0.2rem 0.5rem;
   white-space: nowrap;
-  border-radius: 0.4rem;
-  background: var(--color-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-variant);
+  color: var(--color-text-code);
   font-size: 0.9rem;
 }
 
 pre {
   overflow-y: hidden;
   border-left: 0.3rem solid var(--color-primary);
-  background: var(--color-light);
+  background: var(--color-surface-variant);
+  color: var(--color-text-code);
 }
 pre > code {
   display: block;
   padding: 0.8rem 1.2rem;
   white-space: pre;
-  color: var(--color-secondary);
+  color: var(--color-text-code);
   border-radius: 0;
 }
 
@@ -4223,10 +4300,10 @@ a > .badge, button > .badge {
   border: 1px solid currentColor;
 }
 .badge-outline.badge-primary {
-  color: var(--color-primary);
+  color: var(--color-text-link);
 }
 .badge-outline.badge-secondary {
-  color: var(--color-secondary);
+  color: var(--color-secondary-dark);
 }
 .badge-outline.badge-accent {
   color: var(--color-accent);
@@ -4452,8 +4529,8 @@ button.badge:active {
   z-index: 1;
 }
 .tab-link.active, .tab-link[aria-selected=true] {
-  color: var(--color-primary);
-  border-color: var(--color-primary);
+  color: var(--color-text-link);
+  border-color: var(--color-text-link);
   font-weight: 600;
 }
 .tab-link[disabled] {
@@ -7094,8 +7171,8 @@ textarea.is-warning,
   background: transparent;
 }
 .code-block code {
-  color: var(--color-text);
-  background: var(--color-item-bg-light);
+  color: var(--color-text-code);
+  background: var(--color-surface-variant);
   padding: 0.2em 0.4em;
   border-radius: 3px;
 }
@@ -7121,12 +7198,12 @@ textarea.is-warning,
 }
 .copy-button:hover {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-on-primary);
   border-color: var(--color-primary);
 }
 .copy-button.copied {
   background: var(--color-success);
-  color: var(--color-white);
+  color: var(--color-on-success);
   border-color: var(--color-success);
 }
 .copy-button:active {
@@ -7147,10 +7224,10 @@ textarea.is-warning,
   color: var(--color-text);
 }
 .demo-box code {
-  color: var(--color-text);
-  background: var(--color-item-bg-light);
+  color: var(--color-text-code);
+  background: var(--color-surface-variant);
   padding: 0.2em 0.4em;
-  border-radius: 3px;
+  border-radius: var(--radius-xs);
 }
 
 /**

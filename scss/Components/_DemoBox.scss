@@ -13,9 +13,9 @@
   color: var(--color-text);
 
   code {
-    color: var(--color-text);
-    background: var(--color-item-bg-light);
+    color: var(--color-text-code);
+    background: var(--color-surface-variant);
     padding: 0.2em 0.4em;
-    border-radius: 3px;
+    border-radius: var(--radius-xs);
   }
 }

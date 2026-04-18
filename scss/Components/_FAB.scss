@@ -23,10 +23,10 @@
   padding: 0;
 
   // Appearance
-  background-color: var(--color-primary, #31a9c7);
-  color: var(--color-white, #fff);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
   border: none;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   box-shadow: var(--elevation-3);
   cursor: pointer;
 
@@ -37,9 +37,9 @@
   text-decoration: none;
 
   // Animation
-  transition: box-shadow 0.2s ease-in-out,
-    transform 0.2s ease-in-out,
-    background-color 0.2s ease-in-out;
+  transition: box-shadow var(--motion-duration-medium) var(--motion-ease-standard),
+    transform var(--motion-duration-medium) var(--motion-ease-standard),
+    background-color var(--motion-duration-medium) var(--motion-ease-standard);
 
   // Ripple overflow
   overflow: hidden;
@@ -63,7 +63,7 @@
 
   // Hover state
   &:hover {
-    background-color: var(--color-primary-dark, #1a6b7e);
+    background-color: var(--color-primary-dark);
     box-shadow: var(--elevation-4);
     transform: translateY(-2px);
   }
@@ -76,15 +76,15 @@
 
   // Focus state
   &:focus-visible {
-    outline: 2px solid var(--color-primary-light, #4ec4df);
+    outline: 2px solid var(--color-primary-light);
     outline-offset: 2px;
   }
 
   // Disabled state
   &:disabled,
   &[disabled] {
-    background-color: var(--color-gray, #9ca8b3);
-    color: rgba(255, 255, 255, 0.7);
+    background-color: var(--color-gray);
+    color: color-mix(in srgb, var(--color-text-on-brand) 70%, transparent);
     box-shadow: none;
     cursor: not-allowed;
     transform: none;
@@ -95,7 +95,7 @@
 .fab-sm {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   font-size: 1.25rem;
 
   .fab-icon {
@@ -134,7 +134,7 @@
   min-width: 80px;
   height: 56px;
   padding: 0 1.25rem;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   font-size: 0.9375rem;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -172,89 +172,76 @@
 
 // FAB Color Variants
 .fab-primary {
-  background-color: var(--color-primary, #31a9c7);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 
   &:hover {
-    background-color: var(--color-primary-dark, #1a6b7e);
+    background-color: var(--color-primary-dark);
   }
 }
 
 .fab-secondary {
-  background-color: var(--color-secondary, #5c6b82);
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
 
   &:hover {
-    background-color: var(--color-secondary-dark, #3d4757);
+    background-color: var(--color-secondary-dark);
   }
 }
 
 .fab-success {
-  background-color: var(--color-success, #00a859);
+  background-color: var(--color-success);
+  color: var(--color-on-success);
 
   &:hover {
-    background-color: var(--color-success-dark, #008c4e);
+    background-color: var(--color-success-dark);
   }
 }
 
 .fab-danger {
-  background-color: var(--color-danger, #e1323c);
+  background-color: var(--color-danger);
+  color: var(--color-on-danger);
 
   &:hover {
-    background-color: var(--color-danger-dark, #c82727);
+    background-color: var(--color-danger-dark);
   }
 }
 
 .fab-warning {
-  background-color: var(--color-warning, #ebbb0c);
-  color: var(--color-black, #000);
+  background-color: var(--color-warning);
+  color: var(--color-on-warning);
 
   &:hover {
-    background-color: var(--color-warning-dark, #d99e00);
+    background-color: var(--color-warning-dark);
   }
 }
 
 .fab-info {
-  background-color: var(--color-info, #1ec2c2);
+  background-color: var(--color-info);
+  color: var(--color-on-info);
 
   &:hover {
-    background-color: var(--color-info-dark, #1a9fa2);
+    background-color: var(--color-info-dark);
   }
 }
 
 // Surface FAB (light background)
 .fab-surface {
-  background-color: var(--color-box, #fff);
-  color: var(--color-primary, #31a9c7);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
 
   &:hover {
-    background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-box, #fff));
-  }
-
-  [data-theme="dark"] & {
-    background-color: var(--color-item-bg, #1f1f23);
-    color: var(--color-primary-light, #4ec4df);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--color-primary) 15%, var(--color-item-bg, #1f1f23));
-    }
+    background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), var(--color-surface));
   }
 }
 
 // Tertiary FAB (tonal)
 .fab-tertiary {
   background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
-  color: var(--color-primary-dark, #1a6b7e);
+  color: var(--color-on-primary-container);
 
   &:hover {
     background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
-  }
-
-  [data-theme="dark"] & {
-    background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
-    color: var(--color-primary-light, #4ec4df);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
-    }
   }
 }
 
@@ -296,7 +283,7 @@
 
 // FAB Animation variants
 .fab-scale-in {
-  animation: fab-scale-in 0.2s ease-out;
+  animation: fab-scale-in var(--motion-duration-medium) var(--motion-ease-standard);
 }
 
 @keyframes fab-scale-in {
@@ -351,7 +338,7 @@
   .fab-mini {
     width: 40px;
     height: 40px;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     font-size: 1rem;
     box-shadow: var(--elevation-2);
 
@@ -371,12 +358,15 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0.2s;
+    transition: opacity var(--motion-duration-medium) var(--motion-ease-standard),
+      transform var(--motion-duration-medium) var(--motion-ease-standard),
+      visibility var(--motion-duration-medium);
 
     .fab-mini {
       transform: scale(0.5);
       opacity: 0;
-      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+      transition: transform var(--motion-duration-medium) var(--motion-ease-standard),
+        opacity var(--motion-duration-medium) var(--motion-ease-standard);
     }
   }
 
@@ -405,7 +395,7 @@
   }
 
   > .fab .fab-icon {
-    transition: transform 0.2s ease-out;
+    transition: transform var(--motion-duration-medium) var(--motion-ease-standard);
   }
 }
 

@@ -11,8 +11,8 @@ section.section,
   margin: $spacing-grid;
   padding: $spacing-grid;
 
-  background-color: var(--color-box, #fff);
-  box-shadow: var(--box-shadow);
+  background-color: var(--color-surface);
+  box-shadow: var(--elevation-1);
 }
 
 .fit {

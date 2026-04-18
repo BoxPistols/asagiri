@@ -6,11 +6,12 @@ table {
   border-spacing: 0;
   text-align: left;
 
-  border: 1px solid var(--color-item-bg-light);
+  border: 1px solid var(--color-border);
   border-bottom: none;
+  color: var(--color-text-primary);
 
   &.stripe {
-    border-bottom: 1px solid var(--color-item-bg-light);
+    border-bottom: 1px solid var(--color-border);
 
     th,
     td {
@@ -18,7 +19,7 @@ table {
     }
 
     tr:nth-child(even) {
-      background-color: var(--color-item-bg-light);
+      background-color: var(--color-surface-variant);
     }
   }
 }
@@ -27,7 +28,8 @@ td,
 th {
   padding: 0.5rem 1rem;
 
-  border-bottom: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
 }
 td {
   padding: 0.5rem 1rem;
@@ -37,40 +39,8 @@ th {
 }
 
 thead.dark > tr > th {
-  color: var(--color-ghost);
-  background-color: var(--color-item-bg-dark);
-}
-
-// Dark mode support
-[data-theme="dark"] {
-  table {
-    border-color: var(--color-border);
-    color: var(--color-text);
-
-    &.stripe {
-      border-color: var(--color-border);
-
-      tr:nth-child(even) {
-        background-color: var(--color-item-bg-light);
-        color: var(--color-text);
-      }
-
-      tr:nth-child(odd) {
-        background-color: transparent;
-        color: var(--color-text);
-      }
-    }
-  }
-
-  td,
-  th {
-    border-color: var(--color-border);
-    color: var(--color-text);
-  }
-
-  thead.dark > tr > th {
-    background-color: var(--color-item-bg-dark);
-  }
+  color: var(--color-on-surface-inverse);
+  background-color: var(--color-surface-inverse);
 }
 
 @media (min-width: 40rem) {

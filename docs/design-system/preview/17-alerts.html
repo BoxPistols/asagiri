@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Alerts</title>
+<style>
+  h4 { margin: 0 0 12px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .alert { padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 8px; font-size: 14px; border-left: 4px solid; color: var(--color-text-primary); }
+  .a-primary { background: color-mix(in srgb, var(--color-primary) 15%, transparent); border-color: var(--color-primary); }
+  .a-success { background: var(--color-success-bg); border-color: var(--color-success); }
+  .a-warning { background: var(--color-warning-bg); border-color: var(--color-warning); }
+  .a-danger  { background: var(--color-danger-bg);  border-color: var(--color-danger); }
+  .a-info    { background: var(--color-info-bg);    border-color: var(--color-info); }
+  strong { font-weight: 700; margin-right: 4px; }
+</style>
+</head><body>
+<div class="card">
+  <h4>Alerts — tonal containers auto-adapt to dark mode</h4>
+  <div class="alert a-primary"><strong>Info!</strong> This is a primary alert message.</div>
+  <div class="alert a-success"><strong>Success!</strong> Operation completed successfully.</div>
+  <div class="alert a-warning"><strong>Warning!</strong> Please check your input.</div>
+  <div class="alert a-danger"><strong>Error!</strong> Something went wrong.</div>
+  <div class="alert a-info"><strong>Note:</strong> Click the × button to close dismissibles.</div>
+</div>
+</body></html>

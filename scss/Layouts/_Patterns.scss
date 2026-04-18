@@ -12,8 +12,8 @@
 
   .layout-header,
   .layout-footer {
-    background: var(--color-primary, #6366f1);
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
     padding: 1rem;
     text-align: center;
   }
@@ -30,14 +30,15 @@
 
   .layout-sidebar-left,
   .layout-sidebar-right {
-    background: var(--color-secondary-light, #e0e7ff);
+    background: var(--color-secondary-light);
+    color: var(--color-text-primary);
     padding: 1rem;
     min-width: 150px;
   }
 
   .layout-main {
     flex: 1;
-    background: var(--color-bg-secondary, #f8f9fa);
+    background: var(--color-surface-variant);
     padding: 1rem;
   }
 }
@@ -54,8 +55,8 @@
 
 .admin-sidebar {
   width: 200px;
-  background: var(--color-primary-dark, #4338ca);
-  color: white;
+  background: var(--color-primary-dark);
+  color: var(--color-text-on-brand);
   padding: 1rem;
 
   @media (max-width: 768px) {
@@ -78,15 +79,15 @@
 
 .admin-nav-item {
   padding: 0.75rem 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: color-mix(in srgb, var(--color-text-on-brand) 80%, transparent);
   text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.2s;
+  border-radius: var(--radius-sm);
+  transition: all var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover,
   &.active {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: color-mix(in srgb, var(--color-text-on-brand) var(--state-hover), transparent);
+    color: var(--color-text-on-brand);
   }
 }
 
@@ -97,8 +98,8 @@
 }
 
 .admin-header {
-  background: var(--color-bg-secondary, #f8f9fa);
-  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-surface-variant);
+  border-bottom: 1px solid var(--color-border);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -111,10 +112,10 @@
 }
 
 .admin-user {
-  background: var(--color-primary, #6366f1);
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  border-radius: var(--radius-full);
   font-size: 0.875rem;
 }
 
@@ -127,9 +128,9 @@
 }
 
 .admin-card {
-  background: var(--color-bg, #ffffff);
-  border: 1px solid var(--color-border, #e0e0e0);
-  border-radius: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 2rem;
   text-align: center;
   min-height: 120px;
@@ -150,25 +151,26 @@
 }
 
 .card-item {
-  background: var(--color-bg, #ffffff);
-  border: 1px solid var(--color-border, #e0e0e0);
-  border-radius: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform var(--motion-duration-short) var(--motion-ease-standard),
+              box-shadow var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--elevation-2);
   }
 }
 
 .card-image {
-  background: linear-gradient(135deg, var(--color-primary, #6366f1), var(--color-secondary, #ec4899));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-text-on-brand);
   font-weight: bold;
 }
 
@@ -182,15 +184,17 @@
 
   p {
     margin: 0 0 1rem 0;
-    color: var(--color-text-secondary, #666);
+    color: var(--color-text-secondary);
     font-size: 0.875rem;
   }
 }
 
 /* ----- Streaming UI Layout ----- */
+/* Note: streaming layout intentionally uses fixed dark colors to simulate
+   a Netflix-like brand experience regardless of the site theme. */
 .streaming-layout {
   background: #141414;
-  color: white;
+  color: var(--color-text-on-brand);
   min-height: 500px;
 }
 
@@ -199,7 +203,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-scrim);
 }
 
 .streaming-logo {
@@ -213,9 +217,9 @@
   gap: 1.5rem;
 
   a {
-    color: white;
+    color: var(--color-text-on-brand);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color var(--motion-duration-short) var(--motion-ease-standard);
 
     &:hover {
       color: #e50914;
@@ -225,8 +229,9 @@
 
 .streaming-user {
   background: #e50914;
+  color: var(--color-text-on-brand);
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 0.875rem;
 }
 
@@ -271,48 +276,14 @@
 .streaming-card {
   background: #333;
   aspect-ratio: 16 / 9;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover {
     transform: scale(1.05);
-  }
-}
-
-/* ----- Dark Mode Support ----- */
-[data-theme="dark"] {
-  .holy-grail-layout {
-    .layout-sidebar-left,
-    .layout-sidebar-right {
-      background: rgba(99, 102, 241, 0.2);
-      color: #d4d4d4;
-    }
-
-    .layout-main {
-      background: #2a2a2a;
-    }
-  }
-
-  .admin-header {
-    background: #2a2a2a;
-    border-bottom-color: #3a3a3a;
-  }
-
-  .admin-card {
-    background: #1e1e1e;
-    border-color: #3a3a3a;
-  }
-
-  .card-item {
-    background: #1e1e1e;
-    border-color: #3a3a3a;
-  }
-
-  .card-content p {
-    color: #a8a8a8;
   }
 }

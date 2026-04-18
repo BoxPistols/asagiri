@@ -1,0 +1,33 @@
+<!doctype html><html data-theme="dark"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Dark theme</title>
+<style>
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .sw { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-border-subtle); }
+  .chip { height: 48px; }
+  .meta { padding: 6px 8px; background: var(--color-surface); font-size: 10px; }
+  .token { color: var(--color-text-tertiary); font-family: "SF Mono", Monaco, monospace; font-size: 10px; }
+  .name { color: var(--color-text-primary); font-weight: 500; }
+  .note { font-size: 11px; color: var(--color-text-tertiary); margin-top: 14px; }
+</style>
+</head><body>
+<div class="card">
+  <h4>Dark theme — data-theme="dark"</h4>
+  <div class="grid">
+    <div class="sw"><div class="chip" style="background: var(--color-primary)"></div><div class="meta"><div class="name">primary</div><div class="token">lifted l 62%</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-secondary)"></div><div class="meta"><div class="name">secondary</div><div class="token">lifted l 65%</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-success)"></div><div class="meta"><div class="name">success</div><div class="token">brightened</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-danger)"></div><div class="meta"><div class="name">danger</div><div class="token">brightened</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-warning)"></div><div class="meta"><div class="name">warning</div><div class="token">brightened</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-info)"></div><div class="meta"><div class="name">info</div><div class="token">brightened</div></div></div>
+  </div>
+  <div class="grid" style="margin-top: 8px">
+    <div class="sw"><div class="chip" style="background: var(--color-bg)"></div><div class="meta"><div class="name">bg — page</div><div class="token">neutral-5</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-surface)"></div><div class="meta"><div class="name">surface</div><div class="token">neutral-10</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-surface-2)"></div><div class="meta"><div class="name">surface-2</div><div class="token">tinted</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-text-primary)"></div><div class="meta" style="background: var(--color-surface-inverse); color: var(--color-on-surface-inverse)"><div class="name" style="color: var(--color-on-surface-inverse)">text-primary</div><div class="token">neutral-95</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-text-secondary)"></div><div class="meta"><div class="name">text-secondary</div><div class="token">neutral-80</div></div></div>
+    <div class="sw"><div class="chip" style="background: var(--color-text-tertiary)"></div><div class="meta"><div class="name">text-tertiary</div><div class="token">neutral-70</div></div></div>
+  </div>
+  <div class="note">Dark mode remaps HSL lightness and surface tones. Same hue, lifted primary, deeper surfaces.</div>
+</div>
+</body></html>

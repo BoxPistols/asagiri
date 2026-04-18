@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Progress</title>
+<style>
+  h4 { margin: 0 0 12px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .lbl { font-size: 10px; color: var(--color-text-tertiary); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; margin: 8px 0 4px; }
+  .bar { width: 100%; height: 14px; background: var(--color-surface-variant); border-radius: var(--radius-full); overflow: hidden; }
+  .bar.sm { height: 6px; }
+  .bar.lg { height: 22px; }
+  .fill { height: 100%; background: var(--color-primary); display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: var(--color-on-primary); font-size: 10px; font-weight: 600; }
+  .f-success { background: var(--color-success); color: var(--color-on-success); }
+  .f-warning { background: var(--color-warning); color: var(--color-on-warning); }
+  .f-danger { background: var(--color-danger); color: var(--color-on-danger); }
+  .striped {
+    background-image: linear-gradient(45deg,
+      color-mix(in srgb, var(--color-on-primary) 20%, transparent) 25%, transparent 25%,
+      transparent 50%,
+      color-mix(in srgb, var(--color-on-primary) 20%, transparent) 50%,
+      color-mix(in srgb, var(--color-on-primary) 20%, transparent) 75%,
+      transparent 75%);
+    background-size: 1rem 1rem;
+  }
+</style>
+</head><body>
+<div class="card">
+  <h4>Progress</h4>
+  <div class="lbl">Default · 75%</div><div class="bar"><div class="fill" style="width: 75%">75%</div></div>
+  <div class="lbl">Success · Warning · Danger</div>
+  <div class="bar"><div class="fill f-success" style="width: 60%"></div></div>
+  <div class="bar" style="margin-top: 4px"><div class="fill f-warning" style="width: 40%"></div></div>
+  <div class="bar" style="margin-top: 4px"><div class="fill f-danger" style="width: 90%"></div></div>
+  <div class="lbl">Striped</div><div class="bar"><div class="fill striped" style="width: 65%"></div></div>
+  <div class="lbl">Sizes</div>
+  <div class="bar sm"><div class="fill" style="width: 50%"></div></div>
+  <div class="bar lg" style="margin-top: 4px"><div class="fill" style="width: 75%"></div></div>
+</div>
+</body></html>

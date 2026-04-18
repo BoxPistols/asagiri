@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Cards</title>
+<style>
+  body { background: var(--color-bg); }
+  .card { background: var(--color-bg); }
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .c { background: var(--color-surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--elevation-1); font-size: 13px; }
+  .c.primary .head { background: var(--color-primary); color: var(--color-on-primary); }
+  .head { padding: 10px 14px; font-weight: 600; font-size: 12px; border-bottom: 1px solid var(--color-border-subtle); color: var(--color-text-secondary); letter-spacing: 0.03em; }
+  .body { padding: 12px 14px; color: var(--color-text-secondary); line-height: 1.45; }
+  .body h5 { margin: 0 0 6px; font-size: 15px; color: var(--color-text-primary); font-weight: 600; }
+  .foot { padding: 10px 14px; border-top: 1px solid var(--color-border-subtle); }
+  .foot button { font: inherit; background: var(--color-primary); color: var(--color-on-primary); border: 0; height: 2rem; padding: 0 0.9rem; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; }
+  .c.hover { transition: transform var(--motion-duration-short) var(--motion-ease-standard), box-shadow var(--motion-duration-short) var(--motion-ease-standard); }
+  .c.hover:hover { transform: translateY(-2px); box-shadow: var(--elevation-3); }
+</style>
+</head><body>
+<div class="card">
+  <h4>Cards — basic / hover / primary-header</h4>
+  <div class="grid">
+    <div class="c"><div class="head">Card Header</div><div class="body"><h5>Card Title</h5>Basic card with header, body and footer.</div><div class="foot"><button>Action</button></div></div>
+    <div class="c hover"><div class="body"><h5>Hoverable</h5>Hover to see the lift + shadow transition.</div></div>
+    <div class="c primary"><div class="head">Primary Card</div><div class="body">Colored header draws attention.</div></div>
+  </div>
+</div>
+</body></html>

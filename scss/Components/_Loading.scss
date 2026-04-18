@@ -14,15 +14,10 @@
   display: inline-block;
   width: 2rem;
   height: 2rem;
-  border: 0.25rem solid var(--color-border, rgba(0, 0, 0, 0.1));
-  border-right-color: var(--color-primary, #31a9c7);
-  border-radius: 50%;
+  border: 0.25rem solid var(--color-border);
+  border-right-color: var(--color-primary);
+  border-radius: var(--radius-full);
   animation: spinner-rotate 0.75s linear infinite;
-
-  [data-theme="dark"] & {
-    border-color: rgba(255, 255, 255, 0.1);
-    border-right-color: var(--color-primary-light, #4ec4df);
-  }
 
   @media (prefers-reduced-motion: reduce) {
     animation: spinner-rotate 1.5s linear infinite;
@@ -56,45 +51,41 @@
 
 // Spinner Color Variants
 .spinner-primary {
-  border-right-color: var(--color-primary, #31a9c7);
+  border-right-color: var(--color-primary);
 }
 
 .spinner-success {
-  border-right-color: var(--color-success, #00a859);
+  border-right-color: var(--color-success);
 }
 
 .spinner-warning {
-  border-right-color: var(--color-warning, #ebbb0c);
+  border-right-color: var(--color-warning);
 }
 
 .spinner-danger {
-  border-right-color: var(--color-danger, #e1323c);
+  border-right-color: var(--color-danger);
 }
 
 .spinner-info {
-  border-right-color: var(--color-info, #1ec2c2);
+  border-right-color: var(--color-info);
 }
 
 .spinner-light {
-  border-color: rgba(255, 255, 255, 0.2);
-  border-right-color: #fff;
+  border-color: color-mix(in srgb, var(--color-text-on-brand) 20%, transparent);
+  border-right-color: var(--color-text-on-brand);
 }
 
 .spinner-dark {
-  border-color: rgba(0, 0, 0, 0.05);
-  border-right-color: var(--color-text, #4c5059);
+  border-color: var(--color-border-subtle);
+  border-right-color: var(--color-text-primary);
 }
 
 // Growing Spinner
 .spinner-grow {
-  background-color: var(--color-primary, #31a9c7);
+  background-color: var(--color-primary);
   border: none;
   opacity: 0;
   animation: spinner-grow 0.75s linear infinite;
-
-  [data-theme="dark"] & {
-    background-color: var(--color-primary-light, #4ec4df);
-  }
 
   @media (prefers-reduced-motion: reduce) {
     animation: spinner-grow 1.5s linear infinite;
@@ -132,13 +123,9 @@
     content: "";
     width: 0.5rem;
     height: 0.5rem;
-    background-color: var(--color-primary, #31a9c7);
-    border-radius: 50%;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
     animation: spinner-dots-bounce 1.4s infinite ease-in-out both;
-
-    [data-theme="dark"] & {
-      background-color: var(--color-primary-light, #4ec4df);
-    }
   }
 
   &::before {
@@ -148,7 +135,7 @@
   // Middle dot (pseudo-element simulation via background)
   background: radial-gradient(
     circle,
-    var(--color-primary, #31a9c7) 0.5rem,
+    var(--color-primary) 0.5rem,
     transparent 0.5rem
   );
   background-position: center;
@@ -185,12 +172,8 @@
 // Pulse Spinner
 .spinner-pulse {
   border: none;
-  background-color: var(--color-primary, #31a9c7);
+  background-color: var(--color-primary);
   animation: spinner-pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
-  [data-theme="dark"] & {
-    background-color: var(--color-primary-light, #4ec4df);
-  }
 
   @media (prefers-reduced-motion: reduce) {
     animation: spinner-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -217,12 +200,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: color-mix(in srgb, var(--color-bg) 90%, transparent);
   z-index: 9999;
-
-  [data-theme="dark"] & {
-    background-color: rgba(0, 0, 0, 0.9);
-  }
 
   .spinner {
     width: 3rem;
@@ -259,7 +238,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--color-text-muted, #6c757d);
+  color: var(--color-text-tertiary);
   font-size: 0.9375rem;
 
   .spinner {

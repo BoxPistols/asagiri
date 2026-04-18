@@ -58,7 +58,7 @@ select:focus {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%235c5c63cc" d="M0,0l6,8l6-8"/></svg>');
 }
 
-// Dark mode select arrow
+// Dark mode select arrow — kept: SVG fills must be literal, not tokens
 [data-theme="dark"] select {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23a1a1aa" d="M0,0l6,8l6-8"/></svg>');
 }
@@ -122,46 +122,36 @@ input[type="time"],
 textarea,
 select {
   // Enhanced appearance
-  background-color: var(--color-box, #fff);
-  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.2));
-  border-radius: 8px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   height: 48px;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--color-text, #4c5059);
-  transition: border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
-
-  [data-theme="dark"] & {
-    background-color: var(--color-box, #18181b);
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-    color: var(--color-text, #e4e4e7);
-  }
+  color: var(--color-text-primary);
+  transition: border-color var(--motion-duration-short) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-short) var(--motion-ease-standard),
+    background-color var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover:not(:focus):not(:disabled) {
-    border-color: var(--color-primary-light, #4ec4df);
+    border-color: var(--color-primary-light);
   }
 
   &:focus {
-    border-color: var(--color-primary, #31a9c7);
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
     outline: none;
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: var(--state-disabled-opacity);
     cursor: not-allowed;
-    background-color: var(--color-item-bg, #e8e8f1);
-
-    [data-theme="dark"] & {
-      background-color: var(--color-item-bg, #1f1f23);
-    }
+    background-color: var(--color-surface-variant);
   }
 
   &::placeholder {
-    color: var(--color-text-secondary, #666);
+    color: var(--color-text-tertiary);
     opacity: 0.7;
   }
 }
@@ -176,13 +166,9 @@ select {
   label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--color-text-secondary, #666);
+    color: var(--color-text-secondary);
     margin-bottom: 0.5rem;
     margin-left: 0;
-
-    [data-theme="dark"] & {
-      color: var(--color-text-secondary, #a1a1aa);
-    }
   }
 
   input,
@@ -195,7 +181,7 @@ select {
   // Helper text
   .helper-text {
     font-size: 0.75rem;
-    color: var(--color-text-secondary, #666);
+    color: var(--color-text-secondary);
     margin-top: 0.375rem;
     margin-left: 0.25rem;
   }
@@ -205,7 +191,7 @@ select {
     input,
     textarea,
     select {
-      border-color: var(--color-danger, #e1323c);
+      border-color: var(--color-danger);
 
       &:focus {
         box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 20%, transparent);
@@ -213,11 +199,11 @@ select {
     }
 
     label {
-      color: var(--color-danger, #e1323c);
+      color: var(--color-danger);
     }
 
     .helper-text {
-      color: var(--color-danger, #e1323c);
+      color: var(--color-danger);
     }
   }
 
@@ -226,7 +212,7 @@ select {
     input,
     textarea,
     select {
-      border-color: var(--color-success, #00a859);
+      border-color: var(--color-success);
 
       &:focus {
         box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 20%, transparent);
@@ -234,7 +220,7 @@ select {
     }
 
     .helper-text {
-      color: var(--color-success, #00a859);
+      color: var(--color-success);
     }
   }
 }
@@ -262,7 +248,7 @@ select {
       & + label {
         top: 0.5rem;
         font-size: 0.75rem;
-        color: var(--color-primary, #31a9c7);
+        color: var(--color-primary);
       }
     }
   }
@@ -273,9 +259,11 @@ select {
     left: 1rem;
     transform: translateY(-50%);
     font-size: 1rem;
-    color: var(--color-text-secondary, #666);
+    color: var(--color-text-secondary);
     pointer-events: none;
-    transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+    transition: top var(--motion-duration-short) var(--motion-ease-standard),
+      font-size var(--motion-duration-short) var(--motion-ease-standard),
+      color var(--motion-duration-short) var(--motion-ease-standard);
     margin: 0;
   }
 
@@ -300,31 +288,27 @@ select {
     width: 20px;
     height: 20px;
     margin: 0;
-    border: 2px solid var(--color-border-dark, rgba(0, 0, 0, 0.3));
-    border-radius: 4px;
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
     background-color: transparent;
     cursor: pointer;
-    transition: background-color 0.15s ease,
-      border-color 0.15s ease,
-      box-shadow 0.15s ease;
+    transition: background-color var(--motion-duration-short) var(--motion-ease-standard),
+      border-color var(--motion-duration-short) var(--motion-ease-standard),
+      box-shadow var(--motion-duration-short) var(--motion-ease-standard);
     position: relative;
 
-    [data-theme="dark"] & {
-      border-color: var(--color-border, rgba(255, 255, 255, 0.2));
-    }
-
     &:hover:not(:disabled) {
-      border-color: var(--color-primary, #31a9c7);
+      border-color: var(--color-primary);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary, #31a9c7);
+      outline: 2px solid var(--color-primary);
       outline-offset: 2px;
     }
 
     &:checked {
-      background-color: var(--color-primary, #31a9c7);
-      border-color: var(--color-primary, #31a9c7);
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
 
       &::after {
         content: "";
@@ -333,15 +317,15 @@ select {
         top: 1px;
         width: 6px;
         height: 11px;
-        border: solid var(--color-white, #fff);
+        border: solid var(--color-on-primary);
         border-width: 0 2px 2px 0;
         transform: rotate(45deg);
       }
     }
 
     &:indeterminate {
-      background-color: var(--color-primary, #31a9c7);
-      border-color: var(--color-primary, #31a9c7);
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
 
       &::after {
         content: "";
@@ -350,23 +334,19 @@ select {
         top: 7px;
         width: 10px;
         height: 2px;
-        background-color: var(--color-white, #fff);
+        background-color: var(--color-on-primary);
       }
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: var(--state-disabled-opacity);
       cursor: not-allowed;
     }
   }
 
   .checkbox-label {
     font-size: 0.9375rem;
-    color: var(--color-text, #4c5059);
-
-    [data-theme="dark"] & {
-      color: var(--color-text, #e4e4e7);
-    }
+    color: var(--color-text-primary);
   }
 }
 
@@ -385,28 +365,25 @@ select {
     width: 20px;
     height: 20px;
     margin: 0;
-    border: 2px solid var(--color-border-dark, rgba(0, 0, 0, 0.3));
+    border: 2px solid var(--color-border-strong);
     border-radius: 50%;
     background-color: transparent;
     cursor: pointer;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: border-color var(--motion-duration-short) var(--motion-ease-standard),
+      box-shadow var(--motion-duration-short) var(--motion-ease-standard);
     position: relative;
 
-    [data-theme="dark"] & {
-      border-color: var(--color-border, rgba(255, 255, 255, 0.2));
-    }
-
     &:hover:not(:disabled) {
-      border-color: var(--color-primary, #31a9c7);
+      border-color: var(--color-primary);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary, #31a9c7);
+      outline: 2px solid var(--color-primary);
       outline-offset: 2px;
     }
 
     &:checked {
-      border-color: var(--color-primary, #31a9c7);
+      border-color: var(--color-primary);
 
       &::after {
         content: "";
@@ -417,23 +394,19 @@ select {
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background-color: var(--color-primary, #31a9c7);
+        background-color: var(--color-primary);
       }
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: var(--state-disabled-opacity);
       cursor: not-allowed;
     }
   }
 
   .radio-label {
     font-size: 0.9375rem;
-    color: var(--color-text, #4c5059);
-
-    [data-theme="dark"] & {
-      color: var(--color-text, #e4e4e7);
-    }
+    color: var(--color-text-primary);
   }
 }
 
@@ -464,16 +437,12 @@ select {
     width: 52px;
     height: 32px;
     margin: 0;
-    background-color: var(--color-gray, #9ca8b3);
+    background-color: var(--color-gray);
     border: none;
-    border-radius: 16px;
+    border-radius: var(--radius-xl);
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color var(--motion-duration-medium) var(--motion-ease-standard);
     position: relative;
-
-    [data-theme="dark"] & {
-      background-color: var(--color-gray-dark, #52525b);
-    }
 
     // Switch thumb
     &::after {
@@ -483,23 +452,24 @@ select {
       top: 4px;
       width: 24px;
       height: 24px;
-      background-color: var(--color-white, #fff);
+      background-color: var(--color-surface);
       border-radius: 50%;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease, background-color 0.2s ease;
+      box-shadow: var(--elevation-1);
+      transition: transform var(--motion-duration-medium) var(--motion-ease-standard),
+        background-color var(--motion-duration-medium) var(--motion-ease-standard);
     }
 
     &:hover:not(:disabled)::after {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      box-shadow: var(--elevation-2);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary, #31a9c7);
+      outline: 2px solid var(--color-primary);
       outline-offset: 2px;
     }
 
     &:checked {
-      background-color: var(--color-primary, #31a9c7);
+      background-color: var(--color-primary);
 
       &::after {
         transform: translateX(20px);
@@ -507,18 +477,14 @@ select {
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: var(--state-disabled-opacity);
       cursor: not-allowed;
     }
   }
 
   .switch-label {
     font-size: 0.9375rem;
-    color: var(--color-text, #4c5059);
-
-    [data-theme="dark"] & {
-      color: var(--color-text, #e4e4e7);
-    }
+    color: var(--color-text-primary);
   }
 }
 
@@ -526,7 +492,7 @@ select {
 .switch-sm input[type="checkbox"] {
   width: 40px;
   height: 24px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
 
   &::after {
     width: 18px;
@@ -555,7 +521,7 @@ select {
     left: 0.875rem;
     width: 1.25rem;
     height: 1.25rem;
-    color: var(--color-text-secondary, #666);
+    color: var(--color-text-secondary);
     pointer-events: none;
   }
 
@@ -582,11 +548,11 @@ select {
     flex: 1;
 
     &:first-child {
-      border-radius: 8px 0 0 8px;
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
     }
 
     &:last-child {
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
     }
   }
 
@@ -594,24 +560,18 @@ select {
     display: inline-flex;
     align-items: center;
     padding: 0 1rem;
-    background-color: var(--color-item-bg, #e8e8f1);
-    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.2));
-    color: var(--color-text-secondary, #666);
+    background-color: var(--color-surface-variant);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
     font-size: 0.9375rem;
 
-    [data-theme="dark"] & {
-      background-color: var(--color-item-bg, #1f1f23);
-      border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-      color: var(--color-text-secondary, #a1a1aa);
-    }
-
     &:first-child {
-      border-radius: 8px 0 0 8px;
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
       border-right: none;
     }
 
     &:last-child {
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
       border-left: none;
     }
   }
@@ -623,29 +583,26 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: 4px;
-  background: var(--color-gray, #9ca8b3);
-  border-radius: 2px;
+  background: var(--color-gray);
+  border-radius: var(--radius-xs);
   outline: none;
   margin: 1rem 0;
-
-  [data-theme="dark"] & {
-    background: var(--color-gray-dark, #52525b);
-  }
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
-    background: var(--color-primary, #31a9c7);
+    background: var(--color-primary);
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    box-shadow: var(--elevation-1);
+    transition: box-shadow var(--motion-duration-short) var(--motion-ease-standard),
+      transform var(--motion-duration-short) var(--motion-ease-standard);
 
     &:hover {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      box-shadow: var(--elevation-2);
       transform: scale(1.1);
     }
 
@@ -657,16 +614,16 @@ input[type="range"] {
   &::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: var(--color-primary, #31a9c7);
+    background: var(--color-primary);
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--elevation-1);
   }
 
   &:focus-visible {
     &::-webkit-slider-thumb {
-      outline: 2px solid var(--color-primary-light, #4ec4df);
+      outline: 2px solid var(--color-primary-light);
       outline-offset: 2px;
     }
   }

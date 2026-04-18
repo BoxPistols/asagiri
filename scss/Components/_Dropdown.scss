@@ -37,7 +37,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    transition: transform 0.2s ease-in-out;
+    transition: transform var(--motion-duration-medium) var(--motion-ease-standard);
   }
 
   &[aria-expanded="true"]::after {
@@ -67,22 +67,15 @@
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 0.9375rem;
-  color: var(--color-text, #4c5059);
+  color: var(--color-text-primary);
   text-align: left;
   list-style: none;
-  background-color: var(--color-box, #fff);
+  background-color: var(--color-surface);
   background-clip: padding-box;
-  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-  border-radius: 0.375rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-3);
   animation: dropdown-fade-in 0.15s ease-out;
-
-  [data-theme="dark"] & {
-    background-color: var(--color-box, #18181b);
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-    color: var(--color-text, #e4e4e7);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  }
 
   &.show,
   &[aria-hidden="false"] {
@@ -112,52 +105,40 @@
   padding: 0.5rem 1rem;
   clear: both;
   font-weight: 400;
-  color: var(--color-text, #4c5059);
+  color: var(--color-text-primary);
   text-align: inherit;
   text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
   cursor: pointer;
-  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
-
-  [data-theme="dark"] & {
-    color: var(--color-text, #e4e4e7);
-  }
+  transition:
+    background-color var(--motion-duration-short) var(--motion-ease-standard),
+    color var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover,
   &:focus {
-    color: var(--color-primary, #31a9c7);
-    background-color: rgba(0, 0, 0, 0.03);
-
-    [data-theme="dark"] & {
-      color: var(--color-primary-light, #4ec4df);
-      background-color: rgba(255, 255, 255, 0.05);
-    }
+    color: var(--color-primary);
+    background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary, #31a9c7);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: -2px;
   }
 
   &.active,
   &:active {
-    color: #fff;
-    background-color: var(--color-primary, #31a9c7);
-
-    [data-theme="dark"] & {
-      color: #000;
-      background-color: var(--color-primary-light, #4ec4df);
-    }
+    color: var(--color-on-primary);
+    background-color: var(--color-primary);
   }
 
   &.disabled,
   &:disabled {
-    color: var(--color-text-disabled, #adb5bd);
+    color: var(--color-text-disabled);
     pointer-events: none;
     background-color: transparent;
-    opacity: 0.5;
+    opacity: var(--state-disabled-opacity);
   }
 }
 
@@ -168,12 +149,8 @@
   margin-bottom: 0;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-text-muted, #6c757d);
+  color: var(--color-text-tertiary);
   white-space: nowrap;
-
-  [data-theme="dark"] & {
-    color: var(--color-text-muted, #9ca3af);
-  }
 }
 
 // Dropdown Divider
@@ -181,22 +158,14 @@
   height: 0;
   margin: 0.5rem 0;
   overflow: hidden;
-  border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-
-  [data-theme="dark"] & {
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  border-top: 1px solid var(--color-border);
 }
 
 // Dropdown Text
 .dropdown-item-text {
   display: block;
   padding: 0.5rem 1rem;
-  color: var(--color-text, #4c5059);
-
-  [data-theme="dark"] & {
-    color: var(--color-text, #e4e4e7);
-  }
+  color: var(--color-text-primary);
 }
 
 // Dropdown Alignment
@@ -303,21 +272,17 @@
 // Dropdown with Search
 .dropdown-search {
   padding: 0.5rem;
-  border-bottom: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-
-  [data-theme="dark"] & {
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  border-bottom: 1px solid var(--color-border);
 
   input {
     width: 100%;
     padding: 0.375rem 0.75rem;
-    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.2));
-    border-radius: 0.25rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
     font-size: 0.875rem;
 
     &:focus {
-      outline: 2px solid var(--color-primary, #31a9c7);
+      outline: 2px solid var(--color-border-focus);
       outline-offset: 0;
     }
   }
@@ -346,7 +311,7 @@
     width: 100%;
     max-width: 100%;
     margin: 0;
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
     animation: dropdown-slide-up 0.2s ease-out;
 
     @media (prefers-reduced-motion: reduce) {

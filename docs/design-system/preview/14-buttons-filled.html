@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Buttons filled</title>
+<style>
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 2.45rem; padding: 0 1.6rem; font-size: 1rem; font-weight: 500; letter-spacing: 0.1em; border-radius: var(--border-radius-all); border: 1px solid transparent; cursor: pointer; margin: 0 6px 8px 0; line-height: 1.2; font-family: inherit; }
+  .b-primary { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
+  .b-secondary { background: var(--color-secondary); border-color: var(--color-secondary); color: var(--color-on-secondary); }
+  .b-success { background: var(--color-success); border-color: var(--color-success); color: var(--color-on-success); }
+  .b-warning { background: var(--color-warning); border-color: var(--color-warning); color: var(--color-on-warning); }
+  .b-danger { background: var(--color-danger); border-color: var(--color-danger); color: var(--color-on-danger); }
+  .b-info { background: var(--color-info); border-color: var(--color-info); color: var(--color-on-info); }
+  .b-elegant { background: var(--color-elegant); border-color: var(--color-elegant); color: var(--color-on-elegant); }
+  .b-accent { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-on-accent); }
+  .b-disabled { opacity: var(--state-disabled-opacity); cursor: default; }
+</style>
+</head><body>
+<div class="card">
+  <h4>Buttons — filled</h4>
+  <div>
+    <button class="btn b-primary">Primary</button>
+    <button class="btn b-secondary">Secondary</button>
+    <button class="btn b-success">Success</button>
+    <button class="btn b-warning">Warning</button>
+    <button class="btn b-danger">Danger</button>
+  </div>
+  <div style="margin-top: 4px">
+    <button class="btn b-info">Info</button>
+    <button class="btn b-elegant">Elegant</button>
+    <button class="btn b-accent">Accent</button>
+    <button class="btn b-primary b-disabled">Disabled</button>
+  </div>
+</div>
+</body></html>

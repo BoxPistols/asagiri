@@ -15,19 +15,19 @@ $scroll-top-offset: 2rem;
   padding: 0;
   margin: 0;
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-brand);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: all var(--motion-duration-medium) var(--motion-ease-standard);
   z-index: 999;
   font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--elevation-2);
 
   &.show {
     opacity: 1;
@@ -35,13 +35,13 @@ $scroll-top-offset: 2rem;
   }
 
   &:hover {
-    background: var(--color-accent, var(--color-primary-dark, #2563eb));
+    background: var(--color-accent, var(--color-primary-dark));
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--elevation-3);
   }
 
   &:focus {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
   }
 
@@ -50,15 +50,6 @@ $scroll-top-offset: 2rem;
     width: 20px;
     height: 20px;
     stroke: currentColor;
-  }
-}
-
-// Dark mode adjustments
-[data-theme="dark"] .scroll-top {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-
-  &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
   }
 }
 

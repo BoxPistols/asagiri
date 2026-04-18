@@ -19,12 +19,14 @@
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1;
-  color: var(--color-text-inverse, #fff);
-  background-color: var(--color-gray, #6c757d);
-  border-radius: 0.25rem;
+  color: var(--color-text-on-brand);
+  background-color: var(--color-surface-variant);
+  border-radius: var(--radius-sm);
   white-space: nowrap;
   vertical-align: baseline;
-  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition:
+    background-color var(--motion-duration-short) var(--motion-ease-standard),
+    color var(--motion-duration-short) var(--motion-ease-standard);
 
   // Empty badge (for dots)
   &:empty {
@@ -32,7 +34,7 @@
     width: 0.5rem;
     height: 0.5rem;
     padding: 0;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
   }
 
   // Badge inside links
@@ -45,101 +47,54 @@
 
 // Badge Color Variants
 .badge-primary {
-  color: #fff;
-  background-color: var(--color-primary, #31a9c7);
-
-  [data-theme="dark"] & {
-    color: #000;
-    background-color: var(--color-primary-light, #4ec4df);
-  }
+  color: var(--color-on-primary);
+  background-color: var(--color-primary);
 }
 
 .badge-secondary {
-  color: #fff;
-  background-color: var(--color-secondary, #596784);
-
-  [data-theme="dark"] & {
-    background-color: var(--color-secondary-light, #7a8aac);
-  }
+  color: var(--color-on-secondary);
+  background-color: var(--color-secondary);
 }
 
 .badge-accent {
-  color: #fff;
-  background-color: var(--color-accent, #d429e0);
-
-  [data-theme="dark"] & {
-    color: #000;
-    background-color: var(--color-accent-light, #e879f9);
-  }
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
 }
 
 .badge-success {
-  color: #fff;
-  background-color: var(--color-success, #00a859);
-
-  [data-theme="dark"] & {
-    color: #000;
-    background-color: var(--color-success-light, #22c55e);
-  }
+  color: var(--color-on-success);
+  background-color: var(--color-success);
 }
 
 .badge-warning {
-  color: #000;
-  background-color: var(--color-warning, #ebbb0c);
-
-  [data-theme="dark"] & {
-    background-color: var(--color-warning-light, #fbbf24);
-  }
+  color: var(--color-on-warning);
+  background-color: var(--color-warning);
 }
 
 .badge-danger {
-  color: #fff;
-  background-color: var(--color-danger, #e1323c);
-
-  [data-theme="dark"] & {
-    background-color: var(--color-danger-light, #ef4444);
-  }
+  color: var(--color-on-danger);
+  background-color: var(--color-danger);
 }
 
 .badge-info {
-  color: #fff;
-  background-color: var(--color-info, #1ec2c2);
-
-  [data-theme="dark"] & {
-    color: #000;
-    background-color: var(--color-info-light, #22d3ee);
-  }
+  color: var(--color-on-info);
+  background-color: var(--color-info);
 }
 
 .badge-light {
-  color: var(--color-text, #4c5059);
-  background-color: var(--color-box, #fff);
-  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
-
-  [data-theme="dark"] & {
-    color: var(--color-text, #e4e4e7);
-    background-color: var(--color-box, #18181b);
-    border-color: var(--color-border, rgba(255, 255, 255, 0.1));
-  }
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
 .badge-dark {
-  color: #fff;
-  background-color: var(--color-text, #4c5059);
-
-  [data-theme="dark"] & {
-    color: #000;
-    background-color: var(--color-text, #e4e4e7);
-  }
+  color: var(--color-on-surface-inverse);
+  background-color: var(--color-surface-inverse);
 }
 
 .badge-elegant {
-  color: #fff;
-  background-color: var(--color-elegant, #48626f);
-
-  [data-theme="dark"] & {
-    background-color: var(--color-elegant-light, #5a7a8a);
-  }
+  color: var(--color-on-elegant);
+  background-color: var(--color-elegant);
 }
 
 // Outline Variants
@@ -148,87 +103,63 @@
   border: 1px solid currentColor;
 
   &.badge-primary {
-    color: var(--color-primary, #31a9c7);
+    color: var(--color-text-link);
   }
 
   &.badge-secondary {
-    color: var(--color-secondary, #596784);
+    color: var(--color-secondary-dark);
   }
 
   &.badge-accent {
-    color: var(--color-accent, #d429e0);
+    color: var(--color-accent);
   }
 
   &.badge-success {
-    color: var(--color-success, #00a859);
+    color: var(--color-success);
   }
 
   &.badge-warning {
-    color: var(--color-warning, #ebbb0c);
-
-    [data-theme="dark"] & {
-      color: var(--color-warning-light, #fbbf24);
-    }
+    color: var(--color-warning);
   }
 
   &.badge-danger {
-    color: var(--color-danger, #e1323c);
+    color: var(--color-danger);
   }
 
   &.badge-info {
-    color: var(--color-info, #1ec2c2);
+    color: var(--color-info);
   }
 
   &.badge-dark {
-    color: var(--color-text, #4c5059);
-
-    [data-theme="dark"] & {
-      color: var(--color-text, #e4e4e7);
-    }
+    color: var(--color-text-primary);
   }
 }
 
 // Soft/Subtle Variants (low emphasis)
 .badge-soft {
   &.badge-primary {
-    color: var(--color-primary-dark, #1a6b7e);
+    color: color-mix(in srgb, var(--color-primary) 55%, var(--color-text-primary));
     background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
   }
 
   &.badge-success {
-    color: #0f5132;
+    color: color-mix(in srgb, var(--color-success) 55%, var(--color-text-primary));
     background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
-
-    [data-theme="dark"] & {
-      color: #75b798;
-    }
   }
 
   &.badge-warning {
-    color: #664d03;
+    color: color-mix(in srgb, var(--color-warning) 55%, var(--color-text-primary));
     background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
-
-    [data-theme="dark"] & {
-      color: #ffda6a;
-    }
   }
 
   &.badge-danger {
-    color: #842029;
+    color: color-mix(in srgb, var(--color-danger) 55%, var(--color-text-primary));
     background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
-
-    [data-theme="dark"] & {
-      color: #ea868f;
-    }
   }
 
   &.badge-info {
-    color: #055160;
+    color: color-mix(in srgb, var(--color-info) 55%, var(--color-text-primary));
     background-color: color-mix(in srgb, var(--color-info) 15%, transparent);
-
-    [data-theme="dark"] & {
-      color: #6edff6;
-    }
   }
 }
 
@@ -265,7 +196,7 @@
 
 // Badge Shapes
 .badge-pill {
-  border-radius: 10rem;
+  border-radius: var(--radius-full);
 }
 
 .badge-square {
@@ -273,7 +204,7 @@
 }
 
 .badge-circle {
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   padding: 0.35em;
   width: 1.5rem;
   height: 1.5rem;
@@ -299,7 +230,7 @@
   padding: 0;
   width: 0.5rem;
   height: 0.5rem;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
 
   &.badge-sm {
     width: 0.4rem;
@@ -349,11 +280,7 @@
   top: 0;
   right: 0;
   transform: translate(50%, -50%);
-  border: 2px solid var(--color-bg, #fff);
-
-  [data-theme="dark"] & {
-    border-color: var(--color-bg, #0f0f0f);
-  }
+  border: 2px solid var(--color-surface);
 }
 
 // Relative container for positioned badges

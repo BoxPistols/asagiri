@@ -1,0 +1,38 @@
+/* ============================================================================
+   Shared base for every design-system preview card.
+   Each card renders as a 700px-wide specimen that can be previewed inline in
+   index.html (via <iframe>) or opened directly.
+   All colors come from ../../../css/tokens.css — the generated token build.
+   Do not reintroduce hardcoded hex values here; extend tokens instead.
+   ============================================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("../../../css/tokens.css");
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "BIZ UDPGothic", "Yu Gothic Medium", Meiryo, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  box-sizing: border-box;
+  padding: 24px 28px;
+  width: 700px;
+  min-height: 100%;
+}
+
+.row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: 10px; }
+.mono { font-family: "SF Mono", Monaco, Menlo, Consolas, monospace; }
+.muted { color: var(--color-text-tertiary); }
+.tag {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

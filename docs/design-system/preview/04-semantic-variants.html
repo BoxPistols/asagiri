@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>Semantic variants</title>
+<style>
+  h4 { margin: 0 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); font-weight: 600; }
+  .row-r { display: grid; grid-template-columns: 72px repeat(3, 1fr); gap: 0; margin-bottom: 6px; align-items: stretch; }
+  .label { display: flex; align-items: center; font-size: 11px; font-weight: 600; color: var(--color-text-primary); padding: 0 8px 0 0; }
+  .chip { height: 36px; display: flex; align-items: center; padding: 0 10px; font-family: "SF Mono", Monaco, monospace; font-size: 10px; color: var(--color-text-on-brand); }
+  .chip-warn-base { color: var(--color-on-warning); }
+  .chip-light { color: var(--color-text-primary); }
+</style>
+</head><body>
+<div class="card">
+  <h4>Semantic — -dark / base / -light ramps</h4>
+  <div class="row-r"><div class="label">success</div><div class="chip" style="background: var(--color-success-dark)">-dark</div><div class="chip" style="background: var(--color-success)">base</div><div class="chip chip-light" style="background: var(--color-success-light)">-light</div></div>
+  <div class="row-r"><div class="label">warning</div><div class="chip" style="background: var(--color-warning-dark)">-dark</div><div class="chip chip-warn-base" style="background: var(--color-warning)">base</div><div class="chip chip-light" style="background: var(--color-warning-light)">-light</div></div>
+  <div class="row-r"><div class="label">danger</div><div class="chip" style="background: var(--color-danger-dark)">-dark</div><div class="chip" style="background: var(--color-danger)">base</div><div class="chip chip-light" style="background: var(--color-danger-light)">-light</div></div>
+  <div class="row-r"><div class="label">info</div><div class="chip" style="background: var(--color-info-dark)">-dark</div><div class="chip" style="background: var(--color-info)">base</div><div class="chip chip-light" style="background: var(--color-info-light)">-light</div></div>
+  <div class="row-r"><div class="label">accent</div><div class="chip" style="background: var(--color-accent-dark)">-dark</div><div class="chip" style="background: var(--color-accent)">base</div><div class="chip chip-light" style="background: var(--color-accent-light)">-light</div></div>
+  <div class="row-r"><div class="label">elegant</div><div class="chip" style="background: var(--color-elegant-dark)">-dark</div><div class="chip" style="background: var(--color-elegant)">base</div><div class="chip chip-light" style="background: var(--color-elegant-light)">-light</div></div>
+</div>
+</body></html>

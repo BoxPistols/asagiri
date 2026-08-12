@@ -69,6 +69,8 @@
     "version:major": "node scripts/update-version.js major",
     "test": "node scripts/test-all.js",
     "test:contrast": "npm run build && node scripts/audit-token-contrast.mjs",
+    "test:vrt": "npm run build && node scripts/vrt.mjs",
+    "test:vrt:update": "npm run build && node scripts/vrt.mjs --update",
     "test:styles": "node scripts/validate-styles.js",
     "test:links": "node scripts/check-links.js",
     "validate": "npm run test && npm run lint:styles"

@@ -42,3 +42,7 @@ temp/
 # and CI needs a reproducible install.
 package-lock.json
 yarn.lock
+# VRT working output (baseline is committed, current/diff are not)
+.vrt/current/
+.vrt/diff/
+.vrt/report.json

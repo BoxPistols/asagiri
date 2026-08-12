@@ -162,7 +162,12 @@
   --color-border-subtle:  color-mix(in srgb, var(--ref-neutral-0) 8%,  transparent);
   --color-border:         color-mix(in srgb, var(--ref-neutral-0) 14%, transparent);
   --color-border-strong:  color-mix(in srgb, var(--ref-neutral-0) 24%, transparent);
-  --color-border-focus:   var(--color-primary);
+  /* Focus ring: MUST stay >= 3:1 against every surface it can land on
+     (WCAG 2.1 SC 1.4.11 Non-text Contrast). --color-primary is NOT usable
+     here — at hsl(191 47% 53%) it is only 2.65:1 on white — so the ring gets
+     its own token, remapped per mode. Never point this at --color-primary. */
+  --color-focus-ring:     var(--ref-primary-50);
+  --color-border-focus:   var(--color-focus-ring);
 
   /* ---- Shadow base ---- */
   --color-shadow: 0, 0, 0;
@@ -353,6 +358,8 @@
   --color-border-subtle:  color-mix(in srgb, var(--ref-neutral-100) 6%,  transparent);
   --color-border:         color-mix(in srgb, var(--ref-neutral-100) 12%, transparent);
   --color-border-strong:  color-mix(in srgb, var(--ref-neutral-100) 22%, transparent);
+  /* Lifted so the ring clears 3:1 against dark surfaces too. */
+  --color-focus-ring:     var(--ref-primary-70);
 
   /* ---- Shadow (deeper / darker in dark mode) ---- */
   --color-shadow: 0, 0, 0;

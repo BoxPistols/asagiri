@@ -230,10 +230,12 @@ For older browsers, consider including appropriate polyfills or using v2.0.
 
 ## Rollback
 
-If you encounter issues with v2.1, you can temporarily roll back to v2.0:
+Note: `2.0.0` was never published to npm — it existed only as an in-repo
+version number. Check what is actually available before pinning:
 
 ```bash
-npm install asagiri@2.0.0
+npm view asagiri versions
+npm install asagiri@<version>
 ```
 
 Please report any issues so we can address them in future updates.

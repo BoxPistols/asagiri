@@ -75,6 +75,7 @@ jobs:
         run: |
           npm run build
           npm run build:compressed
+          npm run build:tokens
 
       - name: Commit version bump
         run: |

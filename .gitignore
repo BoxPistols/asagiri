@@ -38,6 +38,7 @@ temp/
 *.tmp
 
 # Lock files
+# pnpm-lock.yaml is intentionally committed: this package is published to npm
+# and CI needs a reproducible install.
 package-lock.json
 yarn.lock
-pnpm-lock.yaml

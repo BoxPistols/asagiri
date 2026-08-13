@@ -141,7 +141,7 @@
     &.active,
     &[aria-selected="true"] {
       color: var(--color-on-primary);
-      background-color: var(--color-primary);
+      background-color: var(--color-primary-emphasis);
       border-color: var(--color-primary);
     }
   }
@@ -265,7 +265,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--color-primary);
+      background-color: var(--color-primary-emphasis);
       transition: all 0.3s ease-in-out;
     }
   }

@@ -302,13 +302,13 @@ select {
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary);
+      outline: 2px solid var(--color-primary-emphasis);
       outline-offset: 2px;
     }
 
     &:checked {
-      background-color: var(--color-primary);
-      border-color: var(--color-primary);
+      background-color: var(--color-primary-emphasis);
+      border-color: var(--color-primary-emphasis);
 
       &::after {
         content: "";
@@ -324,8 +324,8 @@ select {
     }
 
     &:indeterminate {
-      background-color: var(--color-primary);
-      border-color: var(--color-primary);
+      background-color: var(--color-primary-emphasis);
+      border-color: var(--color-primary-emphasis);
 
       &::after {
         content: "";
@@ -394,7 +394,7 @@ select {
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background-color: var(--color-primary);
+        background-color: var(--color-primary-emphasis);
       }
     }
 
@@ -469,7 +469,7 @@ select {
     }
 
     &:checked {
-      background-color: var(--color-primary);
+      background-color: var(--color-primary-emphasis);
 
       &::after {
         transform: translateX(20px);
@@ -593,7 +593,7 @@ input[type="range"] {
     appearance: none;
     width: 20px;
     height: 20px;
-    background: var(--color-primary);
+    background: var(--color-primary-emphasis);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -614,7 +614,7 @@ input[type="range"] {
   &::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: var(--color-primary);
+    background: var(--color-primary-emphasis);
     border: none;
     border-radius: 50%;
     cursor: pointer;

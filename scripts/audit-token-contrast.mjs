@@ -66,13 +66,20 @@ const PAIRS = [
   ["brand chrome: on-surface-brand / surface-brand-alt","--color-on-surface-brand","--color-surface-brand-alt",4.5],
   ["overlay: on-scrim / scrim-strong","--color-on-scrim","--color-scrim-strong",4.5],
 
-  // --- filled *-dark / *-light variants (documented as usable fills) ---
-  ["on-primary / primary-dark",    "--color-on-primary",     "--color-primary-dark",  4.5],
+  /* --- hover fills ---
+     btn-func-color() keeps the variant's --color-on-X foreground while
+     swapping the fill to --color-X-dark on hover/focus, so every one of
+     these pairs is a real rendered state. */
+  ["hover: on-primary-dark / primary-dark","--color-on-primary-dark","--color-primary-dark",4.5],
+  ["hover: on-primary / primary-hover",  "--color-on-primary",  "--color-primary-hover",  4.5],
+  ["hover: on-secondary / secondary-hover","--color-on-secondary","--color-secondary-hover",4.5],
+  ["hover: on-success / success-hover",  "--color-on-success",  "--color-success-hover",  4.5],
+  ["hover: on-warning / warning-hover",  "--color-on-warning",  "--color-warning-hover",  4.5],
+  ["hover: on-danger / danger-hover",    "--color-on-danger",   "--color-danger-hover",   4.5],
+  ["hover: on-info / info-hover",        "--color-on-info",     "--color-info-hover",     4.5],
+  ["hover: on-accent / accent-hover",    "--color-on-accent",   "--color-accent-hover",   4.5],
+  ["hover: on-elegant / elegant-hover",  "--color-on-elegant",  "--color-elegant-hover",  4.5],
   ["on-primary / primary-light",   "--color-on-primary",     "--color-primary-light", 4.5],
-  ["text-on-brand / success-dark", "--color-text-on-brand",  "--color-success-dark",  4.5],
-  ["text-on-brand / danger-dark",  "--color-text-on-brand",  "--color-danger-dark",   4.5],
-  ["text-on-brand / warning-dark", "--color-text-on-brand",  "--color-warning-dark",  4.5],
-  ["text-on-brand / info-dark",    "--color-text-on-brand",  "--color-info-dark",     4.5],
 
   // --- semantic text colours used as FOREGROUND on plain surfaces (alerts, icons) ---
   ["success / surface",            "--color-success",        "--color-surface",       4.5],
@@ -90,8 +97,15 @@ const PAIRS = [
   ["FOCUS RING border-focus / surface-3","--color-border-focus","--color-surface-3",  3.0],
   ["border-strong / surface",      "--color-border-strong",  "--color-surface",       3.0],
   ["border / surface",             "--color-border",         "--color-surface",       3.0],
-  ["primary (UI fill) / surface",  "--color-primary",        "--color-surface",       3.0],
-  ["primary (UI fill) / bg",       "--color-primary",        "--color-bg",            3.0],
+  /* Indicator fills: the fill IS the state, with no label beside it
+     (checked boxes, radio dots, switch tracks, range thumbs, progress fills,
+     tab indicators), so 1.4.11 applies squarely. */
+  ["indicator: primary-emphasis / surface","--color-primary-emphasis","--color-surface",3.0],
+  ["indicator: primary-emphasis / bg","--color-primary-emphasis","--color-bg",         3.0],
+  ["indicator: primary-emphasis / surface-variant","--color-primary-emphasis","--color-surface-variant",3.0],
+  /* Labelled-button fill — see EXEMPT below. */
+  ["primary (labelled fill) / surface","--color-primary",     "--color-surface",       3.0],
+  ["primary (labelled fill) / bg", "--color-primary",         "--color-bg",            3.0],
   ["secondary (UI fill) / surface","--color-secondary",      "--color-surface",       3.0],
   ["success (UI) / surface",       "--color-success",        "--color-surface",       3.0],
   ["warning (UI) / surface",       "--color-warning",        "--color-surface",       3.0],
@@ -164,6 +178,12 @@ const EXEMPT = new Set([
   "text-disabled / surface",
   "border / surface",
   "border-strong / surface",
+  /* A filled button carries its own label at >= 4.5:1, so the control is
+     identifiable without relying on its boundary — 1.4.11 does not require
+     3:1 for the fill itself. Tracked here so the number stays visible; any
+     fill that has NO label is audited above as an "indicator" instead. */
+  "primary (labelled fill) / surface",
+  "primary (labelled fill) / bg",
 ]);
 
 const results = {};

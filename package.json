@@ -71,6 +71,8 @@
     "test:contrast": "npm run build && node scripts/audit-token-contrast.mjs",
     "test:vrt": "npm run build && node scripts/vrt.mjs",
     "test:vrt:update": "npm run build && node scripts/vrt.mjs --update",
+    "docs:tokens": "npm run build && node scripts/generate-token-docs.mjs",
+    "docs:tokens:check": "npm run build && node scripts/generate-token-docs.mjs --check",
     "test:styles": "node scripts/validate-styles.js",
     "test:links": "node scripts/check-links.js",
     "validate": "npm run test && npm run lint:styles"

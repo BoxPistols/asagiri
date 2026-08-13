@@ -72,6 +72,7 @@
   --ref-neutral-25:  #2e2e33;
   --ref-neutral-30:  #3a3a40;
   --ref-neutral-40:  #53535a;
+  --ref-neutral-45:  #6a6a74;
   --ref-neutral-50:  #70707a;
   --ref-neutral-60:  #8e8e98;
   --ref-neutral-70:  #acacb5;
@@ -115,8 +116,21 @@
      for medium-lightness brand colors — a white foreground on the default
      cyan primary would drop below WCAG AA 4.5:1). */
   --color-on-primary: var(--ref-primary-10);
+  /* Brand tone guaranteed >= 3:1 against every surface (WCAG 2.1 SC 1.4.11).
+     Use wherever a FILL alone carries meaning and no label accompanies it —
+     checked checkboxes, radio dots, switch tracks, range thumbs, progress
+     fills, tab indicators, focus rings. --color-primary is only 2.65:1 on
+     white, so it cannot do this job; it stays the fill for labelled controls,
+     which are identified by their text. */
+  --color-primary-emphasis: var(--ref-primary-50);
+  /* Foreground for a --color-primary-dark fill. Needs its own token because
+     the right answer flips: in light mode primary-dark is dark enough for
+     white (4.65:1) but not for on-primary (3.35:1); in dark mode it lightens
+     and the relationship inverts. */
+  --color-on-primary-dark: var(--ref-neutral-100);
   --color-primary-container: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
-  --color-on-primary-container: var(--color-primary-dark);
+  /* primary-dark here was only 3.96:1 on the tinted container. */
+  --color-on-primary-container: var(--ref-primary-30);
 
   --secondary-h: 224;
   --secondary-s: 23%;
@@ -154,7 +168,9 @@
   /* ---- Text (on-surface hierarchy) ---- */
   --color-text-primary:   var(--ref-neutral-20);
   --color-text-secondary: var(--ref-neutral-40);
-  --color-text-tertiary:  var(--ref-neutral-50);
+  /* neutral-45 rather than -50: on the tinted surface-3 the lighter grey only
+     reached 4.45:1, just under AA. */
+  --color-text-tertiary:  var(--ref-neutral-45);
   --color-text-disabled:  color-mix(in srgb, var(--color-text-primary) 38%, transparent);
   --color-text-link:       var(--ref-primary-40);
   --color-text-link-hover: var(--ref-primary-30);
@@ -186,7 +202,7 @@
      (WCAG 2.1 SC 1.4.11 Non-text Contrast). --color-primary is NOT usable
      here — at hsl(191 47% 53%) it is only 2.65:1 on white — so the ring gets
      its own token, remapped per mode. Never point this at --color-primary. */
-  --color-focus-ring:     var(--ref-primary-50);
+  --color-focus-ring:     var(--color-primary-emphasis);
   --color-border-focus:   var(--color-focus-ring);
 
   /* ---- Shadow base ---- */
@@ -231,6 +247,30 @@
   --color-info-dark:  #075569;
   --color-info-light: var(--ref-info-60);
   --color-on-info:    var(--ref-neutral-100);
+
+  /* ---- Hover fills ----
+     A hovered fill must shift AWAY from its own foreground, otherwise the
+     pair's contrast degrades. --color-X-dark cannot do that job: in dark mode
+     it maps back to the light-mode tone, so a hovered button ended up with
+     near-black text on a dark fill (2.74:1 for danger).
+
+     The rule is: shift the fill away from its OWN --color-on-* foreground.
+     For every semantic below, that foreground is white in light mode and
+     near-black in dark, so mixing toward --color-surface-inverse (near-black
+     in light, near-white in dark) is exactly the right direction in both,
+     with no per-mode override needed — both inputs already remap.
+
+     --color-primary is the one exception: its on-colour is dark cyan in BOTH
+     modes, so it has to move the other way. Mixing it toward surface-inverse
+     dropped the hovered pair to 4.20:1; it lightens instead. */
+  --color-primary-hover:   color-mix(in srgb, var(--ref-neutral-100) 16%, var(--color-primary));
+  --color-secondary-hover: color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-secondary));
+  --color-accent-hover:    color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-accent));
+  --color-success-hover:   color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-success));
+  --color-warning-hover:   color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-warning));
+  --color-danger-hover:    color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-danger));
+  --color-info-hover:      color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-info));
+  --color-elegant-hover:   color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-elegant));
 
   /* ---- Tonal container backgrounds (semi-transparent tints) ----
      Used for callout boxes / inline highlights. Auto-remap in dark mode
@@ -357,6 +397,9 @@
   --secondary-l: 65%;
   --color-primary-container: color-mix(in srgb, var(--color-primary) 22%, var(--color-surface));
   --color-on-primary-container: var(--color-primary-light);
+  /* Inverted vs light mode: primary-dark lifts here, so the dark cyan reads
+     (4.90:1) where white would not (3.18:1). */
+  --color-on-primary-dark: var(--ref-primary-10);
 
   /* ---- Surfaces (elevation = tinted neutral) ---- */
   --color-bg:            var(--ref-neutral-5);
@@ -389,7 +432,8 @@
   --color-border:         color-mix(in srgb, var(--ref-neutral-100) 12%, transparent);
   --color-border-strong:  color-mix(in srgb, var(--ref-neutral-100) 22%, transparent);
   /* Lifted so the ring clears 3:1 against dark surfaces too. */
-  --color-focus-ring:     var(--ref-primary-70);
+  --color-primary-emphasis: var(--ref-primary-70);
+  --color-focus-ring:     var(--color-primary-emphasis);
 
   /* ---- Shadow (deeper / darker in dark mode) ---- */
   --color-shadow: 0, 0, 0;

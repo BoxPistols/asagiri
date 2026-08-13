@@ -22,7 +22,10 @@
 }
 
 @mixin btn-action {
-  color: var(--color-on-primary);
+  // on-primary on a primary-dark fill is 3.35:1 in light mode — the fill is
+  // dark enough that it needs the light foreground instead.
+  color: var(--color-on-primary-dark);
+  --btn-on: var(--color-on-primary-dark);
   border-color: var(--color-primary-dark);
   outline: 0;
   background-color: var(--color-primary-dark);
@@ -52,8 +55,8 @@
 
   &:focus,
   &:hover {
-    border-color: var(--color-#{$x}-dark);
-    background-color: var(--color-#{$x}-dark);
+    border-color: var(--color-#{$x}-hover);
+    background-color: var(--color-#{$x}-hover);
   }
 }
 
@@ -67,8 +70,9 @@
   &:focus,
   &:hover {
     color: var(--color-on-#{$x});
-    border-color: var(--color-#{$x}-dark);
-    background-color: var(--color-#{$x}-dark);
+    --btn-on: var(--color-on-#{$x});
+    border-color: var(--color-#{$x}-hover);
+    background-color: var(--color-#{$x}-hover);
   }
 }
 

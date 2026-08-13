@@ -30,7 +30,7 @@
   color: var(--color-on-primary);
   text-align: center;
   white-space: nowrap;
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-emphasis);
   transition: width 0.6s ease;
 
   @media (prefers-reduced-motion: reduce) {
@@ -139,7 +139,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       animation: none;
-      background: var(--color-primary);
+      background: var(--color-primary-emphasis);
     }
   }
 }

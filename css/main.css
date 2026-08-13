@@ -348,18 +348,36 @@ summary {
   --color-surface-variant: var(--ref-neutral-95);
   --color-surface-inverse: var(--ref-neutral-15);
   --color-on-surface-inverse: var(--ref-neutral-95);
-  /* Scrim / modal backdrop */
+  /* Scrim / modal backdrop.
+     --color-scrim dims content behind a dialog; at 48% it is deliberately
+     light, so it must NOT be used behind text (white on it is 3.98:1).
+     Use --color-scrim-strong for any scrim that carries a label. */
   --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 48%, transparent);
+  --color-scrim-strong: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
   /* ---- Text (on-surface hierarchy) ---- */
   --color-text-primary: var(--ref-neutral-20);
   --color-text-secondary: var(--ref-neutral-40);
   --color-text-tertiary: var(--ref-neutral-50);
   --color-text-disabled: color-mix(in srgb, var(--color-text-primary) 38%, transparent);
-  --color-text-on-brand: var(--ref-neutral-100);
   --color-text-link: var(--ref-primary-40);
   --color-text-link-hover: var(--ref-primary-30);
   --color-text-link-visited: #5b3fa0;
   --color-text-code: var(--ref-neutral-15);
+  /* ---- Always-light foreground ----
+     For content sitting on a scrim, a media overlay, or a fill that is dark
+     in BOTH modes. Unlike the --color-on-* family this deliberately does not
+     flip per mode, because its background never flips either. Only use it
+     when the backdrop is guaranteed dark — on a semantic fill, use that
+     colour's own --color-on-* token instead. */
+  --color-on-scrim: var(--ref-neutral-100);
+  /* ---- Fixed dark brand chrome ----
+     Theme-invariant on purpose: nav rails, sidebars and media placeholders
+     that must read as "brand chrome" in both modes. Deriving these from
+     --color-primary-dark broke in dark mode, where the brand lightens and
+     white text fell to 3.18:1. */
+  --color-surface-brand: var(--ref-primary-20);
+  --color-surface-brand-alt: var(--ref-secondary-20);
+  --color-on-surface-brand: var(--ref-neutral-100);
   /* ---- Borders ---- */
   --color-border-subtle: color-mix(in srgb, var(--ref-neutral-0) 8%, transparent);
   --color-border: color-mix(in srgb, var(--ref-neutral-0) 14%, transparent);
@@ -435,6 +453,12 @@ summary {
   --color-text: var(--color-text-primary);
   --color-text-p: var(--color-text-primary);
   --color-text-muted: var(--color-text-tertiary);
+  /* DEPRECATED: --color-text-on-brand conflated two different jobs — an
+     always-light overlay foreground, and "text on a brand fill". The second
+     reading is unsafe: white on the default --color-primary is 2.65:1 (2.17:1
+     in dark mode). Use --color-on-scrim for overlays, or the fill's own
+     --color-on-* token. Kept as an alias so existing markup keeps working. */
+  --color-text-on-brand: var(--color-on-scrim);
   --color-text-a: var(--color-text-link);
   --color-text-a-hover: var(--color-text-link-hover);
   --color-text-a-visited: var(--color-text-link-visited);
@@ -446,7 +470,9 @@ summary {
   --color-bg-footer: var(--color-bg);
   --color-bg-strong: #fff996;
   --color-bg-btn: var(--color-primary);
-  --color-bg-cancel: var(--ref-neutral-60);
+  /* neutral-60 left white cancel-button text at 3.24:1; neutral-50 lifts it
+     to 4.90:1 while staying visibly "muted grey". */
+  --color-bg-cancel: var(--ref-neutral-50);
   --color-border-light: var(--color-border-subtle);
   --color-border-dark: var(--color-border-strong);
   --color-initial: var(--color-white);
@@ -528,12 +554,14 @@ summary {
   --color-surface-inverse: var(--ref-neutral-90);
   --color-on-surface-inverse: var(--ref-neutral-15);
   --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
+  --color-scrim-strong: color-mix(in srgb, var(--ref-neutral-0) 82%, transparent);
   /* ---- Text ---- */
   --color-text-primary: var(--ref-neutral-95);
   --color-text-secondary: var(--ref-neutral-80);
   --color-text-tertiary: var(--ref-neutral-70);
   --color-text-disabled: color-mix(in srgb, var(--color-text-primary) 38%, transparent);
-  --color-text-on-brand: var(--ref-neutral-100);
+  /* --color-on-scrim and --color-surface-brand* are intentionally NOT
+     remapped here — see their definition in :root. */
   --color-text-link: var(--ref-primary-80);
   --color-text-link-hover: var(--ref-primary-90);
   --color-text-link-visited: #c4b5fd;
@@ -619,12 +647,14 @@ summary {
     --color-surface-inverse: var(--ref-neutral-90);
     --color-on-surface-inverse: var(--ref-neutral-15);
     --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
+    --color-scrim-strong: color-mix(in srgb, var(--ref-neutral-0) 82%, transparent);
     /* ---- Text ---- */
     --color-text-primary: var(--ref-neutral-95);
     --color-text-secondary: var(--ref-neutral-80);
     --color-text-tertiary: var(--ref-neutral-70);
     --color-text-disabled: color-mix(in srgb, var(--color-text-primary) 38%, transparent);
-    --color-text-on-brand: var(--ref-neutral-100);
+    /* --color-on-scrim and --color-surface-brand* are intentionally NOT
+       remapped here — see their definition in :root. */
     --color-text-link: var(--ref-primary-80);
     --color-text-link-hover: var(--ref-primary-90);
     --color-text-link-visited: #c4b5fd;
@@ -1164,6 +1194,7 @@ input[type=submit] {
   font-weight: 500;
   line-height: 1.2;
   color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
   background-color: var(--color-primary);
   border: 1px solid var(--color-primary);
 }
@@ -1178,6 +1209,7 @@ input[type=submit]:focus,
 input[type=submit]:hover {
   outline: 0;
   color: var(--color-on-secondary);
+  --btn-on: var(--color-on-secondary);
   background-color: var(--color-secondary);
   border: 1px solid var(--color-secondary);
 }
@@ -1187,6 +1219,7 @@ input[type=button].btn-secondary,
 input[type=reset].btn-secondary,
 input[type=submit].btn-secondary {
   color: var(--color-on-secondary);
+  --btn-on: var(--color-on-secondary);
   border: 1px solid var(--color-secondary);
   background-color: var(--color-secondary);
 }
@@ -1208,6 +1241,7 @@ input[type=button].btn-accent,
 input[type=reset].btn-accent,
 input[type=submit].btn-accent {
   color: var(--color-on-accent);
+  --btn-on: var(--color-on-accent);
   border: 1px solid var(--color-accent);
   background-color: var(--color-accent);
 }
@@ -1229,6 +1263,7 @@ input[type=button].btn-success,
 input[type=reset].btn-success,
 input[type=submit].btn-success {
   color: var(--color-on-success);
+  --btn-on: var(--color-on-success);
   border: 1px solid var(--color-success);
   background-color: var(--color-success);
 }
@@ -1250,6 +1285,7 @@ input[type=button].btn-warning,
 input[type=reset].btn-warning,
 input[type=submit].btn-warning {
   color: var(--color-on-warning);
+  --btn-on: var(--color-on-warning);
   border: 1px solid var(--color-warning);
   background-color: var(--color-warning);
 }
@@ -1271,6 +1307,7 @@ input[type=button].btn-danger,
 input[type=reset].btn-danger,
 input[type=submit].btn-danger {
   color: var(--color-on-danger);
+  --btn-on: var(--color-on-danger);
   border: 1px solid var(--color-danger);
   background-color: var(--color-danger);
 }
@@ -1292,6 +1329,7 @@ input[type=button].btn-info,
 input[type=reset].btn-info,
 input[type=submit].btn-info {
   color: var(--color-on-info);
+  --btn-on: var(--color-on-info);
   border: 1px solid var(--color-info);
   background-color: var(--color-info);
 }
@@ -1313,6 +1351,7 @@ input[type=button].btn-elegant,
 input[type=reset].btn-elegant,
 input[type=submit].btn-elegant {
   color: var(--color-on-elegant);
+  --btn-on: var(--color-on-elegant);
   border: 1px solid var(--color-elegant);
   background-color: var(--color-elegant);
 }
@@ -1334,6 +1373,7 @@ input[type=button].btn-outline-secondary,
 input[type=reset].btn-outline-secondary,
 input[type=submit].btn-outline-secondary {
   color: var(--color-secondary);
+  --btn-on: var(--color-secondary);
   border: 1px solid var(--color-secondary);
   background-color: transparent;
 }
@@ -1356,6 +1396,7 @@ input[type=button].btn-outline-accent,
 input[type=reset].btn-outline-accent,
 input[type=submit].btn-outline-accent {
   color: var(--color-accent);
+  --btn-on: var(--color-accent);
   border: 1px solid var(--color-accent);
   background-color: transparent;
 }
@@ -1378,6 +1419,7 @@ input[type=button].btn-outline-success,
 input[type=reset].btn-outline-success,
 input[type=submit].btn-outline-success {
   color: var(--color-success);
+  --btn-on: var(--color-success);
   border: 1px solid var(--color-success);
   background-color: transparent;
 }
@@ -1400,6 +1442,7 @@ input[type=button].btn-outline-warning,
 input[type=reset].btn-outline-warning,
 input[type=submit].btn-outline-warning {
   color: var(--color-warning);
+  --btn-on: var(--color-warning);
   border: 1px solid var(--color-warning);
   background-color: transparent;
 }
@@ -1422,6 +1465,7 @@ input[type=button].btn-outline-danger,
 input[type=reset].btn-outline-danger,
 input[type=submit].btn-outline-danger {
   color: var(--color-danger);
+  --btn-on: var(--color-danger);
   border: 1px solid var(--color-danger);
   background-color: transparent;
 }
@@ -1444,6 +1488,7 @@ input[type=button].btn-outline-info,
 input[type=reset].btn-outline-info,
 input[type=submit].btn-outline-info {
   color: var(--color-info);
+  --btn-on: var(--color-info);
   border: 1px solid var(--color-info);
   background-color: transparent;
 }
@@ -1466,6 +1511,7 @@ input[type=button].btn-outline-elegant,
 input[type=reset].btn-outline-elegant,
 input[type=submit].btn-outline-elegant {
   color: var(--color-elegant);
+  --btn-on: var(--color-elegant);
   border: 1px solid var(--color-elegant);
   background-color: transparent;
 }
@@ -1488,22 +1534,22 @@ input[type=button].btn-outline-light,
 input[type=reset].btn-outline-light,
 input[type=submit].btn-outline-light {
   background: transparent;
-  color: var(--color-text-on-brand);
-  border: 2px solid var(--color-text-on-brand);
+  color: var(--color-on-scrim);
+  border: 2px solid var(--color-on-scrim);
 }
 .button.btn-outline-light:hover,
 button.btn-outline-light:hover,
 input[type=button].btn-outline-light:hover,
 input[type=reset].btn-outline-light:hover,
 input[type=submit].btn-outline-light:hover {
-  background: color-mix(in srgb, var(--color-text-on-brand) var(--state-hover), transparent);
+  background: color-mix(in srgb, var(--color-on-scrim) var(--state-hover), transparent);
 }
 .button.btn-outline-light:focus,
 button.btn-outline-light:focus,
 input[type=button].btn-outline-light:focus,
 input[type=reset].btn-outline-light:focus,
 input[type=submit].btn-outline-light:focus {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-text-on-brand) 30%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-on-scrim) 30%, transparent);
 }
 .button[disabled],
 button[disabled],
@@ -1563,7 +1609,7 @@ button.button-cancel,
 input[type=button].button-cancel,
 input[type=reset].button-cancel,
 input[type=submit].button-cancel {
-  color: var(--color-text-on-brand);
+  color: var(--color-on-scrim);
   border-color: transparent;
   background-color: var(--color-bg-cancel);
 }
@@ -1589,7 +1635,7 @@ input[type=reset].button-cancel[disabled]:focus,
 input[type=reset].button-cancel[disabled]:hover,
 input[type=submit].button-cancel[disabled]:focus,
 input[type=submit].button-cancel[disabled]:hover {
-  color: var(--color-text-on-brand);
+  color: var(--color-on-scrim);
   background-color: var(--color-bg-cancel);
 }
 .button.button-clear,
@@ -1938,11 +1984,10 @@ input[type=submit]:active:not([disabled]) {
   position: absolute;
   width: 1.25rem;
   height: 1.25rem;
-  border: 2px solid currentColor;
+  border: 2px solid var(--btn-on, var(--color-text-primary));
   border-right-color: transparent;
   border-radius: var(--radius-full);
   animation: btn-spin 0.75s linear infinite;
-  color: var(--color-text-on-brand);
 }
 
 @keyframes btn-spin {
@@ -2302,8 +2347,12 @@ body.using-keyboard *:focus {
   opacity: 0.8;
 }
 
-/* Badge for NEW items */
-.badge {
+/* Badge for NEW items.
+   Scoped to the sidebar: as a bare `.badge` this collided with the Badge
+   component and leaked `text-transform: uppercase` and `margin-left` into
+   every badge on the page (same specificity, so only the properties the
+   component also sets were being overridden). */
+.sidebar-nav .badge {
   display: inline-block;
   padding: 0.2rem 0.5rem;
   font-size: 0.7rem;
@@ -2370,8 +2419,8 @@ body.using-keyboard *:focus {
 
 .admin-sidebar {
   width: 200px;
-  background: var(--color-primary-dark);
-  color: var(--color-text-on-brand);
+  background: var(--color-surface-brand);
+  color: var(--color-on-surface-brand);
   padding: 1rem;
 }
 @media (max-width: 768px) {
@@ -2395,14 +2444,14 @@ body.using-keyboard *:focus {
 
 .admin-nav-item {
   padding: 0.75rem 1rem;
-  color: color-mix(in srgb, var(--color-text-on-brand) 80%, transparent);
+  color: color-mix(in srgb, var(--color-on-surface-brand) 80%, transparent);
   text-decoration: none;
   border-radius: var(--radius-sm);
   transition: all var(--motion-duration-short) var(--motion-ease-standard);
 }
 .admin-nav-item:hover, .admin-nav-item.active {
-  background: color-mix(in srgb, var(--color-text-on-brand) var(--state-hover), transparent);
-  color: var(--color-text-on-brand);
+  background: color-mix(in srgb, var(--color-on-surface-brand) var(--state-hover), transparent);
+  color: var(--color-on-surface-brand);
 }
 
 .admin-main {
@@ -2477,12 +2526,12 @@ body.using-keyboard *:focus {
 }
 
 .card-image {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(135deg, var(--color-surface-brand), var(--color-surface-brand-alt));
   height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-on-brand);
+  color: var(--color-on-surface-brand);
   font-weight: bold;
 }
 
@@ -2504,7 +2553,7 @@ body.using-keyboard *:focus {
    a Netflix-like brand experience regardless of the site theme. */
 .streaming-layout {
   background: #141414;
-  color: var(--color-text-on-brand);
+  color: var(--color-on-scrim);
   min-height: 500px;
 }
 
@@ -2527,7 +2576,7 @@ body.using-keyboard *:focus {
   gap: 1.5rem;
 }
 .streaming-nav a {
-  color: var(--color-text-on-brand);
+  color: var(--color-on-scrim);
   text-decoration: none;
   transition: color var(--motion-duration-short) var(--motion-ease-standard);
 }
@@ -2537,7 +2586,7 @@ body.using-keyboard *:focus {
 
 .streaming-user {
   background: #e50914;
-  color: var(--color-text-on-brand);
+  color: var(--color-on-scrim);
   padding: 0.5rem 1rem;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
@@ -4234,7 +4283,7 @@ dialog.modal[open] {
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1;
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);
   background-color: var(--color-surface-variant);
   border-radius: var(--radius-sm);
   white-space: nowrap;
@@ -5166,7 +5215,7 @@ button.badge:active {
 }
 
 .progress-bar-striped {
-  background-image: linear-gradient(45deg, color-mix(in srgb, var(--color-text-on-brand) 15%, transparent) 25%, transparent 25%, transparent 50%, color-mix(in srgb, var(--color-text-on-brand) 15%, transparent) 50%, color-mix(in srgb, var(--color-text-on-brand) 15%, transparent) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, color-mix(in srgb, var(--color-on-scrim) 15%, transparent) 25%, transparent 25%, transparent 50%, color-mix(in srgb, var(--color-on-scrim) 15%, transparent) 50%, color-mix(in srgb, var(--color-on-scrim) 15%, transparent) 75%, transparent 75%, transparent);
   background-size: 1rem 1rem;
 }
 
@@ -5209,7 +5258,7 @@ button.badge:active {
   }
 }
 .progress-stacked .progress-bar:not(:last-child) {
-  border-right: 1px solid color-mix(in srgb, var(--color-text-on-brand) 20%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--color-on-scrim) 20%, transparent);
 }
 
 .progress-vertical {
@@ -5326,8 +5375,8 @@ button.badge:active {
 }
 
 .spinner-light {
-  border-color: color-mix(in srgb, var(--color-text-on-brand) 20%, transparent);
-  border-right-color: var(--color-text-on-brand);
+  border-color: color-mix(in srgb, var(--color-on-scrim) 20%, transparent);
+  border-right-color: var(--color-on-scrim);
 }
 
 .spinner-dark {
@@ -5841,8 +5890,8 @@ button.badge:active {
   left: 0;
   padding: var(--spacing-5, 1.25rem);
   border-radius: calc(var(--radius-md) - 1px);
-  background: linear-gradient(to bottom, transparent, var(--color-scrim));
-  color: var(--color-text-on-brand);
+  background: linear-gradient(to bottom, transparent, var(--color-scrim-strong));
+  color: var(--color-on-scrim);
 }
 
 .card-link {
@@ -6578,8 +6627,8 @@ select.is-warning:focus,
   margin-top: 0.1rem;
   font-size: 0.875rem;
   line-height: 1.4;
-  color: var(--color-text-on-brand);
-  background-color: var(--color-scrim);
+  color: var(--color-on-surface-inverse);
+  background-color: var(--color-surface-inverse);
   border-radius: var(--radius-sm);
 }
 
@@ -7038,7 +7087,7 @@ textarea.is-warning,
   padding: 0;
   margin: 0;
   background: var(--color-primary);
-  color: var(--color-text-on-brand);
+  color: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -7294,7 +7343,7 @@ textarea.is-warning,
 .ripple-light .ripple-wave {
   position: absolute;
   border-radius: 50%;
-  background-color: color-mix(in srgb, var(--color-text-on-brand) 40%, transparent);
+  background-color: color-mix(in srgb, var(--color-on-scrim) 40%, transparent);
   transform: scale(0);
   pointer-events: none;
   animation: ripple-animation 0.6s ease-out forwards;
@@ -7451,7 +7500,7 @@ textarea.is-warning,
 }
 .fab:disabled, .fab[disabled] {
   background-color: var(--color-gray);
-  color: color-mix(in srgb, var(--color-text-on-brand) 70%, transparent);
+  color: color-mix(in srgb, var(--color-on-scrim) 70%, transparent);
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
@@ -7815,8 +7864,8 @@ textarea.is-warning,
   margin-left: -0.5rem;
   border-radius: var(--radius-full);
   overflow: hidden;
-  background-color: var(--color-text-tertiary);
-  color: var(--color-text-on-brand);
+  background-color: var(--color-surface-variant);
+  color: var(--color-text-primary);
   font-size: 0.75rem;
   font-weight: 600;
 }

@@ -84,7 +84,7 @@
   &:disabled,
   &[disabled] {
     background-color: var(--color-gray);
-    color: color-mix(in srgb, var(--color-text-on-brand) 70%, transparent);
+    color: color-mix(in srgb, var(--color-on-scrim) 70%, transparent);
     box-shadow: none;
     cursor: not-allowed;
     transform: none;

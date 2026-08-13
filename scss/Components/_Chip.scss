@@ -76,8 +76,11 @@
   margin-left: -0.5rem;
   border-radius: var(--radius-full);
   overflow: hidden;
-  background-color: var(--color-text-tertiary);
-  color: var(--color-text-on-brand);
+  // Mirrors .avatar: a neutral surface with on-surface initials. The previous
+  // white-on-text-tertiary pairing fell to 2.25:1 in dark mode, where
+  // text-tertiary lifts to a light grey.
+  background-color: var(--color-surface-variant);
+  color: var(--color-text-primary);
   font-size: 0.75rem;
   font-weight: 600;
 

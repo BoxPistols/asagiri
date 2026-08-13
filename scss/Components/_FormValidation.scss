@@ -140,8 +140,11 @@ select.is-warning {
   margin-top: 0.1rem;
   font-size: 0.875rem;
   line-height: 1.4;
-  color: var(--color-text-on-brand);
-  background-color: var(--color-scrim);
+  // A tooltip is an opaque chip, not an overlay — surface-inverse is the
+  // audited high-contrast pair for exactly this. A translucent scrim behind
+  // white text only reached 3.98:1 in light mode.
+  color: var(--color-on-surface-inverse);
+  background-color: var(--color-surface-inverse);
   border-radius: var(--radius-sm);
 }
 

@@ -71,8 +71,8 @@
 }
 
 .spinner-light {
-  border-color: color-mix(in srgb, var(--color-text-on-brand) 20%, transparent);
-  border-right-color: var(--color-text-on-brand);
+  border-color: color-mix(in srgb, var(--color-on-scrim) 20%, transparent);
+  border-right-color: var(--color-on-scrim);
 }
 
 .spinner-dark {

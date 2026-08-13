@@ -144,19 +144,39 @@
   --color-surface-inverse: var(--ref-neutral-15);
   --color-on-surface-inverse: var(--ref-neutral-95);
 
-  /* Scrim / modal backdrop */
+  /* Scrim / modal backdrop.
+     --color-scrim dims content behind a dialog; at 48% it is deliberately
+     light, so it must NOT be used behind text (white on it is 3.98:1).
+     Use --color-scrim-strong for any scrim that carries a label. */
   --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 48%, transparent);
+  --color-scrim-strong: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
 
   /* ---- Text (on-surface hierarchy) ---- */
   --color-text-primary:   var(--ref-neutral-20);
   --color-text-secondary: var(--ref-neutral-40);
   --color-text-tertiary:  var(--ref-neutral-50);
   --color-text-disabled:  color-mix(in srgb, var(--color-text-primary) 38%, transparent);
-  --color-text-on-brand:  var(--ref-neutral-100);
   --color-text-link:       var(--ref-primary-40);
   --color-text-link-hover: var(--ref-primary-30);
   --color-text-link-visited: #5b3fa0;
   --color-text-code: var(--ref-neutral-15);
+
+  /* ---- Always-light foreground ----
+     For content sitting on a scrim, a media overlay, or a fill that is dark
+     in BOTH modes. Unlike the --color-on-* family this deliberately does not
+     flip per mode, because its background never flips either. Only use it
+     when the backdrop is guaranteed dark — on a semantic fill, use that
+     colour's own --color-on-* token instead. */
+  --color-on-scrim: var(--ref-neutral-100);
+
+  /* ---- Fixed dark brand chrome ----
+     Theme-invariant on purpose: nav rails, sidebars and media placeholders
+     that must read as "brand chrome" in both modes. Deriving these from
+     --color-primary-dark broke in dark mode, where the brand lightens and
+     white text fell to 3.18:1. */
+  --color-surface-brand:     var(--ref-primary-20);
+  --color-surface-brand-alt: var(--ref-secondary-20);
+  --color-on-surface-brand:  var(--ref-neutral-100);
 
   /* ---- Borders ---- */
   --color-border-subtle:  color-mix(in srgb, var(--ref-neutral-0) 8%,  transparent);
@@ -244,6 +264,12 @@
   --color-text:      var(--color-text-primary);
   --color-text-p:    var(--color-text-primary);
   --color-text-muted: var(--color-text-tertiary);
+  /* DEPRECATED: --color-text-on-brand conflated two different jobs — an
+     always-light overlay foreground, and "text on a brand fill". The second
+     reading is unsafe: white on the default --color-primary is 2.65:1 (2.17:1
+     in dark mode). Use --color-on-scrim for overlays, or the fill's own
+     --color-on-* token. Kept as an alias so existing markup keeps working. */
+  --color-text-on-brand:  var(--color-on-scrim);
   --color-text-a:         var(--color-text-link);
   --color-text-a-hover:   var(--color-text-link-hover);
   --color-text-a-visited: var(--color-text-link-visited);
@@ -255,7 +281,9 @@
   --color-bg-footer:     var(--color-bg);
   --color-bg-strong:     #fff996;
   --color-bg-btn:        var(--color-primary);
-  --color-bg-cancel:     var(--ref-neutral-60);
+  /* neutral-60 left white cancel-button text at 3.24:1; neutral-50 lifts it
+     to 4.90:1 while staying visibly "muted grey". */
+  --color-bg-cancel:     var(--ref-neutral-50);
   --color-border-light:  var(--color-border-subtle);
   --color-border-dark:   var(--color-border-strong);
   --color-initial:       var(--color-white);
@@ -342,13 +370,15 @@
   --color-surface-inverse: var(--ref-neutral-90);
   --color-on-surface-inverse: var(--ref-neutral-15);
   --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
+  --color-scrim-strong: color-mix(in srgb, var(--ref-neutral-0) 82%, transparent);
 
   /* ---- Text ---- */
   --color-text-primary:   var(--ref-neutral-95);
   --color-text-secondary: var(--ref-neutral-80);
   --color-text-tertiary:  var(--ref-neutral-70);
   --color-text-disabled:  color-mix(in srgb, var(--color-text-primary) 38%, transparent);
-  --color-text-on-brand:  var(--ref-neutral-100);
+  /* --color-on-scrim and --color-surface-brand* are intentionally NOT
+     remapped here — see their definition in :root. */
   --color-text-link:       var(--ref-primary-80);
   --color-text-link-hover: var(--ref-primary-90);
   --color-text-link-visited: #c4b5fd;

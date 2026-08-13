@@ -57,9 +57,14 @@ const PAIRS = [
   ["on-danger / danger",           "--color-on-danger",      "--color-danger",        4.5],
   ["on-info / info",               "--color-on-info",        "--color-info",          4.5],
   ["on-elegant / elegant",         "--color-on-elegant",     "--color-elegant",       4.5],
-  ["text-on-brand / primary",      "--color-text-on-brand",  "--color-primary",       4.5],
-  ["text-on-brand / secondary",    "--color-text-on-brand",  "--color-secondary",     4.5],
   ["on-primary-container / primary-container","--color-on-primary-container","--color-primary-container",4.5],
+
+  // --- concrete component call sites that pair a foreground with a fill ---
+  ["badge/chip base: text-primary / surface-variant","--color-text-primary","--color-surface-variant",4.5],
+  ["cancel button: on-scrim / bg-cancel","--color-on-scrim","--color-bg-cancel",4.5],
+  ["brand chrome: on-surface-brand / surface-brand","--color-on-surface-brand","--color-surface-brand",4.5],
+  ["brand chrome: on-surface-brand / surface-brand-alt","--color-on-surface-brand","--color-surface-brand-alt",4.5],
+  ["overlay: on-scrim / scrim-strong","--color-on-scrim","--color-scrim-strong",4.5],
 
   // --- filled *-dark / *-light variants (documented as usable fills) ---
   ["on-primary / primary-dark",    "--color-on-primary",     "--color-primary-dark",  4.5],

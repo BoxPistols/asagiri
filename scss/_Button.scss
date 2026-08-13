@@ -31,6 +31,9 @@
 // Button Color Setting
 @mixin btn-color($bgCcolor, $textColor, $borderColor: null) {
   color: $textColor;
+  // Exposed so states that blank `color` (e.g. .btn-loading) can still reach
+  // the variant's correct foreground.
+  --btn-on: #{$textColor};
   background-color: $bgCcolor;
 
   @if $borderColor != null and $borderColor != transparent {
@@ -43,6 +46,7 @@
 // Background Button Color
 @mixin btn-func-color($x) {
   color: var(--color-on-#{$x});
+  --btn-on: var(--color-on-#{$x});
   border: 1px solid var(--color-#{$x});
   background-color: var(--color-#{$x});
 
@@ -56,6 +60,7 @@
 // Outline Button Color
 @mixin btn-color-outline($x) {
   color: var(--color-#{$x});
+  --btn-on: var(--color-#{$x});
   border: 1px solid var(--color-#{$x});
   background-color: transparent;
 
@@ -157,15 +162,15 @@ input[type="submit"] {
 
     &-light {
       background: transparent;
-      color: var(--color-text-on-brand);
-      border: 2px solid var(--color-text-on-brand);
+      color: var(--color-on-scrim);
+      border: 2px solid var(--color-on-scrim);
 
       &:hover {
-        background: color-mix(in srgb, var(--color-text-on-brand) var(--state-hover), transparent);
+        background: color-mix(in srgb, var(--color-on-scrim) var(--state-hover), transparent);
       }
 
       &:focus {
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-text-on-brand) 30%, transparent);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-on-scrim) 30%, transparent);
       }
     }
   }
@@ -205,7 +210,7 @@ input[type="submit"] {
 
   // キャンセルボタン
   &.button-cancel {
-    color: var(--color-text-on-brand);
+    color: var(--color-on-scrim);
     border-color: transparent;
     background-color: var(--color-bg-cancel);
 
@@ -219,7 +224,7 @@ input[type="submit"] {
     &[disabled] {
       &:focus,
       &:hover {
-        color: var(--color-text-on-brand);
+        color: var(--color-on-scrim);
         background-color: var(--color-bg-cancel);
       }
     }
@@ -514,11 +519,13 @@ input[type="submit"] {
     position: absolute;
     width: 1.25rem;
     height: 1.25rem;
-    border: 2px solid currentColor;
+    // currentColor is unusable here: .btn-loading blanks `color` to hide the
+    // label. A hardcoded white spinner sat at 2.65:1 on the default primary
+    // fill, so take the variant's own foreground via --btn-on instead.
+    border: 2px solid var(--btn-on, var(--color-text-primary));
     border-right-color: transparent;
     border-radius: var(--radius-full);
     animation: btn-spin 0.75s linear infinite;
-    color: var(--color-text-on-brand);
   }
 }
 

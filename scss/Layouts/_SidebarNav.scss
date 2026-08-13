@@ -109,8 +109,12 @@
   opacity: 0.8;
 }
 
-/* Badge for NEW items */
-.badge {
+/* Badge for NEW items.
+   Scoped to the sidebar: as a bare `.badge` this collided with the Badge
+   component and leaked `text-transform: uppercase` and `margin-left` into
+   every badge on the page (same specificity, so only the properties the
+   component also sets were being overridden). */
+.sidebar-nav .badge {
   display: inline-block;
   padding: 0.2rem 0.5rem;
   font-size: 0.7rem;

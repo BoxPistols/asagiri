@@ -78,8 +78,21 @@ showcaseSections.push(["form-validation", `section.section:has(h2.section-title:
    committed baseline, and a single recoloured badge is far below THRESHOLD
    once averaged over a whole page. Section-level crops keep every diff
    legible and the baseline small. */
+/* Component specimens that showcase.html does not render. The preview cards
+   import css/tokens.css only, so without this fixture a component-level
+   change has nowhere to show up. */
+const componentSpecimens = [
+  "badge-base", "chip", "buttons-state", "form-feedback", "card-overlay",
+  "pattern-admin", "pattern-cardgrid", "scroll-to-top", "avatar",
+].map(n => ({
+  name: `component-${n}`,
+  url: "/docs/design-system/vrt-components.html",
+  selector: `section[data-vrt="${n}"]`,
+}));
+
 const TARGETS = [
   ...previews,
+  ...componentSpecimens,
   ...showcaseSections.map(([n, sel]) => ({ name: `showcase-${n}`, url: "/showcase.html", selector: sel })),
 ].filter(t => !FILTER || t.name.includes(FILTER));
 

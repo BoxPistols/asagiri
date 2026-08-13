@@ -95,11 +95,11 @@
 .progress-bar-striped {
   background-image: linear-gradient(
     45deg,
-    color-mix(in srgb, var(--color-text-on-brand) 15%, transparent) 25%,
+    color-mix(in srgb, var(--color-on-scrim) 15%, transparent) 25%,
     transparent 25%,
     transparent 50%,
-    color-mix(in srgb, var(--color-text-on-brand) 15%, transparent) 50%,
-    color-mix(in srgb, var(--color-text-on-brand) 15%, transparent) 75%,
+    color-mix(in srgb, var(--color-on-scrim) 15%, transparent) 50%,
+    color-mix(in srgb, var(--color-on-scrim) 15%, transparent) 75%,
     transparent 75%,
     transparent
   );
@@ -157,7 +157,7 @@
 .progress-stacked {
   .progress-bar {
     &:not(:last-child) {
-      border-right: 1px solid color-mix(in srgb, var(--color-text-on-brand) 20%, transparent);
+      border-right: 1px solid color-mix(in srgb, var(--color-on-scrim) 20%, transparent);
     }
   }
 }

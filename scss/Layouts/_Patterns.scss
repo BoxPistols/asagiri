@@ -55,8 +55,10 @@
 
 .admin-sidebar {
   width: 200px;
-  background: var(--color-primary-dark);
-  color: var(--color-text-on-brand);
+  // Fixed brand chrome: --color-primary-dark lightens in dark mode, dropping
+  // white sidebar text to 3.18:1. surface-brand stays dark in both themes.
+  background: var(--color-surface-brand);
+  color: var(--color-on-surface-brand);
   padding: 1rem;
 
   @media (max-width: 768px) {
@@ -79,15 +81,15 @@
 
 .admin-nav-item {
   padding: 0.75rem 1rem;
-  color: color-mix(in srgb, var(--color-text-on-brand) 80%, transparent);
+  color: color-mix(in srgb, var(--color-on-surface-brand) 80%, transparent);
   text-decoration: none;
   border-radius: var(--radius-sm);
   transition: all var(--motion-duration-short) var(--motion-ease-standard);
 
   &:hover,
   &.active {
-    background: color-mix(in srgb, var(--color-text-on-brand) var(--state-hover), transparent);
-    color: var(--color-text-on-brand);
+    background: color-mix(in srgb, var(--color-on-surface-brand) var(--state-hover), transparent);
+    color: var(--color-on-surface-brand);
   }
 }
 
@@ -165,12 +167,15 @@
 }
 
 .card-image {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  // Same reason as .admin-sidebar: a primary->secondary gradient is too light
+  // to carry white label text (2.65:1 on the primary end in light mode, worse
+  // in dark). The fixed brand tones keep the placeholder legible in both.
+  background: linear-gradient(135deg, var(--color-surface-brand), var(--color-surface-brand-alt));
   height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-on-brand);
+  color: var(--color-on-surface-brand);
   font-weight: bold;
 }
 
@@ -194,7 +199,7 @@
    a Netflix-like brand experience regardless of the site theme. */
 .streaming-layout {
   background: #141414;
-  color: var(--color-text-on-brand);
+  color: var(--color-on-scrim);
   min-height: 500px;
 }
 
@@ -217,7 +222,7 @@
   gap: 1.5rem;
 
   a {
-    color: var(--color-text-on-brand);
+    color: var(--color-on-scrim);
     text-decoration: none;
     transition: color var(--motion-duration-short) var(--motion-ease-standard);
 
@@ -229,7 +234,7 @@
 
 .streaming-user {
   background: #e50914;
-  color: var(--color-text-on-brand);
+  color: var(--color-on-scrim);
   padding: 0.5rem 1rem;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;

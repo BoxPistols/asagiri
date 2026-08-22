@@ -88,7 +88,8 @@ showcaseSections.push(["form-validation", `section.section:has(h2.section-title:
    import css/tokens.css only, so without this fixture a component-level
    change has nowhere to show up. */
 const componentSpecimens = [
-  "badge-base", "chip", "buttons-state", "form-feedback", "card-overlay",
+  "badge-base", "chip", "buttons-state", "buttons-variants", "fab", "snackbar",
+  "form-feedback", "card-overlay",
   "pattern-admin", "pattern-cardgrid", "scroll-to-top", "avatar",
 ].map(n => ({
   name: `component-${n}`,

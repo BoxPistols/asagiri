@@ -181,6 +181,10 @@
   --color-text-link: var(--ref-primary-40);
   --color-text-link-hover: var(--ref-primary-30);
   --color-text-link-visited: #5b3fa0;
+  /* Brand-coloured text on --color-surface-inverse (snackbar action, inverse
+     toolbars). The inverse surface is DARK in light mode, so this is the light
+     tone here and flips to the dark tone in the dark-theme override. */
+  --color-text-link-inverse: var(--ref-primary-80);
   --color-text-code: var(--ref-neutral-15);
   /* ---- Always-light foreground ----
      For content sitting on a scrim, a media overlay, or a fill that is dark
@@ -243,6 +247,21 @@
   --color-info-dark: #075569;
   --color-info-light: var(--ref-info-60);
   --color-on-info: var(--ref-neutral-100);
+  /* ---- Tonal container foregrounds ----
+     Text on a `color-mix(--color-X 20%, transparent)` fill (the tonal button).
+     --color-X-dark cannot serve here for the same reason it cannot serve as a
+     hover fill: in dark mode it maps back to the LIGHT-mode tone, putting a
+     dark tone on a dark tinted fill (2.46:1 for danger). These flip with the
+     theme instead — see the dark override. --color-on-primary-container
+     already did this; the functional colours were simply missing it. */
+  --color-on-secondary-container: var(--color-secondary-dark);
+  --color-on-success-container: var(--color-success-dark);
+  --color-on-warning-container: var(--color-warning-dark);
+  --color-on-danger-container: var(--color-danger-dark);
+  --color-on-info-container: var(--color-info-dark);
+  /* accent-dark alone is 4.33:1 on the 20% magenta tint, so it is deepened
+     here rather than in --color-accent-dark (which is also a fill). */
+  --color-on-accent-container: color-mix(in srgb, var(--color-accent-dark) 82%, var(--ref-neutral-0));
   /* ---- Hover fills ----
      A hovered fill must shift AWAY from its own foreground, otherwise the
      pair's contrast degrades. --color-X-dark cannot do that job: in dark mode
@@ -413,6 +432,9 @@
   --color-text-link: var(--ref-primary-80);
   --color-text-link-hover: var(--ref-primary-90);
   --color-text-link-visited: #c4b5fd;
+  /* Mirrors --color-text-link, because the inverse surface moves the opposite
+     way: it is dark in light mode and light in dark mode. */
+  --color-text-link-inverse: var(--ref-primary-40);
   --color-text-code: var(--ref-neutral-95);
   /* ---- Borders (white-based in dark mode) ---- */
   --color-border-subtle: color-mix(in srgb, var(--ref-neutral-100) 6%, transparent);
@@ -465,6 +487,15 @@
   --color-elegant-dark: var(--ref-neutral-50);
   --color-elegant-light: var(--ref-neutral-85);
   --color-on-elegant: var(--ref-neutral-10);
+  /* ---- Tonal container foregrounds (flipped) ----
+     The tint sits on a dark surface here, so the readable tone is the light
+     one. Without this, tonal buttons rendered a dark tone on a dark tint. */
+  --color-on-secondary-container: var(--color-secondary-light);
+  --color-on-success-container: var(--color-success-light);
+  --color-on-warning-container: var(--color-warning-light);
+  --color-on-danger-container: var(--color-danger-light);
+  --color-on-info-container: var(--color-info-light);
+  --color-on-accent-container: var(--color-accent-light);
   /* ---- Legacy aliases for dark mode ---- */
   --color-bg-strong: #4a4a00;
   --color-bg-btn: var(--color-primary);
@@ -520,6 +551,9 @@
     --color-text-link: var(--ref-primary-80);
     --color-text-link-hover: var(--ref-primary-90);
     --color-text-link-visited: #c4b5fd;
+    /* Mirrors --color-text-link, because the inverse surface moves the opposite
+       way: it is dark in light mode and light in dark mode. */
+    --color-text-link-inverse: var(--ref-primary-40);
     --color-text-code: var(--ref-neutral-95);
     /* ---- Borders (white-based in dark mode) ---- */
     --color-border-subtle: color-mix(in srgb, var(--ref-neutral-100) 6%, transparent);
@@ -572,6 +606,15 @@
     --color-elegant-dark: var(--ref-neutral-50);
     --color-elegant-light: var(--ref-neutral-85);
     --color-on-elegant: var(--ref-neutral-10);
+    /* ---- Tonal container foregrounds (flipped) ----
+       The tint sits on a dark surface here, so the readable tone is the light
+       one. Without this, tonal buttons rendered a dark tone on a dark tint. */
+    --color-on-secondary-container: var(--color-secondary-light);
+    --color-on-success-container: var(--color-success-light);
+    --color-on-warning-container: var(--color-warning-light);
+    --color-on-danger-container: var(--color-danger-light);
+    --color-on-info-container: var(--color-info-light);
+    --color-on-accent-container: var(--color-accent-light);
     /* ---- Legacy aliases for dark mode ---- */
     --color-bg-strong: #4a4a00;
     --color-bg-btn: var(--color-primary);

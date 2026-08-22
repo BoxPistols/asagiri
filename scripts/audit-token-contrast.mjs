@@ -6,6 +6,12 @@
  * and color-mix() are computed exactly as they ship), then checks each
  * foreground/background pair the design system promises, in BOTH themes.
  *
+ * It then does the same for one case tokens alone cannot cover: the
+ * .btn-loading spinner, whose colour comes from --btn-on rather than from the
+ * variant's own `color`. That is measured on real rendered elements, because
+ * the failure mode is a *call site* that overrode `background` and forgot
+ * --btn-on — which a token-pair matrix cannot see.
+ *
  * Unlike scripts/audit-light-dark.mjs this needs no dev server and no
  * screenshots, so it runs in seconds and is suitable as a CI regression gate.
  *
@@ -130,10 +136,82 @@ const PAIRS = [
 
 const TOKENS = [...new Set(PAIRS.flatMap(p => [p[1], p[2]]))];
 
+/* Every distinct fill a button variant paints, checked against the foreground
+   the variant actually renders.
+   [label, button classes, ancestor markup ("%s" marks the button slot)]
+
+   Measured via the .btn-loading spinner, because that is the one place the
+   foreground is readable programmatically: .btn-loading blanks the label to
+   transparent (so the button keeps its width), which means the spinner cannot
+   use currentColor and reads --btn-on instead. By the invariant in
+   _Button.scss, --btn-on always equals the variant's own `color` — so each row
+   audits the LABEL as much as the spinner, and is held to the 4.5:1 text
+   threshold rather than the spinner's own 3:1.
+
+   This is what a token-pair matrix cannot see: a <button> inherits --btn-on
+   (and, visually, nothing else) from the global button rule, so a component
+   that re-fills the button without re-pointing its foreground renders the
+   *primary* foreground on a non-primary fill and no token pair is wrong. */
+const SLOT = "%s";
+const LOADING = [
+  ["button (bare)",        "button",                       SLOT],
+  ["btn-secondary",        "button btn-secondary",         SLOT],
+  ["btn-accent",           "button btn-accent",            SLOT],
+  ["btn-success",          "button btn-success",           SLOT],
+  ["btn-warning",          "button btn-warning",           SLOT],
+  ["btn-danger",           "button btn-danger",            SLOT],
+  ["btn-info",             "button btn-info",              SLOT],
+  ["btn-elegant",          "button btn-elegant",           SLOT],
+  ["button-outline",       "button button-outline",        SLOT],
+  ["button-cancel",        "button button-cancel",         SLOT],
+  ["button-clear",         "button button-clear",          SLOT],
+  ["btn-outline-secondary","button btn-outline-secondary", SLOT],
+  ["btn-outline-success",  "button btn-outline-success",   SLOT],
+  ["btn-outline-warning",  "button btn-outline-warning",   SLOT],
+  ["btn-outline-danger",   "button btn-outline-danger",    SLOT],
+  ["btn-outline-info",     "button btn-outline-info",      SLOT],
+  ["btn-outline-elegant",  "button btn-outline-elegant",   SLOT],
+  // outline-light is for dark/photo backdrops in BOTH themes, so it is audited
+  // on the scrim rather than on surface-inverse (which is light in dark mode).
+  ["btn-outline-light",    "button btn-outline-light",
+    `<div style="background:var(--color-scrim-strong)">${SLOT}</div>`],
+  ["btn-tonal",            "button btn-tonal",             SLOT],
+  ["btn-tonal-secondary",  "button btn-tonal-secondary",   SLOT],
+  ["btn-tonal-success",    "button btn-tonal-success",     SLOT],
+  ["btn-tonal-warning",    "button btn-tonal-warning",     SLOT],
+  ["btn-tonal-danger",     "button btn-tonal-danger",      SLOT],
+  ["btn-tonal-info",       "button btn-tonal-info",        SLOT],
+  ["btn-tonal-accent",     "button btn-tonal-accent",      SLOT],
+  ["btn-text",             "button btn-text",              SLOT],
+  ["btn-text-danger",      "button btn-text-danger",       SLOT],
+  ["fab",                  "fab",                          SLOT],
+  ["fab-secondary",        "fab fab-secondary",            SLOT],
+  ["fab-success",          "fab fab-success",              SLOT],
+  ["fab-warning",          "fab fab-warning",              SLOT],
+  ["fab-danger",           "fab fab-danger",               SLOT],
+  ["fab-info",             "fab fab-info",                 SLOT],
+  ["fab-surface",          "fab fab-surface",              SLOT],
+  ["fab-tertiary",         "fab fab-tertiary",             SLOT],
+  ["copy-button",          "copy-button",       `<div class="code-block">${SLOT}</div>`],
+  ["snackbar-btn",         "snackbar-btn",      `<div class="snackbar">${SLOT}</div>`],
+  ["snackbar-success btn", "snackbar-btn",      `<div class="snackbar snackbar-success">${SLOT}</div>`],
+  ["snackbar-warning btn", "snackbar-btn",      `<div class="snackbar snackbar-warning">${SLOT}</div>`],
+  ["snackbar-danger btn",  "snackbar-btn",      `<div class="snackbar snackbar-danger">${SLOT}</div>`],
+  ["snackbar-info btn",    "snackbar-btn",      `<div class="snackbar snackbar-info">${SLOT}</div>`],
+  ["modal-close",          "modal-close",       `<div class="modal"><div class="modal-header">${SLOT}</div></div>`],
+];
+
 const launchOpts = process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {};
 const browser = await chromium.launch(launchOpts);
 const page = await browser.newPage();
-await page.setContent(`<!doctype html><html><head><style>${css}</style></head><body></body></html>`);
+const loadingMarkup = LOADING.map(([, cls, wrap], i) =>
+  wrap.replace(SLOT, `<button id="ld${i}" class="${cls} btn-loading">Loading</button>`)).join("\n");
+/* Transitions make getComputedStyle return the mid-flight value right after a
+   theme flip, which would silently report the *previous* theme's colours. */
+const NO_MOTION = "*,*::before,*::after{transition:none!important;animation:none!important}";
+await page.setContent(
+  `<!doctype html><html><head><style>${css}</style><style>${NO_MOTION}</style></head>` +
+  `<body style="background:var(--color-bg)">${loadingMarkup}</body></html>`);
 
 async function resolve(theme) {
   return await page.evaluate(({ tokens, theme }) => {
@@ -158,6 +236,25 @@ async function resolve(theme) {
   }, { tokens: TOKENS, theme });
 }
 
+/* Reads the rendered .btn-loading spinner colour and the stack of background
+   colours behind it, innermost first, so a semi-transparent fill can be
+   composited over whatever actually sits underneath it. */
+async function resolveLoading(theme) {
+  return await page.evaluate(({ n, theme }) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      const el = document.getElementById("ld" + i);
+      const stack = [];
+      for (let node = el; node; node = node.parentElement) {
+        stack.push(getComputedStyle(node).backgroundColor);
+      }
+      out.push({ spinner: getComputedStyle(el, "::after").borderTopColor, stack });
+    }
+    return out;
+  }, { n: LOADING.length, theme });
+}
+
 function parse(s) {
   if (!s) return null;
   let m = s.match(/rgba?\(([^)]+)\)/);
@@ -170,6 +267,24 @@ function parse(s) {
   if (m) {
     const p = m[1].split(/[\s/]+/).filter(Boolean).map(Number);
     return { r: p[0] * 255, g: p[1] * 255, b: p[2] * 255, a: p[3] === undefined ? 1 : p[3] };
+  }
+  // ...and as oklab() when the mix is in a polar/perceptual space
+  m = s.match(/^\s*oklab\(([^)]+)\)\s*$/);
+  if (m) {
+    const p = m[1].split(/[\s/]+/).filter(Boolean).map(Number);
+    const [L, A, B] = p;
+    const l = (L + 0.3963377774 * A + 0.2158037573 * B) ** 3;
+    const mm = (L - 0.1055613458 * A - 0.0638541728 * B) ** 3;
+    const ss = (L - 0.0894841775 * A - 1.291485548 * B) ** 3;
+    const [r, g, b] = [
+      4.0767416621 * l - 3.3077115913 * mm + 0.2309699292 * ss,
+      -1.2684380046 * l + 2.6097574011 * mm - 0.3413193965 * ss,
+      -0.0041960863 * l - 0.7034186147 * mm + 1.707614701 * ss,
+    ].map(v => {
+      const c = v <= 0.0031308 ? 12.92 * v : 1.055 * v ** (1 / 2.4) - 0.055;
+      return Math.min(255, Math.max(0, c * 255));
+    });
+    return { r, g, b, a: p[3] === undefined ? 1 : p[3] };
   }
   if (s.trim() === "transparent") return { r: 0, g: 0, b: 0, a: 0 };
   return null;
@@ -218,6 +333,22 @@ for (const theme of ["light", "dark"]) {
     const r = ratio(fg, bg);
     return { label, min, exempt, ratio: +r.toFixed(2), pass: r >= min, fg: vals[fgT], bg: vals[bgT] };
   });
+
+  // Each variant's foreground vs. its own fill — measured, not derived.
+  const loading = await resolveLoading(theme);
+  results[theme].push(...loading.map(({ spinner, stack }, i) => {
+    const label = `variant foreground / ${LOADING[i][0]}`;
+    const sp = parse(spinner);
+    if (!sp) return { label, min: 4.5, exempt: false, error: `unresolved foreground ${spinner}` };
+    // Composite the ancestor backgrounds outermost-inward into one opaque colour.
+    let bg = pageBg;
+    for (let k = stack.length - 1; k >= 0; k--) {
+      const layer = parse(stack[k]);
+      if (layer && layer.a > 0) bg = layer.a < 1 ? over(layer, bg) : layer;
+    }
+    const r = ratio(over(sp, bg), bg);
+    return { label, min: 4.5, exempt: false, ratio: +r.toFixed(2), pass: r >= 4.5, fg: spinner, bg: `stack:${stack[0]}` };
+  }));
 }
 await browser.close();
 

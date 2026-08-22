@@ -202,8 +202,10 @@ input[type="submit"] {
 
   // ボーダーボタンデザインバージョン
   &.button-outline {
-    color: var(--color-primary);
-    --btn-on: var(--color-primary);
+    // Brand-coloured TEXT on a transparent fill: --color-primary is 2.65:1 on
+    // --color-bg, so these use the AA-compliant link tone instead.
+    color: var(--color-text-link);
+    --btn-on: var(--color-text-link);
     background-color: transparent;
 
     &:focus,
@@ -217,8 +219,8 @@ input[type="submit"] {
     &[disabled] {
       &:focus,
       &:hover {
-        color: var(--color-primary);
-        --btn-on: var(--color-primary);
+        color: var(--color-text-link);
+        --btn-on: var(--color-text-link);
         border-color: inherit;
       }
     }
@@ -252,8 +254,8 @@ input[type="submit"] {
 
   // クリアボタン
   &.button-clear {
-    color: var(--color-primary);
-    --btn-on: var(--color-primary);
+    color: var(--color-text-link);
+    --btn-on: var(--color-text-link);
 
     // border-color: transparent;
     background-color: transparent;
@@ -270,8 +272,8 @@ input[type="submit"] {
     &[disabled] {
       &:focus,
       &:hover {
-        color: var(--color-primary);
-        --btn-on: var(--color-primary);
+        color: var(--color-text-link);
+        --btn-on: var(--color-text-link);
       }
     }
   }
@@ -364,8 +366,10 @@ input[type="submit"] {
 @each $color in (secondary, success, warning, danger, info, accent) {
   .btn-tonal-#{$color} {
     background-color: color-mix(in srgb, var(--color-#{$color}) 20%, transparent);
-    color: var(--color-#{$color}-dark);
-    --btn-on: var(--color-#{$color}-dark);
+    // NOT --color-#{$color}-dark: that maps back to the light-mode tone in
+    // dark mode, putting a dark tone on a dark tint (2.46:1 for danger).
+    color: var(--color-on-#{$color}-container);
+    --btn-on: var(--color-on-#{$color}-container);
     border-color: transparent;
 
     &:hover:not([disabled]) {
@@ -377,8 +381,10 @@ input[type="submit"] {
 // Text Button (no background)
 .btn-text {
   background-color: transparent;
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  // Brand-coloured TEXT needs the AA-compliant link tone; --color-primary is
+  // only 2.65:1 on --color-bg and never met 1.4.3 here.
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
   border: none;
   padding: 0 1rem;
   box-shadow: none;
@@ -386,8 +392,8 @@ input[type="submit"] {
   &:hover:not([disabled]),
   &:focus:not([disabled]) {
     background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
-    color: var(--color-primary);
-    --btn-on: var(--color-primary);
+    color: var(--color-text-link-hover);
+    --btn-on: var(--color-text-link-hover);
     border: none;
     transform: none;
   }

@@ -391,6 +391,10 @@ summary {
   --color-text-link: var(--ref-primary-40);
   --color-text-link-hover: var(--ref-primary-30);
   --color-text-link-visited: #5b3fa0;
+  /* Brand-coloured text on --color-surface-inverse (snackbar action, inverse
+     toolbars). The inverse surface is DARK in light mode, so this is the light
+     tone here and flips to the dark tone in the dark-theme override. */
+  --color-text-link-inverse: var(--ref-primary-80);
   --color-text-code: var(--ref-neutral-15);
   /* ---- Always-light foreground ----
      For content sitting on a scrim, a media overlay, or a fill that is dark
@@ -453,6 +457,21 @@ summary {
   --color-info-dark: #075569;
   --color-info-light: var(--ref-info-60);
   --color-on-info: var(--ref-neutral-100);
+  /* ---- Tonal container foregrounds ----
+     Text on a `color-mix(--color-X 20%, transparent)` fill (the tonal button).
+     --color-X-dark cannot serve here for the same reason it cannot serve as a
+     hover fill: in dark mode it maps back to the LIGHT-mode tone, putting a
+     dark tone on a dark tinted fill (2.46:1 for danger). These flip with the
+     theme instead — see the dark override. --color-on-primary-container
+     already did this; the functional colours were simply missing it. */
+  --color-on-secondary-container: var(--color-secondary-dark);
+  --color-on-success-container: var(--color-success-dark);
+  --color-on-warning-container: var(--color-warning-dark);
+  --color-on-danger-container: var(--color-danger-dark);
+  --color-on-info-container: var(--color-info-dark);
+  /* accent-dark alone is 4.33:1 on the 20% magenta tint, so it is deepened
+     here rather than in --color-accent-dark (which is also a fill). */
+  --color-on-accent-container: color-mix(in srgb, var(--color-accent-dark) 82%, var(--ref-neutral-0));
   /* ---- Hover fills ----
      A hovered fill must shift AWAY from its own foreground, otherwise the
      pair's contrast degrades. --color-X-dark cannot do that job: in dark mode
@@ -623,6 +642,9 @@ summary {
   --color-text-link: var(--ref-primary-80);
   --color-text-link-hover: var(--ref-primary-90);
   --color-text-link-visited: #c4b5fd;
+  /* Mirrors --color-text-link, because the inverse surface moves the opposite
+     way: it is dark in light mode and light in dark mode. */
+  --color-text-link-inverse: var(--ref-primary-40);
   --color-text-code: var(--ref-neutral-95);
   /* ---- Borders (white-based in dark mode) ---- */
   --color-border-subtle: color-mix(in srgb, var(--ref-neutral-100) 6%, transparent);
@@ -675,6 +697,15 @@ summary {
   --color-elegant-dark: var(--ref-neutral-50);
   --color-elegant-light: var(--ref-neutral-85);
   --color-on-elegant: var(--ref-neutral-10);
+  /* ---- Tonal container foregrounds (flipped) ----
+     The tint sits on a dark surface here, so the readable tone is the light
+     one. Without this, tonal buttons rendered a dark tone on a dark tint. */
+  --color-on-secondary-container: var(--color-secondary-light);
+  --color-on-success-container: var(--color-success-light);
+  --color-on-warning-container: var(--color-warning-light);
+  --color-on-danger-container: var(--color-danger-light);
+  --color-on-info-container: var(--color-info-light);
+  --color-on-accent-container: var(--color-accent-light);
   /* ---- Legacy aliases for dark mode ---- */
   --color-bg-strong: #4a4a00;
   --color-bg-btn: var(--color-primary);
@@ -730,6 +761,9 @@ summary {
     --color-text-link: var(--ref-primary-80);
     --color-text-link-hover: var(--ref-primary-90);
     --color-text-link-visited: #c4b5fd;
+    /* Mirrors --color-text-link, because the inverse surface moves the opposite
+       way: it is dark in light mode and light in dark mode. */
+    --color-text-link-inverse: var(--ref-primary-40);
     --color-text-code: var(--ref-neutral-95);
     /* ---- Borders (white-based in dark mode) ---- */
     --color-border-subtle: color-mix(in srgb, var(--ref-neutral-100) 6%, transparent);
@@ -782,6 +816,15 @@ summary {
     --color-elegant-dark: var(--ref-neutral-50);
     --color-elegant-light: var(--ref-neutral-85);
     --color-on-elegant: var(--ref-neutral-10);
+    /* ---- Tonal container foregrounds (flipped) ----
+       The tint sits on a dark surface here, so the readable tone is the light
+       one. Without this, tonal buttons rendered a dark tone on a dark tint. */
+    --color-on-secondary-container: var(--color-secondary-light);
+    --color-on-success-container: var(--color-success-light);
+    --color-on-warning-container: var(--color-warning-light);
+    --color-on-danger-container: var(--color-danger-light);
+    --color-on-info-container: var(--color-info-light);
+    --color-on-accent-container: var(--color-accent-light);
     /* ---- Legacy aliases for dark mode ---- */
     --color-bg-strong: #4a4a00;
     --color-bg-btn: var(--color-primary);
@@ -1664,8 +1707,8 @@ button.button-outline,
 input[type=button].button-outline,
 input[type=reset].button-outline,
 input[type=submit].button-outline {
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
   background-color: transparent;
 }
 .button.button-outline:focus, .button.button-outline:hover,
@@ -1691,8 +1734,8 @@ input[type=reset].button-outline[disabled]:focus,
 input[type=reset].button-outline[disabled]:hover,
 input[type=submit].button-outline[disabled]:focus,
 input[type=submit].button-outline[disabled]:hover {
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
   border-color: inherit;
 }
 .button.button-cancel,
@@ -1737,8 +1780,8 @@ button.button-clear,
 input[type=button].button-clear,
 input[type=reset].button-clear,
 input[type=submit].button-clear {
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
   background-color: transparent;
   box-shadow: none;
 }
@@ -1765,8 +1808,8 @@ input[type=reset].button-clear[disabled]:focus,
 input[type=reset].button-clear[disabled]:hover,
 input[type=submit].button-clear[disabled]:focus,
 input[type=submit].button-clear[disabled]:hover {
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
 }
 
 .button,
@@ -1844,8 +1887,8 @@ input[type=submit]:active:not([disabled]) {
 
 .btn-tonal-secondary {
   background-color: color-mix(in srgb, var(--color-secondary) 20%, transparent);
-  color: var(--color-secondary-dark);
-  --btn-on: var(--color-secondary-dark);
+  color: var(--color-on-secondary-container);
+  --btn-on: var(--color-on-secondary-container);
   border-color: transparent;
 }
 .btn-tonal-secondary:hover:not([disabled]) {
@@ -1854,8 +1897,8 @@ input[type=submit]:active:not([disabled]) {
 
 .btn-tonal-success {
   background-color: color-mix(in srgb, var(--color-success) 20%, transparent);
-  color: var(--color-success-dark);
-  --btn-on: var(--color-success-dark);
+  color: var(--color-on-success-container);
+  --btn-on: var(--color-on-success-container);
   border-color: transparent;
 }
 .btn-tonal-success:hover:not([disabled]) {
@@ -1864,8 +1907,8 @@ input[type=submit]:active:not([disabled]) {
 
 .btn-tonal-warning {
   background-color: color-mix(in srgb, var(--color-warning) 20%, transparent);
-  color: var(--color-warning-dark);
-  --btn-on: var(--color-warning-dark);
+  color: var(--color-on-warning-container);
+  --btn-on: var(--color-on-warning-container);
   border-color: transparent;
 }
 .btn-tonal-warning:hover:not([disabled]) {
@@ -1874,8 +1917,8 @@ input[type=submit]:active:not([disabled]) {
 
 .btn-tonal-danger {
   background-color: color-mix(in srgb, var(--color-danger) 20%, transparent);
-  color: var(--color-danger-dark);
-  --btn-on: var(--color-danger-dark);
+  color: var(--color-on-danger-container);
+  --btn-on: var(--color-on-danger-container);
   border-color: transparent;
 }
 .btn-tonal-danger:hover:not([disabled]) {
@@ -1884,8 +1927,8 @@ input[type=submit]:active:not([disabled]) {
 
 .btn-tonal-info {
   background-color: color-mix(in srgb, var(--color-info) 20%, transparent);
-  color: var(--color-info-dark);
-  --btn-on: var(--color-info-dark);
+  color: var(--color-on-info-container);
+  --btn-on: var(--color-on-info-container);
   border-color: transparent;
 }
 .btn-tonal-info:hover:not([disabled]) {
@@ -1894,8 +1937,8 @@ input[type=submit]:active:not([disabled]) {
 
 .btn-tonal-accent {
   background-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
-  color: var(--color-accent-dark);
-  --btn-on: var(--color-accent-dark);
+  color: var(--color-on-accent-container);
+  --btn-on: var(--color-on-accent-container);
   border-color: transparent;
 }
 .btn-tonal-accent:hover:not([disabled]) {
@@ -1904,16 +1947,16 @@ input[type=submit]:active:not([disabled]) {
 
 .btn-text {
   background-color: transparent;
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
   border: none;
   padding: 0 1rem;
   box-shadow: none;
 }
 .btn-text:hover:not([disabled]), .btn-text:focus:not([disabled]) {
   background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  color: var(--color-text-link-hover);
+  --btn-on: var(--color-text-link-hover);
   border: none;
   transform: none;
 }
@@ -3691,6 +3734,7 @@ pre > code {
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--color-text-secondary);
+  --btn-on: var(--color-text-secondary);
   padding: 0.5rem;
   line-height: 1;
   transition: color var(--motion-duration-short) var(--motion-ease-standard);
@@ -7356,6 +7400,7 @@ textarea.is-warning,
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text);
+  --btn-on: var(--color-text);
   background: var(--color-box);
   border: 1px solid var(--color-border);
   border-radius: 4px;
@@ -7369,11 +7414,13 @@ textarea.is-warning,
 .copy-button:hover {
   background: var(--color-primary);
   color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
   border-color: var(--color-primary);
 }
 .copy-button.copied {
   background: var(--color-success);
   color: var(--color-on-success);
+  --btn-on: var(--color-on-success);
   border-color: var(--color-success);
 }
 .copy-button:active {
@@ -7572,6 +7619,7 @@ textarea.is-warning,
   padding: 0;
   background-color: var(--color-primary);
   color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-xl);
   box-shadow: var(--elevation-3);
@@ -7689,6 +7737,7 @@ textarea.is-warning,
 .fab-primary {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
 }
 .fab-primary:hover {
   background-color: var(--color-primary-hover);
@@ -7697,6 +7746,7 @@ textarea.is-warning,
 .fab-secondary {
   background-color: var(--color-secondary);
   color: var(--color-on-secondary);
+  --btn-on: var(--color-on-secondary);
 }
 .fab-secondary:hover {
   background-color: var(--color-secondary-hover);
@@ -7705,6 +7755,7 @@ textarea.is-warning,
 .fab-success {
   background-color: var(--color-success);
   color: var(--color-on-success);
+  --btn-on: var(--color-on-success);
 }
 .fab-success:hover {
   background-color: var(--color-success-hover);
@@ -7713,6 +7764,7 @@ textarea.is-warning,
 .fab-danger {
   background-color: var(--color-danger);
   color: var(--color-on-danger);
+  --btn-on: var(--color-on-danger);
 }
 .fab-danger:hover {
   background-color: var(--color-danger-hover);
@@ -7721,6 +7773,7 @@ textarea.is-warning,
 .fab-warning {
   background-color: var(--color-warning);
   color: var(--color-on-warning);
+  --btn-on: var(--color-on-warning);
 }
 .fab-warning:hover {
   background-color: var(--color-warning-hover);
@@ -7729,6 +7782,7 @@ textarea.is-warning,
 .fab-info {
   background-color: var(--color-info);
   color: var(--color-on-info);
+  --btn-on: var(--color-on-info);
 }
 .fab-info:hover {
   background-color: var(--color-info-hover);
@@ -7736,7 +7790,8 @@ textarea.is-warning,
 
 .fab-surface {
   background-color: var(--color-surface);
-  color: var(--color-primary);
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
 }
 .fab-surface:hover {
   background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), var(--color-surface));
@@ -7745,6 +7800,7 @@ textarea.is-warning,
 .fab-tertiary {
   background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
   color: var(--color-on-primary-container);
+  --btn-on: var(--color-on-primary-container);
 }
 .fab-tertiary:hover {
   background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
@@ -8341,7 +8397,8 @@ a.chip:focus-visible,
   flex-shrink: 0;
   padding: 0.375rem 0.75rem;
   background-color: transparent;
-  color: var(--color-primary-light);
+  color: var(--color-text-link-inverse);
+  --btn-on: var(--color-text-link-inverse);
   border: none;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
@@ -8422,6 +8479,7 @@ a.chip:focus-visible,
 }
 .snackbar-success .snackbar-btn {
   color: var(--color-on-success);
+  --btn-on: var(--color-on-success);
 }
 .snackbar-success .snackbar-btn:hover {
   background-color: color-mix(in srgb, var(--color-on-success) var(--state-hover), transparent);
@@ -8433,6 +8491,7 @@ a.chip:focus-visible,
 }
 .snackbar-warning .snackbar-btn {
   color: var(--color-on-warning);
+  --btn-on: var(--color-on-warning);
 }
 .snackbar-warning .snackbar-btn:hover {
   background-color: color-mix(in srgb, var(--color-on-warning) var(--state-hover), transparent);
@@ -8450,6 +8509,7 @@ a.chip:focus-visible,
 }
 .snackbar-danger .snackbar-btn {
   color: var(--color-on-danger);
+  --btn-on: var(--color-on-danger);
 }
 .snackbar-danger .snackbar-btn:hover {
   background-color: color-mix(in srgb, var(--color-on-danger) var(--state-hover), transparent);
@@ -8461,6 +8521,7 @@ a.chip:focus-visible,
 }
 .snackbar-info .snackbar-btn {
   color: var(--color-on-info);
+  --btn-on: var(--color-on-info);
 }
 .snackbar-info .snackbar-btn:hover {
   background-color: color-mix(in srgb, var(--color-on-info) var(--state-hover), transparent);
@@ -8473,6 +8534,7 @@ a.chip:focus-visible,
 }
 .snackbar-surface .snackbar-btn {
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
 }
 .snackbar-surface .snackbar-btn:hover {
   background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);

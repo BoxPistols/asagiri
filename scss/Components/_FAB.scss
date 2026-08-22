@@ -25,6 +25,13 @@
   // Appearance
   background-color: var(--color-primary);
   color: var(--color-on-primary);
+
+  // A FAB is a <button>, so it inherits --btn-on from the global button rule.
+  // Every variant below re-points it with `color`, otherwise a .btn-loading
+  // spinner keeps the *primary* foreground on a non-primary fill.
+  // See the invariant note in _Button.scss.
+  --btn-on: var(--color-on-primary);
+
   border: none;
   border-radius: var(--radius-xl);
   box-shadow: var(--elevation-3);
@@ -174,6 +181,7 @@
 .fab-primary {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
 
   &:hover {
     background-color: var(--color-primary-hover);
@@ -183,6 +191,7 @@
 .fab-secondary {
   background-color: var(--color-secondary);
   color: var(--color-on-secondary);
+  --btn-on: var(--color-on-secondary);
 
   &:hover {
     background-color: var(--color-secondary-hover);
@@ -192,6 +201,7 @@
 .fab-success {
   background-color: var(--color-success);
   color: var(--color-on-success);
+  --btn-on: var(--color-on-success);
 
   &:hover {
     background-color: var(--color-success-hover);
@@ -201,6 +211,7 @@
 .fab-danger {
   background-color: var(--color-danger);
   color: var(--color-on-danger);
+  --btn-on: var(--color-on-danger);
 
   &:hover {
     background-color: var(--color-danger-hover);
@@ -210,6 +221,7 @@
 .fab-warning {
   background-color: var(--color-warning);
   color: var(--color-on-warning);
+  --btn-on: var(--color-on-warning);
 
   &:hover {
     background-color: var(--color-warning-hover);
@@ -219,6 +231,7 @@
 .fab-info {
   background-color: var(--color-info);
   color: var(--color-on-info);
+  --btn-on: var(--color-on-info);
 
   &:hover {
     background-color: var(--color-info-hover);
@@ -228,7 +241,10 @@
 // Surface FAB (light background)
 .fab-surface {
   background-color: var(--color-surface);
-  color: var(--color-primary);
+  // Link tone, not --color-primary: brand colour ON a surface is text-like
+  // here (the FAB carries a glyph) and --color-primary is only 2.65:1.
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
 
   &:hover {
     background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), var(--color-surface));
@@ -239,6 +255,7 @@
 .fab-tertiary {
   background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
   color: var(--color-on-primary-container);
+  --btn-on: var(--color-on-primary-container);
 
   &:hover {
     background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);

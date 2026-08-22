@@ -109,19 +109,24 @@
   opacity: 0.8;
 }
 
-/* Badge for NEW items.
-   Scoped to the sidebar: as a bare `.badge` this collided with the Badge
-   component and leaked `text-transform: uppercase` and `margin-left` into
-   every badge on the page (same specificity, so only the properties the
-   component also sets were being overridden). */
-.sidebar-nav .badge {
+/* "NEW" marker.
+   This is its own thing, not a Badge variant, so it gets its own class.
+   It used to be declared as a bare `.badge`, which collided with the Badge
+   component at equal specificity and leaked `text-transform` and
+   `margin-left` into every badge on the page. Scoping it to
+   `.sidebar-nav .badge` traded that for a worse bug — the higher specificity
+   then beat `.badge-danger` and friends inside the sidebar — and it also
+   dropped the styling from the markers used in `<h1>` headings, which are
+   outside the nav. A dedicated class avoids the cascade entirely. */
+.badge-new {
   display: inline-block;
   padding: 0.2rem 0.5rem;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   background: var(--color-accent);
-  color: var(--color-white);
+  // on-accent, not a hardcoded white: white on the dark-mode accent is 2.46:1.
+  color: var(--color-on-accent);
   border-radius: 3px;
   margin-left: 0.5rem;
   vertical-align: middle;

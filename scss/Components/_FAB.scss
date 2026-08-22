@@ -63,7 +63,7 @@
 
   // Hover state
   &:hover {
-    background-color: var(--color-primary-dark);
+    background-color: var(--color-primary-hover);
     box-shadow: var(--elevation-4);
     transform: translateY(-2px);
   }
@@ -76,7 +76,7 @@
 
   // Focus state
   &:focus-visible {
-    outline: 2px solid var(--color-primary-light);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
   }
 
@@ -176,7 +176,7 @@
   color: var(--color-on-primary);
 
   &:hover {
-    background-color: var(--color-primary-dark);
+    background-color: var(--color-primary-hover);
   }
 }
 
@@ -185,7 +185,7 @@
   color: var(--color-on-secondary);
 
   &:hover {
-    background-color: var(--color-secondary-dark);
+    background-color: var(--color-secondary-hover);
   }
 }
 
@@ -194,7 +194,7 @@
   color: var(--color-on-success);
 
   &:hover {
-    background-color: var(--color-success-dark);
+    background-color: var(--color-success-hover);
   }
 }
 
@@ -203,7 +203,7 @@
   color: var(--color-on-danger);
 
   &:hover {
-    background-color: var(--color-danger-dark);
+    background-color: var(--color-danger-hover);
   }
 }
 
@@ -212,7 +212,7 @@
   color: var(--color-on-warning);
 
   &:hover {
-    background-color: var(--color-warning-dark);
+    background-color: var(--color-warning-hover);
   }
 }
 
@@ -221,7 +221,7 @@
   color: var(--color-on-info);
 
   &:hover {
-    background-color: var(--color-info-dark);
+    background-color: var(--color-info-hover);
   }
 }
 

@@ -11,7 +11,7 @@
 }
 
 *:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -21,13 +21,13 @@ button:focus-visible,
 [type='button']:focus-visible,
 [type='reset']:focus-visible,
 [type='submit']:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
 }
 
 // Link focus styles
 a:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -36,9 +36,9 @@ a:focus-visible {
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 0;
-  border-color: var(--color-border-focus);
+  border-color: var(--color-border-focus, #0089a0);
 }
 
 // Reduced Motion Support
@@ -84,8 +84,8 @@ select:focus-visible {
 
   // primary/on-primary is the audited brand fill pair — it clears AA in both
   // themes. A hardcoded white here sat at 2.65:1 on the default primary.
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--color-primary, #4fabbf);
+  color: var(--color-on-primary, #002831);
   padding: 8px 16px;
   text-decoration: none;
   border-radius: 0 0 4px 0;
@@ -164,7 +164,7 @@ select:focus-visible {
 
 // Keyboard navigation indicator
 body.using-keyboard *:focus {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
 }
 

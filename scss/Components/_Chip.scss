@@ -77,10 +77,11 @@
   border-radius: var(--radius-full);
   overflow: hidden;
 
-  // Mirrors .avatar: a neutral surface with on-surface initials. The previous
-  // white-on-text-tertiary pairing fell to 2.25:1 in dark mode, where
-  // text-tertiary lifts to a light grey.
-  background-color: var(--color-surface-variant);
+  // Needs on-surface initials — the previous white-on-text-tertiary pairing
+  // fell to 2.25:1 in dark mode, where text-tertiary lifts to a light grey.
+  // The fill must also differ from the chip body (surface-variant), or the
+  // disc disappears into it; surface-3 keeps the affordance visible.
+  background-color: var(--color-surface-3);
   color: var(--color-text-primary);
   font-size: 0.75rem;
   font-weight: 600;
@@ -253,7 +254,7 @@ a.chip,
   color: var(--color-on-primary);
 
   &:hover {
-    background-color: var(--color-primary-dark);
+    background-color: var(--color-primary-hover);
   }
 }
 
@@ -268,7 +269,7 @@ a.chip,
   color: var(--color-on-success);
 
   &:hover {
-    background-color: var(--color-success-dark);
+    background-color: var(--color-success-hover);
   }
 }
 
@@ -283,7 +284,7 @@ a.chip,
   color: var(--color-on-warning);
 
   &:hover {
-    background-color: var(--color-warning-dark);
+    background-color: var(--color-warning-hover);
   }
 }
 
@@ -298,7 +299,7 @@ a.chip,
   color: var(--color-on-danger);
 
   &:hover {
-    background-color: var(--color-danger-dark);
+    background-color: var(--color-danger-hover);
   }
 }
 
@@ -313,7 +314,7 @@ a.chip,
   color: var(--color-on-info);
 
   &:hover {
-    background-color: var(--color-info-dark);
+    background-color: var(--color-info-hover);
   }
 }
 

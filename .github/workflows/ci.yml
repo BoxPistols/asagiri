@@ -1,0 +1,65 @@
+# Pull-request checks.
+#
+# Runs the gates that are deterministic across machines:
+#
+#   test           link + CSS-path validation
+#   test:contrast  resolves every semantic token in Chromium and checks each
+#                  promised foreground/background pair in both themes against
+#                  scripts/contrast-baseline.json
+#   docs:tokens:check
+#                  fails if DARK_MODE.md's generated colour tables have drifted
+#                  from the built CSS
+#
+# scripts/vrt.mjs is deliberately NOT run here. It pixel-diffs screenshots, so
+# it is sensitive to the host's font rendering, and the committed baseline was
+# captured on a developer machine — running it on a GitHub runner would fail on
+# font differences rather than on real visual regressions. It stays a local
+# gate (`npm run test:vrt`) until the baseline is regenerated inside a pinned
+# container image that CI can reproduce.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Validate links and CSS paths
+        run: pnpm run test
+
+      - name: Contrast audit (light + dark)
+        run: pnpm run test:contrast
+
+      - name: Token docs are in sync
+        run: pnpm run docs:tokens:check
+
+      - name: Built CSS is committed and up to date
+        run: |
+          pnpm run build
+          pnpm run build:compressed
+          pnpm run build:tokens
+          if ! git diff --quiet -- css/; then
+            echo "css/ is out of date with scss/ — run the build and commit the result:"
+            git --no-pager diff --stat -- css/
+            exit 1
+          fi

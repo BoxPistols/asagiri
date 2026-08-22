@@ -416,6 +416,11 @@
   /* Lifted so the ring clears 3:1 against dark surfaces too. */
   --color-primary-emphasis: var(--ref-primary-70);
   --color-focus-ring: var(--color-primary-emphasis);
+  /* Re-declared, not inherited: this mixin is also applied to non-root
+     elements (the [data-theme="dark"] selector is unscoped), and
+     --color-border-focus is substituted on whichever element declares it —
+     so without this line a dark subtree would keep the light-mode ring. */
+  --color-border-focus: var(--color-focus-ring);
   /* ---- Shadow (deeper / darker in dark mode) ---- */
   --color-shadow: 0, 0, 0;
   --shadow-ambient: 0.24;
@@ -516,6 +521,11 @@
     /* Lifted so the ring clears 3:1 against dark surfaces too. */
     --color-primary-emphasis: var(--ref-primary-70);
     --color-focus-ring: var(--color-primary-emphasis);
+    /* Re-declared, not inherited: this mixin is also applied to non-root
+       elements (the [data-theme="dark"] selector is unscoped), and
+       --color-border-focus is substituted on whichever element declares it —
+       so without this line a dark subtree would keep the light-mode ring. */
+    --color-border-focus: var(--color-focus-ring);
     /* ---- Shadow (deeper / darker in dark mode) ---- */
     --color-shadow: 0, 0, 0;
     --shadow-ambient: 0.24;

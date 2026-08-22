@@ -75,9 +75,11 @@ const PAIRS = [
   ["FOCUS RING on brand: focus-ring-on-brand / surface-brand-alt","--color-focus-ring-on-brand","--color-surface-brand-alt",3.0],
 
   /* --- hover fills ---
-     btn-func-color() keeps the variant's --color-on-X foreground while
-     swapping the fill to --color-X-dark on hover/focus, so every one of
-     these pairs is a real rendered state. */
+     Buttons, chips and FABs all keep the variant's --color-on-X foreground
+     while swapping the fill to --color-X-hover, so every one of these pairs
+     is a real rendered state. Nothing may hover to --color-X-dark: in dark
+     mode that maps back to the light-mode tone, putting a near-black
+     foreground on a dark fill. */
   ["hover: on-primary-dark / primary-dark","--color-on-primary-dark","--color-primary-dark",4.5],
   ["hover: on-primary / primary-hover",  "--color-on-primary",  "--color-primary-hover",  4.5],
   ["hover: on-secondary / secondary-hover","--color-on-secondary","--color-secondary-hover",4.5],
@@ -268,10 +270,19 @@ for (const theme of ["light", "dark"]) {
   );
 }
 
-if (UPDATE || !existsSync(BASELINE_PATH)) {
+if (UPDATE) {
   writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2) + "\n");
   console.log(`\nBaseline written to ${BASELINE_PATH}`);
   process.exit(0);
+}
+
+if (!existsSync(BASELINE_PATH)) {
+  // Deliberately not auto-created: silently writing a baseline here would turn
+  // a lost or unmerged file into a green run that records whatever the current
+  // (possibly regressed) ratios are.
+  console.error(`No baseline at ${BASELINE_PATH}.`);
+  console.error("Run: node scripts/audit-token-contrast.mjs --update-baseline");
+  process.exit(1);
 }
 
 const baseline = JSON.parse(readFileSync(BASELINE_PATH, "utf8"));

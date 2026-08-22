@@ -626,6 +626,11 @@ summary {
   /* Lifted so the ring clears 3:1 against dark surfaces too. */
   --color-primary-emphasis: var(--ref-primary-70);
   --color-focus-ring: var(--color-primary-emphasis);
+  /* Re-declared, not inherited: this mixin is also applied to non-root
+     elements (the [data-theme="dark"] selector is unscoped), and
+     --color-border-focus is substituted on whichever element declares it —
+     so without this line a dark subtree would keep the light-mode ring. */
+  --color-border-focus: var(--color-focus-ring);
   /* ---- Shadow (deeper / darker in dark mode) ---- */
   --color-shadow: 0, 0, 0;
   --shadow-ambient: 0.24;
@@ -726,6 +731,11 @@ summary {
     /* Lifted so the ring clears 3:1 against dark surfaces too. */
     --color-primary-emphasis: var(--ref-primary-70);
     --color-focus-ring: var(--color-primary-emphasis);
+    /* Re-declared, not inherited: this mixin is also applied to non-root
+       elements (the [data-theme="dark"] selector is unscoped), and
+       --color-border-focus is substituted on whichever element declares it —
+       so without this line a dark subtree would keep the light-mode ring. */
+    --color-border-focus: var(--color-focus-ring);
     /* ---- Shadow (deeper / darker in dark mode) ---- */
     --color-shadow: 0, 0, 0;
     --shadow-ambient: 0.24;
@@ -2088,7 +2098,7 @@ input[type=submit]:active:not([disabled]) {
 }
 
 *:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -2097,12 +2107,12 @@ button:focus-visible,
 [type=button]:focus-visible,
 [type=reset]:focus-visible,
 [type=submit]:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -2110,9 +2120,9 @@ a:focus-visible {
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 0;
-  border-color: var(--color-border-focus);
+  border-color: var(--color-border-focus, #0089a0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2145,8 +2155,8 @@ select:focus-visible {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--color-primary, #4fabbf);
+  color: var(--color-on-primary, #002831);
   padding: 8px 16px;
   text-decoration: none;
   border-radius: 0 0 4px 0;
@@ -2210,7 +2220,7 @@ select:focus-visible {
 }
 
 body.using-keyboard *:focus {
-  outline: 2px solid var(--color-border-focus);
+  outline: 2px solid var(--color-border-focus, #0089a0);
   outline-offset: 2px;
 }
 
@@ -2416,19 +2426,23 @@ body.using-keyboard *:focus {
   opacity: 0.8;
 }
 
-/* Badge for NEW items.
-   Scoped to the sidebar: as a bare `.badge` this collided with the Badge
-   component and leaked `text-transform: uppercase` and `margin-left` into
-   every badge on the page (same specificity, so only the properties the
-   component also sets were being overridden). */
-.sidebar-nav .badge {
+/* "NEW" marker.
+   This is its own thing, not a Badge variant, so it gets its own class.
+   It used to be declared as a bare `.badge`, which collided with the Badge
+   component at equal specificity and leaked `text-transform` and
+   `margin-left` into every badge on the page. Scoping it to
+   `.sidebar-nav .badge` traded that for a worse bug — the higher specificity
+   then beat `.badge-danger` and friends inside the sidebar — and it also
+   dropped the styling from the markers used in `<h1>` headings, which are
+   outside the nav. A dedicated class avoids the cascade entirely. */
+.badge-new {
   display: inline-block;
   padding: 0.2rem 0.5rem;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   background: var(--color-accent);
-  color: var(--color-white);
+  color: var(--color-on-accent);
   border-radius: 3px;
   margin-left: 0.5rem;
   vertical-align: middle;
@@ -2491,6 +2505,7 @@ body.using-keyboard *:focus {
   background: var(--color-surface-brand);
   color: var(--color-on-surface-brand);
   --color-focus-ring: var(--color-focus-ring-on-brand);
+  --color-border-focus: var(--color-focus-ring-on-brand);
   padding: 1rem;
 }
 @media (max-width: 768px) {
@@ -3065,7 +3080,7 @@ select::placeholder {
   border-color: var(--color-primary);
 }
 .checkbox input[type=checkbox]:focus-visible {
-  outline: 2px solid var(--color-primary-emphasis);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 .checkbox input[type=checkbox]:checked {
@@ -3130,7 +3145,7 @@ select::placeholder {
   border-color: var(--color-primary);
 }
 .radio input[type=radio]:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 .radio input[type=radio]:checked {
@@ -3203,7 +3218,7 @@ select::placeholder {
   box-shadow: var(--elevation-2);
 }
 .switch input[type=checkbox]:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 .switch input[type=checkbox]:checked {
@@ -3788,7 +3803,7 @@ dialog.modal[open] {
   color: var(--color-danger);
 }
 .modal-close:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 
@@ -4660,7 +4675,7 @@ button.badge:active {
   background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
 }
 .tab-link:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
   z-index: 1;
 }
@@ -5017,7 +5032,7 @@ button.badge:active {
   color: var(--color-primary);
 }
 .page-link:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
   z-index: 1;
 }
@@ -5968,6 +5983,9 @@ button.badge:active {
   left: 0;
   padding: var(--spacing-5, 1.25rem);
   border-radius: calc(var(--radius-md) - 1px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   background: linear-gradient(to bottom, transparent, var(--color-scrim-strong));
   color: var(--color-on-scrim);
 }
@@ -7565,7 +7583,7 @@ textarea.is-warning,
   height: 24px;
 }
 .fab:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-primary-hover);
   box-shadow: var(--elevation-4);
   transform: translateY(-2px);
 }
@@ -7574,7 +7592,7 @@ textarea.is-warning,
   transform: translateY(0);
 }
 .fab:focus-visible {
-  outline: 2px solid var(--color-primary-light);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 .fab:disabled, .fab[disabled] {
@@ -7658,7 +7676,7 @@ textarea.is-warning,
   color: var(--color-on-primary);
 }
 .fab-primary:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-primary-hover);
 }
 
 .fab-secondary {
@@ -7666,7 +7684,7 @@ textarea.is-warning,
   color: var(--color-on-secondary);
 }
 .fab-secondary:hover {
-  background-color: var(--color-secondary-dark);
+  background-color: var(--color-secondary-hover);
 }
 
 .fab-success {
@@ -7674,7 +7692,7 @@ textarea.is-warning,
   color: var(--color-on-success);
 }
 .fab-success:hover {
-  background-color: var(--color-success-dark);
+  background-color: var(--color-success-hover);
 }
 
 .fab-danger {
@@ -7682,7 +7700,7 @@ textarea.is-warning,
   color: var(--color-on-danger);
 }
 .fab-danger:hover {
-  background-color: var(--color-danger-dark);
+  background-color: var(--color-danger-hover);
 }
 
 .fab-warning {
@@ -7690,7 +7708,7 @@ textarea.is-warning,
   color: var(--color-on-warning);
 }
 .fab-warning:hover {
-  background-color: var(--color-warning-dark);
+  background-color: var(--color-warning-hover);
 }
 
 .fab-info {
@@ -7698,7 +7716,7 @@ textarea.is-warning,
   color: var(--color-on-info);
 }
 .fab-info:hover {
-  background-color: var(--color-info-dark);
+  background-color: var(--color-info-hover);
 }
 
 .fab-surface {
@@ -7943,7 +7961,7 @@ textarea.is-warning,
   margin-left: -0.5rem;
   border-radius: var(--radius-full);
   overflow: hidden;
-  background-color: var(--color-surface-variant);
+  background-color: var(--color-surface-3);
   color: var(--color-text-primary);
   font-size: 0.75rem;
   font-weight: 600;
@@ -8089,7 +8107,7 @@ a.chip:focus-visible,
   color: var(--color-on-primary);
 }
 .chip-primary-solid:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-primary-hover);
 }
 
 .chip-success {
@@ -8102,7 +8120,7 @@ a.chip:focus-visible,
   color: var(--color-on-success);
 }
 .chip-success-solid:hover {
-  background-color: var(--color-success-dark);
+  background-color: var(--color-success-hover);
 }
 
 .chip-warning {
@@ -8115,7 +8133,7 @@ a.chip:focus-visible,
   color: var(--color-on-warning);
 }
 .chip-warning-solid:hover {
-  background-color: var(--color-warning-dark);
+  background-color: var(--color-warning-hover);
 }
 
 .chip-danger {
@@ -8128,7 +8146,7 @@ a.chip:focus-visible,
   color: var(--color-on-danger);
 }
 .chip-danger-solid:hover {
-  background-color: var(--color-danger-dark);
+  background-color: var(--color-danger-hover);
 }
 
 .chip-info {
@@ -8141,7 +8159,7 @@ a.chip:focus-visible,
   color: var(--color-on-info);
 }
 .chip-info-solid:hover {
-  background-color: var(--color-info-dark);
+  background-color: var(--color-info-hover);
 }
 
 .chip-group {
@@ -8320,7 +8338,7 @@ a.chip:focus-visible,
   background-color: color-mix(in srgb, var(--color-on-surface-inverse) var(--state-hover), transparent);
 }
 .snackbar-btn:focus-visible {
-  outline: 2px solid var(--color-primary-light);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 
@@ -8347,7 +8365,7 @@ a.chip:focus-visible,
   color: var(--color-on-surface-inverse);
 }
 .snackbar-close:focus-visible {
-  outline: 2px solid var(--color-primary-light);
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 

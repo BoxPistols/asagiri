@@ -63,7 +63,14 @@
 
   // This panel is a dark island even in light mode, where the default focus
   // ring reaches only 2.91:1 against it. Re-point it for everything inside.
+  //
+  // --color-border-focus must be re-declared here, not just --color-focus-ring:
+  // custom properties are substituted on the element that declares them, so
+  // the :root declaration `--color-border-focus: var(--color-focus-ring)` has
+  // already resolved by the time descendants inherit it. Overriding only the
+  // ring token is a no-op.
   --color-focus-ring: var(--color-focus-ring-on-brand);
+  --color-border-focus: var(--color-focus-ring-on-brand);
   padding: 1rem;
 
   @media (max-width: 768px) {

@@ -55,10 +55,15 @@
 
 .admin-sidebar {
   width: 200px;
+
   // Fixed brand chrome: --color-primary-dark lightens in dark mode, dropping
   // white sidebar text to 3.18:1. surface-brand stays dark in both themes.
   background: var(--color-surface-brand);
   color: var(--color-on-surface-brand);
+
+  // This panel is a dark island even in light mode, where the default focus
+  // ring reaches only 2.91:1 against it. Re-point it for everything inside.
+  --color-focus-ring: var(--color-focus-ring-on-brand);
   padding: 1rem;
 
   @media (max-width: 768px) {

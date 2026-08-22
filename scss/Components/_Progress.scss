@@ -27,7 +27,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: var(--color-on-primary);
+  color: var(--color-on-primary-emphasis);
   text-align: center;
   white-space: nowrap;
   background-color: var(--color-primary-emphasis);
@@ -131,7 +131,7 @@
     background: linear-gradient(
       90deg,
       transparent,
-      var(--color-primary),
+      var(--color-primary-emphasis),
       transparent
     );
     background-size: 50% 100%;

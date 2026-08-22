@@ -24,6 +24,7 @@ select {
   box-sizing: inherit;
   height: 2.4rem;
   padding: 0.3rem 0.8rem;
+
   // width: 100%;
   width: auto;
   min-width: 50%;
@@ -621,9 +622,18 @@ input[type="range"] {
     box-shadow: var(--elevation-1);
   }
 
+  // The input itself sets outline: none, so the ring has to be drawn on the
+  // thumb — and Firefox needs its own pseudo-element or it gets no keyboard
+  // focus indicator at all. --color-primary-light was also too pale to meet
+  // the 3:1 non-text threshold; --color-border-focus is the audited ring.
   &:focus-visible {
     &::-webkit-slider-thumb {
-      outline: 2px solid var(--color-primary-light);
+      outline: 2px solid var(--color-border-focus);
+      outline-offset: 2px;
+    }
+
+    &::-moz-range-thumb {
+      outline: 2px solid var(--color-border-focus);
       outline-offset: 2px;
     }
   }

@@ -127,6 +127,7 @@
   left: 0;
   padding: var(--spacing-5, 1.25rem);
   border-radius: calc(var(--radius-md) - 1px);
+
   // scrim-strong, not scrim: this gradient sits under the caption text.
   background: linear-gradient(to bottom, transparent, var(--color-scrim-strong));
   color: var(--color-on-scrim);

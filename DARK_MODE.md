@@ -167,6 +167,7 @@ Asagiriのダークモードは、`[data-theme="dark"]` が意味トークンだ
 |---|---|---|---|
 | `--color-primary` | `#4fabbf` | `#71bbcc` | ブランド主色（ラベル付き塗り） |
 | `--color-primary-emphasis` | `#0089a0` | `#5bc1d7` | インジケータ塗り・フォーカスリング |
+| `--color-on-primary-emphasis` | `#000000` | `#002831` | emphasis 塗り上の文字 |
 | `--color-primary-hover` | `#6bb8ca` | `#87c6d4` | ホバー時の塗り |
 | `--color-on-primary` | `#002831` | `#002831` | primary 上の前景 |
 | `--color-secondary` | `#56648a` | `#919cba` | ブランド副色 |
@@ -189,6 +190,7 @@ Asagiriのダークモードは、`[data-theme="dark"]` が意味トークンだ
 | `--color-border` | `#000000` (α0.14) | `#ffffff` (α0.12) | 標準の境界 |
 | `--color-border-strong` | `#000000` (α0.24) | `#ffffff` (α0.22) | 強い境界 |
 | `--color-focus-ring` | `#0089a0` | `#5bc1d7` | フォーカスリング |
+| `--color-focus-ring-on-brand` | `#89d4e5` | `#89d4e5` | ブランド面上のフォーカスリング |
 
 コントラスト比は `npm run test:contrast` が全ペアについて実ブラウザで検証し、
 `scripts/contrast-baseline.json` を基準に退行を検出します。

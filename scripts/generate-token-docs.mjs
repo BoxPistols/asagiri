@@ -48,6 +48,7 @@ const GROUPS = [
   ["ブランド / Brand", [
     ["--color-primary", "ブランド主色（ラベル付き塗り）"],
     ["--color-primary-emphasis", "インジケータ塗り・フォーカスリング"],
+    ["--color-on-primary-emphasis", "emphasis 塗り上の文字"],
     ["--color-primary-hover", "ホバー時の塗り"],
     ["--color-on-primary", "primary 上の前景"],
     ["--color-secondary", "ブランド副色"],
@@ -64,6 +65,7 @@ const GROUPS = [
     ["--color-border", "標準の境界"],
     ["--color-border-strong", "強い境界"],
     ["--color-focus-ring", "フォーカスリング"],
+    ["--color-focus-ring-on-brand", "ブランド面上のフォーカスリング"],
   ]],
 ];
 
@@ -80,8 +82,12 @@ async function resolve(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     const probe = document.createElement("div");
     document.body.appendChild(probe);
+    const rootStyle = getComputedStyle(document.documentElement);
     const out = {};
     for (const t of tokens) {
+      // See audit-token-contrast.mjs: an undefined token would otherwise be
+      // documented as the inherited body colour rather than failing.
+      if (rootStyle.getPropertyValue(t).trim() === "") { out[t] = null; continue; }
       probe.style.color = "";
       probe.style.color = `var(${t})`;
       out[t] = getComputedStyle(probe).color;
@@ -111,6 +117,12 @@ function pretty(v) {
   }
   const hex = "#" + [r, g, b].map(x => Math.round(x).toString(16).padStart(2, "0")).join("");
   return a < 1 ? `\`${hex}\` (α${a.toFixed(2)})` : `\`${hex}\``;
+}
+
+const undefinedTokens = TOKENS.filter(t => light[t] === null || dark[t] === null);
+if (undefinedTokens.length) {
+  console.error(`Undefined token(s) — refusing to document a value they do not have:\n  ${undefinedTokens.join("\n  ")}`);
+  process.exit(1);
 }
 
 let out = [START,

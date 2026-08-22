@@ -123,6 +123,14 @@
      white, so it cannot do this job; it stays the fill for labelled controls,
      which are identified by their text. */
   --color-primary-emphasis: var(--ref-primary-50);
+  /* Foreground for a --color-primary-emphasis fill. emphasis is tuned to the
+     3:1 non-text threshold, so it is NOT dark enough to carry --color-on-primary
+     as text (3.75:1). Anything with a label on an emphasis fill — pill tabs,
+     the progress bar's own percentage — needs this instead. */
+  --color-on-primary-emphasis: var(--ref-neutral-0);
+  /* Focus ring for brand chrome. --color-surface-brand is a dark island even
+     in light mode, where the normal ring only reaches 2.91:1 against it. */
+  --color-focus-ring-on-brand: var(--ref-primary-80);
   /* Foreground for a --color-primary-dark fill. Needs its own token because
      the right answer flips: in light mode primary-dark is dark enough for
      white (4.65:1) but not for on-primary (3.35:1); in dark mode it lightens
@@ -400,6 +408,9 @@
   /* Inverted vs light mode: primary-dark lifts here, so the dark cyan reads
      (4.90:1) where white would not (3.18:1). */
   --color-on-primary-dark: var(--ref-primary-10);
+  /* emphasis lifts to ref-primary-70 here, so the softer dark cyan already
+     clears 4.5:1 and pure black is unnecessarily harsh. */
+  --color-on-primary-emphasis: var(--ref-primary-10);
 
   /* ---- Surfaces (elevation = tinted neutral) ---- */
   --color-bg:            var(--ref-neutral-5);

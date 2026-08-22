@@ -20,6 +20,7 @@ select.is-valid,
 .was-validated select:valid {
   border-color: var(--color-success);
   padding-right: calc(1.5em + 0.75rem);
+
   // NOTE: SVG fills are literal hex (data-URIs can't reference CSS variables).
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300a859' viewBox='0 0 16 16'%3E%3Cpath d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -140,6 +141,7 @@ select.is-warning {
   margin-top: 0.1rem;
   font-size: 0.875rem;
   line-height: 1.4;
+
   // A tooltip is an opaque chip, not an overlay — surface-inverse is the
   // audited high-contrast pair for exactly this. A translucent scrim behind
   // white text only reached 3.98:1 in light mode.

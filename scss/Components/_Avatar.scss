@@ -17,6 +17,7 @@
   height: 3rem;
   border-radius: var(--radius-full);
   background-color: var(--color-surface-variant);
+
   // surface-variant is a near-white neutral in light mode, so the initials
   // must use the on-surface text colour. --color-text-on-brand (white) here
   // rendered at 1.15:1 — effectively invisible.

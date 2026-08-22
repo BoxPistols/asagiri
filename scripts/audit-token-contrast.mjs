@@ -65,6 +65,14 @@ const PAIRS = [
   ["brand chrome: on-surface-brand / surface-brand","--color-on-surface-brand","--color-surface-brand",4.5],
   ["brand chrome: on-surface-brand / surface-brand-alt","--color-on-surface-brand","--color-surface-brand-alt",4.5],
   ["overlay: on-scrim / scrim-strong","--color-on-scrim","--color-scrim-strong",4.5],
+  /* An emphasis fill that carries a label (pill tabs, the progress bar's own
+     percentage) needs the 4.5:1 text threshold, not emphasis's own 3:1. */
+  ["label on emphasis: on-primary-emphasis / primary-emphasis","--color-on-primary-emphasis","--color-primary-emphasis",4.5],
+  ["scroll-to-top hover: on-accent / accent","--color-on-accent","--color-accent",4.5],
+  /* Brand chrome is a dark island in BOTH themes, so the ordinary focus ring
+     (tuned for the page's own surfaces) does not apply there. */
+  ["FOCUS RING on brand: focus-ring-on-brand / surface-brand","--color-focus-ring-on-brand","--color-surface-brand",3.0],
+  ["FOCUS RING on brand: focus-ring-on-brand / surface-brand-alt","--color-focus-ring-on-brand","--color-surface-brand-alt",3.0],
 
   /* --- hover fills ---
      btn-func-color() keeps the variant's --color-on-X foreground while
@@ -128,8 +136,14 @@ async function resolve(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     const probe = document.createElement("div");
     document.body.appendChild(probe);
+    const rootStyle = getComputedStyle(document.documentElement);
     const out = {};
     for (const t of tokens) {
+      // An undefined custom property makes `color: var(--x)` invalid at
+      // computed-value time, and `color` then *inherits* rather than erroring.
+      // Probing alone would therefore silently audit the body text colour, so
+      // confirm the token actually exists on the root first.
+      if (rootStyle.getPropertyValue(t).trim() === "") { out[t] = null; continue; }
       // Force the browser to fully resolve var()/color-mix()/hsla() to rgb()
       probe.style.color = "";
       probe.style.color = `var(${t})`;
@@ -267,7 +281,15 @@ for (const theme of ["light", "dark"]) {
     if (r.error) { regressions.push(`${theme} ${r.label}: ${r.error}`); continue; }
     if (r.exempt) continue;
     const base = baseline[theme]?.[r.label];
-    if (base === undefined) continue; // new pair — captured on next baseline update
+    if (base === undefined) {
+      // A pair added since the baseline was written has nothing to compare
+      // against, but it must still meet its threshold — otherwise a newly
+      // audited failure would exit 0 until someone regenerated the baseline.
+      if (!r.pass) {
+        regressions.push(`${theme} ${r.label}: new pair fails at ${r.ratio}:1 (need ${r.min})`);
+      }
+      continue;
+    }
     if (base >= r.min && !r.pass) {
       regressions.push(`${theme} ${r.label}: was passing at ${base}:1, now ${r.ratio}:1 (need ${r.min})`);
     } else if (r.ratio < base - TOLERANCE) {

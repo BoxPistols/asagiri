@@ -6,7 +6,7 @@
 
 [![Version](https://img.shields.io/npm/v/asagiri.svg)](https://www.npmjs.com/package/asagiri)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![CSS Size](https://img.shields.io/badge/size-29KB%20gzipped-orange.svg)]()
+![CSS Size](https://img.shields.io/badge/size-29KB%20gzipped-orange.svg)
 
 [**Documentation**](docs/getting-started.html) | [**Showcase**](showcase.html) | [**Get Started**](#インストール)
 
@@ -62,7 +62,7 @@ Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。�
 ### v2.0の主な変更点
 
 - Modern Normalize v3.0.1に更新
-- **包括的なダークモードサポート**（ライト・ダーク両モードで WCAG 2.1 AA を自動検証）
+- **包括的なダークモードサポート**（配色のコントラストをライト・ダーク両モードで自動検証）
 - CSS Grid完全サポート
 - 体系的なスペーシングシステム（m-*, p-*）
 - 流動的タイポグラフィ（clamp関数）
@@ -78,7 +78,7 @@ Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。�
 - **CSS Custom Properties** - テーマのカスタマイズが容易
 - **CSS Grid & Flexbox** - 柔軟なレイアウトシステム
 - **Fluid Typography** - clamp()による流動的なフォントサイズ
-- **Accessibility First** - WCAG 2.1 AA を自動検証（`npm run test:contrast`）
+- **Accessibility First** - 配色のコントラストを自動検証（`npm run test:contrast`）
 
 ### 包括的なコンポーネント
 
@@ -183,7 +183,7 @@ function toggleTheme() {
 
 ### 主な特徴
 
-- WCAG 2.1 AA 準拠 - 通常テキスト4.5:1、UIインジケータ3:1。`npm run test:contrast` で全トークンペアを両モード検証
+- コントラスト検証済み - デザインシステムが提供するトークンの組み合わせについて、通常テキスト4.5:1（SC 1.4.3）とUIインジケータ3:1（SC 1.4.11）を `npm run test:contrast` が両モードで測定。WCAG 全体の準拠を保証するものではありません
 - 自動対応 - すべてのコンポーネントが自動的にテーマ切り替え
 - システム連携 - `prefers-color-scheme`に対応
 - カスタマイズ可能 - CSS変数で簡単にカスタマイズ

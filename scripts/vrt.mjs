@@ -33,10 +33,16 @@ const VRT = join(ROOT, ".vrt");
 const UPDATE = process.argv.includes("--update");
 const FILTER = (process.argv.find(a => a.startsWith("--filter=")) ?? "").split("=")[1] ?? "";
 
-/* Fraction of differing pixels tolerated per capture. Anti-aliasing on text
-   moves a handful of pixels between runs; anything a human would notice is
-   far above this. */
+/* A capture fails if EITHER bound is exceeded.
+
+   The fraction alone is not enough: recolouring the text inside a progress
+   bar moved only 0.03% of that specimen's pixels and slipped through, because
+   a few hundred glyph pixels are nothing next to a full section. So a small
+   absolute count is checked too — that catches a localised change however
+   large the surrounding capture is, while still absorbing the handful of
+   pixels anti-aliasing can shift between runs. */
 const THRESHOLD = 0.001;
+const MIN_CHANGED_PIXELS = 60;
 const THEMES = ["light", "dark"];
 
 /* ---------- static server (no dependency on `serve`) ---------- */
@@ -124,6 +130,10 @@ await ctx.route("**", route => {
 });
 
 const captured = [];
+/* A capture that never happened is not a passing capture: a typo'd selector,
+   a renamed section or a page that fails to load would otherwise leave the
+   comparison set silently smaller and still exit 0. */
+const captureFailures = [];
 for (const t of TARGETS) {
   // One navigation per target; the theme is a runtime attribute flip.
   const page = await ctx.newPage();
@@ -141,7 +151,11 @@ for (const t of TARGETS) {
       const dest = join(outDir, name);
       if (t.selector) {
         const el = await page.$(t.selector);
-        if (!el) { console.log(`  skip ${name} (selector ${t.selector} not found)`); continue; }
+        if (!el) {
+          console.log(`  MISS ${name} (selector ${t.selector} not found)`);
+          captureFailures.push(`${name}: selector not found (${t.selector})`);
+          continue;
+        }
         await el.screenshot({ path: dest });
       } else {
         await page.screenshot({ path: dest, fullPage: !!t.fullPage });
@@ -149,7 +163,9 @@ for (const t of TARGETS) {
       captured.push(name);
     }
   } catch (e) {
-    console.log(`  !! ${t.name}: ${e.message.split("\n")[0]}`);
+    const reason = e.message.split("\n")[0];
+    console.log(`  !! ${t.name}: ${reason}`);
+    captureFailures.push(`${t.name}: ${reason}`);
   }
   await page.close();
 }
@@ -157,6 +173,14 @@ await browser.close();
 server.close();
 
 console.log(`Captured ${captured.length} screenshots -> ${outDir}`);
+
+if (captureFailures.length) {
+  console.error(`\n${captureFailures.length} capture(s) failed:`);
+  for (const f of captureFailures) console.error(`  ${f}`);
+  // Fail even in --update mode: a baseline written from an incomplete run
+  // bakes the gap in permanently.
+  process.exit(1);
+}
 
 if (UPDATE) {
   console.log("Baseline updated.");
@@ -205,10 +229,10 @@ for (const name of captured) {
     }
   }
   const pct = differing / total;
-  if (pct > THRESHOLD) {
+  if (pct > THRESHOLD || differing > MIN_CHANGED_PIXELS) {
     const dp = join(VRT, "diff", name);
     await sharp(diffBuf, { raw: { width: a.w, height: a.h, channels: 3 } }).png().toFile(dp);
-    changed.push({ name, pct });
+    changed.push({ name, pct, px: differing });
   } else {
     unchanged.push(name);
   }
@@ -218,15 +242,18 @@ const report = { generated: captured.length, unchanged: unchanged.length, change
 await writeFile(join(VRT, "report.json"), JSON.stringify(report, null, 2) + "\n");
 
 console.log(`\nunchanged: ${unchanged.length}`);
-if (missing.length) {
-  console.log(`new (no baseline): ${missing.length}`);
-  for (const m of missing) console.log(`  + ${m}`);
-}
 if (changed.length) {
   console.log(`\nCHANGED (${changed.length})  — diff images in .vrt/diff/`);
   for (const c of changed.sort((x, y) => y.pct - x.pct)) {
-    console.log(`  ${(c.pct * 100).toFixed(2).padStart(6)}%  ${c.name}${c.note ? `  (${c.note})` : ""}`);
+    console.log(`  ${(c.pct * 100).toFixed(3).padStart(7)}%  ${String(c.px ?? "?").padStart(7)}px  ${c.name}${c.note ? `  (${c.note})` : ""}`);
   }
-  process.exit(1);
 }
+if (missing.length) {
+  // A specimen with no baseline was compared against nothing. Report it as a
+  // failure so it has to be reviewed and committed, rather than passing
+  // silently on every run until someone notices.
+  console.error(`\nNO BASELINE (${missing.length}) — review these, then run: npm run test:vrt:update`);
+  for (const m of missing) console.error(`  + ${m}`);
+}
+if (changed.length || missing.length) process.exit(1);
 console.log("\nNo visual changes vs baseline.");

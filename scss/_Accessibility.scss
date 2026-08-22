@@ -81,6 +81,7 @@ select:focus-visible {
   position: absolute;
   top: -40px;
   left: 0;
+
   // primary/on-primary is the audited brand fill pair — it clears AA in both
   // themes. A hardcoded white here sat at 2.65:1 on the default primary.
   background: var(--color-primary);

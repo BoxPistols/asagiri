@@ -330,6 +330,14 @@ summary {
      white, so it cannot do this job; it stays the fill for labelled controls,
      which are identified by their text. */
   --color-primary-emphasis: var(--ref-primary-50);
+  /* Foreground for a --color-primary-emphasis fill. emphasis is tuned to the
+     3:1 non-text threshold, so it is NOT dark enough to carry --color-on-primary
+     as text (3.75:1). Anything with a label on an emphasis fill — pill tabs,
+     the progress bar's own percentage — needs this instead. */
+  --color-on-primary-emphasis: var(--ref-neutral-0);
+  /* Focus ring for brand chrome. --color-surface-brand is a dark island even
+     in light mode, where the normal ring only reaches 2.91:1 against it. */
+  --color-focus-ring-on-brand: var(--ref-primary-80);
   /* Foreground for a --color-primary-dark fill. Needs its own token because
      the right answer flips: in light mode primary-dark is dark enough for
      white (4.65:1) but not for on-primary (3.35:1); in dark mode it lightens
@@ -584,6 +592,9 @@ summary {
   /* Inverted vs light mode: primary-dark lifts here, so the dark cyan reads
      (4.90:1) where white would not (3.18:1). */
   --color-on-primary-dark: var(--ref-primary-10);
+  /* emphasis lifts to ref-primary-70 here, so the softer dark cyan already
+     clears 4.5:1 and pure black is unnecessarily harsh. */
+  --color-on-primary-emphasis: var(--ref-primary-10);
   /* ---- Surfaces (elevation = tinted neutral) ---- */
   --color-bg: var(--ref-neutral-5);
   --color-surface: var(--ref-neutral-10);
@@ -681,6 +692,9 @@ summary {
     /* Inverted vs light mode: primary-dark lifts here, so the dark cyan reads
        (4.90:1) where white would not (3.18:1). */
     --color-on-primary-dark: var(--ref-primary-10);
+    /* emphasis lifts to ref-primary-70 here, so the softer dark cyan already
+       clears 4.5:1 and pure black is unnecessarily harsh. */
+    --color-on-primary-emphasis: var(--ref-primary-10);
     /* ---- Surfaces (elevation = tinted neutral) ---- */
     --color-bg: var(--ref-neutral-5);
     --color-surface: var(--ref-neutral-10);
@@ -1664,6 +1678,7 @@ input[type=button].button-cancel,
 input[type=reset].button-cancel,
 input[type=submit].button-cancel {
   color: var(--color-on-scrim);
+  --btn-on: var(--color-on-scrim);
   border-color: transparent;
   background-color: var(--color-bg-cancel);
 }
@@ -2475,6 +2490,7 @@ body.using-keyboard *:focus {
   width: 200px;
   background: var(--color-surface-brand);
   color: var(--color-on-surface-brand);
+  --color-focus-ring: var(--color-focus-ring-on-brand);
   padding: 1rem;
 }
 @media (max-width: 768px) {
@@ -3316,7 +3332,11 @@ input[type=range]::-moz-range-thumb {
   box-shadow: var(--elevation-1);
 }
 input[type=range]:focus-visible::-webkit-slider-thumb {
-  outline: 2px solid var(--color-primary-light);
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+input[type=range]:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 
@@ -4697,7 +4717,7 @@ button.badge:active {
   margin-bottom: 0;
 }
 .tabs-pills .tab-link.active, .tabs-pills .tab-link[aria-selected=true] {
-  color: var(--color-on-primary);
+  color: var(--color-on-primary-emphasis);
   background-color: var(--color-primary-emphasis);
   border-color: var(--color-primary);
 }
@@ -5209,7 +5229,7 @@ button.badge:active {
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: var(--color-on-primary);
+  color: var(--color-on-primary-emphasis);
   text-align: center;
   white-space: nowrap;
   background-color: var(--color-primary-emphasis);
@@ -5292,7 +5312,7 @@ button.badge:active {
 }
 .progress-indeterminate .progress-bar {
   width: 100% !important;
-  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-primary-emphasis), transparent);
   background-size: 50% 100%;
   animation: progress-indeterminate 1.5s ease-in-out infinite;
 }
@@ -7160,7 +7180,8 @@ textarea.is-warning,
   visibility: visible;
 }
 .scroll-top:hover {
-  background: var(--color-accent, var(--color-primary-dark));
+  background: var(--color-accent);
+  color: var(--color-on-accent);
   transform: translateY(-3px);
   box-shadow: var(--elevation-3);
 }

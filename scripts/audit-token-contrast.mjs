@@ -73,6 +73,8 @@ const PAIRS = [
      (tuned for the page's own surfaces) does not apply there. */
   ["FOCUS RING on brand: focus-ring-on-brand / surface-brand","--color-focus-ring-on-brand","--color-surface-brand",3.0],
   ["FOCUS RING on brand: focus-ring-on-brand / surface-brand-alt","--color-focus-ring-on-brand","--color-surface-brand-alt",3.0],
+  /* Snackbars/tooltips sit on surface-inverse, which flips with the theme. */
+  ["FOCUS RING on inverse: focus-ring-on-inverse / surface-inverse","--color-focus-ring-on-inverse","--color-surface-inverse",3.0],
 
   /* --- hover fills ---
      Buttons, chips and FABs all keep the variant's --color-on-X foreground

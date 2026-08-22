@@ -338,6 +338,11 @@ summary {
   /* Focus ring for brand chrome. --color-surface-brand is a dark island even
      in light mode, where the normal ring only reaches 2.91:1 against it. */
   --color-focus-ring-on-brand: var(--ref-primary-80);
+  /* Focus ring for --color-surface-inverse. That surface flips with the theme
+     — dark in light mode, light in dark mode — so the ring has to flip the
+     opposite way from the page ring. Snackbars sit on it; the page ring
+     measured 1.65:1 there in dark mode. */
+  --color-focus-ring-on-inverse: var(--ref-primary-70);
   /* Foreground for a --color-primary-dark fill. Needs its own token because
      the right answer flips: in light mode primary-dark is dark enough for
      white (4.65:1) but not for on-primary (3.35:1); in dark mode it lightens
@@ -626,6 +631,8 @@ summary {
   /* Lifted so the ring clears 3:1 against dark surfaces too. */
   --color-primary-emphasis: var(--ref-primary-70);
   --color-focus-ring: var(--color-primary-emphasis);
+  /* Mirrors the page ring: surface-inverse is light here, so this goes dark. */
+  --color-focus-ring-on-inverse: var(--ref-primary-40);
   /* Re-declared, not inherited: this mixin is also applied to non-root
      elements (the [data-theme="dark"] selector is unscoped), and
      --color-border-focus is substituted on whichever element declares it —
@@ -731,6 +738,8 @@ summary {
     /* Lifted so the ring clears 3:1 against dark surfaces too. */
     --color-primary-emphasis: var(--ref-primary-70);
     --color-focus-ring: var(--color-primary-emphasis);
+    /* Mirrors the page ring: surface-inverse is light here, so this goes dark. */
+    --color-focus-ring-on-inverse: var(--ref-primary-40);
     /* Re-declared, not inherited: this mixin is also applied to non-root
        elements (the [data-theme="dark"] selector is unscoped), and
        --color-border-focus is substituted on whichever element declares it —
@@ -1613,6 +1622,7 @@ input[type=reset].btn-outline-light,
 input[type=submit].btn-outline-light {
   background: transparent;
   color: var(--color-on-scrim);
+  --btn-on: var(--color-on-scrim);
   border: 2px solid var(--color-on-scrim);
 }
 .button.btn-outline-light:hover,
@@ -1655,6 +1665,7 @@ input[type=button].button-outline,
 input[type=reset].button-outline,
 input[type=submit].button-outline {
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
   background-color: transparent;
 }
 .button.button-outline:focus, .button.button-outline:hover,
@@ -1667,6 +1678,7 @@ input[type=reset].button-outline:hover,
 input[type=submit].button-outline:focus,
 input[type=submit].button-outline:hover {
   color: var(--color-secondary);
+  --btn-on: var(--color-secondary);
   border-color: var(--color-secondary);
   background-color: transparent;
 }
@@ -1680,6 +1692,7 @@ input[type=reset].button-outline[disabled]:hover,
 input[type=submit].button-outline[disabled]:focus,
 input[type=submit].button-outline[disabled]:hover {
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
   border-color: inherit;
 }
 .button.button-cancel,
@@ -1702,6 +1715,7 @@ input[type=reset].button-cancel:hover,
 input[type=submit].button-cancel:focus,
 input[type=submit].button-cancel:hover {
   color: var(--color-on-secondary);
+  --btn-on: var(--color-on-secondary);
   border-color: transparent;
   background-color: var(--color-secondary);
 }
@@ -1715,6 +1729,7 @@ input[type=reset].button-cancel[disabled]:hover,
 input[type=submit].button-cancel[disabled]:focus,
 input[type=submit].button-cancel[disabled]:hover {
   color: var(--color-on-scrim);
+  --btn-on: var(--color-on-scrim);
   background-color: var(--color-bg-cancel);
 }
 .button.button-clear,
@@ -1723,6 +1738,7 @@ input[type=button].button-clear,
 input[type=reset].button-clear,
 input[type=submit].button-clear {
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
   background-color: transparent;
   box-shadow: none;
 }
@@ -1736,6 +1752,7 @@ input[type=reset].button-clear:hover,
 input[type=submit].button-clear:focus,
 input[type=submit].button-clear:hover {
   color: var(--color-secondary);
+  --btn-on: var(--color-secondary);
   border-color: var(--color-secondary);
   background-color: transparent;
 }
@@ -1749,6 +1766,7 @@ input[type=reset].button-clear[disabled]:hover,
 input[type=submit].button-clear[disabled]:focus,
 input[type=submit].button-clear[disabled]:hover {
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
 }
 
 .button,
@@ -1814,6 +1832,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-tonal {
   background-color: var(--color-primary-container);
   color: var(--color-on-primary-container);
+  --btn-on: var(--color-on-primary-container);
   border-color: transparent;
 }
 .btn-tonal:hover:not([disabled]) {
@@ -1826,6 +1845,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-tonal-secondary {
   background-color: color-mix(in srgb, var(--color-secondary) 20%, transparent);
   color: var(--color-secondary-dark);
+  --btn-on: var(--color-secondary-dark);
   border-color: transparent;
 }
 .btn-tonal-secondary:hover:not([disabled]) {
@@ -1835,6 +1855,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-tonal-success {
   background-color: color-mix(in srgb, var(--color-success) 20%, transparent);
   color: var(--color-success-dark);
+  --btn-on: var(--color-success-dark);
   border-color: transparent;
 }
 .btn-tonal-success:hover:not([disabled]) {
@@ -1844,6 +1865,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-tonal-warning {
   background-color: color-mix(in srgb, var(--color-warning) 20%, transparent);
   color: var(--color-warning-dark);
+  --btn-on: var(--color-warning-dark);
   border-color: transparent;
 }
 .btn-tonal-warning:hover:not([disabled]) {
@@ -1853,6 +1875,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-tonal-danger {
   background-color: color-mix(in srgb, var(--color-danger) 20%, transparent);
   color: var(--color-danger-dark);
+  --btn-on: var(--color-danger-dark);
   border-color: transparent;
 }
 .btn-tonal-danger:hover:not([disabled]) {
@@ -1862,6 +1885,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-tonal-info {
   background-color: color-mix(in srgb, var(--color-info) 20%, transparent);
   color: var(--color-info-dark);
+  --btn-on: var(--color-info-dark);
   border-color: transparent;
 }
 .btn-tonal-info:hover:not([disabled]) {
@@ -1871,6 +1895,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-tonal-accent {
   background-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
   color: var(--color-accent-dark);
+  --btn-on: var(--color-accent-dark);
   border-color: transparent;
 }
 .btn-tonal-accent:hover:not([disabled]) {
@@ -1880,6 +1905,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-text {
   background-color: transparent;
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
   border: none;
   padding: 0 1rem;
   box-shadow: none;
@@ -1887,6 +1913,7 @@ input[type=submit]:active:not([disabled]) {
 .btn-text:hover:not([disabled]), .btn-text:focus:not([disabled]) {
   background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
   border: none;
   transform: none;
 }
@@ -1897,55 +1924,65 @@ input[type=submit]:active:not([disabled]) {
 .btn-text-secondary {
   background-color: transparent;
   color: var(--color-secondary);
+  --btn-on: var(--color-secondary);
   border: none;
 }
 .btn-text-secondary:hover:not([disabled]), .btn-text-secondary:focus:not([disabled]) {
   background-color: color-mix(in srgb, var(--color-secondary) var(--state-hover), transparent);
   color: var(--color-secondary);
+  --btn-on: var(--color-secondary);
   border: none;
 }
 
 .btn-text-success {
   background-color: transparent;
   color: var(--color-success);
+  --btn-on: var(--color-success);
   border: none;
 }
 .btn-text-success:hover:not([disabled]), .btn-text-success:focus:not([disabled]) {
   background-color: color-mix(in srgb, var(--color-success) var(--state-hover), transparent);
   color: var(--color-success);
+  --btn-on: var(--color-success);
   border: none;
 }
 
 .btn-text-warning {
   background-color: transparent;
   color: var(--color-warning);
+  --btn-on: var(--color-warning);
   border: none;
 }
 .btn-text-warning:hover:not([disabled]), .btn-text-warning:focus:not([disabled]) {
   background-color: color-mix(in srgb, var(--color-warning) var(--state-hover), transparent);
   color: var(--color-warning);
+  --btn-on: var(--color-warning);
   border: none;
 }
 
 .btn-text-danger {
   background-color: transparent;
   color: var(--color-danger);
+  --btn-on: var(--color-danger);
   border: none;
 }
 .btn-text-danger:hover:not([disabled]), .btn-text-danger:focus:not([disabled]) {
   background-color: color-mix(in srgb, var(--color-danger) var(--state-hover), transparent);
   color: var(--color-danger);
+  --btn-on: var(--color-danger);
   border: none;
 }
 
 .btn-text-info {
   background-color: transparent;
   color: var(--color-info);
+  --btn-on: var(--color-info);
   border: none;
 }
 .btn-text-info:hover:not([disabled]), .btn-text-info:focus:not([disabled]) {
   background-color: color-mix(in srgb, var(--color-info) var(--state-hover), transparent);
   color: var(--color-info);
+  --btn-on: var(--color-info);
   border: none;
 }
 
@@ -2053,27 +2090,6 @@ input[type=submit]:active:not([disabled]) {
   margin-top: -1px;
 }
 
-.btn-loading {
-  pointer-events: none;
-  position: relative;
-  color: transparent !important;
-}
-.btn-loading::after {
-  content: "";
-  position: absolute;
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 2px solid var(--btn-on, var(--color-text-primary));
-  border-right-color: transparent;
-  border-radius: var(--radius-full);
-  animation: btn-spin 0.75s linear infinite;
-}
-
-@keyframes btn-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .button,
   button,
@@ -5592,8 +5608,8 @@ button.badge:active {
 .btn-loading,
 .button-loading {
   position: relative;
-  color: transparent !important;
   pointer-events: none;
+  color: transparent !important;
 }
 .btn-loading::after,
 .button-loading::after {
@@ -5604,10 +5620,9 @@ button.badge:active {
   width: 1rem;
   height: 1rem;
   margin: -0.5rem 0 0 -0.5rem;
-  border: 0.15rem solid currentColor;
+  border: 0.15rem solid var(--btn-on, var(--color-text-primary));
   border-right-color: transparent;
   border-radius: 50%;
-  color: inherit;
   animation: spinner-rotate 0.75s linear infinite;
 }
 
@@ -8289,6 +8304,8 @@ a.chip:focus-visible,
 }
 
 .snackbar {
+  --color-focus-ring: var(--color-focus-ring-on-inverse);
+  --color-border-focus: var(--color-focus-ring-on-inverse);
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;

@@ -25,20 +25,23 @@
   // on-primary on a primary-dark fill is 3.35:1 in light mode — the fill is
   // dark enough that it needs the light foreground instead.
   color: var(--color-on-primary-dark);
-
   --btn-on: var(--color-on-primary-dark);
+
   border-color: var(--color-primary-dark);
   outline: 0;
   background-color: var(--color-primary-dark);
 }
 
 // Button Color Setting
+//
+// INVARIANT: every rule that sets `color` on a button must set --btn-on to the
+// same value. .btn-loading blanks `color` to keep the button's width while the
+// spinner shows, so the spinner reads --btn-on instead of currentColor. Miss it
+// and the spinner silently falls back to the base button's foreground.
 @mixin btn-color($bgCcolor, $textColor, $borderColor: null) {
   color: $textColor;
-
-  // Exposed so states that blank `color` (e.g. .btn-loading) can still reach
-  // the variant's correct foreground.
   --btn-on: #{$textColor};
+
   background-color: $bgCcolor;
 
   @if $borderColor != null and $borderColor != transparent {
@@ -51,8 +54,8 @@
 // Background Button Color
 @mixin btn-func-color($x) {
   color: var(--color-on-#{$x});
-
   --btn-on: var(--color-on-#{$x});
+
   border: 1px solid var(--color-#{$x});
   background-color: var(--color-#{$x});
 
@@ -66,16 +69,16 @@
 // Outline Button Color
 @mixin btn-color-outline($x) {
   color: var(--color-#{$x});
-
   --btn-on: var(--color-#{$x});
+
   border: 1px solid var(--color-#{$x});
   background-color: transparent;
 
   &:focus,
   &:hover {
     color: var(--color-on-#{$x});
-
     --btn-on: var(--color-on-#{$x});
+
     border-color: var(--color-#{$x}-hover);
     background-color: var(--color-#{$x}-hover);
   }
@@ -172,6 +175,7 @@ input[type="submit"] {
     &-light {
       background: transparent;
       color: var(--color-on-scrim);
+      --btn-on: var(--color-on-scrim);
       border: 2px solid var(--color-on-scrim);
 
       &:hover {
@@ -199,11 +203,13 @@ input[type="submit"] {
   // ボーダーボタンデザインバージョン
   &.button-outline {
     color: var(--color-primary);
+    --btn-on: var(--color-primary);
     background-color: transparent;
 
     &:focus,
     &:hover {
       color: var(--color-secondary);
+      --btn-on: var(--color-secondary);
       border-color: var(--color-secondary);
       background-color: transparent;
     }
@@ -212,6 +218,7 @@ input[type="submit"] {
       &:focus,
       &:hover {
         color: var(--color-primary);
+        --btn-on: var(--color-primary);
         border-color: inherit;
       }
     }
@@ -220,16 +227,15 @@ input[type="submit"] {
   // キャンセルボタン
   &.button-cancel {
     color: var(--color-on-scrim);
-
-    // Keep the loading spinner in step with the label — without this it
-    // inherited the base button's primary foreground.
     --btn-on: var(--color-on-scrim);
+
     border-color: transparent;
     background-color: var(--color-bg-cancel);
 
     &:focus,
     &:hover {
       color: var(--color-on-secondary);
+      --btn-on: var(--color-on-secondary);
       border-color: transparent;
       background-color: var(--color-secondary);
     }
@@ -238,6 +244,7 @@ input[type="submit"] {
       &:focus,
       &:hover {
         color: var(--color-on-scrim);
+        --btn-on: var(--color-on-scrim);
         background-color: var(--color-bg-cancel);
       }
     }
@@ -246,6 +253,7 @@ input[type="submit"] {
   // クリアボタン
   &.button-clear {
     color: var(--color-primary);
+    --btn-on: var(--color-primary);
 
     // border-color: transparent;
     background-color: transparent;
@@ -254,6 +262,7 @@ input[type="submit"] {
     &:focus,
     &:hover {
       color: var(--color-secondary);
+      --btn-on: var(--color-secondary);
       border-color: var(--color-secondary);
       background-color: transparent;
     }
@@ -262,6 +271,7 @@ input[type="submit"] {
       &:focus,
       &:hover {
         color: var(--color-primary);
+        --btn-on: var(--color-primary);
       }
     }
   }
@@ -338,6 +348,7 @@ input[type="submit"] {
 .btn-tonal {
   background-color: var(--color-primary-container);
   color: var(--color-on-primary-container);
+  --btn-on: var(--color-on-primary-container);
   border-color: transparent;
 
   &:hover:not([disabled]) {
@@ -354,6 +365,7 @@ input[type="submit"] {
   .btn-tonal-#{$color} {
     background-color: color-mix(in srgb, var(--color-#{$color}) 20%, transparent);
     color: var(--color-#{$color}-dark);
+    --btn-on: var(--color-#{$color}-dark);
     border-color: transparent;
 
     &:hover:not([disabled]) {
@@ -366,6 +378,7 @@ input[type="submit"] {
 .btn-text {
   background-color: transparent;
   color: var(--color-primary);
+  --btn-on: var(--color-primary);
   border: none;
   padding: 0 1rem;
   box-shadow: none;
@@ -374,6 +387,7 @@ input[type="submit"] {
   &:focus:not([disabled]) {
     background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
     color: var(--color-primary);
+    --btn-on: var(--color-primary);
     border: none;
     transform: none;
   }
@@ -388,12 +402,14 @@ input[type="submit"] {
   .btn-text-#{$color} {
     background-color: transparent;
     color: var(--color-#{$color});
+    --btn-on: var(--color-#{$color});
     border: none;
 
     &:hover:not([disabled]),
     &:focus:not([disabled]) {
       background-color: color-mix(in srgb, var(--color-#{$color}) var(--state-hover), transparent);
       color: var(--color-#{$color});
+      --btn-on: var(--color-#{$color});
       border: none;
     }
   }
@@ -522,33 +538,11 @@ input[type="submit"] {
   }
 }
 
-// Loading Button State
-.btn-loading {
-  pointer-events: none;
-  position: relative;
-  color: transparent !important;
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 1.25rem;
-    height: 1.25rem;
-
-    // currentColor is unusable here: .btn-loading blanks `color` to hide the
-    // label. A hardcoded white spinner sat at 2.65:1 on the default primary
-    // fill, so take the variant's own foreground via --btn-on instead.
-    border: 2px solid var(--btn-on, var(--color-text-primary));
-    border-right-color: transparent;
-    border-radius: var(--radius-full);
-    animation: btn-spin 0.75s linear infinite;
-  }
-}
-
-@keyframes btn-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+// .btn-loading lives in Components/_Loading.scss.
+// It used to be declared here as well; the two definitions were identical in
+// name and both applied, with the later import silently winning. That is how a
+// fix applied here could look correct in the source and do nothing in the
+// build. One component, one definition.
 
 // Reduced motion support
 @media (prefers-reduced-motion: reduce) {

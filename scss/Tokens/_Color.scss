@@ -131,6 +131,11 @@
   /* Focus ring for brand chrome. --color-surface-brand is a dark island even
      in light mode, where the normal ring only reaches 2.91:1 against it. */
   --color-focus-ring-on-brand: var(--ref-primary-80);
+  /* Focus ring for --color-surface-inverse. That surface flips with the theme
+     — dark in light mode, light in dark mode — so the ring has to flip the
+     opposite way from the page ring. Snackbars sit on it; the page ring
+     measured 1.65:1 there in dark mode. */
+  --color-focus-ring-on-inverse: var(--ref-primary-70);
   /* Foreground for a --color-primary-dark fill. Needs its own token because
      the right answer flips: in light mode primary-dark is dark enough for
      white (4.65:1) but not for on-primary (3.35:1); in dark mode it lightens
@@ -445,6 +450,8 @@
   /* Lifted so the ring clears 3:1 against dark surfaces too. */
   --color-primary-emphasis: var(--ref-primary-70);
   --color-focus-ring:     var(--color-primary-emphasis);
+  /* Mirrors the page ring: surface-inverse is light here, so this goes dark. */
+  --color-focus-ring-on-inverse: var(--ref-primary-40);
   /* Re-declared, not inherited: this mixin is also applied to non-root
      elements (the [data-theme="dark"] selector is unscoped), and
      --color-border-focus is substituted on whichever element declares it —

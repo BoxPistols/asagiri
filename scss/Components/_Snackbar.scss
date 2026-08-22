@@ -72,6 +72,14 @@
 
 // Base Snackbar
 .snackbar {
+  // The snackbar sits on --color-surface-inverse, which flips with the theme,
+  // so the page focus ring is wrong here — it measured 1.65:1 in dark mode,
+  // where this surface turns light. Re-point the ring for everything inside.
+  // (--color-border-focus must be set too, not just the ring token: it is
+  // substituted on :root, so descendants only inherit the resolved value.)
+  --color-focus-ring: var(--color-focus-ring-on-inverse);
+  --color-border-focus: var(--color-focus-ring-on-inverse);
+
   // Layout
   display: inline-flex;
   align-items: center;

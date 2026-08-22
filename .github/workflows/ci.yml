@@ -24,11 +24,20 @@ on:
   push:
     branches: [main]
 
+# Least privilege: this job only reads the tree.
+permissions:
+  contents: read
+
 jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # actions/checkout stores GITHUB_TOKEN in .git/config by default.
+          # This job runs pull-request code and dependency lifecycle scripts,
+          # which could then read it. Nothing here pushes, so drop it.
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:

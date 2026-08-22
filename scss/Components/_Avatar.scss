@@ -8,7 +8,13 @@
 //   <div class="avatar avatar-lg">JD</div>
 //   <div class="avatar-group">...</div>
 
-// Avatar Base
+// Avatar Base — neutral placeholder; colored variants override both bg + color.
+// Default uses dark text so the surface-variant background (light grey) stays
+// readable without a semantic color class.
+//
+// Note: overflow is NOT hidden on .avatar itself so status dots (rendered via
+// ::after on .avatar-status) can extend past the circle. Image content is
+// clipped via border-radius inherit on .avatar > img instead.
 .avatar {
   display: inline-flex;
   align-items: center;
@@ -17,20 +23,20 @@
   height: 3rem;
   border-radius: var(--radius-full);
   background-color: var(--color-surface-variant);
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);
   font-size: 1.125rem;
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
   line-height: 1;
-  overflow: hidden;
   flex-shrink: 0;
 
-  // Avatar as image
+  // Avatar as image — clip to the circle via inherited border-radius.
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: inherit;
   }
 }
 

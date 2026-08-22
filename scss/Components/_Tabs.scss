@@ -32,19 +32,26 @@
 }
 
 // Tab Link (Button)
+// Resets the framework's default <button> styles (border-radius, height,
+// margin, letter-spacing) so tabs render as flat indicators rather than
+// inheriting the rounded pill button silhouette.
 .tab-link {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  height: auto;
+  margin: 0;
   padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
   background-color: transparent;
   border: none;
   border-bottom: 2px solid transparent;
+  border-radius: 0;
   margin-bottom: -2px;
   color: var(--color-text-tertiary);
   font-size: 0.9375rem;
   font-weight: 500;
+  letter-spacing: normal;
   line-height: 1.5;
   text-align: center;
   text-decoration: none;

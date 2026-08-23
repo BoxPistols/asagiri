@@ -108,7 +108,7 @@ Asagiri（朝霧）は、モダンで軽量なCSSフレームワークです。�
 <link rel="stylesheet" href="https://unpkg.com/asagiri@latest/css/main.min.css">
 
 <!-- 特定バージョン -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri@2.1.0/css/main.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asagiri@2.1.1/css/main.min.css">
 ```
 
 ### NPM経由
@@ -157,7 +157,7 @@ npm install asagiri
 
 ## ダークモード
 
-Asagiri v2.0は、包括的なダークモードサポートを提供します。すべてのコンポーネントが自動的にダークテーマに対応します。
+Asagiri v2.1.1は、包括的なダークモードサポートを提供します。すべてのコンポーネントが自動的にダークテーマに対応します。
 
 ### 基本的な使い方
 
@@ -195,7 +195,7 @@ function toggleTheme() {
 
 ## React / Vue での使用
 
-Asagiri v2.0は、React、Vue、その他のJavaScriptフレームワークでの使用に最適化されています。
+Asagiri v2.1.1は、React、Vue、その他のJavaScriptフレームワークでの使用に最適化されています。
 
 ### インストール
 

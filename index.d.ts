@@ -1,5 +1,5 @@
 /**
- * Asagiri CSS Framework v2.0
+ * Asagiri CSS Framework v2.1.1
  * TypeScript type definitions for utility classes and components
  */
 

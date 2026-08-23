@@ -1,6 +1,6 @@
 {
   "name": "asagiri",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Modern, accessible, and versatile CSS framework with CSS Grid, fluid typography, and comprehensive utility classes",
   "main": "css/main.css",
   "module": "index.mjs",

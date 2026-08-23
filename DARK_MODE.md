@@ -126,44 +126,76 @@ initTheme();
 
 ### ダークモードのカラーパレット
 
-Asagiriのダークモードは、WCAG AA基準（コントラスト比4.5:1以上）を満たすように設計されています。
+Asagiriのダークモードは、`[data-theme="dark"]` が意味トークンだけを再マップする
+単一の仕組みで実装されています。コンポーネント側に色のためのダークモード用
+セレクタは不要です。
 
-#### 背景色 / Background Colors
+以下の値は実装（`css/main.css`）から生成しています。
 
-| 変数名 | ライトモード | ダークモード | 用途 |
-|--------|-------------|-------------|------|
-| `--color-bg` | `#f9f9f9` | `#0f0f0f` | メイン背景 |
-| `--color-box` | `#fff` | `#18181b` | カード、ボックス |
-| `--color-bg-code` | `#f0f0f0` | `#1e1e1e` | コードブロック |
-| `--color-item-bg` | `#e8e8f1` | `#1f1f23` | アイテム背景 |
+<!-- BEGIN GENERATED: color-tokens -->
 
-#### テキスト色 / Text Colors
+<!-- このセクションは scripts/generate-token-docs.mjs が css/main.css から
+     生成します。手で編集しても次回の生成で上書きされます。
+     再生成: npm run docs:tokens -->
 
-| 変数名 | ライトモード | ダークモード | コントラスト比 |
-|--------|-------------|-------------|--------------|
-| `--color-text` | `#4c5059` | `#e4e4e7` | 9.8:1 |
-| `--color-text-p` | `#393d43` | `#d4d4d8` | 8.5:1 |
-| `--color-text-secondary` | `#666` | `#a1a1aa` | 4.6:1 |
+#### 背景・サーフェス / Surfaces
 
-#### 機能カラー / Functional Colors
+| 変数名 | ライト | ダーク | 用途 |
+|---|---|---|---|
+| `--color-bg` | `#f5f5f8` | `#0a0a0b` | ページ背景 |
+| `--color-surface` | `#ffffff` | `#17171a` | カード・シート |
+| `--color-surface-1` | `#f8fcfc` | `#21252a` | 標高1（最も低い） |
+| `--color-surface-3` | `#ecf6f8` | `#2e363d` | 標高3 |
+| `--color-surface-5` | `#e3f2f5` | `#39454b` | 標高5（最も高い） |
+| `--color-surface-variant` | `#efeff3` | `#26262b` | 控えめな面（バッジ基底など） |
+| `--color-surface-inverse` | `#1d1d21` | `#e4e4ea` | 反転面（ツールチップ） |
+| `--color-surface-brand` | `#003c4b` | `#003c4b` | ブランド外装（テーマ不変） |
 
-すべての機能カラー（Success, Warning, Danger, Info, Accent）は、ダークモードで明度を調整し、視認性を確保しています：
+#### テキスト / Text
 
-```css
-/* ライトモード */
---color-success: #00a859;
---color-warning: #ebbb0c;
---color-danger: #e1323c;
---color-info: #1ec2c2;
---color-accent: #d429e0;
+| 変数名 | ライト | ダーク | 用途 |
+|---|---|---|---|
+| `--color-text-primary` | `#26262b` | `#efeff3` | 本文 |
+| `--color-text-secondary` | `#53535a` | `#cacad2` | 補助テキスト |
+| `--color-text-tertiary` | `#6a6a74` | `#acacb5` | 三次テキスト |
+| `--color-text-link` | `#006e82` | `#89d4e5` | リンク |
+| `--color-on-scrim` | `#ffffff` | `#ffffff` | スクリム上の前景（両モード共通） |
 
-/* ダークモード */
---color-success: #22c55e;
---color-warning: #fbbf24;
---color-danger: #ef4444;
---color-info: #22d3ee;
---color-accent: #e879f9;
-```
+#### ブランド / Brand
+
+| 変数名 | ライト | ダーク | 用途 |
+|---|---|---|---|
+| `--color-primary` | `#4fabbf` | `#71bbcc` | ブランド主色（ラベル付き塗り） |
+| `--color-primary-emphasis` | `#0089a0` | `#5bc1d7` | インジケータ塗り・フォーカスリング |
+| `--color-on-primary-emphasis` | `#000000` | `#002831` | emphasis 塗り上の文字 |
+| `--color-primary-hover` | `#6bb8ca` | `#87c6d4` | ホバー時の塗り |
+| `--color-on-primary` | `#002831` | `#002831` | primary 上の前景 |
+| `--color-secondary` | `#56648a` | `#919cba` | ブランド副色 |
+| `--color-on-secondary` | `#ffffff` | `#0e1528` | secondary 上の前景 |
+
+#### 機能カラー / Functional
+
+| 変数名 | ライト | ダーク | 用途 |
+|---|---|---|---|
+| `--color-success` | `#007a44` | `#22c55e` | 成功 |
+| `--color-warning` | `#8a6100` | `#eab308` | 警告 |
+| `--color-danger` | `#b3261e` | `#e55353` | エラー |
+| `--color-info` | `#0e7490` | `#22d3ee` | 情報 |
+| `--color-accent` | `#c026d3` | `#e879f9` | アクセント |
+
+#### 境界・フォーカス / Borders
+
+| 変数名 | ライト | ダーク | 用途 |
+|---|---|---|---|
+| `--color-border` | `#000000` (α0.14) | `#ffffff` (α0.12) | 標準の境界 |
+| `--color-border-strong` | `#000000` (α0.24) | `#ffffff` (α0.22) | 強い境界 |
+| `--color-focus-ring` | `#0089a0` | `#5bc1d7` | フォーカスリング |
+| `--color-focus-ring-on-brand` | `#89d4e5` | `#89d4e5` | ブランド面上のフォーカスリング |
+
+コントラスト比は `npm run test:contrast` が全ペアについて実ブラウザで検証し、
+`scripts/contrast-baseline.json` を基準に退行を検出します。
+
+<!-- END GENERATED: color-tokens -->
 
 ---
 
@@ -264,11 +296,23 @@ Asagiriのダークモードは、WCAG AA基準（コントラスト比4.5:1以�
 
 ### WCAG準拠
 
-Asagiriのダークモードは、WCAG 2.1 AA基準を満たしています：
+デザインシステムが提供する前景／背景の組み合わせは、ライト・ダーク両モードで
+以下を満たします。
 
-- **通常テキスト**: 4.5:1以上のコントラスト比
-- **大きいテキスト**: 3:1以上のコントラスト比
-- **UI要素**: 3:1以上のコントラスト比
+- **通常テキスト**: 4.5:1以上（SC 1.4.3）
+- **大きいテキスト**: 3:1以上（SC 1.4.3）
+- **ラベルを持たない UI インジケータ**: 3:1以上（SC 1.4.11）
+
+これは主張ではなく検証結果です。`npm run test:contrast` が全トークンペアを
+実ブラウザで解決して両モードで測定し、`scripts/contrast-baseline.json` を
+基準に退行を検出します。
+
+WCAG が適合を要求しない項目（無効状態のテキスト、装飾的な区切り線、ラベルで
+識別できる塗り）は、免除として明示のうえ数値だけ記録しています。
+
+なお、これはトークンの組み合わせに対する保証です。トークンを独自の色で
+上書きした場合や、任意の色を直接指定した場合は対象外なので、
+`npm run test:contrast` で再検証してください。
 
 ### 推奨事項
 
@@ -408,7 +452,7 @@ Asagiriのダークモードは、WCAG 2.1 AA基準を満たしています：
 
 - `data-theme="dark"`属性を追加するだけで簡単に切り替え
 - すべてのコンポーネントが自動対応
-- WCAG AA準拠のアクセシブルなカラーパレット
+- WCAG 2.1 AA を満たすカラーパレット（`npm run test:contrast` で検証）
 - システム設定との連携が可能
 - CSS変数を使用した拡張性の高い設計
 

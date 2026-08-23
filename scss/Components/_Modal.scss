@@ -60,6 +60,7 @@
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--color-text-secondary);
+  --btn-on: var(--color-text-secondary);
   padding: 0.5rem;
   line-height: 1;
   transition: color var(--motion-duration-short) var(--motion-ease-standard);
@@ -204,7 +205,7 @@ dialog.modal {
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
   }
 }

@@ -40,7 +40,7 @@
   .ripple-wave {
     position: absolute;
     border-radius: 50%;
-    background-color: color-mix(in srgb, var(--color-text-on-brand) 40%, transparent);
+    background-color: color-mix(in srgb, var(--color-on-scrim) 40%, transparent);
     transform: scale(0);
     pointer-events: none;
     animation: ripple-animation 0.6s ease-out forwards;

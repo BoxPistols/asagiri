@@ -72,6 +72,14 @@
 
 // Base Snackbar
 .snackbar {
+  // The snackbar sits on --color-surface-inverse, which flips with the theme,
+  // so the page focus ring is wrong here — it measured 1.65:1 in dark mode,
+  // where this surface turns light. Re-point the ring for everything inside.
+  // (--color-border-focus must be set too, not just the ring token: it is
+  // substituted on :root, so descendants only inherit the resolved value.)
+  --color-focus-ring: var(--color-focus-ring-on-inverse);
+  --color-border-focus: var(--color-focus-ring-on-inverse);
+
   // Layout
   display: inline-flex;
   align-items: center;
@@ -122,7 +130,11 @@
   flex-shrink: 0;
   padding: 0.375rem 0.75rem;
   background-color: transparent;
-  color: var(--color-primary-light);
+  // The snackbar sits on --color-surface-inverse, which is dark in light mode
+  // and light in dark mode. --color-primary-light only tracks the first case
+  // (1.24:1 in dark); -link-inverse flips with the surface.
+  color: var(--color-text-link-inverse);
+  --btn-on: var(--color-text-link-inverse);
   border: none;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
@@ -137,7 +149,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-light);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
   }
 }
@@ -168,7 +180,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-light);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
   }
 }
@@ -217,8 +229,15 @@
   background-color: var(--color-success);
   color: var(--color-on-success);
 
+  // The base .snackbar points the ring at the inverse surface it sits on. This
+  // variant paints its own fill, so the ring has to follow. (Both tokens, not
+  // just --color-focus-ring: substitution completes where it is declared.)
+  --color-focus-ring: var(--color-on-success);
+  --color-border-focus: var(--color-on-success);
+
   .snackbar-btn {
     color: var(--color-on-success);
+    --btn-on: var(--color-on-success);
 
     &:hover {
       background-color: color-mix(in srgb, var(--color-on-success) var(--state-hover), transparent);
@@ -230,8 +249,15 @@
   background-color: var(--color-warning);
   color: var(--color-on-warning);
 
+  // The base .snackbar points the ring at the inverse surface it sits on. This
+  // variant paints its own fill, so the ring has to follow. (Both tokens, not
+  // just --color-focus-ring: substitution completes where it is declared.)
+  --color-focus-ring: var(--color-on-warning);
+  --color-border-focus: var(--color-on-warning);
+
   .snackbar-btn {
     color: var(--color-on-warning);
+    --btn-on: var(--color-on-warning);
 
     &:hover {
       background-color: color-mix(in srgb, var(--color-on-warning) var(--state-hover), transparent);
@@ -251,8 +277,15 @@
   background-color: var(--color-danger);
   color: var(--color-on-danger);
 
+  // The base .snackbar points the ring at the inverse surface it sits on. This
+  // variant paints its own fill, so the ring has to follow. (Both tokens, not
+  // just --color-focus-ring: substitution completes where it is declared.)
+  --color-focus-ring: var(--color-on-danger);
+  --color-border-focus: var(--color-on-danger);
+
   .snackbar-btn {
     color: var(--color-on-danger);
+    --btn-on: var(--color-on-danger);
 
     &:hover {
       background-color: color-mix(in srgb, var(--color-on-danger) var(--state-hover), transparent);
@@ -264,8 +297,15 @@
   background-color: var(--color-info);
   color: var(--color-on-info);
 
+  // The base .snackbar points the ring at the inverse surface it sits on. This
+  // variant paints its own fill, so the ring has to follow. (Both tokens, not
+  // just --color-focus-ring: substitution completes where it is declared.)
+  --color-focus-ring: var(--color-on-info);
+  --color-border-focus: var(--color-on-info);
+
   .snackbar-btn {
     color: var(--color-on-info);
+    --btn-on: var(--color-on-info);
 
     &:hover {
       background-color: color-mix(in srgb, var(--color-on-info) var(--state-hover), transparent);
@@ -279,8 +319,16 @@
   color: var(--color-text-primary);
   border: 1px solid var(--color-border);
 
+  // Back to an ordinary surface, so the page ring applies again — the
+  // inherited inverse-surface ring is 2.1:1 on white.
+  --color-focus-ring: var(--color-primary-emphasis);
+  --color-border-focus: var(--color-primary-emphasis);
+
   .snackbar-btn {
-    color: var(--color-primary);
+    // This variant sits on --color-surface, not on the inverse surface, so it
+    // takes the ordinary link tone. --color-primary is 2.65:1 there.
+    color: var(--color-text-link);
+    --btn-on: var(--color-text-link);
 
     &:hover {
       background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);

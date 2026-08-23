@@ -68,7 +68,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
     z-index: 1;
   }
@@ -147,8 +147,8 @@
 
     &.active,
     &[aria-selected="true"] {
-      color: var(--color-on-primary);
-      background-color: var(--color-primary);
+      color: var(--color-on-primary-emphasis);
+      background-color: var(--color-primary-emphasis);
       border-color: var(--color-primary);
     }
   }
@@ -272,7 +272,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--color-primary);
+      background-color: var(--color-primary-emphasis);
       transition: all 0.3s ease-in-out;
     }
   }

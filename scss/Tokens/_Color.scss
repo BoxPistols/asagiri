@@ -72,6 +72,7 @@
   --ref-neutral-25:  #2e2e33;
   --ref-neutral-30:  #3a3a40;
   --ref-neutral-40:  #53535a;
+  --ref-neutral-45:  #6a6a74;
   --ref-neutral-50:  #70707a;
   --ref-neutral-60:  #8e8e98;
   --ref-neutral-70:  #acacb5;
@@ -115,8 +116,34 @@
      for medium-lightness brand colors — a white foreground on the default
      cyan primary would drop below WCAG AA 4.5:1). */
   --color-on-primary: var(--ref-primary-10);
+  /* Brand tone guaranteed >= 3:1 against every surface (WCAG 2.1 SC 1.4.11).
+     Use wherever a FILL alone carries meaning and no label accompanies it —
+     checked checkboxes, radio dots, switch tracks, range thumbs, progress
+     fills, tab indicators, focus rings. --color-primary is only 2.65:1 on
+     white, so it cannot do this job; it stays the fill for labelled controls,
+     which are identified by their text. */
+  --color-primary-emphasis: var(--ref-primary-50);
+  /* Foreground for a --color-primary-emphasis fill. emphasis is tuned to the
+     3:1 non-text threshold, so it is NOT dark enough to carry --color-on-primary
+     as text (3.75:1). Anything with a label on an emphasis fill — pill tabs,
+     the progress bar's own percentage — needs this instead. */
+  --color-on-primary-emphasis: var(--ref-neutral-0);
+  /* Focus ring for brand chrome. --color-surface-brand is a dark island even
+     in light mode, where the normal ring only reaches 2.91:1 against it. */
+  --color-focus-ring-on-brand: var(--ref-primary-80);
+  /* Focus ring for --color-surface-inverse. That surface flips with the theme
+     — dark in light mode, light in dark mode — so the ring has to flip the
+     opposite way from the page ring. Snackbars sit on it; the page ring
+     measured 1.65:1 there in dark mode. */
+  --color-focus-ring-on-inverse: var(--ref-primary-70);
+  /* Foreground for a --color-primary-dark fill. Needs its own token because
+     the right answer flips: in light mode primary-dark is dark enough for
+     white (4.65:1) but not for on-primary (3.35:1); in dark mode it lightens
+     and the relationship inverts. */
+  --color-on-primary-dark: var(--ref-neutral-100);
   --color-primary-container: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
-  --color-on-primary-container: var(--color-primary-dark);
+  /* primary-dark here was only 3.96:1 on the tinted container. */
+  --color-on-primary-container: var(--ref-primary-30);
 
   --secondary-h: 224;
   --secondary-s: 23%;
@@ -144,25 +171,56 @@
   --color-surface-inverse: var(--ref-neutral-15);
   --color-on-surface-inverse: var(--ref-neutral-95);
 
-  /* Scrim / modal backdrop */
+  /* Scrim / modal backdrop.
+     --color-scrim dims content behind a dialog; at 48% it is deliberately
+     light, so it must NOT be used behind text (white on it is 3.98:1).
+     Use --color-scrim-strong for any scrim that carries a label. */
   --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 48%, transparent);
+  --color-scrim-strong: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
 
   /* ---- Text (on-surface hierarchy) ---- */
   --color-text-primary:   var(--ref-neutral-20);
   --color-text-secondary: var(--ref-neutral-40);
-  --color-text-tertiary:  var(--ref-neutral-50);
+  /* neutral-45 rather than -50: on the tinted surface-3 the lighter grey only
+     reached 4.45:1, just under AA. */
+  --color-text-tertiary:  var(--ref-neutral-45);
   --color-text-disabled:  color-mix(in srgb, var(--color-text-primary) 38%, transparent);
-  --color-text-on-brand:  var(--ref-neutral-100);
   --color-text-link:       var(--ref-primary-40);
   --color-text-link-hover: var(--ref-primary-30);
   --color-text-link-visited: #5b3fa0;
+  /* Brand-coloured text on --color-surface-inverse (snackbar action, inverse
+     toolbars). The inverse surface is DARK in light mode, so this is the light
+     tone here and flips to the dark tone in the dark-theme override. */
+  --color-text-link-inverse: var(--ref-primary-80);
   --color-text-code: var(--ref-neutral-15);
+
+  /* ---- Always-light foreground ----
+     For content sitting on a scrim, a media overlay, or a fill that is dark
+     in BOTH modes. Unlike the --color-on-* family this deliberately does not
+     flip per mode, because its background never flips either. Only use it
+     when the backdrop is guaranteed dark — on a semantic fill, use that
+     colour's own --color-on-* token instead. */
+  --color-on-scrim: var(--ref-neutral-100);
+
+  /* ---- Fixed dark brand chrome ----
+     Theme-invariant on purpose: nav rails, sidebars and media placeholders
+     that must read as "brand chrome" in both modes. Deriving these from
+     --color-primary-dark broke in dark mode, where the brand lightens and
+     white text fell to 3.18:1. */
+  --color-surface-brand:     var(--ref-primary-20);
+  --color-surface-brand-alt: var(--ref-secondary-20);
+  --color-on-surface-brand:  var(--ref-neutral-100);
 
   /* ---- Borders ---- */
   --color-border-subtle:  color-mix(in srgb, var(--ref-neutral-0) 8%,  transparent);
   --color-border:         color-mix(in srgb, var(--ref-neutral-0) 14%, transparent);
   --color-border-strong:  color-mix(in srgb, var(--ref-neutral-0) 24%, transparent);
-  --color-border-focus:   var(--color-primary);
+  /* Focus ring: MUST stay >= 3:1 against every surface it can land on
+     (WCAG 2.1 SC 1.4.11 Non-text Contrast). --color-primary is NOT usable
+     here — at hsl(191 47% 53%) it is only 2.65:1 on white — so the ring gets
+     its own token, remapped per mode. Never point this at --color-primary. */
+  --color-focus-ring:     var(--color-primary-emphasis);
+  --color-border-focus:   var(--color-focus-ring);
 
   /* ---- Shadow base ---- */
   --color-shadow: 0, 0, 0;
@@ -181,6 +239,10 @@
 
   /* ---- Functional palette ---- */
   --color-accent:       #c026d3;
+  /* accent as TEXT on --color-bg: --color-accent itself is 4.33:1 there.
+     Only the accent family needs this; the others clear 4.5:1 unaided, and
+     btn-color-outline() falls back to --color-X when --color-X-text is unset. */
+  --color-accent-text:  #8f1c9c;
   --color-accent-dark:  #a21caf;
   --color-accent-light: #e879f9;
   --color-on-accent:    var(--ref-neutral-100);
@@ -206,6 +268,46 @@
   --color-info-dark:  #075569;
   --color-info-light: var(--ref-info-60);
   --color-on-info:    var(--ref-neutral-100);
+
+  /* ---- Tonal container foregrounds ----
+     Text on a `color-mix(--color-X 20%, transparent)` fill (the tonal button).
+     --color-X-dark cannot serve here for the same reason it cannot serve as a
+     hover fill: in dark mode it maps back to the LIGHT-mode tone, putting a
+     dark tone on a dark tinted fill (2.46:1 for danger). These flip with the
+     theme instead — see the dark override. --color-on-primary-container
+     already did this; the functional colours were simply missing it. */
+  --color-on-secondary-container: var(--color-secondary-dark);
+  --color-on-success-container:   var(--color-success-dark);
+  --color-on-warning-container:   var(--color-warning-dark);
+  --color-on-danger-container:    var(--color-danger-dark);
+  --color-on-info-container:      var(--color-info-dark);
+  /* accent-dark alone is 4.33:1 on the 20% magenta tint, so it is deepened
+     here rather than in --color-accent-dark (which is also a fill). */
+  --color-on-accent-container:    color-mix(in srgb, var(--color-accent-dark) 82%, var(--ref-neutral-0));
+
+  /* ---- Hover fills ----
+     A hovered fill must shift AWAY from its own foreground, otherwise the
+     pair's contrast degrades. --color-X-dark cannot do that job: in dark mode
+     it maps back to the light-mode tone, so a hovered button ended up with
+     near-black text on a dark fill (2.74:1 for danger).
+
+     The rule is: shift the fill away from its OWN --color-on-* foreground.
+     For every semantic below, that foreground is white in light mode and
+     near-black in dark, so mixing toward --color-surface-inverse (near-black
+     in light, near-white in dark) is exactly the right direction in both,
+     with no per-mode override needed — both inputs already remap.
+
+     --color-primary is the one exception: its on-colour is dark cyan in BOTH
+     modes, so it has to move the other way. Mixing it toward surface-inverse
+     dropped the hovered pair to 4.20:1; it lightens instead. */
+  --color-primary-hover:   color-mix(in srgb, var(--ref-neutral-100) 16%, var(--color-primary));
+  --color-secondary-hover: color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-secondary));
+  --color-accent-hover:    color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-accent));
+  --color-success-hover:   color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-success));
+  --color-warning-hover:   color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-warning));
+  --color-danger-hover:    color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-danger));
+  --color-info-hover:      color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-info));
+  --color-elegant-hover:   color-mix(in srgb, var(--color-surface-inverse) 20%, var(--color-elegant));
 
   /* ---- Tonal container backgrounds (semi-transparent tints) ----
      Used for callout boxes / inline highlights. Auto-remap in dark mode
@@ -239,6 +341,12 @@
   --color-text:      var(--color-text-primary);
   --color-text-p:    var(--color-text-primary);
   --color-text-muted: var(--color-text-tertiary);
+  /* DEPRECATED: --color-text-on-brand conflated two different jobs — an
+     always-light overlay foreground, and "text on a brand fill". The second
+     reading is unsafe: white on the default --color-primary is 2.65:1 (2.17:1
+     in dark mode). Use --color-on-scrim for overlays, or the fill's own
+     --color-on-* token. Kept as an alias so existing markup keeps working. */
+  --color-text-on-brand:  var(--color-on-scrim);
   --color-text-a:         var(--color-text-link);
   --color-text-a-hover:   var(--color-text-link-hover);
   --color-text-a-visited: var(--color-text-link-visited);
@@ -250,7 +358,9 @@
   --color-bg-footer:     var(--color-bg);
   --color-bg-strong:     #fff996;
   --color-bg-btn:        var(--color-primary);
-  --color-bg-cancel:     var(--ref-neutral-60);
+  /* neutral-60 left white cancel-button text at 3.24:1; neutral-50 lifts it
+     to 4.90:1 while staying visibly "muted grey". */
+  --color-bg-cancel:     var(--ref-neutral-50);
   --color-border-light:  var(--color-border-subtle);
   --color-border-dark:   var(--color-border-strong);
   --color-initial:       var(--color-white);
@@ -324,6 +434,12 @@
   --secondary-l: 65%;
   --color-primary-container: color-mix(in srgb, var(--color-primary) 22%, var(--color-surface));
   --color-on-primary-container: var(--color-primary-light);
+  /* Inverted vs light mode: primary-dark lifts here, so the dark cyan reads
+     (4.90:1) where white would not (3.18:1). */
+  --color-on-primary-dark: var(--ref-primary-10);
+  /* emphasis lifts to ref-primary-70 here, so the softer dark cyan already
+     clears 4.5:1 and pure black is unnecessarily harsh. */
+  --color-on-primary-emphasis: var(--ref-primary-10);
 
   /* ---- Surfaces (elevation = tinted neutral) ---- */
   --color-bg:            var(--ref-neutral-5);
@@ -337,22 +453,37 @@
   --color-surface-inverse: var(--ref-neutral-90);
   --color-on-surface-inverse: var(--ref-neutral-15);
   --color-scrim: color-mix(in srgb, var(--ref-neutral-0) 72%, transparent);
+  --color-scrim-strong: color-mix(in srgb, var(--ref-neutral-0) 82%, transparent);
 
   /* ---- Text ---- */
   --color-text-primary:   var(--ref-neutral-95);
   --color-text-secondary: var(--ref-neutral-80);
   --color-text-tertiary:  var(--ref-neutral-70);
   --color-text-disabled:  color-mix(in srgb, var(--color-text-primary) 38%, transparent);
-  --color-text-on-brand:  var(--ref-neutral-100);
+  /* --color-on-scrim and --color-surface-brand* are intentionally NOT
+     remapped here — see their definition in :root. */
   --color-text-link:       var(--ref-primary-80);
   --color-text-link-hover: var(--ref-primary-90);
   --color-text-link-visited: #c4b5fd;
+  /* Mirrors --color-text-link, because the inverse surface moves the opposite
+     way: it is dark in light mode and light in dark mode. */
+  --color-text-link-inverse: var(--ref-primary-40);
   --color-text-code: var(--ref-neutral-95);
 
   /* ---- Borders (white-based in dark mode) ---- */
   --color-border-subtle:  color-mix(in srgb, var(--ref-neutral-100) 6%,  transparent);
   --color-border:         color-mix(in srgb, var(--ref-neutral-100) 12%, transparent);
   --color-border-strong:  color-mix(in srgb, var(--ref-neutral-100) 22%, transparent);
+  /* Lifted so the ring clears 3:1 against dark surfaces too. */
+  --color-primary-emphasis: var(--ref-primary-70);
+  --color-focus-ring:     var(--color-primary-emphasis);
+  /* Mirrors the page ring: surface-inverse is light here, so this goes dark. */
+  --color-focus-ring-on-inverse: var(--ref-primary-40);
+  /* Re-declared, not inherited: this mixin is also applied to non-root
+     elements (the [data-theme="dark"] selector is unscoped), and
+     --color-border-focus is substituted on whichever element declares it —
+     so without this line a dark subtree would keep the light-mode ring. */
+  --color-border-focus:   var(--color-focus-ring);
 
   /* ---- Shadow (deeper / darker in dark mode) ---- */
   --color-shadow: 0, 0, 0;
@@ -368,6 +499,7 @@
 
   /* ---- Functional palette (desaturated & lifted) ---- */
   --color-accent:       #e879f9; /* magenta lifted for dark-bg visibility */
+  --color-accent-text:  #e879f9; /* already 4.5:1+ on the dark page */
   --color-accent-dark:  #c026d3;
   --color-accent-light: #f0abfc;
   --color-on-accent:    var(--ref-neutral-10);
@@ -398,6 +530,16 @@
   --color-elegant-dark:  var(--ref-neutral-50);
   --color-elegant-light: var(--ref-neutral-85);
   --color-on-elegant:    var(--ref-neutral-10);
+
+  /* ---- Tonal container foregrounds (flipped) ----
+     The tint sits on a dark surface here, so the readable tone is the light
+     one. Without this, tonal buttons rendered a dark tone on a dark tint. */
+  --color-on-secondary-container: var(--color-secondary-light);
+  --color-on-success-container:   var(--color-success-light);
+  --color-on-warning-container:   var(--color-warning-light);
+  --color-on-danger-container:    var(--color-danger-light);
+  --color-on-info-container:      var(--color-info-light);
+  --color-on-accent-container:    var(--color-accent-light);
 
   /* ---- Legacy aliases for dark mode ---- */
   --color-bg-strong: #4a4a00;

@@ -71,8 +71,8 @@
 }
 
 .spinner-light {
-  border-color: color-mix(in srgb, var(--color-text-on-brand) 20%, transparent);
-  border-right-color: var(--color-text-on-brand);
+  border-color: color-mix(in srgb, var(--color-on-scrim) 20%, transparent);
+  border-right-color: var(--color-on-scrim);
 }
 
 .spinner-dark {
@@ -214,8 +214,17 @@
 .btn-loading,
 .button-loading {
   position: relative;
-  color: transparent !important;
   pointer-events: none;
+
+  // The label is blanked rather than collapsed so the button keeps its width —
+  // a loading state must not resize the control it replaces. (font-size: 0
+  // would let the spinner inherit `color` and track each variant for free, but
+  // it shrinks the button to its padding, which is a visible layout shift.)
+  //
+  // The cost is that currentColor is transparent here, so the spinner cannot
+  // use it. Any variant that overrides `color` must also set --btn-on; see the
+  // note in _Button.scss.
+  color: transparent !important;
 
   &::after {
     content: "";
@@ -225,10 +234,11 @@
     width: 1rem;
     height: 1rem;
     margin: -0.5rem 0 0 -0.5rem;
-    border: 0.15rem solid currentColor;
+    // currentColor is transparent on .btn-loading (see above), so the
+    // spinner takes the variant's foreground via --btn-on.
+    border: 0.15rem solid var(--btn-on, var(--color-text-primary));
     border-right-color: transparent;
     border-radius: 50%;
-    color: inherit;
     animation: spinner-rotate 0.75s linear infinite;
   }
 }

@@ -10,7 +10,8 @@
 
 // Avatar Base — neutral placeholder; colored variants override both bg + color.
 // Default uses dark text so the surface-variant background (light grey) stays
-// readable without a semantic color class.
+// readable without a semantic color class. (The previous white default measured
+// 1.15:1 against surface-variant — effectively invisible.)
 //
 // Note: overflow is NOT hidden on .avatar itself so status dots (rendered via
 // ::after on .avatar-status) can extend past the circle. Image content is

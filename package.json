@@ -1,6 +1,6 @@
 {
   "name": "asagiri",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Modern, accessible, and versatile CSS framework with CSS Grid, fluid typography, and comprehensive utility classes",
   "main": "css/main.css",
   "module": "index.mjs",
@@ -68,9 +68,14 @@
     "version:minor": "node scripts/update-version.js minor",
     "version:major": "node scripts/update-version.js major",
     "test": "node scripts/test-all.js",
+    "test:contrast": "npm run build && npm run build:tokens && node scripts/audit-token-contrast.mjs",
+    "test:vrt": "npm run build && npm run build:tokens && node scripts/vrt.mjs",
+    "test:vrt:update": "npm run build && npm run build:tokens && node scripts/vrt.mjs --update",
+    "docs:tokens": "npm run build && npm run build:tokens && node scripts/generate-token-docs.mjs",
+    "docs:tokens:check": "npm run build && npm run build:tokens && node scripts/generate-token-docs.mjs --check",
     "test:styles": "node scripts/validate-styles.js",
     "test:links": "node scripts/check-links.js",
-    "validate": "npm run test && npm run lint:styles"
+    "validate": "npm run test && npm run test:contrast && npm run docs:tokens:check"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",

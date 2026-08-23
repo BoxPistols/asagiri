@@ -15,7 +15,8 @@ $scroll-top-offset: 2rem;
   padding: 0;
   margin: 0;
   background: var(--color-primary);
-  color: var(--color-text-on-brand);
+  color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -35,7 +36,12 @@ $scroll-top-offset: 2rem;
   }
 
   &:hover {
-    background: var(--color-accent, var(--color-primary-dark));
+    // The fill changes on hover, so the foreground has to change with it —
+    // keeping --color-on-primary over the accent fill left dark cyan on
+    // magenta. Both halves of the pair move together now.
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    --btn-on: var(--color-on-accent);
     transform: translateY(-3px);
     box-shadow: var(--elevation-3);
   }

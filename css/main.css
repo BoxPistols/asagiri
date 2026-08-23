@@ -8484,6 +8484,8 @@ a.chip:focus-visible,
 .snackbar-success {
   background-color: var(--color-success);
   color: var(--color-on-success);
+  --color-focus-ring: var(--color-on-success);
+  --color-border-focus: var(--color-on-success);
 }
 .snackbar-success .snackbar-btn {
   color: var(--color-on-success);
@@ -8496,6 +8498,8 @@ a.chip:focus-visible,
 .snackbar-warning {
   background-color: var(--color-warning);
   color: var(--color-on-warning);
+  --color-focus-ring: var(--color-on-warning);
+  --color-border-focus: var(--color-on-warning);
 }
 .snackbar-warning .snackbar-btn {
   color: var(--color-on-warning);
@@ -8514,6 +8518,8 @@ a.chip:focus-visible,
 .snackbar-danger {
   background-color: var(--color-danger);
   color: var(--color-on-danger);
+  --color-focus-ring: var(--color-on-danger);
+  --color-border-focus: var(--color-on-danger);
 }
 .snackbar-danger .snackbar-btn {
   color: var(--color-on-danger);
@@ -8526,6 +8532,8 @@ a.chip:focus-visible,
 .snackbar-info {
   background-color: var(--color-info);
   color: var(--color-on-info);
+  --color-focus-ring: var(--color-on-info);
+  --color-border-focus: var(--color-on-info);
 }
 .snackbar-info .snackbar-btn {
   color: var(--color-on-info);
@@ -8539,6 +8547,8 @@ a.chip:focus-visible,
   background-color: var(--color-surface);
   color: var(--color-text-primary);
   border: 1px solid var(--color-border);
+  --color-focus-ring: var(--color-primary-emphasis);
+  --color-border-focus: var(--color-primary-emphasis);
 }
 .snackbar-surface .snackbar-btn {
   color: var(--color-text-link);

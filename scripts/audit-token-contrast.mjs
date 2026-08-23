@@ -217,29 +217,51 @@ const LOADING = [
    to stay complete, derive the required set from the CSS: every rule that
    declares --btn-on names a variant whose foreground is call-site specific, and
    each of those must be exercised by a LOADING row. */
-function btnOnClasses(sheet) {
-  const out = new Set();
+/* Every class COMPOSITION that re-points --btn-on, e.g. ["snackbar-surface",
+   "snackbar-btn"]. Keeping only the last class would let a context-specific
+   rule hide behind its own base: with just `.snackbar-btn` required, deleting
+   the snackbar-surface row would still satisfy the gate while leaving that
+   variant's foreground unmeasured. */
+function btnOnCompositions(sheet) {
+  const out = new Map();
   for (const m of sheet.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     if (!/--btn-on\s*:/.test(m[2])) continue;
     for (const sel of m[1].split(",")) {
-      // the last class in the selector is the variant being re-pointed
       const classes = sel.trim().replace(/::?[a-z-]+(\([^)]*\))?/g, "").match(/\.[A-Za-z0-9_-]+/g);
-      if (classes) out.add(classes[classes.length - 1].slice(1));
+      if (!classes) continue;
+      const list = classes.map(c => c.slice(1));
+      out.set(list.join(" "), list);
     }
   }
-  return out;
+  return [...out.values()];
 }
 {
-  const required = btnOnClasses(css);
-  const covered = new Set(LOADING.flatMap(([, cls, wrap]) =>
-    [...cls.split(/\s+/), ...(wrap.match(/class="([^"]*)"/g) ?? [])
-      .flatMap(a => a.slice(7, -1).split(/\s+/))]).filter(Boolean));
-  // A bare <button> carries the base rule; `button` is not a class.
-  const missing = [...required].filter(c => !covered.has(c)).sort();
+  const required = btnOnCompositions(css);
+  // the full class set each LOADING row actually renders (button + ancestors)
+  const rows = LOADING.map(([label, cls, wrap]) => ({
+    label,
+    classes: new Set([
+      ...cls.split(/\s+/),
+      ...(wrap.match(/class="([^"]*)"/g) ?? []).flatMap(a => a.slice(7, -1).split(/\s+/)),
+    ].filter(Boolean)),
+  }));
+  /* Containment, not "most specific wins": .button.btn-secondary and
+     .btn-secondary both match the same element, so the broader composition is
+     genuinely exercised by the same row. What must not happen is reducing a
+     composition to its last class — that is what let .snackbar-surface
+     .snackbar-btn hide behind a plain .snackbar-btn row. */
+  const covered = new Set();
+  for (const row of rows) {
+    for (const comp of required) {
+      if (comp.every(c => row.classes.has(c))) covered.add(comp.join(" "));
+    }
+  }
+  const won = covered;
+  const missing = required.map(c => c.join(" ")).filter(k => !won.has(k)).sort();
   if (missing.length) {
     console.error(`\n${missing.length} variant(s) declare --btn-on but are not audited:`);
-    for (const c of missing) console.error(`  .${c}`);
-    console.error("Add a LOADING row for each, or the variant's foreground goes unchecked.");
+    for (const k of missing) console.error(`  ${k.split(" ").map(c => "." + c).join(" ")}`);
+    console.error("Add a LOADING row rendering each composition, or its foreground goes unchecked.");
     process.exit(1);
   }
 }

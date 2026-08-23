@@ -182,9 +182,15 @@ const LOADING = [
   ["btn-tonal-danger",     "button btn-tonal-danger",      SLOT],
   ["btn-tonal-info",       "button btn-tonal-info",        SLOT],
   ["btn-tonal-accent",     "button btn-tonal-accent",      SLOT],
+  ["btn-outline-accent",   "button btn-outline-accent",    SLOT],
   ["btn-text",             "button btn-text",              SLOT],
+  ["btn-text-secondary",   "button btn-text-secondary",    SLOT],
+  ["btn-text-success",     "button btn-text-success",      SLOT],
+  ["btn-text-warning",     "button btn-text-warning",      SLOT],
   ["btn-text-danger",      "button btn-text-danger",       SLOT],
+  ["btn-text-info",        "button btn-text-info",         SLOT],
   ["fab",                  "fab",                          SLOT],
+  ["fab-primary",          "fab fab-primary",              SLOT],
   ["fab-secondary",        "fab fab-secondary",            SLOT],
   ["fab-success",          "fab fab-success",              SLOT],
   ["fab-warning",          "fab fab-warning",              SLOT],
@@ -192,14 +198,51 @@ const LOADING = [
   ["fab-info",             "fab fab-info",                 SLOT],
   ["fab-surface",          "fab fab-surface",              SLOT],
   ["fab-tertiary",         "fab fab-tertiary",             SLOT],
-  ["copy-button",          "copy-button",       `<div class="code-block">${SLOT}</div>`],
+  ["copy-button",          "copy-button",         `<div class="code-block">${SLOT}</div>`],
+  ["copy-button copied",   "copy-button copied",  `<div class="code-block">${SLOT}</div>`],
   ["snackbar-btn",         "snackbar-btn",      `<div class="snackbar">${SLOT}</div>`],
   ["snackbar-success btn", "snackbar-btn",      `<div class="snackbar snackbar-success">${SLOT}</div>`],
   ["snackbar-warning btn", "snackbar-btn",      `<div class="snackbar snackbar-warning">${SLOT}</div>`],
   ["snackbar-danger btn",  "snackbar-btn",      `<div class="snackbar snackbar-danger">${SLOT}</div>`],
   ["snackbar-info btn",    "snackbar-btn",      `<div class="snackbar snackbar-info">${SLOT}</div>`],
+  ["snackbar-surface btn", "snackbar-btn",      `<div class="snackbar snackbar-surface">${SLOT}</div>`],
+  ["scroll-top",           "scroll-top show",              SLOT],
   ["modal-close",          "modal-close",       `<div class="modal"><div class="modal-header">${SLOT}</div></div>`],
 ];
+
+/* Coverage gate for the table above.
+
+   The recurring defect in this area was never a wrong ratio — it was a variant
+   nobody audited (.snackbar-surface, .fab-*). So rather than trusting the list
+   to stay complete, derive the required set from the CSS: every rule that
+   declares --btn-on names a variant whose foreground is call-site specific, and
+   each of those must be exercised by a LOADING row. */
+function btnOnClasses(sheet) {
+  const out = new Set();
+  for (const m of sheet.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (!/--btn-on\s*:/.test(m[2])) continue;
+    for (const sel of m[1].split(",")) {
+      // the last class in the selector is the variant being re-pointed
+      const classes = sel.trim().replace(/::?[a-z-]+(\([^)]*\))?/g, "").match(/\.[A-Za-z0-9_-]+/g);
+      if (classes) out.add(classes[classes.length - 1].slice(1));
+    }
+  }
+  return out;
+}
+{
+  const required = btnOnClasses(css);
+  const covered = new Set(LOADING.flatMap(([, cls, wrap]) =>
+    [...cls.split(/\s+/), ...(wrap.match(/class="([^"]*)"/g) ?? [])
+      .flatMap(a => a.slice(7, -1).split(/\s+/))]).filter(Boolean));
+  // A bare <button> carries the base rule; `button` is not a class.
+  const missing = [...required].filter(c => !covered.has(c)).sort();
+  if (missing.length) {
+    console.error(`\n${missing.length} variant(s) declare --btn-on but are not audited:`);
+    for (const c of missing) console.error(`  .${c}`);
+    console.error("Add a LOADING row for each, or the variant's foreground goes unchecked.");
+    process.exit(1);
+  }
+}
 
 const launchOpts = process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {};
 const browser = await chromium.launch(launchOpts);

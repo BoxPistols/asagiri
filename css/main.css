@@ -436,6 +436,10 @@ summary {
   --state-disabled-opacity: 0.38;
   /* ---- Functional palette ---- */
   --color-accent: #c026d3;
+  /* accent as TEXT on --color-bg: --color-accent itself is 4.33:1 there.
+     Only the accent family needs this; the others clear 4.5:1 unaided, and
+     btn-color-outline() falls back to --color-X when --color-X-text is unset. */
+  --color-accent-text: #8f1c9c;
   --color-accent-dark: #a21caf;
   --color-accent-light: #e879f9;
   --color-on-accent: var(--ref-neutral-100);
@@ -672,6 +676,7 @@ summary {
   --state-selected: 20%;
   /* ---- Functional palette (desaturated & lifted) ---- */
   --color-accent: #e879f9; /* magenta lifted for dark-bg visibility */
+  --color-accent-text: #e879f9; /* already 4.5:1+ on the dark page */
   --color-accent-dark: #c026d3;
   --color-accent-light: #f0abfc;
   --color-on-accent: var(--ref-neutral-10);
@@ -791,6 +796,7 @@ summary {
     --state-selected: 20%;
     /* ---- Functional palette (desaturated & lifted) ---- */
     --color-accent: #e879f9; /* magenta lifted for dark-bg visibility */
+    --color-accent-text: #e879f9; /* already 4.5:1+ on the dark page */
     --color-accent-dark: #c026d3;
     --color-accent-light: #f0abfc;
     --color-on-accent: var(--ref-neutral-10);
@@ -1495,8 +1501,8 @@ button.btn-outline-secondary,
 input[type=button].btn-outline-secondary,
 input[type=reset].btn-outline-secondary,
 input[type=submit].btn-outline-secondary {
-  color: var(--color-secondary);
-  --btn-on: var(--color-secondary);
+  color: var(--color-secondary-text, var(--color-secondary));
+  --btn-on: var(--color-secondary-text, var(--color-secondary));
   border: 1px solid var(--color-secondary);
   background-color: transparent;
 }
@@ -1519,8 +1525,8 @@ button.btn-outline-accent,
 input[type=button].btn-outline-accent,
 input[type=reset].btn-outline-accent,
 input[type=submit].btn-outline-accent {
-  color: var(--color-accent);
-  --btn-on: var(--color-accent);
+  color: var(--color-accent-text, var(--color-accent));
+  --btn-on: var(--color-accent-text, var(--color-accent));
   border: 1px solid var(--color-accent);
   background-color: transparent;
 }
@@ -1543,8 +1549,8 @@ button.btn-outline-success,
 input[type=button].btn-outline-success,
 input[type=reset].btn-outline-success,
 input[type=submit].btn-outline-success {
-  color: var(--color-success);
-  --btn-on: var(--color-success);
+  color: var(--color-success-text, var(--color-success));
+  --btn-on: var(--color-success-text, var(--color-success));
   border: 1px solid var(--color-success);
   background-color: transparent;
 }
@@ -1567,8 +1573,8 @@ button.btn-outline-warning,
 input[type=button].btn-outline-warning,
 input[type=reset].btn-outline-warning,
 input[type=submit].btn-outline-warning {
-  color: var(--color-warning);
-  --btn-on: var(--color-warning);
+  color: var(--color-warning-text, var(--color-warning));
+  --btn-on: var(--color-warning-text, var(--color-warning));
   border: 1px solid var(--color-warning);
   background-color: transparent;
 }
@@ -1591,8 +1597,8 @@ button.btn-outline-danger,
 input[type=button].btn-outline-danger,
 input[type=reset].btn-outline-danger,
 input[type=submit].btn-outline-danger {
-  color: var(--color-danger);
-  --btn-on: var(--color-danger);
+  color: var(--color-danger-text, var(--color-danger));
+  --btn-on: var(--color-danger-text, var(--color-danger));
   border: 1px solid var(--color-danger);
   background-color: transparent;
 }
@@ -1615,8 +1621,8 @@ button.btn-outline-info,
 input[type=button].btn-outline-info,
 input[type=reset].btn-outline-info,
 input[type=submit].btn-outline-info {
-  color: var(--color-info);
-  --btn-on: var(--color-info);
+  color: var(--color-info-text, var(--color-info));
+  --btn-on: var(--color-info-text, var(--color-info));
   border: 1px solid var(--color-info);
   background-color: transparent;
 }
@@ -1639,8 +1645,8 @@ button.btn-outline-elegant,
 input[type=button].btn-outline-elegant,
 input[type=reset].btn-outline-elegant,
 input[type=submit].btn-outline-elegant {
-  color: var(--color-elegant);
-  --btn-on: var(--color-elegant);
+  color: var(--color-elegant-text, var(--color-elegant));
+  --btn-on: var(--color-elegant-text, var(--color-elegant));
   border: 1px solid var(--color-elegant);
   background-color: transparent;
 }
@@ -7243,6 +7249,7 @@ textarea.is-warning,
   margin: 0;
   background: var(--color-primary);
   color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -7263,6 +7270,7 @@ textarea.is-warning,
 .scroll-top:hover {
   background: var(--color-accent);
   color: var(--color-on-accent);
+  --btn-on: var(--color-on-accent);
   transform: translateY(-3px);
   box-shadow: var(--elevation-3);
 }
@@ -8533,8 +8541,8 @@ a.chip:focus-visible,
   border: 1px solid var(--color-border);
 }
 .snackbar-surface .snackbar-btn {
-  color: var(--color-primary);
-  --btn-on: var(--color-primary);
+  color: var(--color-text-link);
+  --btn-on: var(--color-text-link);
 }
 .snackbar-surface .snackbar-btn:hover {
   background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);

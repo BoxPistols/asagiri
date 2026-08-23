@@ -226,6 +226,10 @@
   --state-disabled-opacity: 0.38;
   /* ---- Functional palette ---- */
   --color-accent: #c026d3;
+  /* accent as TEXT on --color-bg: --color-accent itself is 4.33:1 there.
+     Only the accent family needs this; the others clear 4.5:1 unaided, and
+     btn-color-outline() falls back to --color-X when --color-X-text is unset. */
+  --color-accent-text: #8f1c9c;
   --color-accent-dark: #a21caf;
   --color-accent-light: #e879f9;
   --color-on-accent: var(--ref-neutral-100);
@@ -462,6 +466,7 @@
   --state-selected: 20%;
   /* ---- Functional palette (desaturated & lifted) ---- */
   --color-accent: #e879f9; /* magenta lifted for dark-bg visibility */
+  --color-accent-text: #e879f9; /* already 4.5:1+ on the dark page */
   --color-accent-dark: #c026d3;
   --color-accent-light: #f0abfc;
   --color-on-accent: var(--ref-neutral-10);
@@ -581,6 +586,7 @@
     --state-selected: 20%;
     /* ---- Functional palette (desaturated & lifted) ---- */
     --color-accent: #e879f9; /* magenta lifted for dark-bg visibility */
+    --color-accent-text: #e879f9; /* already 4.5:1+ on the dark page */
     --color-accent-dark: #c026d3;
     --color-accent-light: #f0abfc;
     --color-on-accent: var(--ref-neutral-10);

@@ -68,8 +68,11 @@
 
 // Outline Button Color
 @mixin btn-color-outline($x) {
-  color: var(--color-#{$x});
-  --btn-on: var(--color-#{$x});
+  // The label here is TEXT on the page, not a fill, so it takes the family's
+  // text-safe tone. For most families that is --color-X itself; accent is the
+  // exception (4.33:1 on --color-bg), so only it defines --color-X-text.
+  color: var(--color-#{$x}-text, var(--color-#{$x}));
+  --btn-on: var(--color-#{$x}-text, var(--color-#{$x}));
 
   border: 1px solid var(--color-#{$x});
   background-color: transparent;

@@ -16,6 +16,7 @@ $scroll-top-offset: 2rem;
   margin: 0;
   background: var(--color-primary);
   color: var(--color-on-primary);
+  --btn-on: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -40,6 +41,7 @@ $scroll-top-offset: 2rem;
     // magenta. Both halves of the pair move together now.
     background: var(--color-accent);
     color: var(--color-on-accent);
+    --btn-on: var(--color-on-accent);
     transform: translateY(-3px);
     box-shadow: var(--elevation-3);
   }

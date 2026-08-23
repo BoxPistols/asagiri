@@ -296,8 +296,10 @@
   border: 1px solid var(--color-border);
 
   .snackbar-btn {
-    color: var(--color-primary);
-    --btn-on: var(--color-primary);
+    // This variant sits on --color-surface, not on the inverse surface, so it
+    // takes the ordinary link tone. --color-primary is 2.65:1 there.
+    color: var(--color-text-link);
+    --btn-on: var(--color-text-link);
 
     &:hover {
       background-color: color-mix(in srgb, var(--color-primary) var(--state-hover), transparent);
